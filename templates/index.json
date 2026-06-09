@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
+
+
  {
   "sections": {
     "hero_jVaWmY": {
@@ -285,4 +286,51 @@
     "hero_jVaWmY",
     "product_list_fa6P9H"
   ]
+}
+   */
+/*
+ * templates/index.json — strona główna Majątku Mała Wieś (seed w kodzie)
+ * Źródło prawdy dla układu homepage w fazie buildu. Sekcje mmw-* w kolejności.
+ * Uwaga: edycja w theme editorze przepisze ten plik — po zmianach w edytorze
+ * rób `shopify theme pull` i commituj, żeby kod i sklep się nie rozjechały.
+ */
+{
+  "sections": {
+    "mmw_hero": {
+      "type": "mmw-hero",
+      "blocks": {
+        "btn_sklep": {
+          "type": "button",
+          "settings": {
+            "label": "SKLEP",
+            "link": "shopify://collections/all",
+            "style": "dark"
+          }
+        },
+        "btn_bestsellery": {
+          "type": "button",
+          "settings": { "label": "BESTSELLERY", "link": "", "style": "light" }
+        }
+      },
+      "block_order": ["btn_sklep", "btn_bestsellery"],
+      "settings": {
+        "heading": "Jabłko. Tradycja. Smak.",
+        "overlay_opacity": 30,
+        "heading_size": 80,
+        "height": 820
+      }
+    },
+    "mmw_featured": {
+      "type": "mmw-featured-collection",
+      "settings": {
+        "heading": "Poznaj Świat Majątku",
+        "description": "<p>Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie.</p>",
+        "feature_label": "ODKRYJ KOLEKCJĘ",
+        "products_to_show": 3,
+        "new_badge_label": "NOWOŚĆ",
+        "new_badge_tag": "nowość"
+      }
+    }
+  },
+  "order": ["mmw_hero", "mmw_featured"]
 }

@@ -1,0 +1,86 @@
+{%- comment -%}
+  mmw-tokens — tokeny designu Majątku Mała Wieś (kolory + fonty + skala + override Horizona)
+
+  WAŻNE: renderuj w layout/theme.liquid TUŻ PRZED </head>, czyli PO
+  {%- render 'theme-styles-variables' -%} (które jest ~linia 32). Dzięki temu
+  nasz :root nadpisuje zmienne fontów Horizona (ta sama specyficzność, późniejsza wygrywa).
+      {% render 'mmw-tokens' %}
+{%- endcomment -%}
+
+{%- comment -%} === Bicyclette: Adobe Fonts (Typekit), kit bov0riq === {%- endcomment -%}
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/bov0riq.css">
+
+<style>
+  /* === Roslindale: self-hosted (.woff2 w assets/) === */
+  @font-face {
+    font-family: "Roslindale Display Condensed";
+    src: url("{{ 'RoslindaleDisplayCondensed-Regular.woff2' | asset_url }}") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Roslindale Display Condensed";
+    src: url("{{ 'RoslindaleDisplayCondensed-Italic.woff2' | asset_url }}") format("woff2");
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: "Roslindale Text";
+    src: url("{{ 'RoslindaleText-Regular.woff2' | asset_url }}") format("woff2");
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Roslindale Text";
+    src: url("{{ 'RoslindaleText-Bold.woff2' | asset_url }}") format("woff2");
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: "Roslindale Text";
+    src: url("{{ 'RoslindaleText-Italic.woff2' | asset_url }}") format("woff2");
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+
+  :root {
+    /* === KOLORY === */
+    --mmw-01: #5f312f; /* ciemny brąz */
+    --mmw-02: #fc7753; /* koral / akcent */
+    --mmw-03: #c6d4e2; /* błękit */
+    --mmw-04: #faf2e8; /* krem */
+
+    /* === FONTY (nasze etykiety) === */
+    --mmw-font-display: "Roslindale Display Condensed", Georgia, serif; /* nagłówki */
+    --mmw-font-text:    "Roslindale Text", Georgia, serif;              /* tekst, blog */
+    --mmw-font-label:   "bicyclette", "Helvetica Neue", Arial, sans-serif; /* etykiety/przyciski */
+
+    /* === SKALA TYPOGRAFII === */
+    --mmw-h1-size: 64px;
+    --mmw-h2-size: 36px;
+    --mmw-body-size: 18px;
+    --mmw-label-size: 18px;
+    --mmw-button-size: 13px;
+    --mmw-label-tracking: 0.15em; /* = 15% z Figmy */
+
+    /* === OVERRIDE FONTÓW HORIZONA (czyni je globalnymi) ===
+       Cztery role Horizona → fonty marki. Przyciski, badge i h1–h6 dziedziczą z nich. */
+    --font-heading--family: var(--mmw-font-display);
+    --font-heading--weight: 400;
+    --font-heading--style: normal;
+
+    --font-body--family: var(--mmw-font-text);
+    --font-body--weight: 400;
+    --font-body--style: normal;
+    --font-paragraph--family: var(--mmw-font-text);
+
+    --font-subheading--family: var(--mmw-font-label);
+    --font-subheading--weight: 700;
+    --font-accent--family: var(--mmw-font-label);
+    --font-accent--weight: 700;
+
+    /* h1–h6 jawnie, na wypadek gdyby nie dziedziczyły po heading */
+    --font-h1--family: var(--mmw-font-display);
+    --font-h2--family: var(--mmw-font-display);
+    --font-h3--family: var(--mmw-font-display);
+    --font-h4--family: var(--mmw-font-display);
+    --font-h5--family: var(--mmw-font-display);
+    --font-h6--family: var(--mmw-font-display);
+  }
+</style>
