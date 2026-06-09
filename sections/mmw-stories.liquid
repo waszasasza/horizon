@@ -1,0 +1,156 @@
+{%- comment -%}
+  mmw-stories — sekcja-gospodarz na bloki mmw-video-product.
+    - układa bloki w rząd, środkowy największy
+    - karta produktu z bloku jest chowana i odsłaniana na HOVER (tylko w tej sekcji)
+    - na dotyku (mobile) karta jest widoczna od razu
+  Bloki dodajesz przez Add block (theme block: MMW Wideo + produkt).
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-stories {
+    display: flex; flex-direction: column; gap: 30px;
+    padding: 60px 80px; font-family: var(--mmw-font-text);
+  }
+  #shopify-section-{{ section.id }} .mmw-stories__head {
+    display: flex; flex-direction: column; gap: 16px; max-width: 700px; color: var(--mmw-01);
+  }
+  #shopify-section-{{ section.id }} .mmw-stories__eyebrow {
+    font-family: var(--mmw-font-label); font-weight: 700; font-size: var(--mmw-button-size);
+    letter-spacing: var(--mmw-label-tracking); text-transform: uppercase; color: var(--mmw-02);
+  }
+  #shopify-section-{{ section.id }} .mmw-stories__title {
+    margin: 0; font-family: var(--mmw-font-display); font-weight: 400;
+    font-size: var(--mmw-h1-size); line-height: 1.1; color: var(--mmw-01);
+  }
+
+  /* Rząd: środkowy największy */
+  #shopify-section-{{ section.id }} .mmw-stories__row {
+    display: flex; gap: 24px; align-items: center; justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .mmw-stories__row > * { flex: 1 1 0; min-width: 0; }
+  #shopify-section-{{ section.id }} .mmw-stories__row > *:nth-child(2) {
+    flex: 1.4 1 0;            /* środkowy szerszy → przez stałe proporcje także wyższy */
+    align-self: stretch;
+    z-index: 1;
+  }
+
+  /* Hover-reveal karty produktu (karta jest w bloku mmw-vp) */
+  #shopify-section-{{ section.id }} .mmw-vp__card {
+    opacity: 0; transform: translateY(10px);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: none;
+  }
+  #shopify-section-{{ section.id }} .mmw-vp:hover .mmw-vp__card,
+  #shopify-section-{{ section.id }} .mmw-vp:focus-within .mmw-vp__card {
+    opacity: 1; transform: none; pointer-events: auto;
+  }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} .mmw-stories { padding: 40px 20px; }
+    #shopify-section-{{ section.id }} .mmw-stories__title { font-size: 40px; }
+    #shopify-section-{{ section.id }} .mmw-stories__row {
+      overflow-x: auto; scroll-snap-type: x mandatory; align-items: stretch;
+      margin: 0 -20px; padding: 0 20px;
+    }
+    #shopify-section-{{ section.id }} .mmw-stories__row > *,
+    #shopify-section-{{ section.id }} .mmw-stories__row > *:nth-child(2) {
+      flex: 0 0 72%; scroll-snap-align: start;
+    }
+  }
+  /* Na dotyku nie ma hovera — pokaż kartę od razu */
+  @media (hover: none) {
+    #shopify-section-{{ section.id }} .mmw-vp__card { opacity: 1; transform: none; pointer-events: auto; }
+  }
+  /* Bottom CTA (centered, brown) */
+  #shopify-section-{{ section.id }} .mmw-stories__cta {
+    text-align: center;
+    margin-top: 32px;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-stories__cta__eyebrow {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: var(--mmw-label-size);
+    letter-spacing: var(--mmw-label-tracking);
+    text-transform: uppercase;
+    color: var(--mmw-01);
+    margin-bottom: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-stories__cta__heading {
+    margin: 0 auto 12px;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.1;
+    color: var(--mmw-01);
+    max-width: 720px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-stories__cta__actions {
+    margin-top: 12px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-stories__cta__actions .button {
+    border-radius: 999px;
+  }
+{%- endstyle -%}
+
+<section class="mmw-stories">
+  <div class="mmw-wrap">
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="mmw-stories__head">
+      {%- if section.settings.eyebrow != blank -%}<span class="mmw-stories__eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="mmw-stories__title">{{ section.settings.heading }}</h2>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="mmw-stories__row">
+    {% content_for 'blocks' %}
+  </div>
+  </div>
+  {%- if section.settings.bottom_eyebrow != blank or section.settings.bottom_heading != blank or section.settings.bottom_cta_label != blank -%}
+    <div class="mmw-stories__cta">
+      {%- if section.settings.bottom_eyebrow != blank -%}
+        <div class="mmw-stories__cta__eyebrow">{{ section.settings.bottom_eyebrow }}</div>
+      {%- endif -%}
+      {%- if section.settings.bottom_heading != blank -%}
+        <h3 class="mmw-stories__cta__heading">{{ section.settings.bottom_heading }}</h3>
+      {%- endif -%}
+      {%- if section.settings.bottom_cta_label != blank -%}
+        <div class="mmw-stories__cta__actions">
+          <a class="button" href="{{ section.settings.bottom_cta_link | default: '#' }}">{{ section.settings.bottom_cta_label }}</a>
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "MMW Wydania (stories)",
+  "tag": "section",
+  "blocks": [{ "type": "@theme" }],
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etykieta (opcjonalnie)", "default": "ZAINSPIRUJ SIĘ" },
+    { "type": "text", "id": "heading", "label": "Nagłówek (opcjonalnie)", "default": "Kuchnie, stoły i historie" }
+    ,
+    { "type": "text", "id": "bottom_eyebrow", "label": "Etykieta poniżej (opcjonalnie)" },
+    { "type": "text", "id": "bottom_heading", "label": "Nagłówek poniżej (opcjonalnie)" },
+    { "type": "text", "id": "bottom_cta_label", "label": "Przycisk CTA (tekst)" },
+    { "type": "url", "id": "bottom_cta_link", "label": "Przycisk CTA (link)" }
+  ],
+  "presets": [
+    {
+      "name": "MMW Wydania (stories)",
+      "blocks": {
+        "story_1": { "type": "mmw-video-product" },
+        "story_2": { "type": "mmw-video-product" },
+        "story_3": { "type": "mmw-video-product" }
+      },
+      "block_order": ["story_1", "story_2", "story_3"]
+    }
+  ]
+}
+{% endschema %}
