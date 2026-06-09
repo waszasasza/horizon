@@ -463,8 +463,8 @@
     --style-border-radius-lg: 1rem;
     --style-border-radius-pills: {{ settings.pills_border_radius }}px;
     --style-border-radius-inputs: {{ settings.inputs_border_radius }}px;
-    --style-border-radius-buttons-primary: {{ settings.button_border_radius_primary }}px;
-    --style-border-radius-buttons-secondary: {{ settings.button_border_radius_secondary }}px;
+    --style-border-radius-buttons-primary: 999px;
+    --style-border-radius-buttons-secondary: 999px;
     --style-border-width-primary: {{ settings.primary_button_border_width }}px;
     --style-border-width-secondary: {{ settings.secondary_button_border_width }}px;
     --style-border-width-inputs: {{ settings.input_border_width }}px;
@@ -587,12 +587,12 @@
     --button-size-sm: 30px;
     --button-size-md: 36px;
     --button-size: var(--minimum-touch-target);
-    --button-padding-inline: 24px;
-    --button-padding-block: 16px;
+    --button-padding-inline: 26px;
+    --button-padding-block: 12px;
 
     /* Button font-family */
-    --button-font-family-primary: var(--font-{{ settings.type_font_button_primary }}--family);
-    --button-font-family-secondary: var(--font-{{ settings.type_font_button_secondary }}--family);
+    --button-font-family-primary: "Bicyclette", "Helvetica Neue", Arial, sans-serif;
+    --button-font-family-secondary: "Bicyclette", "Helvetica Neue", Arial, sans-serif;
 
     /* Button text case */
     --button-text-case: {{ settings.button_text_case }};

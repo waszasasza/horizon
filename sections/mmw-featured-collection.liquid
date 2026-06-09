@@ -11,6 +11,7 @@
   assign limit = section.settings.products_to_show
   assign badge_tag = section.settings.new_badge_tag | downcase
   assign sample_names = 'Marmolada Jabłkowa,Miód Kwiatowy,Konfitura Malinowa,Powidła Śliwkowe,Sok Jabłkowy,Konfitura Wiśniowa' | split: ','
+  assign product_keys = 'product_1,product_2,product_3,product_4,product_5,product_6' | split: ','
 -%}
 
 {%- style -%}
@@ -21,6 +22,7 @@
     width: 100%;
     max-width: 100%;
     font-family: var(--mmw-font-text);
+    padding-block: 48px;
   }
 
   #shopify-section-{{ section.id }} .mmw-fc__head {
@@ -70,6 +72,7 @@
 
   #shopify-section-{{ section.id }} .mmw-fc__feature-img {
     flex: 1 1 auto;
+    height: 453px;
     min-height: 453px;
     border-radius: 20px;
     overflow: hidden;
@@ -97,6 +100,25 @@
     border-radius: 999px;
     padding: 12px 20px;
     max-width: fit-content;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-fc__feature-button::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    width: 0;
+    height: 2px;
+    background: var(--mmw-01);
+    transition: width 240ms ease, left 240ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-fc__feature:hover .mmw-fc__feature-button::after,
+  #shopify-section-{{ section.id }} .mmw-fc__feature-button:hover::after {
+    left: 20px;
+    width: calc(100% - 40px);
   }
 
   #shopify-section-{{ section.id }} .mmw-fc__feature-info {
@@ -160,7 +182,15 @@
     opacity: 1;
   }
 
+  #shopify-section-{{ section.id }} .mmw-fc__slideshow--no-desktop-arrows slideshow-arrows {
+    display: none;
+  }
+
   @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-fc__slideshow--no-desktop-arrows slideshow-arrows {
+      display: flex;
+    }
+
     #shopify-section-{{ section.id }} .mmw-fc__slide {
       width: 100%;
     }
@@ -198,7 +228,7 @@
   #shopify-section-{{ section.id }} .mmw-fc__card-img {
     position: relative;
     height: 290px;
-    border-radius: 20px 20px 0 0;
+    border-radius: 20px;
     overflow: hidden;
     background: var(--mmw-03);
   }
@@ -230,13 +260,26 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-    font-family: var(--font-body--family);
-    font-weight: 400;
-    font-size: var(--font-size--body-md);
-    letter-spacing: normal;
-    text-transform: none;
     color: var(--color-foreground);
     padding: 0 16px 20px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-fc__name,
+  #shopify-section-{{ section.id }} .mmw-fc__price {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    letter-spacing: var(--mmw-label-tracking);
+    text-transform: uppercase;
+    color: var(--color-foreground);
+  }
+
+  #shopify-section-{{ section.id }} .mmw-fc__name {
+    font-size: var(--font-size--body-md);
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-fc__price {
+    font-size: 0.95rem;
   }
 
   #shopify-section-{{ section.id }} .mmw-fc__name {
@@ -328,7 +371,41 @@
         {%- assign slide_count = 0 -%}
 
         {%- capture slides -%}
-          {%- if coll != blank and coll.all_products_count > 0 -%}
+          {%- assign selected_count = 0 -%}
+          {%- for key in product_keys -%}
+            {%- assign product = section.settings[key] -%}
+            {%- if product != blank and selected_count < limit -%}
+              {%- assign selected_count = selected_count | plus: 1 -%}
+              {%- assign slide_count = slide_count | plus: 1 -%}
+              <slideshow-slide
+                ref="slides[]"
+                aria-hidden="{%- if selected_count == 1 -%}false{%- else -%}true{%- endif -%}"
+                class="mmw-fc__slide"
+                slide-id="slide-{{ selected_count | minus: 1 }}"
+                media-fit="cover"
+                style="--slideshow-timeline: --slide-{{ selected_count | minus: 1 }};"
+              >
+                <a class="mmw-fc__card" href="{{ product.url }}">
+                  <div class="mmw-fc__card-img">
+                    {%- if product.featured_image != blank -%}
+                      <img src="{{ product.featured_image | image_url: width: 560 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy" width="271" height="290">
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'mmw-fc__placeholder' }}
+                    {%- endif -%}
+                    {%- if badge_tag != blank and product.tags contains badge_tag -%}
+                      <span class="mmw-fc__badge">{{ section.settings.new_badge_label }}</span>
+                    {%- endif -%}
+                  </div>
+                  <div class="mmw-fc__meta">
+                    <span class="mmw-fc__name">{{ product.title }}</span>
+                    <span class="mmw-fc__price">{{ product.price | money }}</span>
+                  </div>
+                </a>
+              </slideshow-slide>
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if selected_count == 0 and coll != blank and coll.all_products_count > 0 -%}
             {%- for product in coll.products limit: limit -%}
               {%- assign slide_count = slide_count | plus: 1 -%}
               <slideshow-slide
@@ -357,10 +434,10 @@
                 </a>
               </slideshow-slide>
             {%- endfor -%}
-          {%- else -%}
+          {%- elsif selected_count == 0 -%}
             {%- for i in (1..limit) -%}
-              {%- assign slide_count = slide_count | plus: 1 -%}
               {%- assign ph_index = forloop.index | modulo: 6 | plus: 1 -%}
+              {%- assign slide_count = slide_count | plus: 1 -%}
               <slideshow-slide
                 ref="slides[]"
                 aria-hidden="{%- if forloop.first -%}false{%- else -%}true{%- endif -%}"
@@ -383,17 +460,9 @@
           {%- endif -%}
         {%- endcapture -%}
 
-        {%- render 'slideshow'
-          , slides: slides
-          , slide_count: slide_count
-          , slideshow_gutters: 'start end'
-          , show_arrows: true
-          , icon_style: 'arrow'
-          , icon_shape: 'circle'
-          , arrows_position: 'center'
-          , class: 'mmw-fc__slideshow'
-          , style: '--slideshow-align-items: stretch; --gutter-slide-width: 28px;'
-        -%}
+        {%- assign slideshow_class = 'mmw-fc__slideshow' -%}
+
+        {%- render 'slideshow', slides: slides, slide_count: slide_count, slideshow_gutters: 'start end', show_arrows: true, icon_style: 'arrow', icon_shape: 'circle', arrows_position: 'center', class: slideshow_class, style: '--slideshow-align-items: stretch; --gutter-slide-width: 28px;' -%}
       </div>
     </div>
   </div>
@@ -410,6 +479,13 @@
     { "type": "image_picker", "id": "feature_image", "label": "Zdjęcie dużego kafla (opcjonalnie — domyślnie zdjęcie kolekcji)" },
     { "type": "text", "id": "feature_label", "label": "Etykieta kafla", "default": "ODKRYJ KOLEKCJĘ" },
     { "type": "range", "id": "products_to_show", "min": 2, "max": 6, "step": 1, "label": "Liczba produktów", "default": 3 },
+    { "type": "header", "content": "Wybierz produkty" },
+    { "type": "product", "id": "product_1", "label": "Produkt 1" },
+    { "type": "product", "id": "product_2", "label": "Produkt 2" },
+    { "type": "product", "id": "product_3", "label": "Produkt 3" },
+    { "type": "product", "id": "product_4", "label": "Produkt 4" },
+    { "type": "product", "id": "product_5", "label": "Produkt 5" },
+    { "type": "product", "id": "product_6", "label": "Produkt 6" },
     { "type": "header", "content": "Badge NOWOŚĆ" },
     { "type": "text", "id": "new_badge_label", "label": "Tekst badge", "default": "NOWOŚĆ" },
     { "type": "text", "id": "new_badge_tag", "label": "Tag produktu uruchamiający badge", "default": "nowość", "info": "Produkty z tym tagiem dostaną badge w rogu zdjęcia." }

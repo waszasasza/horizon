@@ -10,13 +10,18 @@
   #shopify-section-{{ section.id }} .mmw-stories {
     display: flex; flex-direction: column; gap: 30px;
     padding: 60px 80px; font-family: var(--mmw-font-text);
+    align-items: center;
   }
   #shopify-section-{{ section.id }} .mmw-stories__head {
     display: flex; flex-direction: column; gap: 16px; max-width: 700px; color: var(--mmw-01);
+    text-align: center;
+    margin: 0 auto 60px;
+    width: 100%;
+    box-sizing: border-box;
   }
   #shopify-section-{{ section.id }} .mmw-stories__eyebrow {
     font-family: var(--mmw-font-label); font-weight: 700; font-size: var(--mmw-button-size);
-    letter-spacing: var(--mmw-label-tracking); text-transform: uppercase; color: var(--mmw-02);
+    letter-spacing: var(--mmw-label-tracking); text-transform: uppercase; color: var(--mmw-01);
   }
   #shopify-section-{{ section.id }} .mmw-stories__title {
     margin: 0; font-family: var(--mmw-font-display); font-weight: 400;
@@ -26,6 +31,8 @@
   /* Rząd: środkowy największy */
   #shopify-section-{{ section.id }} .mmw-stories__row {
     display: flex; gap: 24px; align-items: center; justify-content: center;
+    width: 100%;
+    max-width: 1200px;
   }
   #shopify-section-{{ section.id }} .mmw-stories__row > * { flex: 1 1 0; min-width: 0; }
   #shopify-section-{{ section.id }} .mmw-stories__row > *:nth-child(2) {
@@ -49,12 +56,18 @@
     #shopify-section-{{ section.id }} .mmw-stories { padding: 40px 20px; }
     #shopify-section-{{ section.id }} .mmw-stories__title { font-size: 40px; }
     #shopify-section-{{ section.id }} .mmw-stories__row {
-      overflow-x: auto; scroll-snap-type: x mandatory; align-items: stretch;
-      margin: 0 -20px; padding: 0 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      align-items: stretch;
+      justify-content: flex-start;
+      margin: 0 -20px;
+      padding: 0;
+      width: calc(100% + 40px);
     }
-    #shopify-section-{{ section.id }} .mmw-stories__row > *,
-    #shopify-section-{{ section.id }} .mmw-stories__row > *:nth-child(2) {
-      flex: 0 0 72%; scroll-snap-align: start;
+    #shopify-section-{{ section.id }} .mmw-stories__row > * {
+      flex: 0 0 calc(100vw - 56px);
+      min-width: calc(100vw - 56px);
+      scroll-snap-align: start;
     }
   }
   /* Na dotyku nie ma hovera — pokaż kartę od razu */
@@ -91,9 +104,21 @@
   #shopify-section-{{ section.id }} .mmw-stories__cta__actions {
     margin-top: 12px;
   }
-
   #shopify-section-{{ section.id }} .mmw-stories__cta__actions .button {
     border-radius: 999px;
+    display: inline-block;
+    width: auto;
+    min-width: 120px;
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+  @media (min-width: 990px) {
+    /* Narrow the richtext to match the middle video's width on desktop */
+    #shopify-section-{{ section.id }} .mmw-stories__cta__content.rte {
+      max-width: 495px;
+      margin: 0 auto;
+      text-align: center;
+    }
   }
 {%- endstyle -%}
 
@@ -110,13 +135,10 @@
     {% content_for 'blocks' %}
   </div>
   </div>
-  {%- if section.settings.bottom_eyebrow != blank or section.settings.bottom_heading != blank or section.settings.bottom_cta_label != blank -%}
+  {%- if section.settings.bottom_richtext != blank or section.settings.bottom_cta_label != blank -%}
     <div class="mmw-stories__cta">
-      {%- if section.settings.bottom_eyebrow != blank -%}
-        <div class="mmw-stories__cta__eyebrow">{{ section.settings.bottom_eyebrow }}</div>
-      {%- endif -%}
-      {%- if section.settings.bottom_heading != blank -%}
-        <h3 class="mmw-stories__cta__heading">{{ section.settings.bottom_heading }}</h3>
+      {%- if section.settings.bottom_richtext != blank -%}
+        <div class="mmw-stories__cta__content rte">{{ section.settings.bottom_richtext }}</div>
       {%- endif -%}
       {%- if section.settings.bottom_cta_label != blank -%}
         <div class="mmw-stories__cta__actions">
@@ -136,8 +158,7 @@
     { "type": "text", "id": "eyebrow", "label": "Etykieta (opcjonalnie)", "default": "ZAINSPIRUJ SIĘ" },
     { "type": "text", "id": "heading", "label": "Nagłówek (opcjonalnie)", "default": "Kuchnie, stoły i historie" }
     ,
-    { "type": "text", "id": "bottom_eyebrow", "label": "Etykieta poniżej (opcjonalnie)" },
-    { "type": "text", "id": "bottom_heading", "label": "Nagłówek poniżej (opcjonalnie)" },
+    { "type": "richtext", "id": "bottom_richtext", "label": "Tekst poniżej (rich text)" },
     { "type": "text", "id": "bottom_cta_label", "label": "Przycisk CTA (tekst)" },
     { "type": "url", "id": "bottom_cta_link", "label": "Przycisk CTA (link)" }
   ],

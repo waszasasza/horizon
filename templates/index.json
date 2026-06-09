@@ -330,7 +330,17 @@
         "new_badge_label": "NOWOŚĆ",
         "new_badge_tag": "nowość"
       }
+    },
+    "mmw_philosophy": {
+      "type": "mmw-philosophy",
+      "settings": {
+        "eyebrow": "FILOZOFIA",
+        "heading": "Od ponad dwóch stuleci Pałac Mała Wieś inspiruje historię pisaną przez naturę, ludzi i rzemiosło.",
+        "description": "<p>Dziś jej częścią są produkty powstające z owoców naszych sadów, winnicy i pałacowych ogrodów.</p>",
+        "cta_link": "#",
+        "cta_label": "FILOZOFIA"
+      }
     }
   },
-  "order": ["mmw_hero", "mmw_featured"]
+  "order": ["mmw_hero", "mmw_featured", "mmw_philosophy"]
 }

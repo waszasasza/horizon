@@ -1,0 +1,244 @@
+{%- comment -%}
+  mmw-philosophy — sekcja z filozofią marki: tekst i przycisk po lewej, duże zdjęcie po prawej
+{%- endcomment -%}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-philosophy {
+    width: 100%;
+    padding-block: 80px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 28px;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__card {
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__copy {
+    position: relative;
+    min-height: 645px;
+    padding: 68px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 44px;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__copy-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__copy-background img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__copy::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08) 0.5px, transparent 0.6px),
+      radial-gradient(circle at 80% 80%, rgba(255,255,255,0.08) 0.5px, transparent 0.6px);
+    opacity: 0.14;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__heading {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.05;
+    letter-spacing: normal;
+    max-width: 500px;
+    color: var(--color-foreground-heading);
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__text {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 1.1;
+    letter-spacing: normal;
+    color: var(--color-foreground);
+    max-width: 520px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    padding: 12px 26px;
+    border-radius: 50px;
+    border: 1px solid var(--color-primary-button-border);
+    background: var(--color-primary-button-background);
+    color: var(--color-primary-button-text);
+    text-decoration: none;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: var(--mmw-button-size);
+    letter-spacing: var(--mmw-label-tracking);
+    text-transform: uppercase;
+    transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    background: var(--color-primary-button-hover-background);
+    color: var(--color-primary-button-hover-text);
+    border-color: var(--color-primary-button-hover-border);
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__media {
+    position: relative;
+    overflow: hidden;
+    background: var(--mmw-03);
+    height: 80vh;
+    min-height: 645px;
+  }
+
+  #shopify-section-{{ section.id }} .mmw-philosophy__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} .mmw-philosophy__inner {
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-philosophy__copy,
+    #shopify-section-{{ section.id }} .mmw-philosophy__media {
+      min-height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-philosophy__copy {
+      padding: 40px 28px;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-philosophy__heading,
+    #shopify-section-{{ section.id }} .mmw-philosophy__text {
+      font-size: 30px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-philosophy__copy {
+      padding: 32px 20px;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-philosophy__eyebrow {
+      padding: 10px 20px;
+    }
+  }
+{%- endstyle -%}
+
+<section class="section section--page-width spacing-style">
+  <div class="section-background"></div>
+
+  <div class="mmw-philosophy">
+    <div class="mmw-philosophy__inner">
+      <div class="mmw-philosophy__card mmw-philosophy__copy color-{{ section.settings.color_scheme | default: 'scheme-1' }}">
+        {%- if section.settings.left_background_image != blank -%}
+          <div class="mmw-philosophy__copy-background">
+            <img
+              src="{{ section.settings.left_background_image | image_url: width: 2400 }}"
+              srcset="{{ section.settings.left_background_image | image_url: width: 1200 }} 1200w,
+                      {{ section.settings.left_background_image | image_url: width: 2400 }} 2400w,
+                      {{ section.settings.left_background_image | image_url: width: 3200 }} 3200w"
+              sizes="(max-width: 749px) 100vw, 50vw"
+              alt="{{ section.settings.left_background_image.alt | escape }}"
+              loading="lazy"
+              width="2400"
+              height="2400"
+            >
+          </div>
+        {%- endif -%}
+        <div class="mmw-philosophy__content">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="mmw-philosophy__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <div class="mmw-philosophy__text">{{ section.settings.description }}</div>
+          {%- endif -%}
+          {%- if section.settings.cta_label != blank -%}
+            <a class="mmw-philosophy__button" href="{{ section.settings.cta_link | default: '#' }}">
+              {{ section.settings.cta_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="mmw-philosophy__card mmw-philosophy__media">
+        {%- if section.settings.image != blank -%}
+          <img
+            src="{{ section.settings.image | image_url: width: 1800 }}"
+            srcset="{{ section.settings.image | image_url: width: 900 }} 900w,
+                    {{ section.settings.image | image_url: width: 1800 }} 1800w"
+            sizes="(max-width: 749px) 100vw, 50vw"
+            alt="{{ section.settings.image.alt | escape }}"
+            loading="lazy"
+            width="1800"
+            height="1800"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MMW Filozofia",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Od ponad dwóch stuleci Pałac Mała Wieś inspiruje historię pisaną przez naturę, ludzi i rzemiosło." },
+    { "type": "richtext", "id": "description", "label": "Tekst", "default": "<p>Dziś jej częścią są produkty powstające z owoców naszych sadów, winnicy i pałacowych ogrodów.</p>" },
+    { "type": "url", "id": "cta_link", "label": "Link przycisku" },
+    { "type": "text", "id": "cta_label", "label": "Tekst przycisku", "default": "FILIZOFIA" },
+    { "type": "image_picker", "id": "left_background_image", "label": "Zdjęcie tła lewej sekcji" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów", "default": "scheme-1" },
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" }
+  ],
+  "presets": [
+    {
+      "name": "MMW Filozofia",
+      "settings": {
+        "heading": "Od ponad dwóch stuleci Pałac Mała Wieś inspiruje historię pisaną przez naturę, ludzi i rzemiosło.",
+        "description": "<p>Dziś jej częścią są produkty powstające z owoców naszych sadów, winnicy i pałacowych ogrodów.</p>",
+        "cta_label": "FILOZOFIA"
+      }
+    }
+  ]
+}
+{% endschema %}

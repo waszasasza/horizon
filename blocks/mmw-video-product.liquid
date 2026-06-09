@@ -1,0 +1,195 @@
+{%- comment -%}
+  mmw-video-product — REUŻYWALNY theme block (blocks/).
+  Pionowa karta „story": wideo przez natywny snippet Horizona (render 'video')
+  + nałożona mała karta produktu (miniatura, nazwa, cena, "KUP TERAZ").
+  Wrzucasz do dowolnej sekcji przyjmującej theme blocki (Add block).
+{%- endcomment -%}
+
+{%- liquid
+  assign s = block.settings
+  assign product = s.product
+%}
+
+<div
+  class="mmw-vp"
+  style="--mmw-vp-radius: {{ s.border_radius }}px; aspect-ratio: {{ s.aspect_ratio }};"
+  {{ block.shopify_attributes }}
+>
+  {%- comment -%} Wideo: reuse natywnego snippetu Horizona {%- endcomment -%}
+  {%- if s.source == 'uploaded' and s.video != blank -%}
+    {% render 'video',
+      video: s.video,
+      video_autoplay: s.video_autoplay,
+      video_loop: s.video_loop,
+      disable_controls: true,
+      video_preview_image: s.video.preview_image,
+      video_class: 'mmw-vp__video' %}
+  {%- elsif s.source == 'url' and s.video_url != blank -%}
+    {% render 'video',
+      video_from_url: true,
+      video: s.video_url.id,
+      video_type: s.video_url.type,
+      video_autoplay: s.video_autoplay,
+      video_loop: s.video_loop,
+      disable_controls: true,
+      video_alt: s.alt,
+      video_preview_image: s.cover_image,
+      video_class: 'mmw-vp__video' %}
+  {%- elsif s.cover_image != blank -%}
+    <img class="mmw-vp__poster" src="{{ s.cover_image | image_url: width: 720 }}" alt="" loading="lazy" width="360" height="600">
+  {%- else -%}
+    {{ 'lifestyle-1' | placeholder_svg_tag: 'mmw-vp__poster' }}
+  {%- endif -%}
+
+  {%- comment -%} Karta produktu {%- endcomment -%}
+  <div class="mmw-vp__card">
+    <div class="mmw-vp__thumb">
+      {%- if product != blank and product.featured_image != blank -%}
+        <img src="{{ product.featured_image | image_url: width: 120 }}" alt="{{ product.title | escape }}" loading="lazy" width="52" height="58">
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag }}
+      {%- endif -%}
+    </div>
+    <div class="mmw-vp__body">
+      {%- if product != blank -%}
+        <span class="mmw-vp__name">{{ product.title }}</span>
+        <span class="mmw-vp__price">{{ product.price | money }}</span>
+        <a class="mmw-vp__btn" href="{{ product.url }}">{{ s.button_label }}</a>
+      {%- else -%}
+        <span class="mmw-vp__name">Marmolada jabłkowa</span>
+        <span class="mmw-vp__price">38 zł</span>
+        <a class="mmw-vp__btn" href="#">{{ s.button_label }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% stylesheet %}
+  .mmw-vp {
+    position: relative;
+    width: 100%;
+    border-radius: var(--mmw-vp-radius, 24px);
+    overflow: hidden;
+    background: var(--mmw-03);
+    display: block;
+  }
+  .mmw-vp__video,
+  .mmw-vp video,
+  .mmw-vp iframe,
+  .mmw-vp__poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 0;
+  }
+  .mmw-vp__card {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    z-index: 2;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--mmw-01);
+    border-radius: 16px;
+    padding: 10px 12px;
+  }
+  .mmw-vp__thumb {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 58px;
+    border-radius: 11px;
+    overflow: hidden;
+    background: var(--mmw-04);
+  }
+  .mmw-vp__thumb img,
+  .mmw-vp__thumb svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .mmw-vp__body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .mmw-vp__name {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: var(--mmw-label-tracking);
+    text-transform: uppercase;
+    color: var(--mmw-04);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .mmw-vp__price {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--mmw-04);
+  }
+  .mmw-vp__btn {
+    align-self: flex-start;
+    margin-top: 2px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mmw-03);
+    color: var(--mmw-01);
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: var(--mmw-label-tracking);
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 70px;
+    text-decoration: none;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Wideo + produkt",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select", "id": "source", "label": "Źródło wideo", "default": "uploaded",
+      "options": [
+        { "value": "uploaded", "label": "Wgrane (Shopify)" },
+        { "value": "url", "label": "Zewnętrzny URL (YouTube/Vimeo)" }
+      ]
+    },
+    { "type": "video", "id": "video", "label": "Wideo", "visible_if": "{{ block.settings.source == 'uploaded' }}" },
+    { "type": "video_url", "id": "video_url", "label": "URL wideo", "accept": ["youtube", "vimeo"], "visible_if": "{{ block.settings.source == 'url' }}" },
+    { "type": "checkbox", "id": "video_autoplay", "label": "Autoodtwarzanie (wyciszone)", "default": true },
+    { "type": "checkbox", "id": "video_loop", "label": "Pętla", "default": true },
+    { "type": "image_picker", "id": "cover_image", "label": "Klatka zastępcza / poster" },
+    { "type": "text", "id": "alt", "label": "Tekst alternatywny", "visible_if": "{{ block.settings.source == 'url' }}" },
+    {
+      "type": "select", "id": "aspect_ratio", "label": "Proporcje", "default": "3 / 5",
+      "options": [
+        { "value": "3 / 5", "label": "Story (3:5)" },
+        { "value": "9 / 16", "label": "Pionowe (9:16)" },
+        { "value": "3 / 4", "label": "Portret (3:4)" },
+        { "value": "1 / 1", "label": "Kwadrat" }
+      ]
+    },
+    { "type": "range", "id": "border_radius", "label": "Zaokrąglenie rogów", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 24 },
+    { "type": "header", "content": "Karta produktu" },
+    { "type": "product", "id": "product", "label": "Produkt" },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "KUP TERAZ" }
+  ],
+  "presets": [
+    { "name": "MMW Wideo + produkt", "category": "Media" }
+  ]
+}
+{% endschema %}
