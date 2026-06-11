@@ -139,37 +139,55 @@
   height: 100% !important;
   object-fit: cover;
 }
-
 {%- comment -%}
-  Układ strony kolekcji: panel kategorii (lewa) + nagłówek i siatka (prawa).
-  Działa na desktopie; na mobile panel ląduje nad siatką (stack).
+  Styl natywnych filtrów (pionowych) na markę MMW + efekt drzewa.
+  Dopisz ten <style> do snippeta mmw-tokens.liquid.
+
+  ── JAK USTAWIĆ DRZEWO ──
+  1) W Search & Discovery → filtr Tagi → Sort: Manually → ułóż wartości w kolejności:
+     nadrzędny, jego podrzędne, następny nadrzędny, itd. (CSS tylko stylizuje, NIE sortuje)
+  2) Poniżej w dwóch miejscach oznaczonych „EDYTUJ" wpisz swoje NADRZĘDNE tagi
+     (dokładnie tak, jak brzmią — wielkość liter i znaki muszą się zgadzać).
 {%- endcomment -%}
-@media (min-width: 990px) {
-    .template-collection main,
-    #MainContent.template-collection,
-    main:has(#shopify-section-template--collection-mmw_sidebar) {
-      display: grid;
-      grid-template-columns: 260px 1fr;
-      column-gap: 48px;
-      align-items: start;
-      max-width: var(--page-width, 1400px);
-      margin-inline: auto;
-      padding-inline: var(--page-margin, 20px);
-    }
-    /* Panel kategorii — lewa kolumna, przez całą wysokość */
-    [id*="mmw_sidebar"] {
-      grid-column: 1;
-      grid-row: 1 / span 2;
-    }
-    /* Nagłówek kolekcji + siatka — prawa kolumna */
-    [id*="template--collection"][id*="__section"],
-    [id*="mmw_sidebar"] ~ * {
-      grid-column: 2;
-    }
-    /* Sekcje w prawej kolumnie nie potrzebują własnego page-width */
-    [id*="mmw_sidebar"] ~ * .shopify-section,
-    [id*="mmw_sidebar"] ~ * { width: 100%; }
+
+  /* ── Wszystkie wartości = styl PODRZĘDNY (gałąź) ── */
+  .facets--vertical .checkbox__label-text {
+    font-family: var(--mmw-font-label);
+    font-size: 14px;
+    letter-spacing: 1.95px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
   }
+  .facets--vertical .facets__inputs-list-item {
+    padding-left: 24px;            /* wcięcie gałęzi */
+  }
+
+  /* ── NADRZĘDNE: wiersz bez wcięcia + odstęp nad ──
+       EDYTUJ listę value poniżej (oddziel przecinkami całe selektory) */
+  .facets--vertical .facets__inputs-list-item:has(input[value="Spiżarnia Książęca"]),
+  .facets--vertical .facets__inputs-list-item:has(input[value="Sad Książęcy"]),
+  .facets--vertical .facets__inputs-list-item:has(input[value="Tłocznia Książęca"]),
+  .facets--vertical .facets__inputs-list-item:has(input[value="Alkohole Książęce"]),
+  .facets--vertical .facets__inputs-list-item:has(input[value="Zestawy prezentowe"]),
+  .facets--vertical .facets__inputs-list-item:has(input[value="Kosmetyki Książęce"]) {
+    padding-left: 0;
+    margin-top: 18px;
+  }
+  /* ── NADRZĘDNE: większy, mocniejszy nagłówek ──
+       EDYTUJ tę samą listę value */
+  .facets--vertical .facets__inputs-list-item:has(input[value="Spiżarnia Książęca"]) .checkbox__label-text,
+  .facets--vertical .facets__inputs-list-item:has(input[value="Sad Książęcy"]) .checkbox__label-text,
+  .facets--vertical .facets__inputs-list-item:has(input[value="Tłocznia Książęca"]) .checkbox__label-text,
+  .facets--vertical .facets__inputs-list-item:has(input[value="Alkohole Książęce"]) .checkbox__label-text,
+  .facets--vertical .facets__inputs-list-item:has(input[value="Zestawy prezentowe"]) .checkbox__label-text,
+  .facets--vertical .facets__inputs-list-item:has(input[value="Kosmetyki Książęce"]) .checkbox__label-text {
+    font-size: 16px;
+    letter-spacing: 2.7px;
+    font-weight: 700;
+  }
+
+  /* ── Akcent marki na zaznaczeniu (koralowy) ── */
+  .facets--vertical .checkbox__input:checked + .checkbox__label { color: var(--mmw-02); }
 
 
 

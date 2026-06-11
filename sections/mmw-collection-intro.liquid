@@ -1,0 +1,45 @@
+{%- comment -%}
+  mmw-collection-intro — eyebrow (nazwa kolekcji) + duży akapit.
+  Tekst z metafielda: collection.metafields.custom.intro (rich text).
+  Fallback: collection.description.
+{%- endcomment -%}
+{%- liquid
+  assign intro = collection.metafields.custom.intro
+  if intro == blank
+    assign intro = collection.description
+  endif
+-%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-cintro {
+    display: flex; flex-direction: column; align-items: center; gap: 30px;
+    padding: 100px 20px; text-align: center; color: var(--mmw-01);
+    font-family: var(--mmw-font-text);
+  }
+  #shopify-section-{{ section.id }} .mmw-cintro__eyebrow {
+    font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px;
+    letter-spacing: var(--mmw-label-tracking); text-transform: uppercase; line-height: 1.3; margin: 0;
+  }
+  #shopify-section-{{ section.id }} .mmw-cintro__text {
+    font-family: var(--mmw-font-display); font-weight: 400;
+    font-size: clamp(34px, 4.4vw, 64px); line-height: 1.1; max-width: 1016px;
+  }
+  #shopify-section-{{ section.id }} .mmw-cintro__text p { margin: 0; }
+  @media (max-width: 749px) { #shopify-section-{{ section.id }} .mmw-cintro { padding: 56px 20px; } }
+{%- endstyle -%}
+<section class="mmw-cintro">
+  {%- if section.settings.show_eyebrow -%}
+    <p class="mmw-cintro__eyebrow">{{ collection.title }}</p>
+  {%- endif -%}
+  {%- if intro != blank -%}<div class="mmw-cintro__text">{{ intro }}</div>{%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "MMW Intro kolekcji",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_eyebrow", "label": "Pokaż nazwę kolekcji nad tekstem", "default": true },
+    { "type": "paragraph", "content": "Duży tekst pobiera się z metafielda kolekcji: custom.intro (rich text). Bez metafielda użyje opisu kolekcji." }
+  ],
+  "presets": [{ "name": "MMW Intro kolekcji" }]
+}
+{% endschema %}
