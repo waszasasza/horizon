@@ -164,26 +164,12 @@
 {%- endstyle -%}
 
 <section class="section section--page-width spacing-style">
+    <div class="mmw-wrap">
   <div class="section-background"></div>
 
   <div class="mmw-philosophy">
     <div class="mmw-philosophy__inner">
-      <div class="mmw-philosophy__card mmw-philosophy__copy color-{{ section.settings.color_scheme | default: 'scheme-1' }}">
-        {%- if section.settings.left_background_image != blank -%}
-          <div class="mmw-philosophy__copy-background">
-            <img
-              src="{{ section.settings.left_background_image | image_url: width: 2400 }}"
-              srcset="{{ section.settings.left_background_image | image_url: width: 1200 }} 1200w,
-                      {{ section.settings.left_background_image | image_url: width: 2400 }} 2400w,
-                      {{ section.settings.left_background_image | image_url: width: 3200 }} 3200w"
-              sizes="(max-width: 749px) 100vw, 50vw"
-              alt="{{ section.settings.left_background_image.alt | escape }}"
-              loading="lazy"
-              width="2400"
-              height="2400"
-            >
-          </div>
-        {%- endif -%}
+      <div class="mmw-philosophy__card mmw-philosophy__copy mmw-pattern color-{{ section.settings.color_scheme | default: 'scheme-1' }}" style="--mmw-pattern-color: rgba(255, 255, 255, 0.17); --mmw-pattern-opacity: 0.6;">
         <div class="mmw-philosophy__content">
           {%- if section.settings.heading != blank -%}
             <h2 class="mmw-philosophy__heading">{{ section.settings.heading }}</h2>
@@ -215,6 +201,7 @@
       </div>
     </div>
   </div>
+</div>
 </section>
 
 {% schema %}
@@ -226,7 +213,6 @@
     { "type": "richtext", "id": "description", "label": "Tekst", "default": "<p>Dziś jej częścią są produkty powstające z owoców naszych sadów, winnicy i pałacowych ogrodów.</p>" },
     { "type": "url", "id": "cta_link", "label": "Link przycisku" },
     { "type": "text", "id": "cta_label", "label": "Tekst przycisku", "default": "FILIZOFIA" },
-    { "type": "image_picker", "id": "left_background_image", "label": "Zdjęcie tła lewej sekcji" },
     { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów", "default": "scheme-1" },
     { "type": "image_picker", "id": "image", "label": "Zdjęcie" }
   ],

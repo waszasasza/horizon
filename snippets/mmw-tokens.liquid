@@ -92,4 +92,85 @@
   margin-inline: auto;   /* centruje */
   padding-inline: 20px;  /* gutter na wąskich ekranach */
 }
+
+{%- comment -%}
+  ── WZÓR TŁA (reużywalny, wektorowy — nie pikselizuje się) ──
+  Dopisz ten <style> do snippeta mmw-tokens.liquid (obok reszty tokenów).
+  Użycie: dodaj klasę `mmw-pattern` do roota sekcji (musi mieć tło, np. brązowe).
+  Sterowanie per sekcja przez zmienne:
+    --mmw-pattern-color   (kolor wzoru, domyślnie krem)
+    --mmw-pattern-opacity (krycie, domyślnie 0.05)
+    --mmw-pattern-size    (rozmiar kafla, domyślnie 56px)
+{%- endcomment -%}
+
+  .mmw-pattern { position: relative; isolation: isolate; }
+  .mmw-pattern::before {
+    content: "";
+    position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-color: var(--mmw-pattern-color, var(--mmw-04));
+    -webkit-mask-image: url('{{ 'mmw-pattern.svg' | asset_url }}');
+            mask-image: url('{{ 'mmw-pattern.svg' | asset_url }}');
+    -webkit-mask-repeat: repeat;  mask-repeat: repeat;
+    -webkit-mask-size: var(--mmw-pattern-size, 160px) auto;
+            mask-size: var(--mmw-pattern-size, 160px) auto;
+    opacity: var(--mmw-pattern-opacity, 0.03);
+  }
+
+  /* drobne korekty karty produktu — globalnie */
+.product-card__content { /* np. zaokrąglenie całej karty */
+}
+.product-card .product-title,
+.product-card [class*="product-title"] {
+  font-family: var(--mmw-font-display);
+  color: var(--mmw-01);
+}
+.product-card .price {
+  font-family: var(--mmw-font-label);
+}
+.product-card__content img {   /* zaokrąglenie zdjęcia */
+  border-radius: 14px;
+}
+/* miniatury produktów zawsze 1:1 */
+.product-card__content .product-media,
+.product-card__content .product-media__image,
+.product-card__content .product-media img {
+  aspect-ratio: 1 / 1 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+{%- comment -%}
+  Układ strony kolekcji: panel kategorii (lewa) + nagłówek i siatka (prawa).
+  Działa na desktopie; na mobile panel ląduje nad siatką (stack).
+{%- endcomment -%}
+@media (min-width: 990px) {
+    .template-collection main,
+    #MainContent.template-collection,
+    main:has(#shopify-section-template--collection-mmw_sidebar) {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      column-gap: 48px;
+      align-items: start;
+      max-width: var(--page-width, 1400px);
+      margin-inline: auto;
+      padding-inline: var(--page-margin, 20px);
+    }
+    /* Panel kategorii — lewa kolumna, przez całą wysokość */
+    [id*="mmw_sidebar"] {
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+    /* Nagłówek kolekcji + siatka — prawa kolumna */
+    [id*="template--collection"][id*="__section"],
+    [id*="mmw_sidebar"] ~ * {
+      grid-column: 2;
+    }
+    /* Sekcje w prawej kolumnie nie potrzebują własnego page-width */
+    [id*="mmw_sidebar"] ~ * .shopify-section,
+    [id*="mmw_sidebar"] ~ * { width: 100%; }
+  }
+
+
+
 </style>

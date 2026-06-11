@@ -1,14 +1,14 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "sections": {
+    "mmw_sidebar": {
+      "type": "mmw-category-sidebar",
+      "settings": {
+        "breadcrumb": "MAJĄTEK > SKLEP",
+        "heading": "Kategorie",
+        "menu": "kategorie-sklepu",
+        "sticky": true
+      }
+    },
     "section": {
       "type": "section",
       "blocks": {
@@ -65,10 +65,7 @@
           "blocks": {}
         }
       },
-      "block_order": [
-        "text_tqQTNE",
-        "text_twGGkJ"
-      ],
+      "block_order": ["text_tqQTNE", "text_twGGkJ"],
       "name": "Collection heading",
       "settings": {
         "content_direction": "column",
@@ -144,7 +141,7 @@
             "card-gallery": {
               "type": "_product-card-gallery",
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -239,8 +236,5 @@
       }
     }
   },
-  "order": [
-    "section",
-    "main"
-  ]
+  "order": ["mmw_sidebar", "section", "main"]
 }
