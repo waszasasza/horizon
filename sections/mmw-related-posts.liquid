@@ -5,8 +5,8 @@
   assign limit = section.settings.count
 -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-rel { display:flex; flex-direction:column; align-items:center; gap:71px; padding:50px 70px; }
-  #shopify-section-{{ section.id }} .mmw-rel__container { display:flex; flex-direction:column; gap:38px; width:100%; padding:0 60px; }
+  #shopify-section-{{ section.id }} .mmw-rel { display:flex; flex-direction:column; align-items:center; gap:71px; padding-block:50px; padding-inline: var(--page-margin, 40px); }
+  #shopify-section-{{ section.id }} .mmw-rel__container { display:flex; flex-direction:column; gap:38px; width:100%; max-width: var(--mmw-article-width, 1240px); }
   #shopify-section-{{ section.id }} .mmw-rel__head { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
   #shopify-section-{{ section.id }} .mmw-rel__list { display:flex; gap:50px; justify-content:center; flex-wrap:wrap; }
   #shopify-section-{{ section.id }} .mmw-rel__card { display:flex; flex-direction:column; gap:13px; width:355px; max-width:100%; text-decoration:none; }

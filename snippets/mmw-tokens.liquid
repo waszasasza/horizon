@@ -224,5 +224,13 @@
   .mmw-pcard__name, .mmw-pcard__price {
     font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; color: var(--mmw-01);
   }
+  {%- comment -%}
+  Szerokość sekcji bloga — pośrednia (między wąskim contentem a pełną szerokością strony).
+  Dopisz do :root w mmw-tokens.liquid (albo dorzuć ten <style>).
+  Reguluj jedną wartością: zmień 1240px na to, co pasuje (np. 1180 / 1300).
+{%- endcomment -%}
+
+  :root { --mmw-article-width: 1240px; }
+
 
 </style>

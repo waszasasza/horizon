@@ -10,7 +10,7 @@
 -%}
 {%- if imie != blank or bio != blank -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-crt { display:flex; gap:40px; align-items:center; justify-content:center; padding:60px 40px; max-width: var(--mmw-max-width, 1200px); margin-inline:auto; }
+  #shopify-section-{{ section.id }} .mmw-crt { display:flex; gap:40px; align-items:center; justify-content:center; padding-block:60px; padding-inline: var(--page-margin, 40px); max-width: var(--mmw-article-width, 1240px); margin-inline:auto; }
   #shopify-section-{{ section.id }} .mmw-crt__text { display:flex; flex-direction:column; gap:20px; flex:1 1 0; min-width:0; color: var(--mmw-01); }
   #shopify-section-{{ section.id }} .mmw-crt__label { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
   #shopify-section-{{ section.id }} .mmw-crt__name { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(40px,5vw,64px); line-height:1.1; margin:0; }
