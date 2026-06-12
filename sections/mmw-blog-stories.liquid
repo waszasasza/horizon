@@ -1,0 +1,77 @@
+{%- comment -%}
+  mmw-blog-stories — tekst filozofii + kafle "story" (wideo/zdjęcie) z naklejką produktu.
+  Każdy kafel = blok: media (zdjęcie lub plik wideo MP4) + produkt (naklejka KUP TERAZ).
+  Reuse koncepcji kart wideo+produkt, układ jak na stronie bloga (4 pionowe kafle).
+{%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-bst { display:flex; flex-direction:column; align-items:center; gap:50px; padding:50px 20px; }
+  #shopify-section-{{ section.id }} .mmw-bst__head { display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; max-width:500px; color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-bst__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-bst__title { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(40px,5vw,64px); line-height:1.1; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-bst__desc { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-bst__grid { display:flex; gap:38px; flex-wrap:wrap; justify-content:center; }
+  #shopify-section-{{ section.id }} .mmw-bst__card { position:relative; width:273px; aspect-ratio: 273 / 486; border-radius:25px; overflow:hidden; background: var(--mmw-04); }
+  #shopify-section-{{ section.id }} .mmw-bst__card img, #shopify-section-{{ section.id }} .mmw-bst__card video, #shopify-section-{{ section.id }} .mmw-bst__card svg { width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip { position:absolute; left:13px; right:13px; bottom:13px; background: var(--mmw-01); border-radius:15px; padding:8px; display:flex; gap:10px; align-items:center; text-decoration:none; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-img { width:51px; height:58px; border-radius:11px; overflow:hidden; flex-shrink:0; background: var(--mmw-04); }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-img img { width:100%; height:100%; object-fit:cover; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-info { display:flex; flex-direction:column; gap:3px; min-width:0; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-name, #shopify-section-{{ section.id }} .mmw-bst__chip-price { font-family: var(--mmw-font-label); font-weight:700; text-transform:uppercase; color: var(--mmw-04); letter-spacing:1.2px; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-name { font-size:9px; line-height:1.1; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-price { font-size:8px; opacity:.9; }
+  #shopify-section-{{ section.id }} .mmw-bst__chip-btn { margin-top:2px; align-self:flex-start; background: var(--mmw-03); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:8px; letter-spacing:1.2px; text-transform:uppercase; padding:5px 10px; border-radius:70px; }
+  @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-bst__grid { gap:18px; } }
+{%- endstyle -%}
+<section class="mmw-bst">
+  <div class="mmw-bst__head">
+    {%- if section.settings.eyebrow != blank -%}<p class="mmw-bst__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<p class="mmw-bst__title">{{ section.settings.heading }}</p>{%- endif -%}
+    {%- if section.settings.description != blank -%}<p class="mmw-bst__desc">{{ section.settings.description }}</p>{%- endif -%}
+  </div>
+  <div class="mmw-bst__grid">
+    {%- for block in section.blocks -%}
+      {%- assign prod = block.settings.product -%}
+      <div class="mmw-bst__card" {{ block.shopify_attributes }}>
+        {%- if block.settings.video_url != blank -%}
+          <video src="{{ block.settings.video_url }}" autoplay muted loop playsinline preload="metadata"></video>
+        {%- elsif block.settings.image -%}
+          <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ prod.title | default: 'Story' | escape }}" loading="lazy">
+        {%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
+        {%- if prod != blank -%}
+          <a class="mmw-bst__chip" href="{{ prod.url }}">
+            <div class="mmw-bst__chip-img">{%- if prod.featured_image -%}<img src="{{ prod.featured_image | image_url: width: 160 }}" alt="{{ prod.title | escape }}">{%- endif -%}</div>
+            <div class="mmw-bst__chip-info">
+              <span class="mmw-bst__chip-name">{{ prod.title }}</span>
+              <span class="mmw-bst__chip-price">{{ prod.price | money }}</span>
+              <span class="mmw-bst__chip-btn">Kup teraz</span>
+            </div>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "MMW Blog kafle",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Nasza filozofia" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Kuchnie, stoły i historie" },
+    { "type": "textarea", "id": "description", "label": "Opis", "default": "Zobacz, jak inni eksperymentują w kuchni z produktami Majątku Mała Wieś." }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Kafel",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+        { "type": "url", "id": "video_url", "label": "Wideo (URL pliku MP4, opcjonalnie)" },
+        { "type": "product", "id": "product", "label": "Produkt (naklejka KUP TERAZ)" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [{ "name": "MMW Blog kafle", "blocks": [ {"type":"story"}, {"type":"story"}, {"type":"story"}, {"type":"story"} ] }]
+}
+{% endschema %}
