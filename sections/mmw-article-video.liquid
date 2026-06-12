@@ -26,7 +26,7 @@
   endif
 -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-avid { display:flex; gap:60px; align-items:center; justify-content:space-between; padding-block:50px; max-width: var(--mmw-article-width, 1240px); margin-inline:auto; }
+  #shopify-section-{{ section.id }} .mmw-avid { display:flex; gap:40px; align-items:center; justify-content:center; padding-block:50px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
   #shopify-section-{{ section.id }} .mmw-avid__text { display:flex; flex-direction:column; gap:20px; flex:1 1 0; min-width:0; max-width:638px; }
   #shopify-section-{{ section.id }} .mmw-avid__back { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-decoration:none; }
   #shopify-section-{{ section.id }} .mmw-avid__intro { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; color: var(--mmw-01); }
@@ -34,7 +34,7 @@
   #shopify-section-{{ section.id }} .mmw-avid__media { flex:0 0 auto; aspect-ratio: 273 / 486; height: min(78vh, 640px); width:auto; max-width:45%; border-radius:25px; overflow:hidden; background: var(--mmw-04); }
   #shopify-section-{{ section.id }} .mmw-avid__media video, #shopify-section-{{ section.id }} .mmw-avid__media iframe { width:100%; height:100%; border:0; display:block; object-fit:cover; }
   @media (max-width:989px){
-    #shopify-section-{{ section.id }} .mmw-avid { flex-direction:column; gap:32px; padding:40px 20px; align-items:center; }
+    #shopify-section-{{ section.id }} .mmw-avid { flex-direction:column; gap:32px; padding-block:40px; align-items:center; }
     #shopify-section-{{ section.id }} .mmw-avid__text { max-width:100%; }
   }
 {%- endstyle -%}

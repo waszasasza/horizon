@@ -46,6 +46,10 @@
   #shopify-section-{{ section.id }} .mmw-abody__rte ol { list-style-type: decimal; }
   #shopify-section-{{ section.id }} .mmw-abody__rte ul { list-style-type: disc; }
   #shopify-section-{{ section.id }} .mmw-abody__rte li { display:list-item; margin-bottom:.4em; }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-abody--cols .mmw-abody__wrap { flex-direction:column; gap:32px; }
+    #shopify-section-{{ section.id }} .mmw-abody__side { flex-basis:auto; width:100%; }
+  }
 {%- endstyle -%}
 <section class="mmw-abody {% if has_sidebar %}mmw-abody--cols{% endif %}">
   {%- if section.settings.show_back_link -%}
