@@ -1,25 +1,66 @@
 {%- comment -%}
-  mmw-article-body — treść wpisu (article.content) w natywnym .rte (style sklepu).
-  Opcjonalny link powrotu "< Wróć do artykułów".
+  mmw-article-body — treść wpisu (article.content) w .rte (style sklepu) + opcjonalna sekcja boczna.
+  Sekcja boczna (gdy wypełnione metafields) renderuje się OBOK treści (2 kolumny):
+    custom.sidebar_tytul (tekst), custom.sidebar_produkt (produkt), custom.sidebar_tekst (rich text)
+  Bez sekcji bocznej: treść w jednej, wyśrodkowanej kolumnie.
 {%- endcomment -%}
+{%- liquid
+  assign s_title = article.metafields.custom.sidebar_tytul
+  assign s_prod = article.metafields.custom.sidebar_produkt.value
+  assign s_text = article.metafields.custom.sidebar_tekst
+  assign has_sidebar = false
+  if s_title != blank or s_prod != blank or s_text != blank
+    assign has_sidebar = true
+  endif
+-%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-abody { display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 50px 20px; }
+  #shopify-section-{{ section.id }} .mmw-abody { display:flex; flex-direction:column; align-items:center; gap:40px; padding:50px 40px; }
   #shopify-section-{{ section.id }} .mmw-abody__back {
-    font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px;
-    letter-spacing: var(--mmw-label-tracking); text-transform: uppercase; color: var(--mmw-01); text-decoration: none;
+    align-self:center;
+    font-family: var(--mmw-font-label); font-weight:700; font-size:18px;
+    letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-decoration:none;
   }
-  #shopify-section-{{ section.id }} .mmw-abody__rte { width: 100%; max-width: {{ section.settings.max_width }}px; color: var(--mmw-01); }
-  /* rich text dziedziczy style sklepu (.rte); nagłówki w typografii MMW */
-  #shopify-section-{{ section.id }} .mmw-abody__rte h1, #shopify-section-{{ section.id }} .mmw-abody__rte h2 { font-family: var(--mmw-font-display); font-weight: 400; }
-  #shopify-section-{{ section.id }} .mmw-abody__rte h1 { font-size: clamp(34px,4.4vw,64px); line-height: 1.1; }
-  #shopify-section-{{ section.id }} .mmw-abody__rte h2 { font-size: clamp(26px,3vw,36px); line-height: 1; }
-  #shopify-section-{{ section.id }} .mmw-abody__rte img { border-radius: 20px; }
+  #shopify-section-{{ section.id }} .mmw-abody__wrap { width:100%; max-width: {{ section.settings.max_width }}px; margin-inline:auto; }
+  #shopify-section-{{ section.id }} .mmw-abody--cols .mmw-abody__wrap {
+    max-width: var(--mmw-max-width, 1200px);
+    display:flex; gap:60px; align-items:flex-start;
+  }
+  #shopify-section-{{ section.id }} .mmw-abody--cols .mmw-abody__rte { flex:1 1 0; min-width:0; }
+  #shopify-section-{{ section.id }} .mmw-abody__side { flex:0 0 300px; display:flex; flex-direction:column; gap:18px; }
+  #shopify-section-{{ section.id }} .mmw-abody__side-title {
+    font-family: var(--mmw-font-label); font-weight:700; font-size:18px;
+    letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0;
+  }
+  #shopify-section-{{ section.id }} .mmw-abody__side-text { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; color: var(--mmw-01); }
+
+  /* TREŚĆ: większy font + poprawne listy */
+  #shopify-section-{{ section.id }} .mmw-abody__rte { color: var(--mmw-01); font-family: var(--mmw-font-text); font-size:18px; line-height:1.6; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte h1, #shopify-section-{{ section.id }} .mmw-abody__rte h2 { font-family: var(--mmw-font-display); font-weight:400; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte h1 { font-size: clamp(34px,4.4vw,64px); line-height:1.1; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte h2 { font-size: clamp(26px,3vw,36px); line-height:1; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte img { border-radius:20px; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte ol,
+  #shopify-section-{{ section.id }} .mmw-abody__rte ul {
+    display:block; list-style-position: outside; padding-inline-start: 1.5em; margin:0 0 1em;
+  }
+  #shopify-section-{{ section.id }} .mmw-abody__rte ol { list-style-type: decimal; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte ul { list-style-type: disc; }
+  #shopify-section-{{ section.id }} .mmw-abody__rte li { display:list-item; margin-bottom:.4em; }
 {%- endstyle -%}
-<section class="mmw-abody">
+<section class="mmw-abody {% if has_sidebar %}mmw-abody--cols{% endif %}">
   {%- if section.settings.show_back_link -%}
     <a class="mmw-abody__back" href="{{ blog.url | default: '/blogs/news' }}">&lt; Wróć do artykułów</a>
   {%- endif -%}
-  <div class="mmw-abody__rte rte">{{ article.content }}</div>
+  <div class="mmw-abody__wrap">
+    <div class="mmw-abody__rte rte">{{ article.content }}</div>
+    {%- if has_sidebar -%}
+      <aside class="mmw-abody__side">
+        {%- if s_title != blank -%}<p class="mmw-abody__side-title">{{ s_title }}</p>{%- endif -%}
+        {%- if s_prod != blank -%}{% render 'mmw-product-card', product: s_prod %}{%- endif -%}
+        {%- if s_text != blank -%}<div class="mmw-abody__side-text rte">{{ s_text | metafield_tag }}</div>{%- endif -%}
+      </aside>
+    {%- endif -%}
+  </div>
 </section>
 {% schema %}
 {
@@ -27,7 +68,8 @@
   "tag": "section",
   "settings": [
     { "type": "checkbox", "id": "show_back_link", "label": "Pokaż link „Wróć do artykułów”", "default": true },
-    { "type": "range", "id": "max_width", "min": 600, "max": 900, "step": 10, "unit": "px", "label": "Szerokość treści", "default": 700 }
+    { "type": "range", "id": "max_width", "min": 600, "max": 900, "step": 10, "unit": "px", "label": "Szerokość treści (bez sekcji bocznej)", "default": 700 },
+    { "type": "paragraph", "content": "Sekcja boczna pojawia się OBOK treści, gdy wypełnisz metafields: custom.sidebar_tytul, custom.sidebar_produkt, custom.sidebar_tekst." }
   ],
   "presets": [{ "name": "MMW Treść wpisu" }]
 }
