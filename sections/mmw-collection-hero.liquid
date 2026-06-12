@@ -30,22 +30,21 @@
     display: flex; flex-direction: column; align-items: center; gap: 53px;
   }
   #shopify-section-{{ section.id }} .mmw-chero__logo { width: 270px; max-width: 70vw; }
-  #shopify-section-{{ section.id }} .mmw-chero__logo img { width: 100%; height: auto; display: block; }
+  #shopify-section-{{ section.id }} .mmw-chero__logo img,
+  #shopify-section-{{ section.id }} .mmw-chero__logo svg { width: 100%; height: auto; display: block; }
+  #shopify-section-{{ section.id }} .mmw-chero__heading {
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
   #shopify-section-{{ section.id }} .mmw-chero__title {
     margin: 0; font-family: var(--mmw-font-display); font-weight: 400;
     font-size: clamp(48px, 7vw, 80px); line-height: 0.97; color: var(--mmw-04);
     max-width: 620px;
   }
-  #shopify-section-{{ section.id }} .mmw-chero__sub {
-    font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4;
-    color: var(--mmw-04); max-width: 442px;
-  }
-  #shopify-section-{{ section.id }} .mmw-chero__sub p { margin: 0; }
-
+  /* hasło przewodnie pod H1 — jako zwykły tekst */
   #shopify-section-{{ section.id }} .mmw-chero__tagline {
-    font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px;
-    letter-spacing: var(--mmw-label-tracking); text-transform: uppercase;
-    color: var(--mmw-04); margin: 0;
+    font-family: var(--mmw-font-text); font-weight: 400; font-size: 16px;
+    line-height: 1.4; letter-spacing: normal; text-transform: none;
+    color: var(--mmw-04); max-width: 442px; margin: 0;
   }
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .mmw-chero { gap: 32px; padding: 60px 20px; }
@@ -66,13 +65,12 @@
     {%- if section.settings.logo != blank -%}
       <div class="mmw-chero__logo"><img src="{{ section.settings.logo | image_url: width: 540 }}" alt="{{ shop.name | escape }}"></div>
     {%- endif -%}
-    {%- if collection.metafields.custom.haslo_przewodnie != blank -%}
-      <p class="mmw-chero__tagline">{{ collection.metafields.custom.haslo_przewodnie }}</p>
-    {%- endif -%}
-    <h1 class="mmw-chero__title">{{ collection.title | default: 'Kolekcja' }}</h1>
-    {%- if section.settings.show_description and collection.description != blank -%}
-      <div class="mmw-chero__sub">{{ collection.description }}</div>
-    {%- endif -%}
+    <div class="mmw-chero__heading">
+      <h1 class="mmw-chero__title">{{ collection.title | default: 'Kolekcja' }}</h1>
+      {%- if collection.metafields.custom.haslo_przewodnie != blank -%}
+        <p class="mmw-chero__tagline">{{ collection.metafields.custom.haslo_przewodnie }}</p>
+      {%- endif -%}
+    </div>
   </div>
 </section>
 
@@ -83,7 +81,6 @@
   "settings": [
     { "type": "range", "id": "height", "min": 400, "max": 900, "step": 20, "unit": "px", "label": "Wysokość", "default": 720 },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Przyciemnienie", "default": 40 },
-    { "type": "checkbox", "id": "show_description", "label": "Pokaż opis kolekcji jako podtytuł", "default": true },
     { "type": "image_picker", "id": "logo", "label": "Logo/sygnet nad tytułem (opcjonalnie)" },
     { "type": "image_picker", "id": "fallback_image", "label": "Zdjęcie zastępcze (gdy kolekcja nie ma obrazka)" }
   ],

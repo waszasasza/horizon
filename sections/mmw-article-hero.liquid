@@ -1,0 +1,49 @@
+{%- comment -%}
+  mmw-article-hero — banner wpisu. Wspólny dla obu szablonów.
+  Tło = article.image, tytuł = article.title, data = article.published_at, logo = ustawienie.
+{%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-ahero {
+    position: relative; width: 100%; min-height: {{ section.settings.height }}px;
+    display: flex; flex-direction: column; gap: 53px; align-items: center; justify-content: center;
+    padding: 80px 20px; text-align: center; overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .mmw-ahero__bg { position: absolute; inset: 0; z-index: 0; }
+  #shopify-section-{{ section.id }} .mmw-ahero__bg img { width: 100%; height: 100%; object-fit: cover; }
+  #shopify-section-{{ section.id }} .mmw-ahero__bg::after { content:""; position:absolute; inset:0; background: rgba(0,0,0,{{ section.settings.overlay_opacity | divided_by: 100.0 }}); }
+  #shopify-section-{{ section.id }} .mmw-ahero__inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 53px; }
+  #shopify-section-{{ section.id }} .mmw-ahero__logo { width: 270px; max-width: 70vw; }
+  #shopify-section-{{ section.id }} .mmw-ahero__logo img, #shopify-section-{{ section.id }} .mmw-ahero__logo svg { width:100%; height:auto; display:block; }
+  #shopify-section-{{ section.id }} .mmw-ahero__title {
+    margin: 0; font-family: var(--mmw-font-display); font-weight: 400;
+    font-size: clamp(40px, 6vw, 80px); line-height: 0.97; color: var(--mmw-04); max-width: 620px;
+  }
+  #shopify-section-{{ section.id }} .mmw-ahero__date { font-family: var(--mmw-font-text); font-size: 16px; color: var(--mmw-04); }
+  @media (max-width: 749px){ #shopify-section-{{ section.id }} .mmw-ahero, #shopify-section-{{ section.id }} .mmw-ahero__inner { gap: 28px; } }
+{%- endstyle -%}
+<section class="mmw-ahero">
+  <div class="mmw-ahero__bg">
+    {%- if article.image -%}
+      <img src="{{ article.image | image_url: width: 2400 }}" alt="{{ article.title | escape }}" loading="eager" fetchpriority="high">
+    {%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
+  </div>
+  <div class="mmw-ahero__inner">
+    {%- if section.settings.logo != blank -%}
+      <div class="mmw-ahero__logo"><img src="{{ section.settings.logo | image_url: width: 540 }}" alt="{{ shop.name | escape }}"></div>
+    {%- endif -%}
+    <h1 class="mmw-ahero__title">{{ article.title }}</h1>
+    <p class="mmw-ahero__date">{{ article.published_at | date: '%d/%m/%Y' }}</p>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "MMW Hero wpisu",
+  "tag": "section",
+  "settings": [
+    { "type": "range", "id": "height", "min": 400, "max": 900, "step": 20, "unit": "px", "label": "Wysokość", "default": 720 },
+    { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Przyciemnienie", "default": 40 },
+    { "type": "image_picker", "id": "logo", "label": "Logo/sygnet nad tytułem (opcjonalnie)" }
+  ],
+  "presets": [{ "name": "MMW Hero wpisu" }]
+}
+{% endschema %}

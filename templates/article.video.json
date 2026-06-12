@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "hero": { "type": "mmw-article-hero", "settings": { "height": 720, "overlay_opacity": 40 } },
+    "video": { "type": "mmw-article-video", "settings": { "show_back_link": true } },
+    "products": { "type": "mmw-article-products", "settings": {} },
+    "body": { "type": "mmw-article-body", "settings": { "show_back_link": false, "max_width": 700 } },
+    "creator": { "type": "mmw-article-creator", "settings": { "label": "O twórcy" } },
+    "related": { "type": "mmw-related-posts", "settings": {} }
+  },
+  "order": ["hero", "video", "products", "body", "creator", "related"]
+}

@@ -1,0 +1,68 @@
+{%- comment -%}
+  mmw-article-video — sekcja vloga: intro (article.excerpt) + wideo.
+  Wideo z metafielda custom.wideo (URL): YouTube/Vimeo → iframe; inny URL → <video> (np. plik z Content→Files).
+{%- endcomment -%}
+{%- liquid
+  assign url = article.metafields.custom.wideo
+  assign url_s = url | downcase
+  assign is_youtube = false
+  assign is_vimeo = false
+  if url_s contains 'youtube.com' or url_s contains 'youtu.be'
+    assign is_youtube = true
+  elsif url_s contains 'vimeo.com'
+    assign is_vimeo = true
+  endif
+  assign yt_id = ''
+  if is_youtube
+    if url contains 'watch?v='
+      assign yt_id = url | split: 'v=' | last | split: '&' | first
+    else
+      assign yt_id = url | split: '/' | last | split: '?' | first
+    endif
+  endif
+  assign vm_id = ''
+  if is_vimeo
+    assign vm_id = url | split: 'vimeo.com/' | last | split: '?' | first | split: '/' | first
+  endif
+-%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-avid { display:flex; gap:200px; align-items:flex-start; justify-content:center; padding:50px 70px; max-width: var(--mmw-max-width, 1200px); margin-inline:auto; }
+  #shopify-section-{{ section.id }} .mmw-avid__text { display:flex; flex-direction:column; gap:20px; flex:1 1 0; min-width:0; max-width:638px; }
+  #shopify-section-{{ section.id }} .mmw-avid__back { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-decoration:none; }
+  #shopify-section-{{ section.id }} .mmw-avid__intro { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-avid__intro p { margin:0 0 12px; }
+  #shopify-section-{{ section.id }} .mmw-avid__media { flex:0 0 auto; width:273px; border-radius:25px; overflow:hidden; background: var(--mmw-04); aspect-ratio: 273 / 486; }
+  #shopify-section-{{ section.id }} .mmw-avid__media video, #shopify-section-{{ section.id }} .mmw-avid__media iframe { width:100%; height:100%; border:0; display:block; object-fit:cover; }
+  @media (max-width:989px){
+    #shopify-section-{{ section.id }} .mmw-avid { flex-direction:column; gap:32px; padding:40px 20px; align-items:center; }
+    #shopify-section-{{ section.id }} .mmw-avid__text { max-width:100%; }
+  }
+{%- endstyle -%}
+<section class="mmw-avid">
+  <div class="mmw-avid__text">
+    {%- if section.settings.show_back_link -%}<a class="mmw-avid__back" href="{{ blog.url | default: '/blogs/news' }}">&lt; Wróć do artykułów</a>{%- endif -%}
+    {%- if article.excerpt != blank -%}<div class="mmw-avid__intro rte">{{ article.excerpt }}</div>{%- endif -%}
+  </div>
+  {%- if url != blank -%}
+    <div class="mmw-avid__media">
+      {%- if is_youtube -%}
+        <iframe src="https://www.youtube.com/embed/{{ yt_id }}" title="{{ article.title | escape }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      {%- elsif is_vimeo -%}
+        <iframe src="https://player.vimeo.com/video/{{ vm_id }}" title="{{ article.title | escape }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      {%- else -%}
+        <video src="{{ url }}" controls playsinline preload="metadata"></video>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "MMW Wideo wpisu",
+  "tag": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_back_link", "label": "Pokaż link „Wróć do artykułów”", "default": true },
+    { "type": "paragraph", "content": "Wideo z metafielda artykułu: custom.wideo (URL). Wklej link YouTube/Vimeo albo URL pliku wideo (Content → Files). Tekst obok = zajawka wpisu (excerpt)." }
+  ],
+  "presets": [{ "name": "MMW Wideo wpisu" }]
+}
+{% endschema %}

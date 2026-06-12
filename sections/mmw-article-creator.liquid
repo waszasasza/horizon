@@ -1,0 +1,52 @@
+{%- comment -%}
+  mmw-article-creator — "O twórcy". Z metafields artykułu:
+  custom.tworca_imie (tekst), custom.tworca_bio (rich text), custom.tworca_tag (tekst), custom.tworca_zdjecie (plik/obraz).
+{%- endcomment -%}
+{%- liquid
+  assign imie = article.metafields.custom.tworca_imie
+  assign bio = article.metafields.custom.tworca_bio
+  assign tag = article.metafields.custom.tworca_tag
+  assign zdj = article.metafields.custom.tworca_zdjecie
+-%}
+{%- if imie != blank or bio != blank -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-crt { display:flex; gap:200px; align-items:center; justify-content:center; padding:60px 70px; max-width: var(--mmw-max-width, 1200px); margin-inline:auto; }
+  #shopify-section-{{ section.id }} .mmw-crt__text { display:flex; flex-direction:column; gap:20px; flex:1 1 457px; min-width:0; color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-crt__label { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-crt__name { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(40px,5vw,64px); line-height:1.1; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-crt__bio { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; }
+  #shopify-section-{{ section.id }} .mmw-crt__bio p { margin:0 0 10px; }
+  #shopify-section-{{ section.id }} .mmw-crt__tag { font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-crt__media { flex:0 0 524px; max-width:50%; border-radius:20px; overflow:hidden; }
+  #shopify-section-{{ section.id }} .mmw-crt__media img, #shopify-section-{{ section.id }} .mmw-crt__media svg { width:100%; height:100%; object-fit:cover; display:block; }
+  @media (max-width:989px){
+    #shopify-section-{{ section.id }} .mmw-crt { flex-direction:column; gap:32px; padding:40px 20px; }
+    #shopify-section-{{ section.id }} .mmw-crt__media { flex-basis:auto; max-width:100%; width:100%; }
+  }
+{%- endstyle -%}
+<section class="mmw-crt">
+  <div class="mmw-crt__text">
+    {%- if section.settings.label != blank -%}<p class="mmw-crt__label">{{ section.settings.label }}</p>{%- endif -%}
+    {%- if imie != blank -%}<p class="mmw-crt__name">{{ imie }}</p>{%- endif -%}
+    {%- if bio != blank -%}<div class="mmw-crt__bio rte">{{ bio | metafield_tag }}</div>{%- endif -%}
+    {%- if tag != blank -%}<p class="mmw-crt__tag">{{ tag }}</p>{%- endif -%}
+  </div>
+  {%- if zdj != blank -%}
+    <div class="mmw-crt__media">
+      {%- if zdj.value.url -%}<img src="{{ zdj | image_url: width: 1080 }}" alt="{{ imie | escape }}" loading="lazy">
+      {%- else -%}<img src="{{ zdj | file_url }}" alt="{{ imie | escape }}" loading="lazy">{%- endif -%}
+    </div>
+  {%- endif -%}
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "MMW O twórcy",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Etykieta", "default": "O twórcy" },
+    { "type": "paragraph", "content": "Dane z metafields artykułu: custom.tworca_imie, custom.tworca_bio (rich text), custom.tworca_tag, custom.tworca_zdjecie." }
+  ],
+  "presets": [{ "name": "MMW O twórcy" }]
+}
+{% endschema %}

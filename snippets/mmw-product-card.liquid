@@ -1,0 +1,25 @@
+{%- comment -%}
+  mmw-product-card — reużywalna karta produktu w stylu MMW.
+  Użycie: {% render 'mmw-product-card', product: product %}
+  Badge "NOWOŚĆ" pokazuje się, gdy produkt ma tag: nowość / nowosc.
+{%- endcomment -%}
+{%- liquid
+  assign is_new = false
+  if product.tags contains 'nowość' or product.tags contains 'nowosc' or product.tags contains 'Nowość'
+    assign is_new = true
+  endif
+-%}
+<a class="mmw-pcard" href="{{ product.url }}">
+  <div class="mmw-pcard__media">
+    {%- if product.featured_image -%}
+      <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="271" height="290">
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag }}
+    {%- endif -%}
+    {%- if is_new -%}<span class="mmw-pcard__badge">Nowość</span>{%- endif -%}
+  </div>
+  <div class="mmw-pcard__info">
+    <span class="mmw-pcard__name">{{ product.title }}</span>
+    <span class="mmw-pcard__price">{{ product.price | money }}</span>
+  </div>
+</a>

@@ -1,40 +1,30 @@
 {%- comment -%}
-  mmw-heritage-note — „Szacunek do historii". Tekst stały (ten sam dla wszystkich kolekcji),
-  edytowany w ustawieniach sekcji.
+  mmw-heritage-note — blok tekstu SEO na dole kolekcji.
+  Treść z metafielda: custom.seo_tekst (rich text), renderowana w natywnym .rte.
+  Bez nagłówka — sam rich text ze stylami sklepu.
 {%- endcomment -%}
-{%- style -%}
-  #shopify-section-{{ section.id }} .mmw-heritage {
-    display: flex; justify-content: center; padding: 64px 50px;
-    font-family: var(--mmw-font-text); color: var(--mmw-01);
-  }
-  #shopify-section-{{ section.id }} .mmw-heritage__inner {
-    display: flex; flex-direction: column; gap: 20px; align-items: center;
-    text-align: center; max-width: 1016px;
-  }
-  #shopify-section-{{ section.id }} .mmw-heritage__head {
-    font-family: var(--mmw-font-label); font-weight: 700; font-size: 24px;
-    letter-spacing: 3.6px; text-transform: uppercase; margin: 0;
-  }
-  #shopify-section-{{ section.id }} .mmw-heritage__text { font-size: 18px; line-height: 1.5; }
-  #shopify-section-{{ section.id }} .mmw-heritage__text p { margin: 0 0 6px; }
-  @media (max-width: 749px) { #shopify-section-{{ section.id }} .mmw-heritage { padding: 40px 20px; } }
-{%- endstyle -%}
-<section class="mmw-heritage">
-  <div class="mmw-heritage__inner">
-    {%- if section.settings.heading != blank -%}<p class="mmw-heritage__head">{{ section.settings.heading }}</p>{%- endif -%}
-    {%- assign seo = collection.metafields.custom.seo_tekst -%}
-    {%- if seo == blank -%}{%- assign seo = section.settings.text -%}{%- endif -%}
-    {%- if seo != blank -%}<div class="mmw-heritage__text">{{ seo }}</div>{%- endif -%}
-  </div>
-</section>
+{%- liquid
+  assign seo = collection.metafields.custom.seo_tekst
+-%}
+{%- if seo != blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .mmw-heritage {
+      display: flex; justify-content: center; padding: 64px 50px; color: var(--mmw-01);
+    }
+    #shopify-section-{{ section.id }} .mmw-heritage .rte { max-width: 1016px; text-align: center; color: var(--mmw-01); }
+    @media (max-width: 749px) { #shopify-section-{{ section.id }} .mmw-heritage { padding: 40px 20px; } }
+  {%- endstyle -%}
+  <section class="mmw-heritage">
+    <div class="rte">{{ seo | metafield_tag }}</div>
+  </section>
+{%- endif -%}
 {% schema %}
 {
-  "name": "MMW Szacunek",
+  "name": "MMW SEO Tekst",
   "tag": "section",
   "settings": [
-    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Szacunek do historii" },
-    { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Majątek Mała Wieś to miejsce, w którym historia nie jest wspomnieniem, lecz codzienną inspiracją. W pałacowych ogrodach, sadach i winnicy powstają produkty tworzone z szacunkiem dla natury, lokalnego rzemiosła i wielopokoleniowego dziedzictwa.</p>" }
+    { "type": "paragraph", "content": "Treść z metafielda kolekcji: custom.seo_tekst (rich text). Bez nagłówka — sam tekst." }
   ],
-  "presets": [{ "name": "MMW Szacunek" }]
+  "presets": [{ "name": "MMW SEO Tekst" }]
 }
 {% endschema %}

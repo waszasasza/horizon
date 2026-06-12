@@ -1,0 +1,58 @@
+{%- comment -%}
+  mmw-related-posts — "Zobacz również". Inne wpisy z bieżącego bloga (bez aktualnego) + przycisk.
+{%- endcomment -%}
+{%- liquid
+  assign limit = section.settings.count
+-%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-rel { display:flex; flex-direction:column; align-items:center; gap:71px; padding:50px 70px; }
+  #shopify-section-{{ section.id }} .mmw-rel__container { display:flex; flex-direction:column; gap:38px; width:100%; padding:0 60px; }
+  #shopify-section-{{ section.id }} .mmw-rel__head { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-rel__list { display:flex; gap:50px; justify-content:center; flex-wrap:wrap; }
+  #shopify-section-{{ section.id }} .mmw-rel__card { display:flex; flex-direction:column; gap:13px; width:355px; max-width:100%; text-decoration:none; }
+  #shopify-section-{{ section.id }} .mmw-rel__img { width:100%; aspect-ratio: 355 / 429; border-radius:13px; overflow:hidden; }
+  #shopify-section-{{ section.id }} .mmw-rel__img img, #shopify-section-{{ section.id }} .mmw-rel__img svg { width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .mmw-rel__date { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-rel__title { font-family: var(--mmw-font-display); font-weight:400; font-size:36px; line-height:1; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-rel__excerpt { font-family: var(--mmw-font-text); font-size:18px; line-height:1.4; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-rel__btn { display:inline-flex; align-items:center; justify-content:center; background: var(--mmw-03); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:20px 45px; border-radius:30px; text-decoration:none; }
+  @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-rel { padding:40px 20px; } #shopify-section-{{ section.id }} .mmw-rel__container { padding:0; } }
+{%- endstyle -%}
+<section class="mmw-rel">
+  <div class="mmw-rel__container">
+    <p class="mmw-rel__head">{{ section.settings.heading }}</p>
+    <div class="mmw-rel__list">
+      {%- assign shown = 0 -%}
+      {%- for post in blog.articles -%}
+        {%- unless post.id == article.id -%}
+          {%- if shown < limit -%}
+            <a class="mmw-rel__card" href="{{ post.url }}">
+              <div class="mmw-rel__img">
+                {%- if post.image -%}<img src="{{ post.image | image_url: width: 720 }}" alt="{{ post.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
+              </div>
+              <p class="mmw-rel__date">{{ post.published_at | date: '%d/%m/%Y' }}</p>
+              <p class="mmw-rel__title">{{ post.title }}</p>
+              <p class="mmw-rel__excerpt">{{ post.excerpt_or_content | strip_html | truncatewords: 14 }}</p>
+            </a>
+            {%- assign shown = shown | plus: 1 -%}
+          {%- endif -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- if section.settings.button_label != blank -%}
+    <a class="mmw-rel__btn" href="{{ blog.url | default: '/blogs/news' }}">{{ section.settings.button_label }}</a>
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "MMW Zobacz również",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zobacz również" },
+    { "type": "range", "id": "count", "min": 2, "max": 4, "step": 1, "label": "Ile wpisów", "default": 3 },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Wróć do wszystkich wpisów" }
+  ],
+  "presets": [{ "name": "MMW Zobacz również" }]
+}
+{% endschema %}
