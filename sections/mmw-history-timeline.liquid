@@ -1,0 +1,64 @@
+{%- comment -%}
+  mmw-history-timeline — "Nasza historia".
+  Górny rząd zdjęć (bloki typu "photo") + dolna oś czasu z poziomym scrollem (bloki typu "year": rok + opis).
+{%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-tl { display:flex; flex-direction:column; gap:30px; padding-block:50px; padding-inline: var(--page-margin, 40px); }
+  #shopify-section-{{ section.id }} .mmw-tl__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-align:center; margin:0; }
+  /* poziomy scroll: rząd zdjęć i oś lat */
+  #shopify-section-{{ section.id }} .mmw-tl__scroll { display:flex; gap:60px; overflow-x:auto; scroll-snap-type:x proximity; padding-bottom:8px; -webkit-overflow-scrolling:touch; }
+  #shopify-section-{{ section.id }} .mmw-tl__scroll::-webkit-scrollbar { height:6px; }
+  #shopify-section-{{ section.id }} .mmw-tl__scroll::-webkit-scrollbar-thumb { background: var(--mmw-01); border-radius:3px; opacity:.4; }
+  #shopify-section-{{ section.id }} .mmw-tl__photo { flex:0 0 410px; max-width:80vw; height:420px; border-radius:20px; overflow:hidden; scroll-snap-align:start; }
+  #shopify-section-{{ section.id }} .mmw-tl__photo img, #shopify-section-{{ section.id }} .mmw-tl__photo svg { width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .mmw-tl__line { height:2px; background: var(--mmw-01); opacity:.5; width:100%; }
+  #shopify-section-{{ section.id }} .mmw-tl__year { flex:0 0 410px; max-width:80vw; display:flex; flex-direction:column; gap:8px; color: var(--mmw-01); scroll-snap-align:start; }
+  #shopify-section-{{ section.id }} .mmw-tl__year-num { font-family: var(--mmw-font-display); font-weight:400; font-size:64px; line-height:1.1; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-tl__year-text { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; margin:0; }
+  @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-tl__scroll { gap:24px; } }
+{%- endstyle -%}
+<section class="mmw-tl">
+  {%- if section.settings.eyebrow != blank -%}<p class="mmw-tl__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+
+  {%- assign photos = section.blocks | where: 'type', 'photo' -%}
+  {%- if photos.size > 0 -%}
+    <div class="mmw-tl__scroll">
+      {%- for block in photos -%}
+        <div class="mmw-tl__photo" {{ block.shopify_attributes }}>
+          {%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="mmw-tl__line"></div>
+
+  {%- assign years = section.blocks | where: 'type', 'year' -%}
+  {%- if years.size > 0 -%}
+    <div class="mmw-tl__scroll">
+      {%- for block in years -%}
+        <div class="mmw-tl__year" {{ block.shopify_attributes }}>
+          <p class="mmw-tl__year-num">{{ block.settings.year }}</p>
+          <p class="mmw-tl__year-text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "MMW Historia oś",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Nasza historia" }
+  ],
+  "blocks": [
+    { "type": "photo", "name": "Zdjęcie (górny rząd)", "settings": [ { "type": "image_picker", "id": "image", "label": "Zdjęcie" } ] },
+    { "type": "year", "name": "Rok (oś czasu)", "settings": [
+        { "type": "text", "id": "year", "label": "Rok", "default": "1989" },
+        { "type": "textarea", "id": "text", "label": "Opis" }
+    ] }
+  ],
+  "presets": [{ "name": "MMW Historia oś", "blocks": [ {"type":"photo"},{"type":"photo"},{"type":"photo"},{"type":"photo"},{"type":"year"},{"type":"year"},{"type":"year"},{"type":"year"} ] }]
+}
+{% endschema %}

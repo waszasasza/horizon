@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "hero": {
+      "type": "mmw-history-hero",
+      "settings": {}
+    },
+    "timeline": {
+      "type": "mmw-history-timeline",
+      "settings": {}
+    },
+    "philosophy": {
+      "type": "mmw-history-philosophy",
+      "settings": {}
+    },
+    "process": {
+      "type": "mmw-process",
+      "settings": {}
+    },
+    "brands": {
+      "type": "mmw-brands",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "timeline",
+    "philosophy",
+    "process",
+    "brands"
+  ]
+}

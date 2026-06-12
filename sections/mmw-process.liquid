@@ -1,0 +1,22 @@
+{%- comment -%} mmw-process — "Proces produkcyjny": eyebrow + rich text (style sklepu). {%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-proc { display:flex; flex-direction:column; gap:30px; align-items:center; text-align:center; padding-block:40px; padding-inline: var(--page-margin, 40px); color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-proc__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-proc__text { font-family: var(--mmw-font-text); font-size:18px; line-height:1.6; max-width:750px; }
+  #shopify-section-{{ section.id }} .mmw-proc__text p { margin:0 0 1em; }
+{%- endstyle -%}
+<section class="mmw-proc">
+  {%- if section.settings.eyebrow != blank -%}<p class="mmw-proc__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.text != blank -%}<div class="mmw-proc__text rte">{{ section.settings.text }}</div>{%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "MMW Proces",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Proces produkcyjny" },
+    { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Opisz proces produkcyjny…</p>" }
+  ],
+  "presets": [{ "name": "MMW Proces" }]
+}
+{% endschema %}
