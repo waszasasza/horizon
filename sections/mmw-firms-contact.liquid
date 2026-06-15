@@ -1,0 +1,83 @@
+{%- comment -%}
+  mmw-firms-contact — działy kontaktowe (bloki: tytuł + linie) + formularz {% form 'contact' %}.
+  Formularz wysyła wiadomość na adres e-mail sklepu (Shopify natywnie).
+{%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-fc { display:flex; gap:110px; align-items:flex-start; justify-content:center; padding:50px 20px; flex-wrap:wrap; }
+  #shopify-section-{{ section.id }} .mmw-fc__depts { display:flex; flex-direction:column; gap:36px; color: var(--mmw-01); max-width:341px; }
+  #shopify-section-{{ section.id }} .mmw-fc__dept { display:flex; flex-direction:column; gap:10px; }
+  #shopify-section-{{ section.id }} .mmw-fc__dept-name { font-family: var(--mmw-font-display); font-weight:400; font-size:36px; line-height:1; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-fc__dept-lines { display:flex; flex-direction:column; gap:3px; font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; }
+  #shopify-section-{{ section.id }} .mmw-fc__dept-lines p { margin:0; }
+
+  #shopify-section-{{ section.id }} .mmw-fc__form-wrap { position:relative; border-radius:20px; overflow:hidden; padding:40px; background: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-fc__form-inner { position:relative; z-index:1; display:flex; flex-direction:column; gap:42px; align-items:center; width:537px; max-width:100%; }
+  #shopify-section-{{ section.id }} .mmw-fc__form-title { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(40px,5vw,64px); line-height:1.1; color: var(--mmw-04); text-align:center; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-fc__fields { display:flex; flex-direction:column; gap:18px; width:100%; }
+  #shopify-section-{{ section.id }} .mmw-fc__input, #shopify-section-{{ section.id }} .mmw-fc__textarea {
+    width:100%; border:1px solid var(--mmw-04); background:transparent; color: var(--mmw-04);
+    font-family: var(--mmw-font-text); font-size:14px; padding:18px 28px;
+  }
+  #shopify-section-{{ section.id }} .mmw-fc__input { border-radius:100px; }
+  #shopify-section-{{ section.id }} .mmw-fc__textarea { border-radius:29px; min-height:228px; resize:vertical; }
+  #shopify-section-{{ section.id }} .mmw-fc__input::placeholder, #shopify-section-{{ section.id }} .mmw-fc__textarea::placeholder { color: var(--mmw-04); opacity:.8; }
+  #shopify-section-{{ section.id }} .mmw-fc__btn { width:100%; border:none; cursor:pointer; background: var(--mmw-03); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:20px; border-radius:70px; }
+  #shopify-section-{{ section.id }} .mmw-fc__note { font-family: var(--mmw-font-label); font-weight:700; font-size:16px; letter-spacing:1.6px; text-transform:uppercase; color: var(--mmw-04); text-align:center; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-fc__ok { color: var(--mmw-04); font-family: var(--mmw-font-text); text-align:center; }
+  @media (max-width:989px){ #shopify-section-{{ section.id }} .mmw-fc { gap:40px; } #shopify-section-{{ section.id }} .mmw-fc__form-inner { width:100%; } }
+{%- endstyle -%}
+<section class="mmw-fc">
+  {%- if section.blocks.size > 0 -%}
+    <div class="mmw-fc__depts">
+      {%- for block in section.blocks -%}
+        <div class="mmw-fc__dept" {{ block.shopify_attributes }}>
+          {%- if block.settings.name != blank -%}<p class="mmw-fc__dept-name">{{ block.settings.name }}</p>{%- endif -%}
+          <div class="mmw-fc__dept-lines">
+            {%- if block.settings.line1 != blank -%}<p>{{ block.settings.line1 }}</p>{%- endif -%}
+            {%- if block.settings.line2 != blank -%}<p>{{ block.settings.line2 }}</p>{%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div class="mmw-fc__form-wrap">
+    <div class="mmw-fc__form-inner">
+      {%- if section.settings.form_title != blank -%}<p class="mmw-fc__form-title">{{ section.settings.form_title }}</p>{%- endif -%}
+      {% form 'contact' %}
+        {%- if form.posted_successfully? -%}
+          <p class="mmw-fc__ok">{{ section.settings.success_text }}</p>
+        {%- else -%}
+          <div class="mmw-fc__fields">
+            <input class="mmw-fc__input" type="text" name="contact[name]" placeholder="Imię i Nazwisko" required>
+            <input class="mmw-fc__input" type="email" name="contact[email]" placeholder="Email address" required>
+            <textarea class="mmw-fc__textarea" name="contact[body]" placeholder="Wiadomość" required></textarea>
+            <button class="mmw-fc__btn" type="submit">{{ section.settings.button_label }}</button>
+          </div>
+          {%- if section.settings.note != blank -%}<p class="mmw-fc__note">{{ section.settings.note }}</p>{%- endif -%}
+          {%- if form.errors -%}<p class="mmw-fc__ok">{{ form.errors | default_errors }}</p>{%- endif -%}
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "MMW Kontakt firmy",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "form_title", "label": "Tytuł formularza", "default": "Formularz kontaktowy" },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Wyślij wiadomość" },
+    { "type": "text", "id": "note", "label": "Notka pod przyciskiem", "default": "Odpowiemy na Państwa wiadomość najszybciej jak się da" },
+    { "type": "text", "id": "success_text", "label": "Tekst po wysłaniu", "default": "Dziękujemy! Wiadomość została wysłana." }
+  ],
+  "blocks": [
+    { "type": "dept", "name": "Dział", "settings": [
+        { "type": "text", "id": "name", "label": "Nazwa działu", "default": "Dział sprzedaży" },
+        { "type": "text", "id": "line1", "label": "Linia 1 (telefon)", "default": "+48 604 490 109" },
+        { "type": "text", "id": "line2", "label": "Linia 2 (e-mail)", "default": "sklep@majatekmalawies.pl" }
+    ] }
+  ],
+  "presets": [{ "name": "MMW Kontakt firmy", "blocks": [ {"type":"dept"},{"type":"dept"},{"type":"dept"} ] }]
+}
+{% endschema %}

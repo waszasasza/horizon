@@ -1,0 +1,22 @@
+{%- comment -%} mmw-firms-intro — eyebrow + duży tekst (jak intro kolekcji), treść z ustawień. {%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-fintro { display:flex; flex-direction:column; align-items:center; gap:30px; padding:100px 20px; text-align:center; color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-fintro__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-fintro__text { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(34px,4.4vw,64px); line-height:1.1; max-width:1016px; margin:0; }
+  @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-fintro { padding:56px 20px; } }
+{%- endstyle -%}
+<section class="mmw-fintro">
+  {%- if section.settings.eyebrow != blank -%}<p class="mmw-fintro__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.text != blank -%}<p class="mmw-fintro__text">{{ section.settings.text }}</p>{%- endif -%}
+</section>
+{% schema %}
+{
+  "name": "MMW Dla Firm intro",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Dla Firm" },
+    { "type": "textarea", "id": "text", "label": "Duży tekst", "default": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół. Nasze produkty łączą szlachetność tradycji." }
+  ],
+  "presets": [{ "name": "MMW Dla Firm intro" }]
+}
+{% endschema %}

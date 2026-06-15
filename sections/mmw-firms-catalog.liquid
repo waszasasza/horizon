@@ -1,0 +1,74 @@
+{%- comment -%}
+  mmw-firms-catalog — "Katalog online" (lead magnet).
+  Pole e-mail przez natywny {% form 'customer' %} (mail trafia do listy marketingowej Shopify).
+  Po zapisie pokazuje link do pobrania PDF. PDF wgrywasz w ustawieniach sekcji (Content → Files).
+{%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-cat { display:flex; justify-content:center; padding:50px 20px; }
+  #shopify-section-{{ section.id }} .mmw-cat__box { display:flex; gap:49px; align-items:center; max-width: var(--mmw-article-width, 1240px); width:100%; border:2px solid var(--mmw-01); border-radius:20px; padding:40px; }
+  #shopify-section-{{ section.id }} .mmw-cat__media { flex:0 0 585px; max-width:50%; height:429px; border-radius:20px; overflow:hidden; }
+  #shopify-section-{{ section.id }} .mmw-cat__media img, #shopify-section-{{ section.id }} .mmw-cat__media svg { width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .mmw-cat__content { flex:1 1 0; min-width:0; display:flex; flex-direction:column; gap:40px; }
+  #shopify-section-{{ section.id }} .mmw-cat__title { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(36px,4vw,64px); line-height:1.1; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-cat__desc { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; color: var(--mmw-01); margin:8px 0 0; }
+  #shopify-section-{{ section.id }} .mmw-cat__label { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0 0 7px; }
+  #shopify-section-{{ section.id }} .mmw-cat__form { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  #shopify-section-{{ section.id }} .mmw-cat__input { flex:1 1 0; min-width:160px; border:1px solid var(--mmw-01); border-radius:50px; padding:18px 24px; background:transparent; color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; }
+  #shopify-section-{{ section.id }} .mmw-cat__input::placeholder { color: var(--mmw-01); opacity:.7; }
+  #shopify-section-{{ section.id }} .mmw-cat__btn { border:none; cursor:pointer; background: var(--mmw-02); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; }
+  #shopify-section-{{ section.id }} .mmw-cat__success { display:flex; flex-direction:column; gap:14px; }
+  #shopify-section-{{ section.id }} .mmw-cat__download { display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; background: var(--mmw-01); color: var(--mmw-04); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; text-decoration:none; }
+  #shopify-section-{{ section.id }} .mmw-cat__note { font-family: var(--mmw-font-text); font-size:15px; color: var(--mmw-01); }
+  @media (max-width:989px){
+    #shopify-section-{{ section.id }} .mmw-cat__box { flex-direction:column; gap:28px; padding:24px; }
+    #shopify-section-{{ section.id }} .mmw-cat__media { flex-basis:auto; max-width:100%; width:100%; height:280px; }
+  }
+{%- endstyle -%}
+<section class="mmw-cat">
+  <div class="mmw-cat__box">
+    <div class="mmw-cat__media">{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+    <div class="mmw-cat__content">
+      <div>
+        {%- if section.settings.title != blank -%}<p class="mmw-cat__title">{{ section.settings.title }}</p>{%- endif -%}
+        {%- if section.settings.desc != blank -%}<p class="mmw-cat__desc">{{ section.settings.desc }}</p>{%- endif -%}
+      </div>
+
+      {%- assign pdf = section.settings.pdf -%}
+      {% form 'customer' %}
+        {%- if form.posted_successfully? -%}
+          <div class="mmw-cat__success">
+            <p class="mmw-cat__label">{{ section.settings.success_text }}</p>
+            {%- if pdf != blank -%}
+              <a class="mmw-cat__download" href="{{ pdf }}" download target="_blank" rel="noopener">{{ section.settings.download_label }}</a>
+            {%- endif -%}
+          </div>
+        {%- else -%}
+          {%- if section.settings.field_label != blank -%}<p class="mmw-cat__label">{{ section.settings.field_label }}</p>{%- endif -%}
+          <input type="hidden" name="contact[tags]" value="katalog-b2b">
+          <div class="mmw-cat__form">
+            <input class="mmw-cat__input" type="email" name="contact[email]" placeholder="Adres e-mail" required>
+            <button class="mmw-cat__btn" type="submit">{{ section.settings.button_label }}</button>
+          </div>
+          {%- if form.errors -%}<p class="mmw-cat__note">{{ form.errors | default_errors }}</p>{%- endif -%}
+        {%- endif -%}
+      {% endform %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "MMW Katalog PDF",
+  "tag": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+    { "type": "text", "id": "title", "label": "Tytuł", "default": "Katalog online" },
+    { "type": "textarea", "id": "desc", "label": "Opis", "default": "Pobierz naszą całą ofertę w postaci PDF, aby mieć dostęp do wszystkich informacji w jednym miejscu!" },
+    { "type": "text", "id": "field_label", "label": "Etykieta nad polem", "default": "Wpisz swój adres e-mail, aby pobrać" },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Pobierz" },
+    { "type": "url", "id": "pdf", "label": "Plik PDF (wgraj w Content → Files, wklej URL)" },
+    { "type": "text", "id": "success_text", "label": "Tekst po zapisie", "default": "Dziękujemy! Twój katalog jest gotowy do pobrania:" },
+    { "type": "text", "id": "download_label", "label": "Tekst przycisku pobrania", "default": "Pobierz katalog PDF" }
+  ],
+  "presets": [{ "name": "MMW Katalog PDF" }]
+}
+{% endschema %}

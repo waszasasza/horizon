@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "hero": { "type": "mmw-firms-hero", "settings": {} },
+    "intro": { "type": "mmw-firms-intro", "settings": {} },
+    "catalog": { "type": "mmw-firms-catalog", "settings": {} },
+    "offer": { "type": "mmw-brands", "settings": {} },
+    "contact": { "type": "mmw-firms-contact", "settings": {} }
+  },
+  "order": ["hero", "intro", "catalog", "offer", "contact"]
+}
