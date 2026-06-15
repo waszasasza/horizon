@@ -231,6 +231,43 @@
 {%- endcomment -%}
 
   :root { --mmw-article-width: 1240px; }
+{%- comment -%}
+  Menu Horizona — font Bicyclette uppercase + chevron dla pozycji z rozwijanym menu.
+  Chevron pojawia się TYLKO przy pozycjach, które mają zagnieżdżone linki (aria-haspopup="true")
+  — czyli automatycznie przy "Nasze Marki" i każdym kolejnym dropdownie, który dodasz w menu Shopify.
+{%- endcomment -%}
+
+  /* FONT: tylko górne pozycje menu (submenu/mega-menu zostają w swoim foncie) */
+  .menu-list__link,
+  .menu-list__link-title,
+  .menu-list__item {
+    font-family: var(--mmw-font-label) !important;
+    text-transform: uppercase !important;
+    letter-spacing: var(--mmw-label-tracking, 1.98px) !important;
+    font-weight: 700 !important;
+  }
+
+  /* CHEVRON: tylko pozycje z rozwijanym menu */
+  .menu-list__link[aria-haspopup="true"] .menu-list__link-title {
+    display: inline-flex;
+    align-items: center;
+  }
+  .menu-list__link[aria-haspopup="true"] .menu-list__link-title::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-left: 9px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform .2s ease;
+  }
+  /* obrót strzałki, gdy menu otwarte (jeśli Horizon ustawia aria-expanded) */
+  .menu-list__link[aria-expanded="true"] .menu-list__link-title::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
 
 
 </style>
