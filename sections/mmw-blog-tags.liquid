@@ -1,0 +1,47 @@
+{%- comment -%}
+  mmw-blog-tags — wszystkie tagi bloga jako klikalne filtry (klastry tematyczne).
+  Pokazuje blog.all_tags; aktywny tag (gdy jesteś na /tagged/...) jest podświetlony.
+  "Wszystkie" czyści filtr (wraca do bloga). Wstaw na blog.json (nad listą wpisów).
+{%- endcomment -%}
+{%- if blog.all_tags.size > 0 -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-btags { display:flex; flex-direction:column; gap:20px; align-items:center; padding-block:30px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
+  #shopify-section-{{ section.id }} .mmw-btags__label { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; text-align:center; }
+  #shopify-section-{{ section.id }} .mmw-btags__list { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  #shopify-section-{{ section.id }} .mmw-btags__tag {
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+    color: var(--mmw-01); background: var(--mmw-04); border:1px solid var(--mmw-01);
+    padding:11px 24px; border-radius:50px; text-decoration:none; transition: background .2s ease, color .2s ease;
+  }
+  #shopify-section-{{ section.id }} .mmw-btags__tag:hover { background: var(--mmw-03); }
+  #shopify-section-{{ section.id }} .mmw-btags__tag.is-active { background: var(--mmw-01); color: var(--mmw-04); }
+{%- endstyle -%}
+<section class="mmw-btags">
+  {%- if section.settings.label != blank -%}<p class="mmw-btags__label">{{ section.settings.label }}</p>{%- endif -%}
+  <div class="mmw-btags__list">
+    {%- if section.settings.show_all -%}
+      <a class="mmw-btags__tag {% if current_tags == blank %}is-active{% endif %}" href="{{ blog.url }}">{{ section.settings.all_label }}</a>
+    {%- endif -%}
+    {%- for tag in blog.all_tags -%}
+      {%- if current_tags contains tag -%}
+        <a class="mmw-btags__tag is-active" href="{{ blog.url }}">{{ tag }}</a>
+      {%- else -%}
+        <a class="mmw-btags__tag" href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag }}</a>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "MMW Tagi bloga",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Nagłówek", "default": "Tematy" },
+    { "type": "checkbox", "id": "show_all", "label": "Pokaż „Wszystkie” (czyści filtr)", "default": true },
+    { "type": "text", "id": "all_label", "label": "Tekst „Wszystkie”", "default": "Wszystkie" }
+  ],
+  "presets": [{ "name": "MMW Tagi bloga" }]
+}
+{% endschema %}

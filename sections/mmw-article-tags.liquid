@@ -1,0 +1,37 @@
+{%- comment -%}
+  mmw-article-tags — klikalne tagi pojedynczego wpisu.
+  Każdy tag linkuje do /blogs/{handle}/tagged/{tag} (lista wpisów z tym tagiem = klaster tematyczny).
+  Wstaw w szablonie article.json / article.video.json (np. między body a related).
+{%- endcomment -%}
+{%- if article.tags.size > 0 -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-atags { display:flex; flex-direction:column; gap:18px; align-items:center; padding-block:30px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
+  #shopify-section-{{ section.id }} .mmw-atags__label { font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-atags__list { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
+  #shopify-section-{{ section.id }} .mmw-atags__tag {
+    display:inline-flex; align-items:center; justify-content:center;
+    font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+    color: var(--mmw-01); background: var(--mmw-04); border:1px solid var(--mmw-01);
+    padding:10px 22px; border-radius:50px; text-decoration:none; transition: background .2s ease, color .2s ease;
+  }
+  #shopify-section-{{ section.id }} .mmw-atags__tag:hover { background: var(--mmw-01); color: var(--mmw-04); }
+{%- endstyle -%}
+<section class="mmw-atags">
+  {%- if section.settings.label != blank -%}<p class="mmw-atags__label">{{ section.settings.label }}</p>{%- endif -%}
+  <div class="mmw-atags__list">
+    {%- for tag in article.tags -%}
+      <a class="mmw-atags__tag" href="{{ blog.url }}/tagged/{{ tag | handleize }}">{{ tag }}</a>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "MMW Tagi wpisu",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Etykieta nad tagami", "default": "Tematy" }
+  ],
+  "presets": [{ "name": "MMW Tagi wpisu" }]
+}
+{% endschema %}
