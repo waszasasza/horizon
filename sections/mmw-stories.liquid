@@ -120,6 +120,15 @@
       text-align: center;
     }
   }
+  #shopify-section-{{ section.id }} .mmw-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (max-width: 1439px) {
+  #shopify-section-{{ section.id }} .mmw-wrap { max-width: 1080px; }
+}
 {%- endstyle -%}
 
 <section class="mmw-stories">
