@@ -5,7 +5,7 @@
 {%- endcomment -%}
 {%- if article.tags.size > 0 -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-atags { display:flex; flex-direction:column; gap:18px; align-items:center; padding-block:30px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
+  #shopify-section-{{ section.id }} .mmw-atags { display:flex; flex-direction:column; gap:18px; align-items:center; padding-block:30px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); border-top:1px solid rgba(95,49,47,.15); border-bottom:1px solid rgba(95,49,47,.15); }
   #shopify-section-{{ section.id }} .mmw-atags__label { font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; color: var(--mmw-01); margin:0; }
   #shopify-section-{{ section.id }} .mmw-atags__list { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; }
   #shopify-section-{{ section.id }} .mmw-atags__tag {
