@@ -88,9 +88,15 @@
   }
   .mmw-wrap {
   width: 100%;
-  max-width: var(--mmw-max-width);
-  margin-inline: auto;   /* centruje */
+  
+
+}
+@media (max-width: 1439px) {
+  .mmw-wrap {
+    max-width: var(--mmw-max-width);
+    margin-inline: auto;   /* centruje */
   padding-inline: 20px;  /* gutter na wąskich ekranach */
+  }
 }
 
 {%- comment -%}
