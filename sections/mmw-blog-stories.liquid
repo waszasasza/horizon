@@ -11,7 +11,8 @@
   #shopify-section-{{ section.id }} .mmw-bst__desc { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; margin:0; }
   #shopify-section-{{ section.id }} .mmw-bst__grid { display:flex; gap:38px; flex-wrap:wrap; justify-content:center; }
   #shopify-section-{{ section.id }} .mmw-bst__card { position:relative; width:273px; aspect-ratio: 273 / 486; border-radius:25px; overflow:hidden; background: var(--mmw-04); }
-  #shopify-section-{{ section.id }} .mmw-bst__card img, #shopify-section-{{ section.id }} .mmw-bst__card video, #shopify-section-{{ section.id }} .mmw-bst__card svg { width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .mmw-bst__media { position:absolute; inset:0; }
+  #shopify-section-{{ section.id }} .mmw-bst__media > *, #shopify-section-{{ section.id }} .mmw-bst__media video, #shopify-section-{{ section.id }} .mmw-bst__media iframe, #shopify-section-{{ section.id }} .mmw-bst__media img, #shopify-section-{{ section.id }} .mmw-bst__media svg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; border:0; }
   #shopify-section-{{ section.id }} .mmw-bst__chip { position:absolute; left:13px; right:13px; bottom:13px; background: var(--mmw-01); border-radius:15px; padding:8px; display:flex; gap:10px; align-items:center; text-decoration:none; }
   #shopify-section-{{ section.id }} .mmw-bst__chip-img { width:51px; height:58px; border-radius:11px; overflow:hidden; flex-shrink:0; background: var(--mmw-04); }
   #shopify-section-{{ section.id }} .mmw-bst__chip-img img { width:100%; height:100%; object-fit:cover; }
@@ -32,11 +33,13 @@
     {%- for block in section.blocks -%}
       {%- assign prod = block.settings.product -%}
       <div class="mmw-bst__card" {{ block.shopify_attributes }}>
-        {%- if block.settings.video_url != blank -%}
-          <video src="{{ block.settings.video_url }}" autoplay muted loop playsinline preload="metadata"></video>
-        {%- elsif block.settings.image -%}
-          <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ prod.title | default: 'Story' | escape }}" loading="lazy">
-        {%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
+        <div class="mmw-bst__media">
+          {%- if block.settings.video != blank -%}
+            {% render 'video', video: block.settings.video, video_autoplay: block.settings.autoplay, video_loop: true, disable_controls: true %}
+          {%- elsif block.settings.image -%}
+            <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ prod.title | default: 'Story' | escape }}" loading="lazy">
+          {%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
+        </div>
         {%- if prod != blank -%}
           <a class="mmw-bst__chip" href="{{ prod.url }}">
             <div class="mmw-bst__chip-img">{%- if prod.featured_image -%}<img src="{{ prod.featured_image | image_url: width: 160 }}" alt="{{ prod.title | escape }}">{%- endif -%}</div>
@@ -65,8 +68,9 @@
       "type": "story",
       "name": "Kafel",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
-        { "type": "url", "id": "video_url", "label": "Wideo (URL pliku MP4, opcjonalnie)" },
+        { "type": "video", "id": "video", "label": "Wideo (plik z biblioteki / Content → Files)" },
+        { "type": "checkbox", "id": "autoplay", "label": "Autoodtwarzanie (wyciszone, w pętli)", "default": true },
+        { "type": "image_picker", "id": "image", "label": "Zdjęcie zastępcze (gdy brak wideo)" },
         { "type": "product", "id": "product", "label": "Produkt (naklejka KUP TERAZ)" }
       ]
     }
