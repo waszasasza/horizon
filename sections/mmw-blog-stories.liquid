@@ -22,7 +22,10 @@
   #shopify-section-{{ section.id }} .mmw-bst__chip-name { font-size:9px; line-height:1.1; }
   #shopify-section-{{ section.id }} .mmw-bst__chip-price { font-size:8px; opacity:.9; }
   #shopify-section-{{ section.id }} .mmw-bst__chip-btn { margin-top:2px; align-self:flex-start; background: var(--mmw-03); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:8px; letter-spacing:1.2px; text-transform:uppercase; padding:5px 10px; border-radius:70px; }
-  @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-bst__grid { gap:18px; } }
+  @media (max-width:749px){
+    #shopify-section-{{ section.id }} .mmw-bst__grid { gap:18px; }
+    #shopify-section-{{ section.id }} .mmw-bst__card { width:85%; max-width:360px; }
+  }
 {%- endstyle -%}
 <section class="mmw-bst">
   <div class="mmw-bst__head">
