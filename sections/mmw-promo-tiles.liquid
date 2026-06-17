@@ -4,7 +4,7 @@
   Domyślnie 2 kafle obok siebie; na mobile jeden pod drugim.
 {%- endcomment -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-promo { display:flex; justify-content:center; padding-block:50px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
+  #shopify-section-{{ section.id }} .mmw-promo { display:flex; justify-content:center; padding-block:50px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-promo__row { display:flex; gap:27px; align-items:stretch; justify-content:center; width:100%; }
   #shopify-section-{{ section.id }} .mmw-promo__tile { flex:1 1 0; min-width:0; min-height:580px; border-radius:8px; overflow:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:34px; padding:30px; text-align:center; }
   #shopify-section-{{ section.id }} .mmw-promo__logo { max-width:289px; max-height:90px; }

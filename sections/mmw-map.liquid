@@ -9,7 +9,7 @@
   assign zoom = section.settings.zoom
 -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-map { display:flex; flex-direction:column; gap:24px; align-items:center; padding-block:50px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
+  #shopify-section-{{ section.id }} .mmw-map { display:flex; flex-direction:column; gap:24px; align-items:center; padding-block:50px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-map__canvas { width:100%; height:{{ section.settings.height }}px; border-radius:13px; overflow:hidden; background: var(--mmw-04); border:1px solid #FC7753; }
   #shopify-section-{{ section.id }} .mmw-map__pin-label {
     position:absolute; transform: translate(-50%, calc(-100% - 46px)); white-space:nowrap; pointer-events:none;
