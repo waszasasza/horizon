@@ -17,14 +17,9 @@
     font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
     padding:8px 16px; border-radius:50px;
   }
-  #shopify-section-{{ section.id }} .mmw-map__btn { display:inline-flex; align-items:center; justify-content:center; background: var(--mmw-01); color: var(--mmw-04); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; text-decoration:none; }
 {%- endstyle -%}
 <section class="mmw-map">
   <div class="mmw-map__canvas" id="mmw-map-{{ section.id }}"></div>
-
-  {%- if section.settings.button_label != blank -%}
-    <a class="mmw-map__btn" href="{{ section.settings.button_url | default: '#' }}" target="_blank" rel="noopener">{{ section.settings.button_label }}</a>
-  {%- endif -%}
 </section>
 
 <script>
@@ -125,10 +120,7 @@
     { "type": "range", "id": "height", "min": 300, "max": 700, "step": 20, "unit": "px", "label": "Wysokość mapy", "default": 460 },
     { "type": "header", "content": "Google Maps" },
     { "type": "text", "id": "api_key", "label": "Klucz Google Maps API" },
-    { "type": "textarea", "id": "map_style", "label": "Styl mapy (JSON ze Snazzy Maps)" },
-    { "type": "header", "content": "Przycisk (opcjonalnie)" },
-    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Sprawdź dojazd" },
-    { "type": "url", "id": "button_url", "label": "Link (np. Google Maps)" }
+    { "type": "textarea", "id": "map_style", "label": "Styl mapy (JSON ze Snazzy Maps)" }
   ],
   "presets": [{ "name": "MMW Mapa" }]
 }
