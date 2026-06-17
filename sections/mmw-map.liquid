@@ -41,13 +41,14 @@
     var zoom = {{ zoom | json }};
     var styleRaw = {{ section.settings.map_style | json }};
     var canvasId = 'mmw-map-{{ section.id }}';
+    var cbName = 'mmwInitMap_{{ section.id | remove: "-" | remove: "_" | remove: ":" }}';
 
     if(!KEY){ return; } // bez klucza nie inicjalizujemy
 
     var styles = [];
     try { styles = styleRaw ? JSON.parse(styleRaw) : []; } catch(e){ styles = []; }
 
-    window['mmwInitMap_{{ section.id }}'] = function(){
+    window[cbName] = function(){
       var el = document.getElementById(canvasId);
       if(!el || !window.google) return;
       var pos = { lat: parseFloat(lat), lng: parseFloat(lng) };
@@ -64,18 +65,17 @@
     };
 
     // ładuj skrypt Google Maps tylko raz, z callbackiem tej sekcji
-    if(!document.getElementById('mmw-gmaps-sdk')){
+    if(window.google && window.google.maps){
+      window[cbName]();
+    } else if(!document.getElementById('mmw-gmaps-sdk')){
       var s = document.createElement('script');
       s.id = 'mmw-gmaps-sdk';
-      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(KEY) + '&callback=mmwInitMap_{{ section.id }}';
+      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(KEY) + '&callback=' + cbName;
       s.async = true; s.defer = true;
       document.head.appendChild(s);
-    } else if(window.google && window.google.maps){
-      window['mmwInitMap_{{ section.id }}']();
     } else {
-      // SDK już się ładuje (inna instancja) — dołącz po załadowaniu
-      var prev = window.initMap;
-      window.addEventListener('load', function(){ if(window.google && window.google.maps){ window['mmwInitMap_{{ section.id }}'](); } });
+      // SDK już się ładuje (inna instancja) — spróbuj po załadowaniu
+      window.addEventListener('load', function(){ if(window.google && window.google.maps){ window[cbName](); } });
     }
   })();
 </script>
