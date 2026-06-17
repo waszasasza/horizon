@@ -1,0 +1,105 @@
+{%- comment -%}
+  mmw-map — mapa Snazzy Maps (Google Maps JS API). Dane Małej Wsi na sztywno (w ustawieniach niżej).
+  WYMAGA: klucza Google Maps JavaScript API (Google Cloud, z włączonym billingiem).
+  Styl Snazzy Maps wklej jako JSON w polu "Styl mapy (JSON)" w ustawieniach sekcji.
+{%- endcomment -%}
+{%- liquid
+  assign lat = section.settings.lat
+  assign lng = section.settings.lng
+  assign zoom = section.settings.zoom
+-%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-map { display:flex; flex-direction:column; gap:24px; align-items:center; padding-block:50px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
+  #shopify-section-{{ section.id }} .mmw-map__head { display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center; color: var(--mmw-01); max-width:560px; }
+  #shopify-section-{{ section.id }} .mmw-map__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-map__title { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(34px,4vw,48px); line-height:1.1; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-map__addr { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-map__canvas { width:100%; height:{{ section.settings.height }}px; border-radius:13px; overflow:hidden; background: var(--mmw-04); }
+  #shopify-section-{{ section.id }} .mmw-map__btn { display:inline-flex; align-items:center; justify-content:center; background: var(--mmw-01); color: var(--mmw-04); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; text-decoration:none; }
+{%- endstyle -%}
+<section class="mmw-map">
+  {%- if section.settings.eyebrow != blank or section.settings.title != blank or section.settings.address != blank -%}
+    <div class="mmw-map__head">
+      {%- if section.settings.eyebrow != blank -%}<p class="mmw-map__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.title != blank -%}<p class="mmw-map__title">{{ section.settings.title }}</p>{%- endif -%}
+      {%- if section.settings.address != blank -%}<p class="mmw-map__addr">{{ section.settings.address }}</p>{%- endif -%}
+    </div>
+  {%- endif -%}
+
+  <div class="mmw-map__canvas" id="mmw-map-{{ section.id }}"></div>
+
+  {%- if section.settings.button_label != blank -%}
+    <a class="mmw-map__btn" href="{{ section.settings.button_url | default: '#' }}" target="_blank" rel="noopener">{{ section.settings.button_label }}</a>
+  {%- endif -%}
+</section>
+
+<script>
+  (function(){
+    var KEY = {{ section.settings.api_key | json }};
+    var lat = {{ lat | json }};
+    var lng = {{ lng | json }};
+    var zoom = {{ zoom | json }};
+    var styleRaw = {{ section.settings.map_style | json }};
+    var canvasId = 'mmw-map-{{ section.id }}';
+
+    if(!KEY){ return; } // bez klucza nie inicjalizujemy
+
+    var styles = [];
+    try { styles = styleRaw ? JSON.parse(styleRaw) : []; } catch(e){ styles = []; }
+
+    window['mmwInitMap_{{ section.id }}'] = function(){
+      var el = document.getElementById(canvasId);
+      if(!el || !window.google) return;
+      var pos = { lat: parseFloat(lat), lng: parseFloat(lng) };
+      var map = new google.maps.Map(el, {
+        center: pos,
+        zoom: parseInt(zoom, 10) || 13,
+        styles: styles,
+        disableDefaultUI: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        fullscreenControl: true
+      });
+      new google.maps.Marker({ position: pos, map: map, title: {{ section.settings.title | json }} });
+    };
+
+    // ładuj skrypt Google Maps tylko raz, z callbackiem tej sekcji
+    if(!document.getElementById('mmw-gmaps-sdk')){
+      var s = document.createElement('script');
+      s.id = 'mmw-gmaps-sdk';
+      s.src = 'https://maps.googleapis.com/maps/api/js?key=' + encodeURIComponent(KEY) + '&callback=mmwInitMap_{{ section.id }}';
+      s.async = true; s.defer = true;
+      document.head.appendChild(s);
+    } else if(window.google && window.google.maps){
+      window['mmwInitMap_{{ section.id }}']();
+    } else {
+      // SDK już się ładuje (inna instancja) — dołącz po załadowaniu
+      var prev = window.initMap;
+      window.addEventListener('load', function(){ if(window.google && window.google.maps){ window['mmwInitMap_{{ section.id }}'](); } });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "MMW Mapa",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Sklep stacjonarny" },
+    { "type": "text", "id": "title", "label": "Tytuł", "default": "Majątek Mała Wieś" },
+    { "type": "textarea", "id": "address", "label": "Adres", "default": "Mała Wieś 1, 05-622 Belsk Duży" },
+    { "type": "header", "content": "Lokalizacja" },
+    { "type": "text", "id": "lat", "label": "Szerokość (lat)", "default": "51.82458187791217" },
+    { "type": "text", "id": "lng", "label": "Długość (lng)", "default": "20.79018682779617" },
+    { "type": "range", "id": "zoom", "min": 6, "max": 18, "step": 1, "label": "Zoom", "default": 13 },
+    { "type": "range", "id": "height", "min": 300, "max": 700, "step": 20, "unit": "px", "label": "Wysokość mapy", "default": 460 },
+    { "type": "header", "content": "Google Maps" },
+    { "type": "text", "id": "api_key", "label": "Klucz Google Maps API" },
+    { "type": "textarea", "id": "map_style", "label": "Styl mapy (JSON ze Snazzy Maps)" },
+    { "type": "header", "content": "Przycisk (opcjonalnie)" },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Sprawdź dojazd" },
+    { "type": "url", "id": "button_url", "label": "Link (np. Google Maps)" }
+  ],
+  "presets": [{ "name": "MMW Mapa" }]
+}
+{% endschema %}
