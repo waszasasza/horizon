@@ -6,21 +6,13 @@
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-him {
     display: flex; justify-content: center;
-    padding: 60px 40px; font-family: var(--mmw-font-text);
-    
+    padding: 50px 20px; font-family: var(--mmw-font-text);
   }
   #shopify-section-{{ section.id }} .mmw-him__card {
-    display: flex; align-items: center; justify-content: center; gap: 120px;
-    width: 100%; 
+    display: flex; align-items: center; gap: 120px;
+    width: 100%; max-width: 1308px;
     border: 2px solid var(--mmw-01); border-radius: 20px;
     padding: 40px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  #shopify-section-{{ section.id }} .mmw-him__card:hover {
-   background: var(--mmw-03);
-    color: var(--mmw-04);
-   transform: translateY(-4px);
   }
   #shopify-section-{{ section.id }} .mmw-him__copy {
     flex: 0 1 457px;
@@ -28,12 +20,11 @@
     text-align: center; color: var(--mmw-01);
   }
   #shopify-section-{{ section.id }} .mmw-him__title {
-    margin: 0; font-family: var(--mmw-font-display); font-weight: 400;
-    font-size: var(--mmw-h1-size); line-height: 1.1; color: var(--mmw-01);
+    margin: 0; font-size: var(--font-h2--size); color: var(--mmw-01);
   }
   #shopify-section-{{ section.id }} .mmw-him__text {
     max-width: 335px; font-family: var(--mmw-font-text);
-    font-size: var(--mmw-body-size); line-height: 1.4;
+    font-size: var(--font-paragraph--size); line-height: var(--font-paragraph--line-height, 1.4);
   }
   #shopify-section-{{ section.id }} .mmw-him__text p { margin: 0; }
   #shopify-section-{{ section.id }} .mmw-him__media {
@@ -50,12 +41,11 @@
     #shopify-section-{{ section.id }} .mmw-him__card { flex-direction: column; gap: 32px; padding: 28px; }
     #shopify-section-{{ section.id }} .mmw-him__copy { flex: 1 1 auto; }
     #shopify-section-{{ section.id }} .mmw-him__media { flex: 1 1 auto; width: 100%; }
-    #shopify-section-{{ section.id }} .mmw-him__title { font-size: 40px; }
   }
 {%- endstyle -%}
 
 <section class="mmw-him">
-  <a href="{{ section.settings.link | default: '#' }}" class="mmw-him__card">
+  <div class="mmw-him__card">
     <div class="mmw-him__copy">
       {%- if section.settings.heading != blank -%}
         <h2 class="mmw-him__title">{{ section.settings.heading }}</h2>
@@ -78,22 +68,21 @@
         {{ 'lifestyle-2' | placeholder_svg_tag }}
       {%- endif -%}
     </div>
-  </a>
+  </div>
 </section>
 
 {% schema %}
 {
-  "name": "MMW Jak powstają produkty",
+  "name": "MMW Jak powstają",
   "tag": "section",
   "settings": [
     { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Sprawdź jak powstają nasze produkty" },
     { "type": "richtext", "id": "description", "label": "Tekst", "default": "<p>W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.</p>" },
-    { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
-    { "type": "url", "id": "link", "label": "Link" }
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" }
   ],
   "presets": [
     {
-      "name": "MMW Jak powstają produkty",
+      "name": "MMW Jak powstają",
       "settings": {
         "heading": "Sprawdź jak powstają nasze produkty",
         "description": "<p>W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.</p>"
