@@ -1,21 +1,31 @@
 {%- comment -%}
   mmw-history-timeline — "Nasza historia".
-  Oś czasu z efektem PIN + poziomy scroll: scroll w dół przewija sekcję w bok,
-  po dojściu do końca strona scrolluje się normalnie.
-  - Desktop: sticky pinuje, JS przelicza translateX ze scrolla (bez porywania wheela).
-  - Mobile / reduced-motion / brak JS: natywny swipe w bok, pasek ukryty.
+  Oś czasu przesuwana STRZAŁKAMI (prev/next). Bez porywania scrolla.
+  - Kontener przewijany w bok (scrollBy z animacją); strzałki wyłączają się na końcach.
+  - Mobile: dodatkowo natywny swipe.
   Bloki: "photo" (górny rząd zdjęć), "year" (rok + opis; niebieska linia + kropki).
 {%- endcomment -%}
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-tl { padding-block:50px; }
-  #shopify-section-{{ section.id }} .mmw-tl__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-align:center; margin:0 0 30px; padding-inline: var(--page-margin, 40px); }
+  #shopify-section-{{ section.id }} .mmw-tl__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-align:center; margin:0 0 20px; padding-inline: var(--page-margin, 40px); }
 
-  /* widok przewijany (natywny scroll, gdy brak pinu) */
-  #shopify-section-{{ section.id }} .mmw-tl__viewport { overflow-x:auto; overflow-y:hidden; scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch; }
+  /* pasek strzałek */
+  #shopify-section-{{ section.id }} .mmw-tl__nav { display:flex; gap:14px; justify-content:flex-end; padding-inline: var(--page-margin, 40px); margin-bottom:24px; }
+  #shopify-section-{{ section.id }} .mmw-tl__arrow {
+    width:52px; height:52px; border-radius:50%; border:1px solid var(--mmw-01); background:transparent; color: var(--mmw-01);
+    display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+    transition: background .2s ease, color .2s ease, opacity .2s ease;
+  }
+  #shopify-section-{{ section.id }} .mmw-tl__arrow:hover:not(:disabled) { background: var(--mmw-03); }
+  #shopify-section-{{ section.id }} .mmw-tl__arrow:disabled { opacity:.3; cursor:default; }
+  #shopify-section-{{ section.id }} .mmw-tl__arrow svg { width:18px; height:18px; display:block; }
+
+  /* kontener przewijany */
+  #shopify-section-{{ section.id }} .mmw-tl__viewport { overflow-x:auto; overflow-y:hidden; scroll-behavior:smooth; scrollbar-width:none; -ms-overflow-style:none; -webkit-overflow-scrolling:touch; }
   #shopify-section-{{ section.id }} .mmw-tl__viewport::-webkit-scrollbar { display:none; width:0; height:0; }
 
-  /* tor poziomy: rząd zdjęć + rząd lat, ten sam offset */
-  #shopify-section-{{ section.id }} .mmw-tl__track { display:flex; flex-direction:column; gap:30px; width:max-content; padding-inline: var(--page-margin, 40px); will-change:transform; }
+  /* tor poziomy: rząd zdjęć + rząd lat */
+  #shopify-section-{{ section.id }} .mmw-tl__track { display:flex; flex-direction:column; gap:30px; width:max-content; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-tl__row { display:flex; gap:60px; }
   #shopify-section-{{ section.id }} .mmw-tl__photo { flex:0 0 410px; height:420px; border-radius:20px; overflow:hidden; }
   #shopify-section-{{ section.id }} .mmw-tl__photo img, #shopify-section-{{ section.id }} .mmw-tl__photo svg { width:100%; height:100%; object-fit:cover; display:block; }
@@ -28,39 +38,45 @@
   #shopify-section-{{ section.id }} .mmw-tl__year-num { font-family: var(--mmw-font-display); font-weight:400; font-size:64px; line-height:1.1; margin:0; }
   #shopify-section-{{ section.id }} .mmw-tl__year-text { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; margin:0; }
 
-  /* stan PIN (włącza JS na desktopie) */
-  #shopify-section-{{ section.id }} .mmw-tl.is-pinned .mmw-tl__sticky { position:sticky; top:0; height:100vh; display:flex; flex-direction:column; justify-content:center; gap:30px; overflow:hidden; }
-  #shopify-section-{{ section.id }} .mmw-tl.is-pinned .mmw-tl__viewport { overflow:visible; }
-
-  @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-tl__row { gap:24px; } #shopify-section-{{ section.id }} .mmw-tl__photo, #shopify-section-{{ section.id }} .mmw-tl__year { flex-basis:300px; } }
+  @media (max-width:749px){
+    #shopify-section-{{ section.id }} .mmw-tl__row { gap:24px; }
+    #shopify-section-{{ section.id }} .mmw-tl__photo, #shopify-section-{{ section.id }} .mmw-tl__year { flex-basis:300px; }
+    #shopify-section-{{ section.id }} .mmw-tl__year-num { font-size:48px; }
+  }
 {%- endstyle -%}
 <section class="mmw-tl" data-tl>
   {%- if section.settings.eyebrow != blank -%}<p class="mmw-tl__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-  <div class="mmw-tl__pin">
-    <div class="mmw-tl__sticky">
-      <div class="mmw-tl__viewport">
-        <div class="mmw-tl__track">
-          {%- assign photos = section.blocks | where: 'type', 'photo' -%}
-          {%- if photos.size > 0 -%}
-            <div class="mmw-tl__row mmw-tl__photos">
-              {%- for block in photos -%}
-                <div class="mmw-tl__photo" {{ block.shopify_attributes }}>{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
-          {%- assign years = section.blocks | where: 'type', 'year' -%}
-          {%- if years.size > 0 -%}
-            <div class="mmw-tl__row mmw-tl__years">
-              {%- for block in years -%}
-                <div class="mmw-tl__year" {{ block.shopify_attributes }}>
-                  <p class="mmw-tl__year-num">{{ block.settings.year }}</p>
-                  <p class="mmw-tl__year-text">{{ block.settings.text }}</p>
-                </div>
-              {%- endfor -%}
-            </div>
-          {%- endif -%}
+
+  <div class="mmw-tl__nav" data-tl-nav>
+    <button class="mmw-tl__arrow" type="button" data-tl-prev aria-label="Poprzednie">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="mmw-tl__arrow" type="button" data-tl-next aria-label="Następne">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <div class="mmw-tl__viewport" data-tl-vp>
+    <div class="mmw-tl__track">
+      {%- assign photos = section.blocks | where: 'type', 'photo' -%}
+      {%- if photos.size > 0 -%}
+        <div class="mmw-tl__row mmw-tl__photos">
+          {%- for block in photos -%}
+            <div class="mmw-tl__photo" {{ block.shopify_attributes }}>{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+          {%- endfor -%}
         </div>
-      </div>
+      {%- endif -%}
+      {%- assign years = section.blocks | where: 'type', 'year' -%}
+      {%- if years.size > 0 -%}
+        <div class="mmw-tl__row mmw-tl__years">
+          {%- for block in years -%}
+            <div class="mmw-tl__year" {{ block.shopify_attributes }}>
+              <p class="mmw-tl__year-num">{{ block.settings.year }}</p>
+              <p class="mmw-tl__year-text">{{ block.settings.text }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </section>
@@ -68,49 +84,35 @@
   (function(){
     var root = document.getElementById('shopify-section-{{ section.id }}');
     if(!root) return;
-    var sec = root.querySelector('[data-tl]');
-    var pin = root.querySelector('.mmw-tl__pin');
-    var vp  = root.querySelector('.mmw-tl__viewport');
-    var track = root.querySelector('.mmw-tl__track');
-    if(!sec||!pin||!vp||!track) return;
+    var vp   = root.querySelector('[data-tl-vp]');
+    var nav  = root.querySelector('[data-tl-nav]');
+    var prev = root.querySelector('[data-tl-prev]');
+    var next = root.querySelector('[data-tl-next]');
+    var track = vp ? vp.querySelector('.mmw-tl__track') : null;
+    if(!vp || !nav || !prev || !next || !track) return;
 
-    var distance = 0, ticking = false;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    function canPin(){ return window.innerWidth > 749 && !reduce.matches; }
-
-    function setup(){
-      // reset
-      sec.classList.remove('is-pinned');
-      pin.style.height = '';
-      track.style.transform = '';
-      distance = 0;
-      if(!canPin()) return;                  // mobile/reduced → natywny swipe
-      var d = track.scrollWidth - vp.clientWidth;
-      if(d <= 0) return;                      // mieści się → bez pinu
-      distance = d;
-      sec.classList.add('is-pinned');
-      pin.style.height = (distance + window.innerHeight) + 'px';
-      onScroll();
+    function step(){
+      var photo = track.querySelector('.mmw-tl__photo') || track.querySelector('.mmw-tl__year');
+      var row = track.querySelector('.mmw-tl__row');
+      var gap = 0;
+      if(row){ var cg = getComputedStyle(row).columnGap || getComputedStyle(row).gap; gap = parseFloat(cg) || 0; }
+      var w = photo ? photo.getBoundingClientRect().width : 410;
+      return Math.round(w + gap);
     }
 
-    function onScroll(){
-      if(!distance) return;
-      var top = pin.getBoundingClientRect().top;
-      var max = pin.offsetHeight - window.innerHeight;
-      var p = Math.min(Math.max(-top / max, 0), 1);
-      track.style.transform = 'translateX(' + (-p * distance) + 'px)';
+    function update(){
+      var maxScroll = vp.scrollWidth - vp.clientWidth;
+      if(maxScroll <= 1){ nav.style.display = 'none'; return; }
+      nav.style.display = '';
+      prev.disabled = vp.scrollLeft <= 1;
+      next.disabled = vp.scrollLeft >= (maxScroll - 1);
     }
 
-    function onScrollRAF(){
-      if(ticking) return; ticking = true;
-      requestAnimationFrame(function(){ onScroll(); ticking = false; });
-    }
-
-    window.addEventListener('scroll', onScrollRAF, { passive:true });
-    window.addEventListener('resize', setup);
-    if(reduce.addEventListener) reduce.addEventListener('change', setup);
-    setup();
+    prev.addEventListener('click', function(){ vp.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    next.addEventListener('click', function(){ vp.scrollBy({ left: step(), behavior: 'smooth' }); });
+    vp.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   })();
 </script>
 {% schema %}
@@ -123,7 +125,7 @@
   "blocks": [
     { "type": "photo", "name": "Zdjęcie (górny rząd)", "settings": [ { "type": "image_picker", "id": "image", "label": "Zdjęcie" } ] },
     { "type": "year", "name": "Rok (oś czasu)", "settings": [
-        { "type": "text", "id": "year", "label": "Rok", "default": "1989" },
+        { "type": "text", "id": "year", "label": "Rok", "default": "1786" },
         { "type": "textarea", "id": "text", "label": "Opis" }
     ] }
   ],
