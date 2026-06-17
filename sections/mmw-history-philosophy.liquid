@@ -6,6 +6,19 @@
   #shopify-section-{{ section.id }} .mmw-phil__imgs { display:flex; gap:36px; justify-content:center; flex-wrap:wrap; }
   #shopify-section-{{ section.id }} .mmw-phil__img { flex:0 0 375px; max-width:100%; aspect-ratio: 375 / 489; border-radius:13px; overflow:hidden; }
   #shopify-section-{{ section.id }} .mmw-phil__img img, #shopify-section-{{ section.id }} .mmw-phil__img svg { width:100%; height:100%; object-fit:cover; display:block; }
+@media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-phil__imgs {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    #shopify-section-{{ section.id }} .mmw-phil__img {
+      flex: 0 0 auto;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 3 / 4;
+    }
+  }
 {%- endstyle -%}
 <section class="mmw-phil">
   {%- if section.settings.eyebrow != blank -%}<p class="mmw-phil__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
