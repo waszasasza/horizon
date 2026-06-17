@@ -10,22 +10,16 @@
 -%}
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-map { display:flex; flex-direction:column; gap:24px; align-items:center; padding-block:50px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
-  #shopify-section-{{ section.id }} .mmw-map__head { display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center; color: var(--mmw-01); max-width:560px; }
-  #shopify-section-{{ section.id }} .mmw-map__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
-  #shopify-section-{{ section.id }} .mmw-map__title { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(34px,4vw,48px); line-height:1.1; margin:0; }
-  #shopify-section-{{ section.id }} .mmw-map__addr { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; margin:0; }
-  #shopify-section-{{ section.id }} .mmw-map__canvas { width:100%; height:{{ section.settings.height }}px; border-radius:13px; overflow:hidden; background: var(--mmw-04); }
+  #shopify-section-{{ section.id }} .mmw-map__canvas { width:100%; height:{{ section.settings.height }}px; border-radius:13px; overflow:hidden; background: var(--mmw-04); border:1px solid #FC7753; }
+  #shopify-section-{{ section.id }} .mmw-map__pin-label {
+    position:absolute; transform: translate(-50%, calc(-100% - 46px)); white-space:nowrap; pointer-events:none;
+    background: var(--mmw-03, #c6d4e2); color: var(--mmw-01, #5f312f);
+    font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+    padding:8px 16px; border-radius:50px;
+  }
   #shopify-section-{{ section.id }} .mmw-map__btn { display:inline-flex; align-items:center; justify-content:center; background: var(--mmw-01); color: var(--mmw-04); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; text-decoration:none; }
 {%- endstyle -%}
 <section class="mmw-map">
-  {%- if section.settings.eyebrow != blank or section.settings.title != blank or section.settings.address != blank -%}
-    <div class="mmw-map__head">
-      {%- if section.settings.eyebrow != blank -%}<p class="mmw-map__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      {%- if section.settings.title != blank -%}<p class="mmw-map__title">{{ section.settings.title }}</p>{%- endif -%}
-      {%- if section.settings.address != blank -%}<p class="mmw-map__addr">{{ section.settings.address }}</p>{%- endif -%}
-    </div>
-  {%- endif -%}
-
   <div class="mmw-map__canvas" id="mmw-map-{{ section.id }}"></div>
 
   {%- if section.settings.button_label != blank -%}
@@ -42,11 +36,17 @@
     var styleRaw = {{ section.settings.map_style | json }};
     var canvasId = 'mmw-map-{{ section.id }}';
     var cbName = 'mmwInitMap_{{ section.id | remove: "-" | remove: "_" | remove: ":" }}';
+    var labelText = {{ section.settings.pin_label | json }};
+    var pinImage = {{ section.settings.pin_image | json }};
 
     if(!KEY){ return; } // bez klucza nie inicjalizujemy
 
     var styles = [];
     try { styles = styleRaw ? JSON.parse(styleRaw) : []; } catch(e){ styles = []; }
+
+    // pinezka MMW (SVG inline) lub własny obrazek z ustawień
+    var pinSvg = '<svg width="28" height="35" viewBox="0 0 28 35" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.96875 0C6.37417 0 4.27083 2.10333 4.27083 4.69792V8.53646C4.27083 11.4815 3.10093 14.3059 1.01851 16.3882L0.375269 17.0316C0.134992 17.2718 0 17.5977 0 17.9375V22.6354C0 22.9752 0.134992 23.3012 0.375269 23.5413C0.615546 23.7817 0.941445 23.9167 1.28125 23.9167H12.3854V32.8854C12.3854 33.593 12.9591 34.1667 13.6667 34.1667C14.3743 34.1667 14.9479 33.593 14.9479 32.8854V23.9167H26.0521C26.7597 23.9167 27.3333 23.343 27.3333 22.6354V17.9375C27.3333 17.5977 27.1984 17.2718 26.958 17.0316L26.3148 16.3882C24.2324 14.3059 23.0625 11.4815 23.0625 8.53646V4.69792C23.0625 2.10333 20.9592 0 18.3646 0H8.96875Z" fill="#5F312F"/></svg>';
+    var pinUrl = pinImage || ('data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(pinSvg));
 
     window[cbName] = function(){
       var el = document.getElementById(canvasId);
@@ -61,7 +61,37 @@
         streetViewControl: false,
         fullscreenControl: true
       });
-      new google.maps.Marker({ position: pos, map: map, title: {{ section.settings.title | json }} });
+
+      new google.maps.Marker({
+        position: pos,
+        map: map,
+        title: labelText || '',
+        icon: {
+          url: pinUrl,
+          scaledSize: new google.maps.Size(28, 35),
+          anchor: new google.maps.Point(14, 35)
+        }
+      });
+
+      // etykieta nad pinezką (overlay HTML)
+      if(labelText){
+        function LabelOverlay(){ this.div = null; }
+        LabelOverlay.prototype = new google.maps.OverlayView();
+        LabelOverlay.prototype.onAdd = function(){
+          var d = document.createElement('div');
+          d.className = 'mmw-map__pin-label';
+          d.textContent = labelText;
+          this.div = d;
+          this.getPanes().floatPane.appendChild(d);
+        };
+        LabelOverlay.prototype.draw = function(){
+          var p = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(pos.lat, pos.lng));
+          if(this.div){ this.div.style.left = p.x + 'px'; this.div.style.top = p.y + 'px'; }
+        };
+        LabelOverlay.prototype.onRemove = function(){ if(this.div && this.div.parentNode){ this.div.parentNode.removeChild(this.div); } this.div = null; };
+        var lbl = new LabelOverlay();
+        lbl.setMap(map);
+      }
     };
 
     // ładuj skrypt Google Maps tylko raz, z callbackiem tej sekcji
@@ -85,9 +115,9 @@
   "name": "MMW Mapa",
   "tag": "section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Sklep stacjonarny" },
-    { "type": "text", "id": "title", "label": "Tytuł", "default": "Majątek Mała Wieś" },
-    { "type": "textarea", "id": "address", "label": "Adres", "default": "Mała Wieś 1, 05-622 Belsk Duży" },
+    { "type": "header", "content": "Pinezka" },
+    { "type": "text", "id": "pin_label", "label": "Etykieta nad pinezką", "default": "Majątek Mała Wieś" },
+    { "type": "url", "id": "pin_image", "label": "Własny obrazek pinezki (opcjonalnie, domyślnie pin MMW)" },
     { "type": "header", "content": "Lokalizacja" },
     { "type": "text", "id": "lat", "label": "Szerokość (lat)", "default": "51.82458187791217" },
     { "type": "text", "id": "lng", "label": "Długość (lng)", "default": "20.79018682779617" },
