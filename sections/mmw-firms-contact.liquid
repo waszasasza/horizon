@@ -3,7 +3,8 @@
   Formularz wysyła wiadomość na adres e-mail sklepu (Shopify natywnie).
 {%- endcomment -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-fc { display:flex; gap:110px; align-items:flex-start; justify-content:center; padding:50px 20px; flex-wrap:wrap; }
+  #shopify-section-{{ section.id }} .mmw-fc { display:flex; gap:110px; align-items:flex-start; justify-content:center; padding-block: 50px;
+padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); flex-wrap:wrap; }
   #shopify-section-{{ section.id }} .mmw-fc__depts { display:flex; flex-direction:column; gap:36px; color: var(--mmw-01); max-width:341px; }
   #shopify-section-{{ section.id }} .mmw-fc__dept { display:flex; flex-direction:column; gap:10px; }
   #shopify-section-{{ section.id }} .mmw-fc__dept-name { font-family: var(--mmw-font-display); font-weight:400; font-size:36px; line-height:1; margin:0; }
@@ -25,6 +26,10 @@
   #shopify-section-{{ section.id }} .mmw-fc__note { font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.6px; text-transform:uppercase; color: var(--mmw-04); text-align:center; margin-top: 24px; }
   #shopify-section-{{ section.id }} .mmw-fc__ok { color: var(--mmw-04); font-family: var(--mmw-font-text); text-align:center; }
   @media (max-width:989px){ #shopify-section-{{ section.id }} .mmw-fc { gap:40px; } #shopify-section-{{ section.id }} .mmw-fc__form-inner { width:100%; } }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-fc__depts { align-items: center; text-align: center; }
+    #shopify-section-{{ section.id }} .mmw-fc__dept { align-items: center; }
+  }
 {%- endstyle -%}
 <section class="mmw-fc">
   {%- if section.blocks.size > 0 -%}
