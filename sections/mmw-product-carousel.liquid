@@ -60,17 +60,16 @@
 -%}
 {%- if coll != blank and coll.products.size > 0 -%}
   {%- style -%}
-    /* Wyrównanie poziome: własny padding-inline: var(--page-margin, 40px) — DOKŁADNIE ten
-       sam mechanizm co reszta sekcji mmw-* (mmw-blog-posts, mmw-article-products,
-       mmw-how-its-made). Próba przejścia na natywny .section/grid + --util-page-margin-offset
-       cofnięta: bez pełnej infrastruktury szerokości strony (--page-content-width itd. działają
-       poprawnie, ale grid-template-columns zależny od tego łańcucha psuł się w interakcji z
-       force-full-width i rozciągał stronę w poziomie — pojawiał się scrollbar). --page-margin
-       samo w sobie jest poprawnie dziedziczone z <body class="page-width-{{ settings.page_width }}">
-       (layout/theme.liquid), więc ten prosty padding daje to samo wyrównanie co sąsiednie
-       sekcje mmw-*, bez ryzyka gridowego. */
+    /* Wyrównanie poziome — WYŁĄCZNIE przez natywny mechanizm gutterów resource-list-carousel
+       (nie własny padding). .mmw-pc dostaje klasę .section TYLKO po to, żeby odziedziczyć
+       policzoną zmienną --util-page-margin-offset (assets/base.css, zdefiniowana w regule
+       .section) — celowo BEZ display:grid: nasza własna reguła #id .mmw-pc{display:flex}
+       ma wyższą specyficzność (ID) niż .section{display:grid} (sama klasa), więc nadpisuje
+       go z powrotem na flex i cały mechanizm grid-template-columns/force-full-width (źródło
+       poprzedniego rozciągania strony) zostaje całkowicie nieaktywny — bierzemy ze .section
+       tylko zmienną, nie layout. .mmw-pc__head wyrównuje się tą samą zmienną. */
     #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
-    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--page-margin, 40px); }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset); }
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
@@ -312,24 +311,22 @@
 
   {%- liquid
     assign carousel_ref = 'mmwPc-' | append: section.id
-    if section.settings.section_width == 'page-width'
-      assign slideshow_gutters = 'start end'
-      # --util-page-margin-offset wymaga pełnej siatki .section (grid-template-columns zależny
-      # od --page-content-width) — próba jej użycia rozciągała stronę w poziomie (patrz komentarz
-      # przy .mmw-pc wyżej). --page-margin samo w sobie jest bezpieczne i poprawnie dziedziczone.
-      assign gutter_style = '--gutter-slide-width: var(--page-margin, 40px);'
-    else
-      assign slideshow_gutters = null
-      assign gutter_style = '--gutter-slide-width: 0px;'
-    endif
     assign show_arrows = false
     if section.settings.icons_style != 'none'
       assign show_arrows = true
     endif
-    # Gutter jako style: bezpośrednio na 'slideshow' (dokładnie jak w sections/mmw-featured-collection.liquid,
-    # naszym już działającym wzorcu pełnej szerokości) — bez dodatkowego diva, żeby padding
-    # skrajnych slajdów miał jedno źródło, nie dwa.
-    assign carousel_style = gutter_style | append: ' --slide-width-max: 420px;'
+    # Gutter 1:1 jak w snippets/resource-list-carousel.liquid: div ze zmiennymi wokół
+    # <slideshow-component>, atrybut gutters="start end" na <slideshow-slides> (przez
+    # slideshow_gutters) generuje ślepe guttery o szerokości --gutter-slide-width na
+    # początku/końcu pasa — TO jest jedyny mechanizm wyrównania skrajnych kart, bez
+    # żadnego własnego paddingu/scroll-paddingu z naszej strony.
+    if section.settings.section_width == 'page-width'
+      assign slideshow_gutters = 'start end'
+      assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset); --slide-width-max: 400px;'
+    else
+      assign slideshow_gutters = null
+      assign gutter_style = '--gutter-slide-width: 0px; --slide-width-max: 400px;'
+    endif
   -%}
   {%- capture carousel_slides -%}
     {%- for item in cards_array -%}
@@ -340,28 +337,29 @@
     {%- render 'slideshow-controls', style: 'dots', item_count: cards_array.size, show_arrows: false, pagination_position: 'center' -%}
   {%- endcapture -%}
 
-  <section class="mmw-pc color-{{ section.settings.color_scheme }}">
+  <section class="mmw-pc section color-{{ section.settings.color_scheme }}">
     <div class="mmw-pc__head">
       {%- if section.settings.heading != blank -%}<h2 class="mmw-pc__title">{{ section.settings.heading }}</h2>{%- endif -%}
       {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
     <div class="resource-list resource-list__carousel mmw-pc__carousel-wrap" style="{{ resource_list_style }}">
-      {%- render 'slideshow',
-        ref: carousel_ref,
-        class: 'resource-list__carousel',
-        style: carousel_style,
-        slides: carousel_slides,
-        show_arrows: show_arrows,
-        icon_style: section.settings.icons_style,
-        icon_shape: section.settings.icons_shape,
-        auto_hide_controls: false,
-        infinite: false,
-        initial_slide: 0,
-        slide_count: cards_array.size,
-        slideshow_gutters: slideshow_gutters,
-        controls: carousel_controls
-      -%}
+      <div style="{{ gutter_style }}">
+        {%- render 'slideshow',
+          ref: carousel_ref,
+          class: 'resource-list__carousel',
+          slides: carousel_slides,
+          show_arrows: show_arrows,
+          icon_style: section.settings.icons_style,
+          icon_shape: section.settings.icons_shape,
+          auto_hide_controls: false,
+          infinite: false,
+          initial_slide: 0,
+          slide_count: cards_array.size,
+          slideshow_gutters: slideshow_gutters,
+          controls: carousel_controls
+        -%}
+      </div>
     </div>
   </section>
 {%- endif -%}
