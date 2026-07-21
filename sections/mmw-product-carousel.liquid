@@ -69,7 +69,7 @@
        poprzedniego rozciągania strony) zostaje całkowicie nieaktywny — bierzemy ze .section
        tylko zmienną, nie layout. .mmw-pc__head wyrównuje się tą samą zmienną. */
     #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
-    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset); }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px)); }
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
@@ -163,6 +163,12 @@
 
     /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
     #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap { width: 100%; }
+    /* snippets/resource-list-carousel.liquid ustawia to samo (.resource-list__carousel
+       .resource-list__slide { scroll-snap-align: start; }), nadpisując domyślne "center" z
+       bazowego slideshow-slide (snippets/slideshow-styles.liquid). Deklarujemy to też u siebie
+       — bez tego przeglądarka snapuje pierwszy slajd na ŚRODEK viewportu, nie na start gutteru,
+       więc "spoczynek" karty nie licuje się z nagłówkiem nawet przy poprawnym --gutter-slide-width. */
+    #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap .resource-list__slide { scroll-snap-align: start; }
 
     /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots) — kolory przez
        zmienne komponentu (--color/--color-active/--color-hover), bez twardych selektorów */
@@ -322,7 +328,7 @@
     # żadnego własnego paddingu/scroll-paddingu z naszej strony.
     if section.settings.section_width == 'page-width'
       assign slideshow_gutters = 'start end'
-      assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset); --slide-width-max: 400px;'
+      assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, var(--page-margin, 40px)); --slide-width-max: 400px;'
     else
       assign slideshow_gutters = null
       assign gutter_style = '--gutter-slide-width: 0px; --slide-width-max: 400px;'
