@@ -60,8 +60,16 @@
 -%}
 {%- if coll != blank and coll.products.size > 0 -%}
   {%- style -%}
-    #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
-    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--page-margin, 40px); }
+    /* .mmw-pc dostaje natywne klasy .section .section--{{ section.settings.section_width }}
+       (assets/base.css) — to ONE, jedyne źródło wyrównania poziomego: 3-kolumnowy grid
+       (margines/treść/margines), gdzie środkowa kolumna to prawdziwa --page-content-width
+       wycentrowana na ekranie, a --util-page-margin-offset to policzona szerokość marginesu
+       (rośnie na szerokich ekranach, nie sztywne 40px). Dlatego display:flex tu NIE może
+       zostać — nadpisałoby natywny display:grid i całą siatkę kolumn. gap zamiast flex-gap
+       działa tak samo w gridzie. .mmw-pc__head nie potrzebuje już własnego paddingu — trafia
+       domyślnie do środkowej kolumny (.section > * { grid-column: 2 }). */
+    #shopify-section-{{ section.id }} .mmw-pc { gap: 32px; padding-block: 60px; }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); }
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
@@ -305,10 +313,10 @@
     assign carousel_ref = 'mmwPc-' | append: section.id
     if section.settings.section_width == 'page-width'
       assign slideshow_gutters = 'start end'
-      # --util-page-margin-offset wymaga ancestora .section (grid Horizona), którego ta
-      # sekcja nie ma — używamy --page-margin (ten sam token co reszta sekcji mmw-*), żeby
-      # gutter faktycznie działał zamiast po cichu spadać do 0.
-      assign gutter_style = '--gutter-slide-width: var(--page-margin, 40px);'
+      # .mmw-pc ma teraz klasę .section (patrz niżej), więc --util-page-margin-offset liczy
+      # się poprawnie — dokładnie ten sam token, którego natywne karuzele (resource-list-carousel,
+      # mmw-featured-collection) używają do wyrównania pierwszej/ostatniej karty z page-content-width.
+      assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, 40px);'
     else
       assign slideshow_gutters = null
       assign gutter_style = '--gutter-slide-width: 0px;'
@@ -331,13 +339,13 @@
     {%- render 'slideshow-controls', style: 'dots', item_count: cards_array.size, show_arrows: false, pagination_position: 'center' -%}
   {%- endcapture -%}
 
-  <section class="mmw-pc color-{{ section.settings.color_scheme }}">
+  <section class="mmw-pc section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}">
     <div class="mmw-pc__head">
       {%- if section.settings.heading != blank -%}<h2 class="mmw-pc__title">{{ section.settings.heading }}</h2>{%- endif -%}
       {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
-    <div class="resource-list resource-list__carousel mmw-pc__carousel-wrap" style="{{ resource_list_style }}">
+    <div class="resource-list resource-list__carousel mmw-pc__carousel-wrap force-full-width" style="{{ resource_list_style }}">
       {%- render 'slideshow',
         ref: carousel_ref,
         class: 'resource-list__carousel',
