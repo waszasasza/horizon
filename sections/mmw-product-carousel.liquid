@@ -10,20 +10,34 @@
     - snippets/resource-list.liquid — sposób budowania CSS custom properties dla trybu
       carousel (--column-count, --resource-list-column-gap-desktop, --mobile-card-size)
       na wrapperze .resource-list.resource-list__carousel — ten sam wrapper/klasy tutaj.
-    - snippets/resource-list-carousel.liquid — RENDEROWANY BEZPOŚREDNIO (bez zmian): to on
-      odpowiada za geometrię slajdów (peek-width przez @container + var(--slide-width),
-      identyczny gap, brak zachodzenia/skalowania) i strzałki (slideshow-arrows, hover-reveal,
-      kolory z color-scheme) — dokładnie jak w innych karuzelach na stronie.
-    - snippets/quick-add.liquid — RENDEROWANY BEZ ZMIAN, bez nadpisywania stylów. Żeby przycisk
-      wyglądał i działał identycznie jak na natywnych kartach (okrągła ikona → pigułka "Dodaj"
-      na hover, cart drawer, warianty), karta jest opakowana w prawdziwy element <product-card
-      class="product-card"> z wymaganym linkiem ref="productCardLink" (assets/product-card.js) —
-      to jedyny sposób, żeby zadziałał natywny selektor hover
-      `product-card:is(:hover, :focus-within) .quick-add__button`.
+    - snippets/resource-list-carousel.liquid — jego logika (gutter/peek-width, strzałki)
+      jest tu skopiowana 1:1 (te same zmienne, te same wywołania 'slideshow'/'slideshow-slide'),
+      bo ten snippet nie ma parametru na "controls" (kropki), a potrzebujemy ich w tym samym
+      <slideshow-component> co karty (wymóg natywnego mechanizmu ref/JS w assets/slideshow.js —
+      slideshow-controls musi być potomkiem slideshow-component, inaczej nie działa). Geometria
+      slajdów (peek przez @container + var(--slide-width)) i strzałki (slideshow-arrows,
+      hover-reveal) pozostają więc IDENTYCZNE jak w resource-list-carousel.liquid.
+    - snippets/slideshow-controls.liquid (style: "dots") — natywny komponent kropek. UWAGA:
+      w całym repo żadna karuzela z wieloma widocznymi kartami (peek-width) nie ma kropek
+      per "widok" — natywnie kropki są zawsze 1:1 ze slajdami (assets/slideshow.js: dots[i]
+      odpowiada slides[i]). Przy geometrii peek (wymóg z poprzedniego zadania) 1 slajd = 1
+      karta produktu, więc kropki tu też są 1 na kartę — to jedyna wersja "kropek per widok",
+      jaka jest technicznie możliwa bez grupowania kart w jeden slajd (co złamałoby peek-width).
+    - snippets/quick-add.liquid — renderowany bez zmian stylów. Karta opakowana w prawdziwy
+      <product-card class="product-card"> z wymaganym linkiem ref="productCardLink"
+      (assets/product-card.js), żeby zadziałał natywny hover-selector
+      `product-card:is(:hover, :focus-within) .quick-add__button`. Widoczność sterowana tymi
+      samymi zmiennymi co w snippets/product-card.liquid (--quick-add-display itd.), liczonymi
+      z tych samych ustawień motywu (settings.quick_add / settings.mobile_quick_add).
+    - assets/icon-arrow.svg (przez inline_asset_content) — ta sama ikona co w
+      snippets/slideshow-arrow.liquid, użyta na karcie końcowej „Zobacz więcej”.
+    - sections/mmw-how-its-made.liquid — źródło wartości hover karty końcowej (translateY,
+      czas/easing, kolor tła).
 
-  Customowa jest wyłącznie treść karty: obraz, badge (tagi bestseller/nowość lub cena promocyjna),
-  tytuł, opis (metapole custom.opis_karty, fallback na opis produktu), cena, karta końcowa
-  „Zobacz więcej”.
+  Customowa jest wyłącznie treść karty: obraz (+ hover na drugie zdjęcie, CSS-owy fallback —
+  natywny card-gallery hover-image wymaga zagnieżdżonego slideshow per karta, którego nasz
+  pełnokadrowy layout nie używa), badge (tagi bestseller/nowość lub cena promocyjna), tytuł,
+  opis (metapole custom.opis_karty, fallback na opis produktu), cena, karta końcowa.
 {%- endcomment -%}
 {%- liquid
   assign coll = section.settings.collection
@@ -46,8 +60,8 @@
 -%}
 {%- if coll != blank and coll.products.size > 0 -%}
   {%- style -%}
-    #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
-    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--page-margin, 40px); }
+    #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; padding-inline: var(--page-margin, 40px); }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); }
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
@@ -61,6 +75,10 @@
     #shopify-section-{{ section.id }} .mmw-pc__img svg {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
     }
+    #shopify-section-{{ section.id }} .mmw-pc__img--hover {
+      opacity: 0; transition: opacity var(--hover-transition-duration, .3s) var(--hover-transition-timing, ease);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__card:hover .mmw-pc__img--hover { opacity: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__card::after {
       content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
       background: linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.92) 100%);
@@ -92,12 +110,24 @@
     }
     #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 4px 0 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
 
-    /* Karta końcowa „Zobacz więcej” — ten sam rozmiar slajdu co karty produktów */
+    /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
+    #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap { width: 100%; }
+
+    /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots, bez dodatkowego CSS) */
+    #shopify-section-{{ section.id }} slideshow-controls { margin-top: 8px; }
+
+    /* Karta końcowa „Zobacz więcej” — ten sam rozmiar slajdu co karty produktów + hover jak mmw-how-its-made */
     #shopify-section-{{ section.id }} .mmw-pc__end {
       position: relative; display: flex; width: 100%; aspect-ratio: {{ card_ratio }};
       border: 1px solid rgba(95,49,47,.25); border-radius: 16px; overflow: hidden;
       align-items: center; justify-content: center; text-align: center; padding: 32px;
       text-decoration: none; background: var(--mmw-04);
+      transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__end:hover {
+      background: var(--mmw-03);
+      transform: translateY(-6px);
+      box-shadow: 0 14px 30px rgba(95,49,47,.15);
     }
     #shopify-section-{{ section.id }} .mmw-pc__end-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; }
     #shopify-section-{{ section.id }} .mmw-pc__end-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
@@ -106,7 +136,8 @@
       width: 44px; height: 44px; border-radius: 50%; background: var(--mmw-01); color: var(--mmw-04);
       display: grid; place-items: center;
     }
-    #shopify-section-{{ section.id }} .mmw-pc__end-btn svg { width: 22px; height: 22px; transform: rotate(90deg); }
+    #shopify-section-{{ section.id }} .mmw-pc__end-btn .icon-arrow,
+    #shopify-section-{{ section.id }} .mmw-pc__end-btn svg { width: 22px; height: 22px; }
 
     @media (max-width: 989px) {
       #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 24px; }
@@ -114,7 +145,7 @@
     }
   {%- endstyle -%}
 
-  {%- comment -%} Karty produktów + opcjonalna karta końcowa → tablica HTML (ten sam trik co list_items_array w sections/product-list.liquid), przekazywana bezpośrednio do natywnego snippetu 'resource-list-carousel'. {%- endcomment -%}
+  {%- comment -%} Karty produktów + opcjonalna karta końcowa → tablica HTML (ten sam trik co list_items_array w sections/product-list.liquid). {%- endcomment -%}
   {%- capture cards_concat -%}
     {%- assign item_index = 0 -%}
     {%- for product in coll.products limit: count -%}
@@ -136,8 +167,18 @@
         endif
         assign card_text = product.metafields.custom.opis_karty.value | default: product.description
         assign card_text = card_text | strip_html | truncate: desc_len
+
+        # Widoczność quick-add liczona tak samo jak w snippets/product-card.liquid
+        assign has_quick_add = false
+        if settings.quick_add and product.available
+          assign has_quick_add = true
+        endif
+        assign has_mobile_quick_add = false
+        if has_quick_add and settings.mobile_quick_add
+          assign has_mobile_quick_add = true
+        endif
       -%}
-      <product-card class="product-card mmw-pc__card">
+      <product-card class="product-card mmw-pc__card" style="--quick-add-display: {% if has_quick_add %}flex{% else %}none{% endif %}; --quick-add-mobile-display: {% if has_mobile_quick_add %}flex{% else %}none{% endif %}; --quick-add-mobile-opacity: {% if has_mobile_quick_add %}1{% else %}0{% endif %};">
         <a href="{{ product.url }}" class="product-card__link" ref="productCardLink" id="mmw-pc-link-{{ section.id }}-{{ product.id }}">
           <span class="visually-hidden">{{ product.title | escape }}</span>
         </a>
@@ -150,6 +191,11 @@
               alt="">
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'mmw-pc__img' }}
+          {%- endif -%}
+          {%- if product.media.size > 1 -%}
+            <img class="mmw-pc__img mmw-pc__img--hover" loading="lazy" width="640" height="980"
+              src="{{ product.media[1].preview_image | image_url: width: 640 }}"
+              alt="">
           {%- endif -%}
         </a>
         {%- if badge_text != blank -%}<span class="{{ badge_class }}">{{ badge_text }}</span>{%- endif -%}
@@ -178,7 +224,7 @@
         <div class="mmw-pc__end-content">
           <p class="mmw-pc__end-heading">{{ section.settings.end_card_heading | newline_to_br }}</p>
           <span class="mmw-pc__end-btn" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            <span class="svg-wrapper icon-arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
           </span>
         </div>
       </a>
@@ -186,14 +232,42 @@
   {%- endcapture -%}
   {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-pc/split-->' -%}
 
-  {%- comment -%} Wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" {%- endcomment -%}
+  {%- comment -%}
+    Od tego miejsca w dół — logika 1:1 skopiowana z snippets/resource-list.liquid (wrapper
+    .resource-list.resource-list__carousel z tymi samymi zmiennymi CSS) i
+    snippets/resource-list-carousel.liquid (gutter/peek-width, strzałki), rozszerzona TYLKO
+    o parametr `controls` (kropki) w wywołaniu 'slideshow', którego resource-list-carousel.liquid
+    nie udostępnia.
+  {%- endcomment -%}
   {%- capture resource_list_style -%}
     --resource-list-column-gap-desktop: {{ columns_gap }}px;
     --column-count: {{ columns }};
     --column-count-mobile: 1;
     --mobile-card-size: {{ mobile_card_size }};
   {%- endcapture -%}
-  {%- assign carousel_ref = 'mmwPc-' | append: section.id -%}
+
+  {%- liquid
+    assign carousel_ref = 'mmwPc-' | append: section.id
+    if section.settings.section_width == 'page-width'
+      assign slideshow_gutters = 'start end'
+      assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset);'
+    else
+      assign slideshow_gutters = null
+      assign gutter_style = '--gutter-slide-width: 0px;'
+    endif
+    assign show_arrows = false
+    if section.settings.icons_style != 'none'
+      assign show_arrows = true
+    endif
+  -%}
+  {%- capture carousel_slides -%}
+    {%- for item in cards_array -%}
+      {%- render 'slideshow-slide', index: forloop.index0, children: item, class: 'resource-list__slide' -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture carousel_controls -%}
+    {%- render 'slideshow-controls', style: 'dots', item_count: cards_array.size, show_arrows: false, pagination_position: 'center' -%}
+  {%- endcapture -%}
 
   <section class="mmw-pc color-{{ section.settings.color_scheme }}">
     <div class="mmw-pc__head">
@@ -201,14 +275,23 @@
       {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
-    <div class="resource-list resource-list__carousel" style="{{ resource_list_style }}">
-      {%- render 'resource-list-carousel',
-        ref: carousel_ref,
-        slides: cards_array,
-        slide_count: cards_array.size,
-        settings: section.settings,
-        slide_width_max: '420px'
-      -%}
+    <div class="resource-list resource-list__carousel mmw-pc__carousel-wrap" style="{{ resource_list_style }}">
+      <div style="{{ gutter_style }} --slide-width-max: 420px;">
+        {%- render 'slideshow',
+          ref: carousel_ref,
+          class: 'resource-list__carousel',
+          slides: carousel_slides,
+          show_arrows: show_arrows,
+          icon_style: section.settings.icons_style,
+          icon_shape: section.settings.icons_shape,
+          auto_hide_controls: false,
+          infinite: false,
+          initial_slide: 0,
+          slide_count: cards_array.size,
+          slideshow_gutters: slideshow_gutters,
+          controls: carousel_controls
+        -%}
+      </div>
     </div>
   </section>
 {%- endif -%}
@@ -230,8 +313,8 @@
         { "value": "square", "label": "Kwadrat (1:1)" }
       ]
     },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów (strzałki, przycisk Dodaj)", "default": "scheme-1" },
-    { "type": "paragraph", "content": "Badge karty ustawia się automatycznie: cena promocyjna produktu → rabat (np. „-10%”), tag „bestseller” → BESTSELLER, tag „nowość” → NOWOŚĆ. Opis karty: metapole custom.opis_karty, a bez niego — opis produktu (skrócony do długości powyżej)." },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów (strzałki, kropki, przycisk Dodaj)", "default": "scheme-1" },
+    { "type": "paragraph", "content": "Badge karty ustawia się automatycznie: cena promocyjna produktu → rabat (np. „-10%”), tag „bestseller” → BESTSELLER, tag „nowość” → NOWOŚĆ. Opis karty: metapole custom.opis_karty, a bez niego — opis produktu (skrócony do długości powyżej). Przycisk „Dodaj” pokazuje się tylko, gdy w Ustawieniach motywu → Koszyk włączony jest Quick Add." },
     { "type": "header", "content": "Karuzela (jak w natywnych karuzelach produktów)" },
     { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Kart na widok (desktop)", "default": 3 },
     { "type": "range", "id": "columns_gap", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "Odstęp między kartami", "default": 24 },
