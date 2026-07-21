@@ -1,0 +1,234 @@
+{%- comment -%}
+  mmw-product-carousel — UNIWERSALNA karuzela produktowa (Figma: BESTSELLERS, node 982:4036).
+  Jedno źródło (kolekcja) + limit kart — używana dla bestsellerów ×2, voucherów i produktów marki,
+  bez osobnych wariantów sekcji. Badge sterowany ceną promocyjną i tagami (bestseller / nowość),
+  zgodnie z konwencją mmw-product-card. Opis karty z product.metafields.custom.opis_karty.
+{%- endcomment -%}
+{%- liquid
+  assign coll = section.settings.collection
+  assign count = section.settings.products_count | default: 4
+  assign show_end_card = section.settings.show_end_card
+-%}
+{%- if coll != blank and coll.products.size > 0 -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .mmw-pc {
+      display: flex; flex-direction: column; gap: 32px;
+      padding-block: 60px; padding-inline: var(--page-margin, 40px);
+      background: var(--mmw-04);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); }
+    #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
+    #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
+
+    #shopify-section-{{ section.id }} .mmw-pc__track {
+      display: flex; gap: 20px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      scrollbar-width: none; -ms-overflow-style: none; margin: 0; padding: 0 2px;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__track::-webkit-scrollbar { display: none; }
+
+    #shopify-section-{{ section.id }} .mmw-pc__card {
+      position: relative; flex: 0 0 320px; width: 320px; aspect-ratio: 320 / 486;
+      display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;
+      padding: 28px; border-radius: 16px; overflow: hidden; scroll-snap-align: start;
+      text-decoration: none; background: var(--mmw-01);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__img,
+    #shopify-section-{{ section.id }} .mmw-pc__img svg {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 0;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__card::after {
+      content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.92) 100%);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__badge {
+      position: relative; z-index: 2; background: var(--mmw-03); color: var(--mmw-01);
+      font-family: var(--mmw-font-label); font-weight: 700; font-size: 14px; letter-spacing: 2px;
+      text-transform: uppercase; padding: 10px 14px; border-radius: 58px; line-height: 1.2;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__badge--sale { background: var(--mmw-02); }
+    #shopify-section-{{ section.id }} .mmw-pc__body { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+    #shopify-section-{{ section.id }} .mmw-pc__name { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 24px; line-height: 1; color: var(--mmw-04); }
+    #shopify-section-{{ section.id }} .mmw-pc__excerpt {
+      margin: 0; font-family: var(--mmw-font-text); font-size: 12px; line-height: 1.4; color: var(--mmw-04);
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 4px; }
+    #shopify-section-{{ section.id }} .mmw-pc__price-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    #shopify-section-{{ section.id }} .mmw-pc__price-line { display: flex; align-items: baseline; gap: 6px; }
+    #shopify-section-{{ section.id }} .mmw-pc__price {
+      font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--mmw-04);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__price--sale { color: var(--mmw-02); }
+    #shopify-section-{{ section.id }} .mmw-pc__price-compare {
+      font-family: var(--mmw-font-label); font-weight: 700; font-size: 12px; color: var(--mmw-04);
+      text-decoration: line-through; opacity: .85;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
+    #shopify-section-{{ section.id }} .mmw-pc__basket {
+      flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%; background: var(--mmw-02); color: var(--mmw-04);
+      display: grid; place-items: center;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__basket svg { width: 22px; height: 22px; }
+
+    #shopify-section-{{ section.id }} .mmw-pc__end {
+      flex: 0 0 320px; width: 320px; aspect-ratio: 320 / 486; scroll-snap-align: start;
+      position: relative; border: 1px solid rgba(95,49,47,.25); border-radius: 16px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center; text-align: center; padding: 32px;
+      text-decoration: none; background: var(--mmw-04);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__end-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; }
+    #shopify-section-{{ section.id }} .mmw-pc__end-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    #shopify-section-{{ section.id }} .mmw-pc__end-heading { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 36px; line-height: 1.1; color: var(--mmw-01); }
+    #shopify-section-{{ section.id }} .mmw-pc__end-btn {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--mmw-01); color: var(--mmw-04);
+      display: grid; place-items: center;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__end-btn svg { width: 22px; height: 22px; transform: rotate(90deg); }
+
+    #shopify-section-{{ section.id }} .mmw-pc__dots { display: flex; align-items: center; justify-content: center; gap: 8px; }
+    #shopify-section-{{ section.id }} .mmw-pc__dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: var(--mmw-03); cursor: pointer; }
+    #shopify-section-{{ section.id }} .mmw-pc__dot.is-active { background: var(--mmw-01); }
+
+    @media (max-width: 989px) {
+      #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 24px; }
+      #shopify-section-{{ section.id }} .mmw-pc__title { font-size: 36px; }
+      #shopify-section-{{ section.id }} .mmw-pc__card,
+      #shopify-section-{{ section.id }} .mmw-pc__end { flex-basis: 78vw; width: 78vw; }
+    }
+  {%- endstyle -%}
+  <section class="mmw-pc">
+    <div class="mmw-pc__head">
+      {%- if section.settings.heading != blank -%}<h2 class="mmw-pc__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
+    </div>
+
+    <div class="mmw-pc__track" id="mmw-pc-track-{{ section.id }}">
+      {%- for product in coll.products limit: count -%}
+        {%- liquid
+          assign on_sale = false
+          assign badge_text = blank
+          assign badge_class = 'mmw-pc__badge'
+          if product.compare_at_price > product.price
+            assign on_sale = true
+            assign discount_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+            assign badge_text = '-' | append: discount_pct | append: '%'
+            assign badge_class = badge_class | append: ' mmw-pc__badge--sale'
+          elsif product.tags contains 'bestseller' or product.tags contains 'Bestseller'
+            assign badge_text = 'Bestseller'
+          elsif product.tags contains 'nowość' or product.tags contains 'nowosc' or product.tags contains 'Nowość'
+            assign badge_text = 'Nowość'
+          endif
+        -%}
+        <a class="mmw-pc__card" href="{{ product.url }}" data-mmw-pc-slide>
+          {%- if product.featured_image != blank -%}
+            <img class="mmw-pc__img" loading="lazy"
+              src="{{ product.featured_image | image_url: width: 640 }}"
+              srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 640 }} 640w, {{ product.featured_image | image_url: width: 900 }} 900w"
+              sizes="(max-width: 989px) 78vw, 320px"
+              alt="{{ product.featured_image.alt | default: product.title | escape }}">
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'mmw-pc__img' }}
+          {%- endif -%}
+          {%- if badge_text != blank -%}<span class="{{ badge_class }}">{{ badge_text }}</span>{%- endif -%}
+          <div class="mmw-pc__body">
+            <p class="mmw-pc__name">{{ product.title }}</p>
+            {%- if product.metafields.custom.opis_karty != blank -%}
+              <p class="mmw-pc__excerpt">{{ product.metafields.custom.opis_karty }}</p>
+            {%- endif -%}
+            <div class="mmw-pc__price-row">
+              <div class="mmw-pc__price-block">
+                {%- if on_sale -%}
+                  <div class="mmw-pc__price-line">
+                    <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
+                    <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
+                  </div>
+                  <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
+                {%- else -%}
+                  <span class="mmw-pc__price">{{ product.price | money }}</span>
+                {%- endif -%}
+              </div>
+              <span class="mmw-pc__basket" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 9h16l-1.4 10.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 9Z"/>
+                  <path d="M8 9V7a4 4 0 0 1 8 0v2"/>
+                  <path d="M9 13v4M12 13v4M15 13v4"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+
+      {%- if show_end_card -%}
+        <a class="mmw-pc__end" href="{{ section.settings.end_card_link | default: coll.url }}" data-mmw-pc-slide>
+          {%- if section.settings.end_card_image != blank -%}
+            <img class="mmw-pc__end-img" src="{{ section.settings.end_card_image | image_url: width: 640 }}" alt="" loading="lazy">
+          {%- endif -%}
+          <div class="mmw-pc__end-content">
+            <p class="mmw-pc__end-heading">{{ section.settings.end_card_heading | newline_to_br }}</p>
+            <span class="mmw-pc__end-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </span>
+          </div>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="mmw-pc__dots" id="mmw-pc-dots-{{ section.id }}" role="tablist" aria-label="Przewijanie karuzeli produktów"></div>
+  </section>
+
+  <script>
+    (function () {
+      var track = document.getElementById('mmw-pc-track-{{ section.id }}');
+      var dotsWrap = document.getElementById('mmw-pc-dots-{{ section.id }}');
+      if (!track || !dotsWrap) return;
+      var slides = Array.prototype.slice.call(track.querySelectorAll('[data-mmw-pc-slide]'));
+      if (!slides.length) return;
+
+      slides.forEach(function (slide, i) {
+        var dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'mmw-pc__dot';
+        dot.setAttribute('aria-label', 'Pokaż kartę ' + (i + 1));
+        dot.addEventListener('click', function () {
+          slide.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+        });
+        dotsWrap.appendChild(dot);
+      });
+      var dots = Array.prototype.slice.call(dotsWrap.children);
+      dots[0].classList.add('is-active');
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var index = slides.indexOf(entry.target);
+          if (index === -1) return;
+          dots.forEach(function (d) { d.classList.remove('is-active'); });
+          dots[index].classList.add('is-active');
+        });
+      }, { root: track, threshold: 0.6 });
+
+      slides.forEach(function (slide) { observer.observe(slide); });
+    })();
+  </script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "MMW Karuzela produktów",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Poznaj nasze bestsellery" },
+    { "type": "textarea", "id": "description", "label": "Opis", "default": "Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie." },
+    { "type": "collection", "id": "collection", "label": "Kolekcja produktów" },
+    { "type": "range", "id": "products_count", "min": 2, "max": 12, "step": 1, "label": "Liczba kart", "default": 4 },
+    { "type": "paragraph", "content": "Badge karty ustawia się automatycznie: cena promocyjna produktu → rabat (np. „-10%”), tag „bestseller” → BESTSELLER, tag „nowość” → NOWOŚĆ. Opis karty bierze się z metapola custom.opis_karty." },
+    { "type": "header", "content": "Karta końcowa „Zobacz więcej”" },
+    { "type": "checkbox", "id": "show_end_card", "label": "Pokaż kartę końcową", "default": true },
+    { "type": "textarea", "id": "end_card_heading", "label": "Tekst karty końcowej", "default": "Zobacz więcej\nbestsellerów" },
+    { "type": "url", "id": "end_card_link", "label": "Link karty końcowej" },
+    { "type": "image_picker", "id": "end_card_image", "label": "Tło karty końcowej (opcjonalnie)" }
+  ],
+  "presets": [{ "name": "MMW Karuzela produktów" }]
+}
+{% endschema %}
