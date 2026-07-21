@@ -1,10 +1,172 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "mmw-firms-hero", "settings": {} },
-    "intro": { "type": "mmw-firms-intro", "settings": {} },
-    "catalog": { "type": "mmw-firms-catalog", "settings": {} },
-    "offer": { "type": "mmw-brands", "settings": {} },
-    "contact": { "type": "mmw-firms-contact", "settings": {} }
+    "hero": {
+      "type": "mmw-firms-hero",
+      "settings": {
+        "heading": "Z Małej Wsi do Twojego biznesu",
+        "subtitle": "Tworzymy produkty inspirowane naturą, historią i rzemiosłem, które trafiają do firm, restauracji, hoteli i partnerów handlowych.",
+        "image": "shopify://shop_images/Dla_Firm.webp",
+        "logo": "shopify://shop_images/MMW_logo.svg",
+        "height": 720,
+        "overlay_opacity": 30
+      }
+    },
+    "intro": {
+      "type": "mmw-firms-intro",
+      "settings": {
+        "eyebrow": "Dla Firm",
+        "text": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół. Nasze produkty łączą szlachetność tradycji."
+      }
+    },
+    "catalog": {
+      "type": "mmw-firms-catalog",
+      "settings": {
+        "image": "shopify://shop_images/pmw-x-batida-89.webp",
+        "title": "Katalog online",
+        "desc": "Pobierz naszą całą ofertę w postaci PDF, aby mieć dostęp do wszystkich informacji w jednym miejscu!",
+        "field_label": "Wpisz swój adres e-mail, aby pobrać",
+        "button_label": "Pobierz",
+        "pdf": "",
+        "success_text": "Dziękujemy! Twój katalog jest gotowy do pobrania:",
+        "download_label": "Pobierz katalog PDF"
+      }
+    },
+    "offer": {
+      "type": "mmw-brands",
+      "blocks": {
+        "brand_KVMp9t": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Zestawy prezentowe",
+            "name": "Prezenty firmowe",
+            "desc": "Wierzymy, że najlepsze prezenty opowiadają historię. Dlatego nasze zestawy powstają z produktów tworzonych w sadach, winnicy i pałacowych ogrodach Majątku Mała Wieś. Starannie dobrane kompozycje stają się eleganckim sposobem na budowanie relacji, wyrażanie wdzięczności i celebrowanie ważnych momentów w biznesie.",
+            "image": "shopify://shop_images/186-kopia.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "",
+            "bg_color": "#c6d4e2",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        },
+        "brand_XVhPrW": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "CATERING",
+            "name": "Oferta gastronomiczna",
+            "desc": "Smak Majątku Mała Wieś może towarzyszyć również najważniejszym wydarzeniom organizowanym poza pałacem. Przygotowujemy autorskie propozycje cateringowe oparte na produktach pochodzących z naszych sadów, winnicy i Spiżarni Książęcej. To połączenie sezonowych składników, starannie opracowanych receptur oraz doświadczenia zespołu, który od lat tworzy kulinarną historię Małej Wsi. Nasz catering sprawdza się zarówno podczas kameralnych spotkań biznesowych, jak i większych wydarzeń, pozostawiając gościom smak, który na długo pozostaje w pamięci.",
+            "image": "shopify://shop_images/pmw-x-batida-97.jpg",
+            "button_label": "DOWIEDZ SIĘ WIĘCEJ",
+            "button_url": "https://catering.palacmalawies.pl/",
+            "bg_color": "#faf2e8",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        },
+        "brand_3ePTAh": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "PREZENTY FIRMOWE",
+            "name": "Prezenty firmowe",
+            "desc": "Majątek Mała Wieś to historia, natura i rzemiosło zamknięte w wyjątkowych produktach. Prezenty firmowe z Majątku to sposób na przekazanie wartości, które są bliskie naszej marce: dbałości o jakość, autentyczności i szacunku dla wielopokoleniowego dziedzictwa. Oferujemy szeroką gamę produktów, które stanowią elegancki i niepowtarzalny upominek dla partnerów biznesowych i pracowników. Nasza oferta upominkowa bazuje na markach zakorzenionych w historii i naturze Małej Wsi.",
+            "image": "shopify://shop_images/186-kopia.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "",
+            "bg_color": "#c6d4e2",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        },
+        "brand_9UPyex": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Zamówienia hurtowe",
+            "name": "Współpraca dla biznesu",
+            "desc": "Produkty Majątku Mała Wieś trafiają do restauracji, hoteli, sklepów specjalistycznych oraz partnerów handlowych poszukujących marek o autentycznym pochodzeniu i wyjątkowej jakości. Oferujemy możliwość stałej współpracy w zakresie dystrybucji win, cydrów, delikatesów oraz produktów powstających w naszych sadach, winnicy i pałacowej spiżarni. Tworzymy elastyczne warunki współpracy, dostosowane do potrzeb partnerów, którzy chcą wzbogacić swoją ofertę o produkty zakorzenione w historii, naturze i rzemiośle.",
+            "image": "shopify://shop_images/miod.webp",
+            "button_label": "KONTAKT",
+            "button_url": "shopify://pages/contact",
+            "bg_color": "#faf2e8",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        }
+      },
+      "block_order": [
+        "brand_KVMp9t",
+        "brand_XVhPrW",
+        "brand_3ePTAh",
+        "brand_9UPyex"
+      ],
+      "settings": {}
+    },
+    "contact": {
+      "type": "mmw-firms-contact",
+      "blocks": {
+        "dept_9kgMbF": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        },
+        "dept_nTVyHr": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        },
+        "dept_bFUBKK": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        },
+        "dept_Rza7pc": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        }
+      },
+      "block_order": [
+        "dept_9kgMbF",
+        "dept_nTVyHr",
+        "dept_bFUBKK",
+        "dept_Rza7pc"
+      ],
+      "settings": {
+        "form_title": "Formularz kontaktowy",
+        "button_label": "Wyślij wiadomość",
+        "note": "Odpowiemy na Państwa wiadomość najszybciej jak się da",
+        "success_text": "Dziękujemy! Wiadomość została wysłana."
+      }
+    }
   },
-  "order": ["hero", "intro", "catalog", "offer", "contact"]
+  "order": [
+    "hero",
+    "intro",
+    "catalog",
+    "offer",
+    "contact"
+  ]
 }

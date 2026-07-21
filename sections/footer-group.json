@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "t:names.footer",
@@ -10,13 +19,11 @@
         "input_placeholder": "ADRES E-MAIL",
         "submit_label": "DOŁĄCZ",
         "col_1_heading": "MAJĄTEK",
-        "col_1_menu": "main-menu",
+        "col_1_menu": "maj-tek",
         "col_2_heading": "PRODUKTY",
-        "col_2_menu": "footer",
+        "col_2_menu": "kategorie-sklepu",
         "col_3_heading": "POMOC",
-        "col_3_menu": "",
-        "logo": "",
-        "background_image": "",
+        "col_3_menu": "drawer-menu",
         "made_by_link": "https://suprematic.com",
         "social_facebook": "",
         "social_instagram": "",
@@ -26,5 +33,7 @@
       }
     }
   },
-  "order": ["mmw_footer"]
+  "order": [
+    "mmw_footer"
+  ]
 }

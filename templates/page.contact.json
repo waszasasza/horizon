@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -33,7 +42,7 @@
           "type": "text",
           "name": "t:names.content",
           "settings": {
-            "text": "{{ closest.page.content }}",
+            "text": "{{ closest.page.content }}<p>W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół. </p>",
             "width": "100%",
             "max_width": "narrow",
             "alignment": "center",
@@ -56,52 +65,214 @@
           "blocks": {}
         }
       },
-      "block_order": ["title", "content"],
+      "block_order": [
+        "title",
+        "content"
+      ],
       "settings": {
         "content_direction": "column",
         "gap": 32,
         "color_scheme": "",
-        "padding-block-start": 40,
-        "padding-block-end": 0
+        "padding-block-start": 80,
+        "padding-block-end": 60
       }
     },
-    "form": {
+    "mmw_firms_contact_WdQNDE": {
+      "type": "mmw-firms-contact",
+      "blocks": {
+        "dept_9MDkqi": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        },
+        "dept_eiWUki": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        },
+        "dept_7QJfJC": {
+          "type": "dept",
+          "settings": {
+            "name": "Dział sprzedaży",
+            "line1": "+48 604 490 109",
+            "line2": "sklep@majatekmalawies.pl"
+          }
+        }
+      },
+      "block_order": [
+        "dept_9MDkqi",
+        "dept_eiWUki",
+        "dept_7QJfJC"
+      ],
+      "name": "MMW Kontakt firmy",
+      "settings": {
+        "form_title": "Formularz kontaktowy",
+        "button_label": "Wyślij wiadomość",
+        "note": "Odpowiemy na Państwa wiadomość najszybciej jak się da",
+        "success_text": "Dziękujemy! Wiadomość została wysłana."
+      }
+    },
+    "mmw_team_eR3KnY": {
+      "type": "mmw-team",
+      "blocks": {
+        "person_Nhf37p": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Dominik_png.webp",
+            "name": "Dominik Źelazek",
+            "role": "Dyrektor Sprzedaży",
+            "email": "dominik.zelazek@palacmalawies.pl"
+          }
+        },
+        "person_PTLpKL": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/eugienia.png",
+            "name": "Eugenia Havryk",
+            "role": "Dyrektor Sprzedaży",
+            "email": "e.havryk@majatekmalawies.pl"
+          }
+        },
+        "person_4AXx4p": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Projekt-bez-nazwy-17_png.webp",
+            "name": "Adam Śmieżewski",
+            "role": "Manager / Sommelier",
+            "email": "e.havryk@majatekmalawies.pl"
+          }
+        }
+      },
+      "block_order": [
+        "person_Nhf37p",
+        "person_PTLpKL",
+        "person_4AXx4p"
+      ],
+      "name": "MMW Zespół",
+      "settings": {
+        "eyebrow": "Team handlowy"
+      }
+    },
+    "mmw_promo_tiles_E9m3hr": {
+      "type": "mmw-promo-tiles",
+      "blocks": {
+        "tile_G4PhFc": {
+          "type": "tile",
+          "settings": {
+            "logo": "shopify://shop_images/WPMW.svg",
+            "heading": "Odwiedź naszą Winnicę i odkryj kolekcję win z największej winnicy na Mazowszu.",
+            "button_label": "Sprawdź nasze wina",
+            "button_url": "https://winnica-pmw.pl/",
+            "bg_color": "#c6d4e2",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#c6d4e2"
+          }
+        },
+        "tile_izTQV6": {
+          "type": "tile",
+          "settings": {
+            "logo": "shopify://shop_images/PMW.svg",
+            "heading": "Sprawdź co oferuje czterogwiazdkowy hotel w okolicach Warszawy z własną historią.",
+            "button_label": "Sprawdź kompleks pałacowy",
+            "button_url": "https://palacmalawies.pl/",
+            "bg_color": "#5f312f",
+            "text_color": "#faf2e8",
+            "button_bg": "#c6d4e2",
+            "button_color": "#5f312f"
+          }
+        }
+      },
+      "block_order": [
+        "tile_G4PhFc",
+        "tile_izTQV6"
+      ],
+      "name": "MMW Kafle promo",
+      "settings": {}
+    },
+    "section_wxNQgk": {
       "type": "section",
       "blocks": {
-        "contact_form_UwiCkQ": {
-          "type": "contact-form",
+        "text_UpGJWq": {
+          "type": "text",
+          "name": "t:names.heading",
           "settings": {
-            "width": "custom",
-            "custom_width": 50,
-            "width_mobile": "custom",
-            "custom_width_mobile": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
+            "text": "<p>Sklep stacjonarny</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground-heading)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {
-            "submit-button": {
-              "type": "contact-form-submit-button",
-              "static": true,
-              "settings": {
-                "label": "Submit",
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
+          "blocks": {}
+        },
+        "text_4c7aBz": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Sprawdź naszą ofertę na miejscu! Jesteśmy 50km od Warszawy, 100km od Łodzi i 100km od Lublina.</p><p>Mała Wieś 40<br/>05-622 Belsk Duży</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
-          "block_order": []
+          "blocks": {}
+        },
+        "button_R9W8qg": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "SPRAWDŹ DOJAZD",
+            "link": "https://www.google.com/maps?um=1&ie=UTF-8&fb=1&gl=pl&sa=X&geocode=KU-xI7ViFxlHMa8uN3ei62uu&daddr=Ma%C5%82a+Wie%C5%9B+40,+05-622+Ma%C5%82a+Wie%C5%9B",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
-      "block_order": ["contact_form_UwiCkQ"],
-      "name": "t:names.contact_form",
+      "block_order": [
+        "text_UpGJWq",
+        "text_4c7aBz",
+        "button_R9W8qg"
+      ],
+      "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
@@ -110,11 +281,11 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 32,
+        "gap": 12,
         "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-1",
+        "section_height": "custom",
+        "section_height_custom": 21,
+        "color_scheme": "",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -126,10 +297,31 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 32,
-        "padding-block-end": 84
+        "padding-block-start": 60,
+        "padding-block-end": 0
+      }
+    },
+    "mmw_map_HrYmwt": {
+      "type": "mmw-map",
+      "name": "MMW Mapa",
+      "settings": {
+        "pin_label": "Majątek Mała Wieś",
+        "pin_image": "",
+        "lat": "51.82458187791217",
+        "lng": "20.79018682779617",
+        "zoom": 13,
+        "height": 460,
+        "api_key": "AIzaSyB2uPS32BZTenevMPt97P7ZV3dWDo9f_yw",
+        "map_style": "[\n    {\n        \"featureType\": \"administrative\",\n        \"elementType\": \"labels.text.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#444444\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.country\",\n        \"elementType\": \"geometry.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#ff0000\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.country\",\n        \"elementType\": \"geometry.stroke\",\n        \"stylers\": [\n            {\n                \"color\": \"#ffffff\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.province\",\n        \"elementType\": \"geometry.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.province\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.locality\",\n        \"elementType\": \"geometry.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.locality\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.locality\",\n        \"elementType\": \"labels.text.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"administrative.neighborhood\",\n        \"elementType\": \"labels\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape\",\n        \"elementType\": \"all\",\n        \"stylers\": [\n            {\n                \"color\": \"#f2f2f2\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.man_made\",\n        \"elementType\": \"geometry.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#faf2e8\"\n            },\n            {\n                \"visibility\": \"on\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.man_made\",\n        \"elementType\": \"geometry.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.man_made\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.man_made\",\n        \"elementType\": \"labels.text.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#ff0000\"\n            },\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.man_made\",\n        \"elementType\": \"labels.icon\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.natural\",\n        \"elementType\": \"geometry.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#faf2e8\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"landscape.natural\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"poi\",\n        \"elementType\": \"all\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"poi\",\n        \"elementType\": \"geometry\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"poi\",\n        \"elementType\": \"labels\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"poi\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"all\",\n        \"stylers\": [\n            {\n                \"saturation\": -100\n            },\n            {\n                \"lightness\": 45\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"geometry.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#fc7753\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"geometry.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"labels\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"labels.text.fill\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"labels.text.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road\",\n        \"elementType\": \"labels.icon\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road.highway\",\n        \"elementType\": \"all\",\n        \"stylers\": [\n            {\n                \"visibility\": \"simplified\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road.highway\",\n        \"elementType\": \"geometry.fill\",\n        \"stylers\": [\n            {\n                \"visibility\": \"on\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road.highway\",\n        \"elementType\": \"geometry.stroke\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road.highway\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road.highway\",\n        \"elementType\": \"labels.icon\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"road.arterial\",\n        \"elementType\": \"labels.icon\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"transit\",\n        \"elementType\": \"all\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"transit\",\n        \"elementType\": \"labels.icon\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"water\",\n        \"elementType\": \"all\",\n        \"stylers\": [\n            {\n                \"color\": \"#f2ba40\"\n            },\n            {\n                \"visibility\": \"on\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"water\",\n        \"elementType\": \"geometry.fill\",\n        \"stylers\": [\n            {\n                \"color\": \"#c6d4e2\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"water\",\n        \"elementType\": \"labels.text\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    },\n    {\n        \"featureType\": \"water\",\n        \"elementType\": \"labels.icon\",\n        \"stylers\": [\n            {\n                \"visibility\": \"off\"\n            }\n        ]\n    }\n]"
       }
     }
   },
-  "order": ["main", "form"]
+  "order": [
+    "main",
+    "mmw_firms_contact_WdQNDE",
+    "mmw_team_eR3KnY",
+    "mmw_promo_tiles_E9m3hr",
+    "section_wxNQgk",
+    "mmw_map_HrYmwt"
+  ]
 }

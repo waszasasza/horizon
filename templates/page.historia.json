@@ -1,23 +1,250 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
       "type": "mmw-history-hero",
-      "settings": {}
+      "settings": {
+        "heading": "Marka z własną filozofią",
+        "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
+        "image": "shopify://shop_images/Filozofia_2.webp",
+        "logo": "shopify://shop_images/MMW_logo.svg",
+        "height": 720,
+        "overlay_opacity": 30
+      }
     },
     "timeline": {
       "type": "mmw-history-timeline",
-      "settings": {}
+      "blocks": {
+        "photo_Chifky": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/palac.webp"
+          }
+        },
+        "photo_6Mm6EK": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pantomasz2.webp"
+          }
+        },
+        "photo_NV7Cqi": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/winnica.webp"
+          }
+        },
+        "photo_ydRbCa": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/wino.webp"
+          }
+        },
+        "photo_LdDiLA": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/wiadro.webp"
+          }
+        },
+        "photo_7BLYLG": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/spizarnia_68258c89-4985-425c-9c15-733599fdc31d.webp"
+          }
+        },
+        "year_tmBEb8": {
+          "type": "year",
+          "settings": {
+            "year": "1786",
+            "text": "Powstaje Pałac Mała Wieś Bazyli Walicki, szambelan i doradca króla Stanisława Augusta Poniatowskiego, buduje klasycystyczną rezydencję, która staje się sercem majątku."
+          }
+        },
+        "year_XM8NGp": {
+          "type": "year",
+          "settings": {
+            "year": "2013",
+            "text": "Nowi gospodarze Małej Wsi Rodzina Barańskich kupuje pałac i rozpoczyna jego renowację. Od pokoleń związana z sadownictwem na Grójecczyźnie, wnosi do Małej Wsi doświadczenie w uprawie owoców i gospodarowaniu ziemią - wartości, które dziś odnajdujemy w marce Sad Książęcy."
+          }
+        },
+        "year_tbrLcp": {
+          "type": "year",
+          "settings": {
+            "year": "2022",
+            "text": "Powstaje Winnica Pałac Mała Wieś Na małowiejskich wzgórzach zostają posadzone pierwsze krzewy winorośli. Inspiracją do stworzenia winnicy są odkryte podczas renowacji pałacu motywy winorośli oraz pasja Tomasza Barańskiego do winiarstwa."
+          }
+        },
+        "year_kPXNBa": {
+          "type": "year",
+          "settings": {
+            "year": "2023",
+            "text": "Narodziny Majątku Mała Wieś Powstaje koncepcja marek własnych opartych na owocach sadów, pałacowych recepturach i lokalnym rzemiośle. Zaczyna kształtować się ekosystem produktów tworzonych pod marką Majątek Mała Wieś."
+          }
+        },
+        "year_MRQARd": {
+          "type": "year",
+          "settings": {
+            "year": "2024",
+            "text": "Pierwsze winobranie Z małowiejskich parceli zbierane są pierwsze winogrona. Powstają premierowe roczniki win, a goście po raz pierwszy uczestniczą w winobraniu organizowanym w winnicy."
+          }
+        },
+        "year_jWkadA": {
+          "type": "year",
+          "settings": {
+            "year": "2026",
+            "text": "40 hektarów winorośli Winnica osiąga powierzchnię 40 hektarów, stając się największą winnicą na Mazowszu i jednym z największych projektów winiarskich w Polsce. Równolegle rozwijają się marki Sad Książęcy, Spiżarnia Książęca, Tłocznia Książęca, Pomarium, Walicki, Polini i Clementine, tworząc wspólnie świat Majątku Mała Wieś."
+          }
+        }
+      },
+      "block_order": [
+        "photo_Chifky",
+        "photo_6Mm6EK",
+        "photo_NV7Cqi",
+        "photo_ydRbCa",
+        "photo_LdDiLA",
+        "photo_7BLYLG",
+        "year_tmBEb8",
+        "year_XM8NGp",
+        "year_tbrLcp",
+        "year_kPXNBa",
+        "year_MRQARd",
+        "year_jWkadA"
+      ],
+      "settings": {
+        "eyebrow": "Nasza historia"
+      }
     },
     "philosophy": {
       "type": "mmw-history-philosophy",
-      "settings": {}
+      "blocks": {
+        "photo_JdfXAj": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/palac_2.webp"
+          }
+        },
+        "photo_kxmjmb": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/pantomasz.webp"
+          }
+        },
+        "photo_U4UxCP": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/winorosl.webp"
+          }
+        }
+      },
+      "block_order": [
+        "photo_JdfXAj",
+        "photo_kxmjmb",
+        "photo_U4UxCP"
+      ],
+      "settings": {
+        "eyebrow": "Dziedzictwo zapisane w smaku",
+        "quote": "Od pokoleń czerpiemy z bogactwa ziemi otaczającej Małą Wieś, tworząc produkty inspirowane historią tego miejsca."
+      }
     },
     "process": {
       "type": "mmw-process",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Proces produkcyjny",
+        "text": "<p>Wszystko zaczyna się od ziemi. To ona od pokoleń wyznacza rytm życia w Małej Wsi. W sadach rodziny Barańskich dojrzewają owoce, które stają się podstawą wielu produktów tworzonych pod marką Majątek Mała Wieś. W pałacowych ogrodach i na okolicznych terenach natura każdego roku pisze nową historię. Nie przyspieszamy jej biegu i nie ingerujemy w to, co tworzą kolejne pory roku. Każdy zbiór jest inny, dlatego każdy sezon przynosi nowe smaki, aromaty i inspiracje. Owoce trafiają następnie do tłoczni, spiżarni i winiarni, gdzie rozpoczyna się kolejny etap ich drogi. To właśnie tutaj tradycyjne receptury spotykają się ze współczesnym rzemiosłem. Powstają soki, przetwory, cydry, oleje i wina inspirowane charakterem tego miejsca. Szczególne miejsce zajmuje Winnica Pałac Mała Wieś, która dziś obejmuje 40 hektarów upraw winorośli. Każdy rocznik powstaje w rytmie natury i zachowuje charakter sezonu, z którego się narodził. Nad jakością produktów czuwają ludzie, którzy doskonale znają tę ziemię i jej możliwości. Dzięki temu w każdym słoiku, butelce i kieliszku można odnaleźć autentyczny smak Małej Wsi. To historia miejsca, którą każdego dnia zamykamy w naszych produktach.</p>"
+      }
     },
     "brands": {
       "type": "mmw-brands",
+      "blocks": {
+        "brand_rT9emj": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Nasze marki",
+            "name": "Spiżarnia Książęca",
+            "desc": "Spiżarnia Książęca powstała z inspiracji smakami, które od lat tworzą kulinarną historię Pałacu Mała Wieś. To tutaj, w kuchni Starej Wozowni, pałacowej Herbaciarni i podczas rodzinnych spotkań przy wspólnym stole, rodzą się receptury bazujące na sezonowych owocach, ziołach i składnikach pochodzących z terenu Małej Wsi. Konfitury, syropy, herbaty i inne specjały pozwalają zabrać ze sobą smak Małej Wsi i wracać do niego niezależnie od pory roku.",
+            "image": "shopify://shop_images/spizarnia_4353f41d-5deb-47f2-932f-e71bd5adf78f.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "shopify://collections/spizarnia-ksiazeca",
+            "bg_color": "#faf2e8",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        },
+        "brand_pbXNWE": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Nasze marki",
+            "name": "Sad  Książęcy",
+            "desc": "Sad Książęcy powstał z szacunku do ziemi, natury i wielopokoleniowej tradycji sadowniczej. W owocach dojrzewających w sadach rodziny Barańskich zamykamy charakter miejsca, które od ponad dwóch stuleci żyje w rytmie kolejnych pór roku. To właśnie z nich powstają produkty podkreślające autentyczny smak jabłek i bogactwo mazowieckiego krajobrazu.",
+            "image": "shopify://shop_images/miod.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "shopify://collections/sad-ksiazecy",
+            "bg_color": "#c3c7a1",
+            "text_color": "#3f3f2d",
+            "button_bg": "#faf2e8",
+            "button_color": "#3f3f2d"
+          }
+        },
+        "brand_iRCVFw": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Nasze marki",
+            "name": "Tłocznia Książęca",
+            "desc": "Tłocznia Książęca powstała z szacunku do składników, rzemiosła i czasu potrzebnego, by wydobyć z natury to, co najlepsze. Stanowi naturalne rozwinięcie kulinarnego świata Spiżarni Książęcej, koncentrując się na procesie powstawania produktów. To tutaj, dzięki tradycyjnemu tłoczeniu na zimno, powstają oleje i specjały, które zachowują pełnię smaku, aromatu i wartości ukrytych w starannie wyselekcjonowanych surowcach.",
+            "image": "shopify://shop_images/tlocznia.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "shopify://collections/tlocznia-ksiazeca",
+            "bg_color": "#faf2e8",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        },
+        "brand_YpB3eU": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Zestawy Prezentowe",
+            "name": "Podaruj smak Pałacu Mała Wieś",
+            "desc": "Od ponad dwóch stuleci Pałac Mała Wieś jest miejscem spotkań przy wspólnym stole. Dziś jego smaki odnajdziesz w starannie skomponowanych zestawach prezentowych, które możesz podarować bliskim.",
+            "image": "shopify://shop_images/186-kopia.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "shopify://collections/alkohole-majatku",
+            "bg_color": "#c3c7a1",
+            "text_color": "#3f3f2d",
+            "button_bg": "#faf2e8",
+            "button_color": "#3f3f2d"
+          }
+        },
+        "brand_mU8b84": {
+          "type": "brand",
+          "settings": {
+            "eyebrow": "Nasze marki",
+            "name": "Kosmetyki Majątku",
+            "desc": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.  Dzięki wyjątkowemu klimatowi, żyznej glebie i pasji do winiarstwa, tworzymy wina i doświadczenia enoturystyczne Rocznik ten zaspokoi gusta zarówno miłośników białego wina, jak i czerwonego czy różowego. ",
+            "image": "shopify://shop_images/clementine.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "shopify://collections/kosmetyki-majatku",
+            "bg_color": "#faf2e8",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
+          }
+        }
+      },
+      "block_order": [
+        "brand_rT9emj",
+        "brand_pbXNWE",
+        "brand_iRCVFw",
+        "brand_YpB3eU",
+        "brand_mU8b84"
+      ],
       "settings": {}
     }
   },

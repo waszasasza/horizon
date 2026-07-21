@@ -1,8 +1,96 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "mmw-blog-hero", "settings": {} },
-    "stories": { "type": "mmw-blog-stories", "settings": {} },
-    "posts": { "type": "mmw-blog-posts", "settings": {} }
+    "hero": {
+      "type": "mmw-blog-hero",
+      "settings": {
+        "heading": "Blog",
+        "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
+        "image": "shopify://shop_images/Blog.webp",
+        "logo": "shopify://shop_images/MMW_logo.svg",
+        "height": 720,
+        "overlay_opacity": 30
+      }
+    },
+    "mmw_blog_tags_q79pnh": {
+      "type": "mmw-blog-tags",
+      "name": "MMW Tagi bloga",
+      "settings": {
+        "label": "Tematy",
+        "show_all": true,
+        "all_label": "Wszystkie"
+      }
+    },
+    "mmw_blog_stories_t8PcPA": {
+      "type": "mmw-blog-stories",
+      "blocks": {
+        "story_VdWcJU": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/12691861-hd_720_1280_60fps.mp4",
+            "autoplay": true,
+            "product": "balsamico-jabkowe"
+          }
+        },
+        "story_NJingK": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/5491471-hd_720_1366_25fps.mp4",
+            "autoplay": true,
+            "product": "chutney-jabkowy"
+          }
+        },
+        "story_TqV4Dx": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/8477846-hd_720_1280_24fps.mp4",
+            "autoplay": true,
+            "product": "cydr-pomarium-750ml-wytrawny"
+          }
+        },
+        "story_pRpQUh": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/12691861-hd_720_1280_60fps.mp4",
+            "autoplay": true,
+            "product": "chipsy-jabkowe"
+          }
+        }
+      },
+      "block_order": [
+        "story_VdWcJU",
+        "story_NJingK",
+        "story_TqV4Dx",
+        "story_pRpQUh"
+      ],
+      "name": "MMW Blog kafle",
+      "settings": {
+        "eyebrow": "Nasza filozofia",
+        "heading": "Kuchnie, stoły i historie",
+        "description": "Zobacz, jak inni eksperymentują w kuchni z produktami Majątku Mała Wieś."
+      }
+    },
+    "posts": {
+      "type": "mmw-blog-posts",
+      "settings": {
+        "heading": "",
+        "per_page": 6,
+        "button_label": "Załaduj więcej"
+      }
+    }
   },
-  "order": ["hero", "stories", "posts"]
+  "order": [
+    "hero",
+    "mmw_blog_stories_t8PcPA",
+    "mmw_blog_tags_q79pnh",
+    "posts"
+  ]
 }

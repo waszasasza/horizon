@@ -1,11 +1,19 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "mmw_collection_hero": {
       "type": "mmw-collection-hero",
       "settings": {
         "height": 720,
-        "overlay_opacity": 40,
-        "show_description": false
+        "overlay_opacity": 40
       }
     },
     "mmw_intro": {
@@ -124,11 +132,14 @@
               "name": "t:names.swatches",
               "settings": {
                 "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
                 "product_swatches_padding_top": 4,
                 "product_swatches_padding_bottom": 0,
                 "product_swatches_padding_left": 0,
                 "product_swatches_padding_right": 0
-              }
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -143,8 +154,10 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "centered",
-        "full_width_on_mobile": true,
+        "full_width_on_mobile": false,
         "columns_gap_horizontal": 40,
         "columns_gap_vertical": 40,
         "padding-inline-start": 0,
@@ -156,9 +169,7 @@
     },
     "mmw_chronicle": {
       "type": "mmw-chronicle",
-      "settings": {
-        "eyebrow": "Z KRONIKI"
-      }
+      "settings": {}
     },
     "mmw_heritage": {
       "type": "mmw-heritage-note",

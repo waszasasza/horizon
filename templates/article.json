@@ -1,9 +1,57 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "mmw-article-hero", "settings": { "height": 720, "overlay_opacity": 40 } },
-    "body": { "type": "mmw-article-body", "settings": { "show_back_link": true, "max_width": 700 } },
-    "products": { "type": "mmw-article-products", "settings": {} },
-    "related": { "type": "mmw-related-posts", "settings": {} }
+    "hero": {
+      "type": "mmw-article-hero",
+      "settings": {
+        "height": 720,
+        "overlay_opacity": 40
+      }
+    },
+    "body": {
+      "type": "mmw-article-body",
+      "settings": {
+        "show_back_link": true,
+        "max_width": 700
+      }
+    },
+    "products": {
+      "type": "mmw-article-products",
+      "settings": {
+        "heading": "Produkty o których wspominamy w tym artykule",
+        "button_label": "Sprawdź więcej produktów",
+        "button_url": ""
+      }
+    },
+    "related": {
+      "type": "mmw-related-posts",
+      "settings": {
+        "heading": "Zobacz również",
+        "count": 3,
+        "button_label": "Wróć do wszystkich wpisów"
+      }
+    },
+    "mmw_article_tags_fe46pa": {
+      "type": "mmw-article-tags",
+      "name": "MMW Tagi wpisu",
+      "settings": {
+        "label": "Tematy"
+      }
+    }
   },
-  "order": ["hero", "body", "products", "related"]
+  "order": [
+    "hero",
+    "body",
+    "products",
+    "mmw_article_tags_fe46pa",
+    "related"
+  ]
 }

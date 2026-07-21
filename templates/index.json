@@ -6,20 +6,233 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
-
-
- {
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "mmw_hero": {
+      "type": "mmw-hero",
       "blocks": {
-        "text_YLPk4p": {
+        "btn_sklep": {
+          "type": "button",
+          "settings": {
+            "label": "SKLEP",
+            "link": "shopify://collections/all",
+            "style": "dark"
+          }
+        },
+        "btn_bestsellery": {
+          "type": "button",
+          "settings": {
+            "label": "BESTSELLERY",
+            "link": "",
+            "style": "light"
+          }
+        }
+      },
+      "block_order": [
+        "btn_sklep",
+        "btn_bestsellery"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/MMW_pejzaz.png",
+        "overlay_opacity": 30,
+        "logo": "shopify://shop_images/MMW_logo.svg",
+        "heading": "Natura. Tradycja. Mała Wieś.",
+        "heading_size": 80,
+        "height": 820
+      }
+    },
+    "collection_list_KUHBDw": {
+      "type": "collection-list",
+      "blocks": {
+        "group_taqWwp": {
+          "type": "group",
+          "name": "t:names.header",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_bbx3HY": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h2>Poznaj świat Majątku</h2><p>Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 16,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_bbx3HY"
+          ]
+        },
+        "static-collection-card": {
+          "type": "_collection-card",
+          "name": "t:names.collection_card",
+          "static": true,
+          "settings": {
+            "placement": "below_image",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "collection_card_gap": 16,
+            "inherit_color_scheme": false,
+            "color_scheme": "scheme-1",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0
+          },
+          "blocks": {
+            "collection_title_TmB6wP": {
+              "type": "collection-title",
+              "name": "t:names.collection_title",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground-heading)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "square",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 20
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "collection_title_TmB6wP"
+          ]
+        }
+      },
+      "block_order": [
+        "group_taqWwp"
+      ],
+      "name": "t:names.collections_carousel",
+      "settings": {
+        "collection_list": [
+          "spizarnia-ksiazeca",
+          "tlocznia-ksiazeca",
+          "sad-ksiazecy",
+          "winnica-palac-mala-wies",
+          "alkohole-majatku",
+          "kosmetyki-majatku"
+        ],
+        "layout_type": "carousel",
+        "carousel_on_mobile": false,
+        "columns": 3,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "bento_gap": 8,
+        "rows_gap": 8,
+        "max_collections": 4,
+        "icons_style": "arrow",
+        "icons_shape": "circle",
+        "section_width": "page-width",
+        "gap": 12,
+        "color_scheme": "",
+        "padding-block-start": 48,
+        "padding-block-end": 48
+      }
+    },
+    "mmw_philosophy": {
+      "type": "mmw-philosophy",
+      "settings": {
+        "heading": "Od ponad dwóch stuleci Pałac Mała Wieś inspiruje historię pisaną przez naturę, ludzi i rzemiosło.",
+        "description": "<p>Dziś jej częścią są produkty powstające z owoców naszych sadów, winnicy i pałacowych ogrodów.</p>",
+        "cta_link": "shopify://pages/filozofia",
+        "cta_label": "FILOZOFIA",
+        "color_scheme": "scheme-2",
+        "image": "shopify://shop_images/filozofia.webp"
+      }
+    },
+    "section_fqBbTx": {
+      "type": "section",
+      "blocks": {
+        "text_NPPHM3": {
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
+            "text": "<h2>To właśnie tutaj historia staje się inspiracją, a natura źródłem smaku. Każda marka Majątku Mała Wieś jest kolejnym rozdziałem tej opowieści</h2>",
             "width": "fit-content",
-            "max_width": "normal",
+            "max_width": "narrow",
             "alignment": "left",
             "type_preset": "h2",
             "font": "var(--font-body--family)",
@@ -39,55 +252,621 @@
           },
           "blocks": {}
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "text_cE4erR": {
+          "type": "text",
+          "name": "t:names.text",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
+            "text": "",
             "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "text_NPPHM3",
+        "text_cE4erR"
       ],
-      "name": "t:names.hero",
+      "name": "t:names.rich_text_section",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "link": "",
-        "open_in_new_tab": false,
         "content_direction": "column",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 25,
         "section_width": "page-width",
-        "section_height": "medium",
+        "section_height": "small",
         "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
         "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "gradient_direction": "to top",
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
-    "product_list_fa6P9H": {
+    "section_4jbBEV": {
+      "type": "section",
+      "blocks": {
+        "group_ApUxfj": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "custom",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_KyEcet": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h6>Pomarium</h6>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_kimGEt": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h2>Smak Polskiego Sadu</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h2",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_waxa8Q": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Rzemieślniczy cydr tworzony z jabłek pochodzących z Sadów Rodziny Barańskich. Powstaje z szacunku do wielopokoleniowej tradycji sadowniczej i naturalnego charakteru owoców.</p>",
+                "width": "fit-content",
+                "max_width": "narrow",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_iCbcri": {
+              "type": "button",
+              "settings": {
+                "label": "KUP JUŻ TERAZ",
+                "link": "shopify://products/cydr-pomarium-750ml-wytrawny",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_KyEcet",
+            "text_kimGEt",
+            "text_waxa8Q",
+            "button_iCbcri"
+          ]
+        },
+        "video_zgHezj": {
+          "type": "video",
+          "name": "t:names.video",
+          "settings": {
+            "source": "url",
+            "video_url": "https://www.youtube.com/watch?v=r8kuCiBeHGc",
+            "video_autoplay": false,
+            "video_loop": true,
+            "cover_image": "shopify://shop_images/robert_maklowicz.webp",
+            "alt": "Robert Makłowicz: Od Jabłka do Sadu",
+            "custom_width": 80,
+            "custom_width_mobile": 100,
+            "aspect_ratio": "1/1",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 20,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "group_ApUxfj",
+        "video_zgHezj"
+      ],
+      "custom_css": [],
+      "name": "t:names.image_with_text",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "center",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 19,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "product_list_CW99PC": {
+      "type": "product-list",
+      "blocks": {
+        "static-header": {
+          "type": "_product-list-content",
+          "name": "t:names.header",
+          "disabled": true,
+          "static": true,
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": false,
+            "horizontal_alignment": "space-between",
+            "vertical_alignment": "flex-end",
+            "align_baseline": true,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_list_text_cBnWdC": {
+              "type": "_product-list-text",
+              "name": "t:names.collection_title",
+              "settings": {
+                "text": "<h2>{{ closest.collection.title }}</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_list_button_cJkhEK": {
+              "type": "_product-list-button",
+              "name": "t:names.product_list_button",
+              "settings": {
+                "label": "View all",
+                "open_in_new_tab": false,
+                "style_class": "link",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "product_list_text_cBnWdC",
+            "product_list_button_cJkhEK"
+          ]
+        },
+        "static-product-card": {
+          "type": "_product-card",
+          "name": "t:names.product_card",
+          "static": true,
+          "settings": {
+            "product_card_gap": 6,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "product_card_gallery_AAwbTE": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
+              "settings": {
+                "image_ratio": "adapt",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_title_inAHxa": {
+              "type": "product-title",
+              "name": "t:names.product_title",
+              "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "paragraph",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 4,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "price_9aq7LD": {
+              "type": "price",
+              "name": "t:names.product_price",
+              "settings": {
+                "show_sale_price_first": true,
+                "show_installments": false,
+                "show_tax_info": false,
+                "type_preset": "h6",
+                "width": "100%",
+                "alignment": "left",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_wgEpDm": {
+              "type": "buy-buttons",
+              "name": "t:names.product_buy_buttons",
+              "settings": {
+                "stacking": false,
+                "show_pickup_availability": true,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 24
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {
+                    "style_class": "button-secondary"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            }
+          },
+          "block_order": [
+            "product_card_gallery_AAwbTE",
+            "product_title_inAHxa",
+            "price_9aq7LD",
+            "buy_buttons_wgEpDm"
+          ]
+        }
+      },
+      "name": "t:names.products_carousel",
+      "settings": {
+        "collection": "frontpage",
+        "layout_type": "carousel",
+        "carousel_on_mobile": false,
+        "max_products": 6,
+        "columns": 4,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 8,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "circle",
+        "section_width": "page-width",
+        "horizontal_alignment": "flex-start",
+        "gap": 28,
+        "color_scheme": "scheme-394e716b-700f-4f7e-ba72-7686b5baa72b",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "marquee_DVPjxW": {
+      "type": "marquee",
+      "blocks": {
+        "icon_p7NpYr": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/sygnet_mmw.svg",
+            "width": 24,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "text_aPUn9d": {
+          "type": "text",
+          "settings": {
+            "text": "<h3>To, co prawdziwe, wraca.</h3>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h3",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "tight",
+            "letter_spacing": "tight",
+            "case": "none",
+            "wrap": "nowrap",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "icon_p7NpYr",
+        "text_aPUn9d"
+      ],
+      "name": "t:names.marquee_section",
+      "settings": {
+        "movement_direction": "normal",
+        "color_scheme": "scheme-e03cd04d-4151-42e8-a530-1e587647c555",
+        "padding-block-start": 24,
+        "padding-block-end": 24,
+        "gap_between_elements": 24
+      }
+    },
+    "mmw_stories_7pgcBC": {
+      "type": "mmw-stories",
+      "blocks": {
+        "mmw_video_product_UERKKq": {
+          "type": "mmw-video-product",
+          "settings": {
+            "source": "uploaded",
+            "video": "shopify://files/videos/5491471-hd_720_1366_25fps.mp4",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_loop": true,
+            "alt": "",
+            "aspect_ratio": "3 / 5",
+            "border_radius": 24,
+            "product": "miod-wielokwiatowy-400-ml",
+            "button_label": "KUP TERAZ"
+          },
+          "blocks": {}
+        },
+        "mmw_video_product_RXrFhm": {
+          "type": "mmw-video-product",
+          "settings": {
+            "source": "uploaded",
+            "video": "shopify://files/videos/8477846-hd_720_1280_24fps.mp4",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_loop": true,
+            "alt": "",
+            "aspect_ratio": "3 / 5",
+            "border_radius": 24,
+            "product": "konfitura-z-pigwy",
+            "button_label": "KUP TERAZ"
+          },
+          "blocks": {}
+        },
+        "mmw_video_product_cjd3r4": {
+          "type": "mmw-video-product",
+          "settings": {
+            "source": "uploaded",
+            "video": "shopify://files/videos/12691861-hd_720_1280_60fps.mp4",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_loop": true,
+            "alt": "",
+            "aspect_ratio": "3 / 5",
+            "border_radius": 24,
+            "product": "balsamico-jabkowe",
+            "button_label": "KUP TERAZ"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "mmw_video_product_UERKKq",
+        "mmw_video_product_RXrFhm",
+        "mmw_video_product_cjd3r4"
+      ],
+      "name": "MMW Wydania (stories)",
+      "settings": {
+        "eyebrow": "ZAINSPIRUJ SIĘ",
+        "heading": "Kuchnie, stoły i historie",
+        "bottom_richtext": "<p>Zobacz, jak inni eksperymentują w kuchni! Produkty Majątku Mała Wieś do swoich przepisów i codziennych rytuałów. Każda współpraca to historia, inspiracja i gotowy pomysł do odtworzenia u siebie </p>",
+        "bottom_cta_label": "SPRAWDŹ PRZEPISY",
+        "bottom_cta_link": "shopify://blogs/news"
+      }
+    },
+    "product_list_ydkURB": {
       "type": "product-list",
       "blocks": {
         "static-header": {
@@ -124,17 +903,17 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_list_text_YFtzcL": {
+            "product_list_text_j8hxdT": {
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
+                "text": "<h6>Z NASZEJ SPIŻARNI</h6>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "h4",
+                "type_preset": "rte",
                 "font": "var(--font-body--family)",
-                "font_size": "",
+                "font_size": "1rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -150,7 +929,7 @@
               },
               "blocks": {}
             },
-            "product_list_button_MWeP9V": {
+            "product_list_button_CVYX6G": {
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
@@ -166,8 +945,8 @@
             }
           },
           "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
+            "product_list_text_j8hxdT",
+            "product_list_button_CVYX6G"
           ]
         },
         "static-product-card": {
@@ -188,15 +967,15 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product_card_gallery_677WP3": {
+            "product_card_gallery_irJKAM": {
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
-                "border_radius": 0,
+                "border_radius": 20,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -204,11 +983,11 @@
               },
               "blocks": {}
             },
-            "product_title_YXxMTj": {
+            "product_title_CbDqTQ": {
               "type": "product-title",
               "name": "t:names.product_title",
               "settings": {
-                "width": "100%",
+                "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "paragraph",
@@ -229,7 +1008,7 @@
               },
               "blocks": {}
             },
-            "price_JQzVV4": {
+            "price_TL7BDe": {
               "type": "price",
               "name": "t:names.product_price",
               "settings": {
@@ -254,22 +1033,22 @@
             }
           },
           "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
+            "product_card_gallery_irJKAM",
+            "product_title_CbDqTQ",
+            "price_TL7BDe"
           ]
         }
       },
-      "name": "t:names.featured_collection",
+      "name": "t:names.products_grid",
       "settings": {
-        "collection": "all",
+        "collection": "frontpage",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 8,
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
-        "columns_gap": 8,
+        "columns_gap": 24,
         "rows_gap": 24,
         "icons_style": "arrow",
         "icons_shape": "none",
@@ -280,67 +1059,223 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "mmw_how_its_made_hPzchE": {
+      "type": "mmw-how-its-made",
+      "name": "MMW Jak powstają produkty",
+      "settings": {
+        "heading": "Sprawdź jak powstają nasze produkty",
+        "description": "<p>W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.</p>",
+        "image": "shopify://shop_images/winorosl.webp",
+        "link": "shopify://pages/filozofia"
+      }
+    },
+    "featured_blog_posts_RxhP9w": {
+      "type": "featured-blog-posts",
+      "blocks": {
+        "static-blog-title": {
+          "type": "_featured-blog-posts-title",
+          "name": "t:names.title",
+          "static": true,
+          "settings": {
+            "text": "<h6>INSPIRACJE Z MAJĄTKU</h6><h2>Najnowsze na naszym blogu</h2>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "center",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 32,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "static-blog-post-card": {
+          "type": "_featured-blog-posts-card",
+          "name": "t:names.blog_card",
+          "static": true,
+          "settings": {
+            "alignment": "left",
+            "gap": 8,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "image": {
+              "type": "_featured-blog-posts-image",
+              "static": true,
+              "settings": {
+                "image_ratio": "square",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 20
+              },
+              "blocks": {}
+            },
+            "title": {
+              "type": "_heading",
+              "name": "t:names.title",
+              "static": true,
+              "settings": {
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "text": "<h4>{{ closest.article.title }}</h4>",
+                "read_only": false,
+                "alignment": "left",
+                "show_alignment": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "blog-post-info-text": {
+              "type": "_blog-post-info-text",
+              "name": "t:names.details",
+              "static": true,
+              "settings": {
+                "show_date": true,
+                "show_author": true,
+                "type_preset": "",
+                "alignment": "left",
+                "show_alignment": false,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "blog-post-description": {
+              "type": "_blog-post-description",
+              "name": "t:names.excerpt",
+              "static": true,
+              "settings": {
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "padding-block-start": 8,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": []
+        }
+      },
+      "name": "t:names.blog_posts_grid",
+      "settings": {
+        "blog": "news",
+        "layout_type": "grid",
+        "carousel_on_mobile": false,
+        "post_limit": 3,
+        "columns": 3,
+        "mobile_columns": "2",
+        "mobile_card_size": "60cqw",
+        "columns_gap": 24,
+        "rows_gap": 24,
+        "icons_style": "arrow",
+        "icons_shape": "none",
+        "section_width": "page-width",
+        "gap": 12,
+        "color_scheme": "",
+        "padding-block-start": 60,
+        "padding-block-end": 60
+      }
+    },
+    "mmw_instagram_WMa6Nn": {
+      "type": "mmw-instagram",
+      "blocks": {
+        "slide_UwCcfa": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/insta01.webp",
+            "link": ""
+          }
+        },
+        "slide_tPMUgV": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/insta_02.webp",
+            "link": ""
+          }
+        },
+        "slide_kUzdQp": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/insta_03.webp",
+            "link": ""
+          }
+        },
+        "slide_6bmTDn": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/insta_04.webp",
+            "link": ""
+          }
+        },
+        "slide_3BXxBg": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/wino.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_UwCcfa",
+        "slide_tPMUgV",
+        "slide_kUzdQp",
+        "slide_6bmTDn",
+        "slide_3BXxBg"
+      ],
+      "name": "MMW Instagram",
+      "settings": {
+        "heading": "ZOBACZ CO U NAS NA @MAJATEKMALAWIES"
+      }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "mmw_hero",
+    "collection_list_KUHBDw",
+    "mmw_philosophy",
+    "section_fqBbTx",
+    "section_4jbBEV",
+    "product_list_CW99PC",
+    "marquee_DVPjxW",
+    "mmw_stories_7pgcBC",
+    "product_list_ydkURB",
+    "mmw_how_its_made_hPzchE",
+    "featured_blog_posts_RxhP9w",
+    "mmw_instagram_WMa6Nn"
   ]
-}
-   */
-/*
- * templates/index.json — strona główna Majątku Mała Wieś (seed w kodzie)
- * Źródło prawdy dla układu homepage w fazie buildu. Sekcje mmw-* w kolejności.
- * Uwaga: edycja w theme editorze przepisze ten plik — po zmianach w edytorze
- * rób `shopify theme pull` i commituj, żeby kod i sklep się nie rozjechały.
- */
-{
-  "sections": {
-    "mmw_hero": {
-      "type": "mmw-hero",
-      "blocks": {
-        "btn_sklep": {
-          "type": "button",
-          "settings": {
-            "label": "SKLEP",
-            "link": "shopify://collections/all",
-            "style": "dark"
-          }
-        },
-        "btn_bestsellery": {
-          "type": "button",
-          "settings": { "label": "BESTSELLERY", "link": "", "style": "light" }
-        }
-      },
-      "block_order": ["btn_sklep", "btn_bestsellery"],
-      "settings": {
-        "heading": "Jabłko. Tradycja. Smak.",
-        "overlay_opacity": 30,
-        "heading_size": 80,
-        "height": 820
-      }
-    },
-    "mmw_featured": {
-      "type": "mmw-featured-collection",
-      "settings": {
-        "heading": "Poznaj Świat Majątku",
-        "description": "<p>Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie.</p>",
-        "feature_label": "ODKRYJ KOLEKCJĘ",
-        "products_to_show": 3,
-        "new_badge_label": "NOWOŚĆ",
-        "new_badge_tag": "nowość"
-      }
-    },
-    "mmw_philosophy": {
-      "type": "mmw-philosophy",
-      "settings": {
-        "eyebrow": "FILOZOFIA",
-        "heading": "Od ponad dwóch stuleci Pałac Mała Wieś inspiruje historię pisaną przez naturę, ludzi i rzemiosło.",
-        "description": "<p>Dziś jej częścią są produkty powstające z owoców naszych sadów, winnicy i pałacowych ogrodów.</p>",
-        "cta_link": "#",
-        "cta_label": "FILOZOFIA"
-      }
-    }
-  },
-  "order": ["mmw_hero", "mmw_featured", "mmw_philosophy"]
 }
