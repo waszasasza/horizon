@@ -3,52 +3,57 @@
   Źródło: kolekcja + limit kart — jedna sekcja obsługuje bestsellery ×2, vouchery i produkty marki,
   bez osobnych wariantów.
 
-  Mechanika WYŁĄCZNIE natywna Horizona (bez własnego JS):
-    - <slideshow-component>/<slideshow-slides>/<slideshow-slide> — drag/scroll-snap (assets/slideshow.js)
-    - snippet 'slideshow-controls' (style: 'dots') — strzałki na hover + kropki
-    - snippet 'quick-add' — przycisk "Dodaj" zintegrowany z cart drawer (assets/quick-add.js)
-  Renderujemy DWIE kopie karuzeli (desktop / mobile), przełączane klasami hidden--mobile /
-  hidden--desktop — dokładnie ten sam wzorzec co natywny mobilny fallback w
-  snippets/resource-list.liquid. Dzięki temu kropki liczą WIDOKI, nie pojedyncze produkty:
-    - desktop: karty grupowane po `cards_per_view` w jeden <slideshow-slide> = jedna kropka na stronę
-    - mobile: 1 karta = 1 <slideshow-slide> = 1 kropka (na mobile widok = pojedyncza karta)
+  WZORZEC NATYWNY (1:1, bez własnego JS/CSS geometrii slajdów):
+    - sections/product-list.liquid — natywna sekcja karuzeli produktów na kolekcjach
+      (layout_type: "carousel"), z niej wzięte id/opcje ustawień: columns, columns_gap,
+      mobile_card_size, section_width, icons_style, icons_shape.
+    - snippets/resource-list.liquid — sposób budowania CSS custom properties dla trybu
+      carousel (--column-count, --resource-list-column-gap-desktop, --mobile-card-size)
+      na wrapperze .resource-list.resource-list__carousel — ten sam wrapper/klasy tutaj.
+    - snippets/resource-list-carousel.liquid — RENDEROWANY BEZPOŚREDNIO (bez zmian): to on
+      odpowiada za geometrię slajdów (peek-width przez @container + var(--slide-width),
+      identyczny gap, brak zachodzenia/skalowania) i strzałki (slideshow-arrows, hover-reveal,
+      kolory z color-scheme) — dokładnie jak w innych karuzelach na stronie.
+    - snippets/quick-add.liquid — RENDEROWANY BEZ ZMIAN, bez nadpisywania stylów. Żeby przycisk
+      wyglądał i działał identycznie jak na natywnych kartach (okrągła ikona → pigułka "Dodaj"
+      na hover, cart drawer, warianty), karta jest opakowana w prawdziwy element <product-card
+      class="product-card"> z wymaganym linkiem ref="productCardLink" (assets/product-card.js) —
+      to jedyny sposób, żeby zadziałał natywny selektor hover
+      `product-card:is(:hover, :focus-within) .quick-add__button`.
 
   Customowa jest wyłącznie treść karty: obraz, badge (tagi bestseller/nowość lub cena promocyjna),
   tytuł, opis (metapole custom.opis_karty, fallback na opis produktu), cena, karta końcowa
-  „Zobacz więcej”. Wszystko inne (scroll, strzałki, kropki, dodawanie do koszyka) to renderowanie
-  natywnych snippetów Horizona.
+  „Zobacz więcej”.
 {%- endcomment -%}
 {%- liquid
   assign coll = section.settings.collection
   assign count = section.settings.products_count | default: 8
-  assign per_view = section.settings.cards_per_view | default: 3
   assign show_end_card = section.settings.show_end_card
   assign desc_len = section.settings.description_length | default: 140
+
+  assign columns = section.settings.columns | default: 3
+  assign columns_gap = section.settings.columns_gap | default: 24
+  assign mobile_card_size = section.settings.mobile_card_size | default: '60cqw'
+
+  case section.settings.card_ratio
+    when 'portrait'
+      assign card_ratio = '4 / 5'
+    when 'square'
+      assign card_ratio = '1 / 1'
+    else
+      assign card_ratio = '331 / 507'
+  endcase
 -%}
 {%- if coll != blank and coll.products.size > 0 -%}
   {%- style -%}
-    #shopify-section-{{ section.id }} .mmw-pc {
-      display: flex; flex-direction: column; gap: 32px;
-      padding-block: 60px; padding-inline: var(--page-margin, 40px);
-      background: var(--mmw-04);
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); }
+    #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--page-margin, 40px); }
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
-    /* Strony/slajdy: desktop = grupa `cards_per_view` kart, mobile = 1 karta */
-    #shopify-section-{{ section.id }} .mmw-pc__page {
-      display: grid; grid-template-columns: repeat(var(--mmw-pc-per-view, 3), 1fr);
-      gap: 24px; width: 100%; height: 100%;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__slideshow--mobile .mmw-pc__card,
-    #shopify-section-{{ section.id }} .mmw-pc__slideshow--mobile .mmw-pc__end {
-      max-width: 420px; margin-inline: auto;
-    }
-
-    /* Karta produktu */
+    /* Karta produktu — treść, NIE geometria slajdu (to daje resource-list-carousel) */
     #shopify-section-{{ section.id }} .mmw-pc__card {
-      position: relative; width: 100%; aspect-ratio: 331 / 507;
+      display: block; width: 100%; aspect-ratio: {{ card_ratio }};
       border-radius: 16px; overflow: hidden; background: var(--mmw-01);
     }
     #shopify-section-{{ section.id }} .mmw-pc__media { position: absolute; inset: 0; z-index: 0; display: block; }
@@ -72,44 +77,27 @@
     }
     #shopify-section-{{ section.id }} .mmw-pc__name {
       margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 24px; line-height: 1;
-      color: var(--mmw-04); text-decoration: none;
+      color: var(--mmw-04);
     }
     #shopify-section-{{ section.id }} .mmw-pc__excerpt {
       margin: 0; font-family: var(--mmw-font-text); font-size: 12px; line-height: 1.4; color: var(--mmw-04);
       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
     }
-    #shopify-section-{{ section.id }} .mmw-pc__price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 4px; }
-    #shopify-section-{{ section.id }} .mmw-pc__price-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    #shopify-section-{{ section.id }} .mmw-pc__price-line { display: flex; align-items: baseline; gap: 6px; }
-    #shopify-section-{{ section.id }} .mmw-pc__price {
-      font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--mmw-04);
-    }
+    #shopify-section-{{ section.id }} .mmw-pc__price { margin-top: 4px; font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--mmw-04); }
     #shopify-section-{{ section.id }} .mmw-pc__price--sale { color: var(--mmw-02); }
+    #shopify-section-{{ section.id }} .mmw-pc__price-line { display: flex; align-items: baseline; gap: 6px; }
     #shopify-section-{{ section.id }} .mmw-pc__price-compare {
       font-family: var(--mmw-font-label); font-weight: 700; font-size: 12px; color: var(--mmw-04);
       text-decoration: line-through; opacity: .85;
     }
-    #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
+    #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 4px 0 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
 
-    /* Reskin natywnego quick-add: zawsze widoczny, okrągły, koralowy — jak w Figmie */
-    #shopify-section-{{ section.id }} .mmw-pc__quick-add { flex: 0 0 auto; }
-    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add {
-      position: static; inset: auto; pointer-events: auto;
-      --quick-add-mobile-display: flex; --quick-add-mobile-opacity: 1; --quick-add-display: flex;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button {
-      position: static; opacity: 1 !important; height: 44px; width: 44px; border: none; border-radius: 50%;
-      background: linear-gradient(var(--mmw-02) 0 100%) padding-box; backdrop-filter: none;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button .add-to-cart-text { background: transparent; border-radius: 50%; }
-    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button .add-to-cart-icon { width: 20px; color: var(--mmw-04); }
-    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button .add-to-cart-text__content { display: none; }
-
-    /* Karta końcowa „Zobacz więcej” */
+    /* Karta końcowa „Zobacz więcej” — ten sam rozmiar slajdu co karty produktów */
     #shopify-section-{{ section.id }} .mmw-pc__end {
-      position: relative; width: 100%; aspect-ratio: 331 / 507; border: 1px solid rgba(95,49,47,.25);
-      border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 32px; text-decoration: none; background: var(--mmw-04);
+      position: relative; display: flex; width: 100%; aspect-ratio: {{ card_ratio }};
+      border: 1px solid rgba(95,49,47,.25); border-radius: 16px; overflow: hidden;
+      align-items: center; justify-content: center; text-align: center; padding: 32px;
+      text-decoration: none; background: var(--mmw-04);
     }
     #shopify-section-{{ section.id }} .mmw-pc__end-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; }
     #shopify-section-{{ section.id }} .mmw-pc__end-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
@@ -126,7 +114,7 @@
     }
   {%- endstyle -%}
 
-  {%- comment -%} Karty produktów + opcjonalna karta końcowa, budowane raz i dzielone znacznikiem na tablicę (ten sam trik co list_items_array w sections/product-list.liquid) {%- endcomment -%}
+  {%- comment -%} Karty produktów + opcjonalna karta końcowa → tablica HTML (ten sam trik co list_items_array w sections/product-list.liquid), przekazywana bezpośrednio do natywnego snippetu 'resource-list-carousel'. {%- endcomment -%}
   {%- capture cards_concat -%}
     {%- assign item_index = 0 -%}
     {%- for product in coll.products limit: count -%}
@@ -149,41 +137,37 @@
         assign card_text = product.metafields.custom.opis_karty.value | default: product.description
         assign card_text = card_text | strip_html | truncate: desc_len
       -%}
-      <div class="mmw-pc__card">
+      <product-card class="product-card mmw-pc__card">
+        <a href="{{ product.url }}" class="product-card__link" ref="productCardLink" id="mmw-pc-link-{{ section.id }}-{{ product.id }}">
+          <span class="visually-hidden">{{ product.title | escape }}</span>
+        </a>
         <a class="mmw-pc__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
           {%- if product.featured_image != blank -%}
-            <img class="mmw-pc__img" loading="lazy"
+            <img class="mmw-pc__img" loading="lazy" width="640" height="980"
               src="{{ product.featured_image | image_url: width: 640 }}"
               srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 640 }} 640w, {{ product.featured_image | image_url: width: 900 }} 900w"
-              sizes="(max-width: 749px) 92vw, 400px"
-              width="640" height="980"
-              alt="{{ product.featured_image.alt | default: product.title | escape }}">
+              sizes="(max-width: 749px) 60cqw, 400px"
+              alt="">
           {%- else -%}
             {{ 'product-1' | placeholder_svg_tag: 'mmw-pc__img' }}
           {%- endif -%}
         </a>
         {%- if badge_text != blank -%}<span class="{{ badge_class }}">{{ badge_text }}</span>{%- endif -%}
         <div class="mmw-pc__body">
-          <a class="mmw-pc__name" href="{{ product.url }}">{{ product.title }}</a>
+          <p class="mmw-pc__name">{{ product.title }}</p>
           {%- if card_text != blank -%}<p class="mmw-pc__excerpt">{{ card_text }}</p>{%- endif -%}
-          <div class="mmw-pc__price-row">
-            <div class="mmw-pc__price-block">
-              {%- if on_sale -%}
-                <div class="mmw-pc__price-line">
-                  <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
-                  <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
-                </div>
-                <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
-              {%- else -%}
-                <span class="mmw-pc__price">{{ product.price | money }}</span>
-              {%- endif -%}
+          {%- if on_sale -%}
+            <div class="mmw-pc__price-line">
+              <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
+              <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
             </div>
-            <div class="mmw-pc__quick-add">
-              {%- render 'quick-add', product: product, section_id: section.id -%}
-            </div>
-          </div>
+            <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
+          {%- else -%}
+            <span class="mmw-pc__price">{{ product.price | money }}</span>
+          {%- endif -%}
         </div>
-      </div>
+        {%- render 'quick-add', product: product, section_id: section.id -%}
+      </product-card>
     {%- endfor -%}
     {%- if show_end_card -%}
       {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}
@@ -201,50 +185,15 @@
     {%- endif -%}
   {%- endcapture -%}
   {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-pc/split-->' -%}
-  {%- assign total_items = cards_array.size -%}
 
-  {%- comment -%} Desktop: grupuj karty po `per_view` w jeden slajd = jedna kropka na widok {%- endcomment -%}
-  {%- assign page_count = total_items | divided_by: per_view -%}
-  {%- assign page_remainder = total_items | modulo: per_view -%}
-  {%- if page_remainder > 0 -%}{%- assign page_count = page_count | plus: 1 -%}{%- endif -%}
-  {%- capture desktop_slides -%}
-    {%- for i in (1..page_count) -%}
-      {%- assign page_start = forloop.index0 | times: per_view -%}
-      {%- assign page_items = cards_array | slice: page_start, per_view -%}
-      <slideshow-slide
-        ref="slides[]"
-        aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
-        slide-id="mmw-pc-desktop-{{ forloop.index0 }}"
-        media-fit="cover"
-        style="--slideshow-timeline: --slide-{{ forloop.index0 }};"
-      >
-        <div class="mmw-pc__page">
-          {%- for item in page_items -%}{{ item }}{%- endfor -%}
-        </div>
-      </slideshow-slide>
-    {%- endfor -%}
+  {%- comment -%} Wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" {%- endcomment -%}
+  {%- capture resource_list_style -%}
+    --resource-list-column-gap-desktop: {{ columns_gap }}px;
+    --column-count: {{ columns }};
+    --column-count-mobile: 1;
+    --mobile-card-size: {{ mobile_card_size }};
   {%- endcapture -%}
-  {%- capture desktop_controls -%}
-    {%- render 'slideshow-controls', style: 'dots', item_count: page_count, show_arrows: true, icon_style: 'arrow', shape: 'circle', pagination_position: 'center' -%}
-  {%- endcapture -%}
-
-  {%- comment -%} Mobile: 1 karta = 1 slajd = 1 kropka (widok pokazuje jedną kartę naraz) {%- endcomment -%}
-  {%- capture mobile_slides -%}
-    {%- for item in cards_array -%}
-      <slideshow-slide
-        ref="slides[]"
-        aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
-        slide-id="mmw-pc-mobile-{{ forloop.index0 }}"
-        media-fit="cover"
-        style="--slideshow-timeline: --slide-{{ forloop.index0 }};"
-      >
-        {{ item }}
-      </slideshow-slide>
-    {%- endfor -%}
-  {%- endcapture -%}
-  {%- capture mobile_controls -%}
-    {%- render 'slideshow-controls', style: 'dots', item_count: total_items, show_arrows: true, icon_style: 'arrow', shape: 'circle', pagination_position: 'center' -%}
-  {%- endcapture -%}
+  {%- assign carousel_ref = 'mmwPc-' | append: section.id -%}
 
   <section class="mmw-pc color-{{ section.settings.color_scheme }}">
     <div class="mmw-pc__head">
@@ -252,24 +201,13 @@
       {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
-    {%- assign desktop_style = '--mmw-pc-per-view: ' | append: per_view | append: ';' -%}
-    <div class="hidden--mobile">
-      {%- render 'slideshow',
-        class: 'mmw-pc__slideshow mmw-pc__slideshow--desktop',
-        slides: desktop_slides,
-        slide_count: page_count,
-        controls: desktop_controls,
-        infinite: false,
-        style: desktop_style
-      -%}
-    </div>
-    <div class="hidden--desktop">
-      {%- render 'slideshow',
-        class: 'mmw-pc__slideshow mmw-pc__slideshow--mobile',
-        slides: mobile_slides,
-        slide_count: total_items,
-        controls: mobile_controls,
-        infinite: false
+    <div class="resource-list resource-list__carousel" style="{{ resource_list_style }}">
+      {%- render 'resource-list-carousel',
+        ref: carousel_ref,
+        slides: cards_array,
+        slide_count: cards_array.size,
+        settings: section.settings,
+        slide_width_max: '420px'
       -%}
     </div>
   </section>
@@ -283,10 +221,52 @@
     { "type": "textarea", "id": "description", "label": "Opis", "default": "Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie." },
     { "type": "collection", "id": "collection", "label": "Kolekcja produktów" },
     { "type": "range", "id": "products_count", "min": 2, "max": 16, "step": 1, "label": "Liczba kart", "default": 8 },
-    { "type": "range", "id": "cards_per_view", "min": 2, "max": 4, "step": 1, "label": "Kart na widok (desktop)", "default": 3, "info": "Na mobile zawsze 1 karta na widok." },
     { "type": "range", "id": "description_length", "min": 60, "max": 300, "step": 10, "unit": "zn.", "label": "Długość opisu karty", "default": 140 },
-    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów (strzałki, kropki, przycisk Dodaj)", "default": "scheme-1" },
+    {
+      "type": "select", "id": "card_ratio", "label": "Proporcje karty", "default": "tall",
+      "options": [
+        { "value": "tall", "label": "Wysoka (jak w Figmie)" },
+        { "value": "portrait", "label": "Portret (4:5)" },
+        { "value": "square", "label": "Kwadrat (1:1)" }
+      ]
+    },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów (strzałki, przycisk Dodaj)", "default": "scheme-1" },
     { "type": "paragraph", "content": "Badge karty ustawia się automatycznie: cena promocyjna produktu → rabat (np. „-10%”), tag „bestseller” → BESTSELLER, tag „nowość” → NOWOŚĆ. Opis karty: metapole custom.opis_karty, a bez niego — opis produktu (skrócony do długości powyżej)." },
+    { "type": "header", "content": "Karuzela (jak w natywnych karuzelach produktów)" },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Kart na widok (desktop)", "default": 3 },
+    { "type": "range", "id": "columns_gap", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "Odstęp między kartami", "default": 24 },
+    {
+      "type": "select", "id": "mobile_card_size", "label": "Rozmiar karty (mobile)", "default": "60cqw",
+      "options": [
+        { "value": "60cqw", "label": "Duża (ok. 1 karta na ekranie)" },
+        { "value": "44cqw", "label": "Mniejsza (ok. 2 karty na ekranie)" }
+      ]
+    },
+    {
+      "type": "select", "id": "section_width", "label": "Szerokość sekcji", "default": "page-width",
+      "options": [
+        { "value": "page-width", "label": "Szerokość strony" },
+        { "value": "full-width", "label": "Pełna szerokość" }
+      ]
+    },
+    {
+      "type": "select", "id": "icons_style", "label": "Styl strzałek", "default": "arrow",
+      "options": [
+        { "value": "arrow", "label": "Strzałka" },
+        { "value": "chevron", "label": "Szewron" },
+        { "value": "arrows_large", "label": "Strzałka (duża)" },
+        { "value": "chevron_large", "label": "Szewron (duży)" },
+        { "value": "none", "label": "Brak" }
+      ]
+    },
+    {
+      "type": "select", "id": "icons_shape", "label": "Tło strzałek", "default": "circle",
+      "options": [
+        { "value": "none", "label": "Brak" },
+        { "value": "circle", "label": "Koło" },
+        { "value": "square", "label": "Kwadrat" }
+      ]
+    },
     { "type": "header", "content": "Karta końcowa „Zobacz więcej”" },
     { "type": "checkbox", "id": "show_end_card", "label": "Pokaż kartę końcową", "default": true },
     { "type": "textarea", "id": "end_card_heading", "label": "Tekst karty końcowej", "default": "Zobacz więcej\nbestsellerów" },
