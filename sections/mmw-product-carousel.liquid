@@ -1,13 +1,29 @@
 {%- comment -%}
-  mmw-product-carousel — UNIWERSALNA karuzela produktowa (Figma: BESTSELLERS, node 982:4036).
-  Jedno źródło (kolekcja) + limit kart — używana dla bestsellerów ×2, voucherów i produktów marki,
-  bez osobnych wariantów sekcji. Badge sterowany ceną promocyjną i tagami (bestseller / nowość),
-  zgodnie z konwencją mmw-product-card. Opis karty z product.metafields.custom.opis_karty.
+  mmw-product-carousel — UNIWERSALNA karuzela produktowa (Figma: BESTSELLERS, karta node 982:4042).
+  Źródło: kolekcja + limit kart — jedna sekcja obsługuje bestsellery ×2, vouchery i produkty marki,
+  bez osobnych wariantów.
+
+  Mechanika WYŁĄCZNIE natywna Horizona (bez własnego JS):
+    - <slideshow-component>/<slideshow-slides>/<slideshow-slide> — drag/scroll-snap (assets/slideshow.js)
+    - snippet 'slideshow-controls' (style: 'dots') — strzałki na hover + kropki
+    - snippet 'quick-add' — przycisk "Dodaj" zintegrowany z cart drawer (assets/quick-add.js)
+  Renderujemy DWIE kopie karuzeli (desktop / mobile), przełączane klasami hidden--mobile /
+  hidden--desktop — dokładnie ten sam wzorzec co natywny mobilny fallback w
+  snippets/resource-list.liquid. Dzięki temu kropki liczą WIDOKI, nie pojedyncze produkty:
+    - desktop: karty grupowane po `cards_per_view` w jeden <slideshow-slide> = jedna kropka na stronę
+    - mobile: 1 karta = 1 <slideshow-slide> = 1 kropka (na mobile widok = pojedyncza karta)
+
+  Customowa jest wyłącznie treść karty: obraz, badge (tagi bestseller/nowość lub cena promocyjna),
+  tytuł, opis (metapole custom.opis_karty, fallback na opis produktu), cena, karta końcowa
+  „Zobacz więcej”. Wszystko inne (scroll, strzałki, kropki, dodawanie do koszyka) to renderowanie
+  natywnych snippetów Horizona.
 {%- endcomment -%}
 {%- liquid
   assign coll = section.settings.collection
-  assign count = section.settings.products_count | default: 4
+  assign count = section.settings.products_count | default: 8
+  assign per_view = section.settings.cards_per_view | default: 3
   assign show_end_card = section.settings.show_end_card
+  assign desc_len = section.settings.description_length | default: 140
 -%}
 {%- if coll != blank and coll.products.size > 0 -%}
   {%- style -%}
@@ -20,35 +36,44 @@
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
-    #shopify-section-{{ section.id }} .mmw-pc__track {
-      display: flex; gap: 20px;
-      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
-      scrollbar-width: none; -ms-overflow-style: none; margin: 0; padding: 0 2px;
+    /* Strony/slajdy: desktop = grupa `cards_per_view` kart, mobile = 1 karta */
+    #shopify-section-{{ section.id }} .mmw-pc__page {
+      display: grid; grid-template-columns: repeat(var(--mmw-pc-per-view, 3), 1fr);
+      gap: 24px; width: 100%; height: 100%;
     }
-    #shopify-section-{{ section.id }} .mmw-pc__track::-webkit-scrollbar { display: none; }
+    #shopify-section-{{ section.id }} .mmw-pc__slideshow--mobile .mmw-pc__card,
+    #shopify-section-{{ section.id }} .mmw-pc__slideshow--mobile .mmw-pc__end {
+      max-width: 420px; margin-inline: auto;
+    }
 
+    /* Karta produktu */
     #shopify-section-{{ section.id }} .mmw-pc__card {
-      position: relative; flex: 0 0 320px; width: 320px; aspect-ratio: 320 / 486;
-      display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between;
-      padding: 28px; border-radius: 16px; overflow: hidden; scroll-snap-align: start;
-      text-decoration: none; background: var(--mmw-01);
+      position: relative; width: 100%; aspect-ratio: 331 / 507;
+      border-radius: 16px; overflow: hidden; background: var(--mmw-01);
     }
+    #shopify-section-{{ section.id }} .mmw-pc__media { position: absolute; inset: 0; z-index: 0; display: block; }
     #shopify-section-{{ section.id }} .mmw-pc__img,
     #shopify-section-{{ section.id }} .mmw-pc__img svg {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; z-index: 0;
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
     }
     #shopify-section-{{ section.id }} .mmw-pc__card::after {
-      content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit;
+      content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
       background: linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.92) 100%);
     }
     #shopify-section-{{ section.id }} .mmw-pc__badge {
-      position: relative; z-index: 2; background: var(--mmw-03); color: var(--mmw-01);
+      position: absolute; top: 24px; right: 24px; z-index: 2; background: var(--mmw-03); color: var(--mmw-01);
       font-family: var(--mmw-font-label); font-weight: 700; font-size: 14px; letter-spacing: 2px;
       text-transform: uppercase; padding: 10px 14px; border-radius: 58px; line-height: 1.2;
     }
     #shopify-section-{{ section.id }} .mmw-pc__badge--sale { background: var(--mmw-02); }
-    #shopify-section-{{ section.id }} .mmw-pc__body { position: relative; z-index: 2; width: 100%; display: flex; flex-direction: column; gap: 8px; }
-    #shopify-section-{{ section.id }} .mmw-pc__name { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 24px; line-height: 1; color: var(--mmw-04); }
+    #shopify-section-{{ section.id }} .mmw-pc__body {
+      position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__name {
+      margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 24px; line-height: 1;
+      color: var(--mmw-04); text-decoration: none;
+    }
     #shopify-section-{{ section.id }} .mmw-pc__excerpt {
       margin: 0; font-family: var(--mmw-font-text); font-size: 12px; line-height: 1.4; color: var(--mmw-04);
       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
@@ -65,17 +90,26 @@
       text-decoration: line-through; opacity: .85;
     }
     #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
-    #shopify-section-{{ section.id }} .mmw-pc__basket {
-      flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%; background: var(--mmw-02); color: var(--mmw-04);
-      display: grid; place-items: center;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__basket svg { width: 22px; height: 22px; }
 
+    /* Reskin natywnego quick-add: zawsze widoczny, okrągły, koralowy — jak w Figmie */
+    #shopify-section-{{ section.id }} .mmw-pc__quick-add { flex: 0 0 auto; }
+    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add {
+      position: static; inset: auto; pointer-events: auto;
+      --quick-add-mobile-display: flex; --quick-add-mobile-opacity: 1; --quick-add-display: flex;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button {
+      position: static; opacity: 1 !important; height: 44px; width: 44px; border: none; border-radius: 50%;
+      background: linear-gradient(var(--mmw-02) 0 100%) padding-box; backdrop-filter: none;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button .add-to-cart-text { background: transparent; border-radius: 50%; }
+    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button .add-to-cart-icon { width: 20px; color: var(--mmw-04); }
+    #shopify-section-{{ section.id }} .mmw-pc__quick-add .quick-add__button .add-to-cart-text__content { display: none; }
+
+    /* Karta końcowa „Zobacz więcej” */
     #shopify-section-{{ section.id }} .mmw-pc__end {
-      flex: 0 0 320px; width: 320px; aspect-ratio: 320 / 486; scroll-snap-align: start;
-      position: relative; border: 1px solid rgba(95,49,47,.25); border-radius: 16px; overflow: hidden;
-      display: flex; align-items: center; justify-content: center; text-align: center; padding: 32px;
-      text-decoration: none; background: var(--mmw-04);
+      position: relative; width: 100%; aspect-ratio: 331 / 507; border: 1px solid rgba(95,49,47,.25);
+      border-radius: 16px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 32px; text-decoration: none; background: var(--mmw-04);
     }
     #shopify-section-{{ section.id }} .mmw-pc__end-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; }
     #shopify-section-{{ section.id }} .mmw-pc__end-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
@@ -86,132 +120,159 @@
     }
     #shopify-section-{{ section.id }} .mmw-pc__end-btn svg { width: 22px; height: 22px; transform: rotate(90deg); }
 
-    #shopify-section-{{ section.id }} .mmw-pc__dots { display: flex; align-items: center; justify-content: center; gap: 8px; }
-    #shopify-section-{{ section.id }} .mmw-pc__dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 50%; background: var(--mmw-03); cursor: pointer; }
-    #shopify-section-{{ section.id }} .mmw-pc__dot.is-active { background: var(--mmw-01); }
-
     @media (max-width: 989px) {
       #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 24px; }
       #shopify-section-{{ section.id }} .mmw-pc__title { font-size: 36px; }
-      #shopify-section-{{ section.id }} .mmw-pc__card,
-      #shopify-section-{{ section.id }} .mmw-pc__end { flex-basis: 78vw; width: 78vw; }
     }
   {%- endstyle -%}
-  <section class="mmw-pc">
+
+  {%- comment -%} Karty produktów + opcjonalna karta końcowa, budowane raz i dzielone znacznikiem na tablicę (ten sam trik co list_items_array w sections/product-list.liquid) {%- endcomment -%}
+  {%- capture cards_concat -%}
+    {%- assign item_index = 0 -%}
+    {%- for product in coll.products limit: count -%}
+      {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}
+      {%- assign item_index = item_index | plus: 1 -%}
+      {%- liquid
+        assign on_sale = false
+        assign badge_text = blank
+        assign badge_class = 'mmw-pc__badge'
+        if product.compare_at_price > product.price
+          assign on_sale = true
+          assign discount_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
+          assign badge_text = '-' | append: discount_pct | append: '%'
+          assign badge_class = badge_class | append: ' mmw-pc__badge--sale'
+        elsif product.tags contains 'bestseller' or product.tags contains 'Bestseller'
+          assign badge_text = 'Bestseller'
+        elsif product.tags contains 'nowość' or product.tags contains 'nowosc' or product.tags contains 'Nowość'
+          assign badge_text = 'Nowość'
+        endif
+        assign card_text = product.metafields.custom.opis_karty.value | default: product.description
+        assign card_text = card_text | strip_html | truncate: desc_len
+      -%}
+      <div class="mmw-pc__card">
+        <a class="mmw-pc__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+          {%- if product.featured_image != blank -%}
+            <img class="mmw-pc__img" loading="lazy"
+              src="{{ product.featured_image | image_url: width: 640 }}"
+              srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 640 }} 640w, {{ product.featured_image | image_url: width: 900 }} 900w"
+              sizes="(max-width: 749px) 92vw, 400px"
+              width="640" height="980"
+              alt="{{ product.featured_image.alt | default: product.title | escape }}">
+          {%- else -%}
+            {{ 'product-1' | placeholder_svg_tag: 'mmw-pc__img' }}
+          {%- endif -%}
+        </a>
+        {%- if badge_text != blank -%}<span class="{{ badge_class }}">{{ badge_text }}</span>{%- endif -%}
+        <div class="mmw-pc__body">
+          <a class="mmw-pc__name" href="{{ product.url }}">{{ product.title }}</a>
+          {%- if card_text != blank -%}<p class="mmw-pc__excerpt">{{ card_text }}</p>{%- endif -%}
+          <div class="mmw-pc__price-row">
+            <div class="mmw-pc__price-block">
+              {%- if on_sale -%}
+                <div class="mmw-pc__price-line">
+                  <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
+                  <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
+                </div>
+                <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
+              {%- else -%}
+                <span class="mmw-pc__price">{{ product.price | money }}</span>
+              {%- endif -%}
+            </div>
+            <div class="mmw-pc__quick-add">
+              {%- render 'quick-add', product: product, section_id: section.id -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+    {%- if show_end_card -%}
+      {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}
+      <a class="mmw-pc__end" href="{{ section.settings.end_card_link | default: coll.url }}">
+        {%- if section.settings.end_card_image != blank -%}
+          <img class="mmw-pc__end-img" src="{{ section.settings.end_card_image | image_url: width: 640 }}" width="640" height="980" alt="" loading="lazy">
+        {%- endif -%}
+        <div class="mmw-pc__end-content">
+          <p class="mmw-pc__end-heading">{{ section.settings.end_card_heading | newline_to_br }}</p>
+          <span class="mmw-pc__end-btn" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </span>
+        </div>
+      </a>
+    {%- endif -%}
+  {%- endcapture -%}
+  {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-pc/split-->' -%}
+  {%- assign total_items = cards_array.size -%}
+
+  {%- comment -%} Desktop: grupuj karty po `per_view` w jeden slajd = jedna kropka na widok {%- endcomment -%}
+  {%- assign page_count = total_items | divided_by: per_view -%}
+  {%- assign page_remainder = total_items | modulo: per_view -%}
+  {%- if page_remainder > 0 -%}{%- assign page_count = page_count | plus: 1 -%}{%- endif -%}
+  {%- capture desktop_slides -%}
+    {%- for i in (1..page_count) -%}
+      {%- assign page_start = forloop.index0 | times: per_view -%}
+      {%- assign page_items = cards_array | slice: page_start, per_view -%}
+      <slideshow-slide
+        ref="slides[]"
+        aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+        slide-id="mmw-pc-desktop-{{ forloop.index0 }}"
+        media-fit="cover"
+        style="--slideshow-timeline: --slide-{{ forloop.index0 }};"
+      >
+        <div class="mmw-pc__page">
+          {%- for item in page_items -%}{{ item }}{%- endfor -%}
+        </div>
+      </slideshow-slide>
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture desktop_controls -%}
+    {%- render 'slideshow-controls', style: 'dots', item_count: page_count, show_arrows: true, icon_style: 'arrow', shape: 'circle', pagination_position: 'center' -%}
+  {%- endcapture -%}
+
+  {%- comment -%} Mobile: 1 karta = 1 slajd = 1 kropka (widok pokazuje jedną kartę naraz) {%- endcomment -%}
+  {%- capture mobile_slides -%}
+    {%- for item in cards_array -%}
+      <slideshow-slide
+        ref="slides[]"
+        aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+        slide-id="mmw-pc-mobile-{{ forloop.index0 }}"
+        media-fit="cover"
+        style="--slideshow-timeline: --slide-{{ forloop.index0 }};"
+      >
+        {{ item }}
+      </slideshow-slide>
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture mobile_controls -%}
+    {%- render 'slideshow-controls', style: 'dots', item_count: total_items, show_arrows: true, icon_style: 'arrow', shape: 'circle', pagination_position: 'center' -%}
+  {%- endcapture -%}
+
+  <section class="mmw-pc color-{{ section.settings.color_scheme }}">
     <div class="mmw-pc__head">
       {%- if section.settings.heading != blank -%}<h2 class="mmw-pc__title">{{ section.settings.heading }}</h2>{%- endif -%}
       {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
-    <div class="mmw-pc__track" id="mmw-pc-track-{{ section.id }}">
-      {%- for product in coll.products limit: count -%}
-        {%- liquid
-          assign on_sale = false
-          assign badge_text = blank
-          assign badge_class = 'mmw-pc__badge'
-          if product.compare_at_price > product.price
-            assign on_sale = true
-            assign discount_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
-            assign badge_text = '-' | append: discount_pct | append: '%'
-            assign badge_class = badge_class | append: ' mmw-pc__badge--sale'
-          elsif product.tags contains 'bestseller' or product.tags contains 'Bestseller'
-            assign badge_text = 'Bestseller'
-          elsif product.tags contains 'nowość' or product.tags contains 'nowosc' or product.tags contains 'Nowość'
-            assign badge_text = 'Nowość'
-          endif
-        -%}
-        <a class="mmw-pc__card" href="{{ product.url }}" data-mmw-pc-slide>
-          {%- if product.featured_image != blank -%}
-            <img class="mmw-pc__img" loading="lazy"
-              src="{{ product.featured_image | image_url: width: 640 }}"
-              srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 640 }} 640w, {{ product.featured_image | image_url: width: 900 }} 900w"
-              sizes="(max-width: 989px) 78vw, 320px"
-              alt="{{ product.featured_image.alt | default: product.title | escape }}">
-          {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'mmw-pc__img' }}
-          {%- endif -%}
-          {%- if badge_text != blank -%}<span class="{{ badge_class }}">{{ badge_text }}</span>{%- endif -%}
-          <div class="mmw-pc__body">
-            <p class="mmw-pc__name">{{ product.title }}</p>
-            {%- if product.metafields.custom.opis_karty != blank -%}
-              <p class="mmw-pc__excerpt">{{ product.metafields.custom.opis_karty }}</p>
-            {%- endif -%}
-            <div class="mmw-pc__price-row">
-              <div class="mmw-pc__price-block">
-                {%- if on_sale -%}
-                  <div class="mmw-pc__price-line">
-                    <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
-                    <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
-                  </div>
-                  <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
-                {%- else -%}
-                  <span class="mmw-pc__price">{{ product.price | money }}</span>
-                {%- endif -%}
-              </div>
-              <span class="mmw-pc__basket" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 9h16l-1.4 10.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 9Z"/>
-                  <path d="M8 9V7a4 4 0 0 1 8 0v2"/>
-                  <path d="M9 13v4M12 13v4M15 13v4"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-        </a>
-      {%- endfor -%}
-
-      {%- if show_end_card -%}
-        <a class="mmw-pc__end" href="{{ section.settings.end_card_link | default: coll.url }}" data-mmw-pc-slide>
-          {%- if section.settings.end_card_image != blank -%}
-            <img class="mmw-pc__end-img" src="{{ section.settings.end_card_image | image_url: width: 640 }}" alt="" loading="lazy">
-          {%- endif -%}
-          <div class="mmw-pc__end-content">
-            <p class="mmw-pc__end-heading">{{ section.settings.end_card_heading | newline_to_br }}</p>
-            <span class="mmw-pc__end-btn" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-            </span>
-          </div>
-        </a>
-      {%- endif -%}
+    {%- assign desktop_style = '--mmw-pc-per-view: ' | append: per_view | append: ';' -%}
+    <div class="hidden--mobile">
+      {%- render 'slideshow',
+        class: 'mmw-pc__slideshow mmw-pc__slideshow--desktop',
+        slides: desktop_slides,
+        slide_count: page_count,
+        controls: desktop_controls,
+        infinite: false,
+        style: desktop_style
+      -%}
     </div>
-
-    <div class="mmw-pc__dots" id="mmw-pc-dots-{{ section.id }}" role="tablist" aria-label="Przewijanie karuzeli produktów"></div>
+    <div class="hidden--desktop">
+      {%- render 'slideshow',
+        class: 'mmw-pc__slideshow mmw-pc__slideshow--mobile',
+        slides: mobile_slides,
+        slide_count: total_items,
+        controls: mobile_controls,
+        infinite: false
+      -%}
+    </div>
   </section>
-
-  <script>
-    (function () {
-      var track = document.getElementById('mmw-pc-track-{{ section.id }}');
-      var dotsWrap = document.getElementById('mmw-pc-dots-{{ section.id }}');
-      if (!track || !dotsWrap) return;
-      var slides = Array.prototype.slice.call(track.querySelectorAll('[data-mmw-pc-slide]'));
-      if (!slides.length) return;
-
-      slides.forEach(function (slide, i) {
-        var dot = document.createElement('button');
-        dot.type = 'button';
-        dot.className = 'mmw-pc__dot';
-        dot.setAttribute('aria-label', 'Pokaż kartę ' + (i + 1));
-        dot.addEventListener('click', function () {
-          slide.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-        });
-        dotsWrap.appendChild(dot);
-      });
-      var dots = Array.prototype.slice.call(dotsWrap.children);
-      dots[0].classList.add('is-active');
-
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var index = slides.indexOf(entry.target);
-          if (index === -1) return;
-          dots.forEach(function (d) { d.classList.remove('is-active'); });
-          dots[index].classList.add('is-active');
-        });
-      }, { root: track, threshold: 0.6 });
-
-      slides.forEach(function (slide) { observer.observe(slide); });
-    })();
-  </script>
 {%- endif -%}
 {% schema %}
 {
@@ -221,8 +282,11 @@
     { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Poznaj nasze bestsellery" },
     { "type": "textarea", "id": "description", "label": "Opis", "default": "Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie." },
     { "type": "collection", "id": "collection", "label": "Kolekcja produktów" },
-    { "type": "range", "id": "products_count", "min": 2, "max": 12, "step": 1, "label": "Liczba kart", "default": 4 },
-    { "type": "paragraph", "content": "Badge karty ustawia się automatycznie: cena promocyjna produktu → rabat (np. „-10%”), tag „bestseller” → BESTSELLER, tag „nowość” → NOWOŚĆ. Opis karty bierze się z metapola custom.opis_karty." },
+    { "type": "range", "id": "products_count", "min": 2, "max": 16, "step": 1, "label": "Liczba kart", "default": 8 },
+    { "type": "range", "id": "cards_per_view", "min": 2, "max": 4, "step": 1, "label": "Kart na widok (desktop)", "default": 3, "info": "Na mobile zawsze 1 karta na widok." },
+    { "type": "range", "id": "description_length", "min": 60, "max": 300, "step": 10, "unit": "zn.", "label": "Długość opisu karty", "default": 140 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów (strzałki, kropki, przycisk Dodaj)", "default": "scheme-1" },
+    { "type": "paragraph", "content": "Badge karty ustawia się automatycznie: cena promocyjna produktu → rabat (np. „-10%”), tag „bestseller” → BESTSELLER, tag „nowość” → NOWOŚĆ. Opis karty: metapole custom.opis_karty, a bez niego — opis produktu (skrócony do długości powyżej)." },
     { "type": "header", "content": "Karta końcowa „Zobacz więcej”" },
     { "type": "checkbox", "id": "show_end_card", "label": "Pokaż kartę końcową", "default": true },
     { "type": "textarea", "id": "end_card_heading", "label": "Tekst karty końcowej", "default": "Zobacz więcej\nbestsellerów" },
