@@ -109,7 +109,7 @@
       margin: 0; font-family: var(--mmw-font-text); font-size: 12px; line-height: 1.4; color: var(--mmw-04);
       display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
     }
-    #shopify-section-{{ section.id }} .mmw-pc__price { margin-top: 4px; font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--mmw-04); }
+    #shopify-section-{{ section.id }} .mmw-pc__price { font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--mmw-04); }
     #shopify-section-{{ section.id }} .mmw-pc__price--sale { color: var(--mmw-02); }
     #shopify-section-{{ section.id }} .mmw-pc__price-line { display: flex; align-items: baseline; gap: 6px; }
     #shopify-section-{{ section.id }} .mmw-pc__price-compare {
@@ -118,6 +118,28 @@
     }
     #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 4px 0 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
 
+    /* Wiersz ceny: cena po lewej, natywny quick-add po prawej, wyrównane w pionie do ceny.
+       Odstęp quick-add od prawej krawędzi karty = padding body od lewej (24px), bo oba
+       siedzą w tym samym .mmw-pc__body (left/right: 24px) — symetria "za darmo" z flexa. */
+    #shopify-section-{{ section.id }} .mmw-pc__price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    #shopify-section-{{ section.id }} .mmw-pc__price-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+    /* Reskin natywnego quick-add — tylko nadpisania w scope sekcji (pozycja + kolory marki),
+       snippets/quick-add.liquid i jego globalny CSS zostają nietknięte. */
+    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add {
+      position: static; inset: auto; pointer-events: auto; flex: 0 0 auto;
+      --quick-add-mobile-display: var(--quick-add-display);
+      --quick-add-mobile-opacity: 1;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__button {
+      position: static; opacity: 1;
+      background: linear-gradient(var(--mmw-02, #fc7753) 0 100%) padding-box;
+      color: var(--mmw-01, #5f312f);
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__button .add-to-cart-text {
+      background: var(--mmw-02, #fc7753);
+    }
+
     /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
     #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap { width: 100%; }
 
@@ -125,8 +147,11 @@
        zmienne komponentu (--color/--color-active/--color-hover), bez twardych selektorów */
     #shopify-section-{{ section.id }} slideshow-controls {
       margin-top: 8px;
+      /* Natywnie kropki są barwione przez mix-blend-mode: difference (myślane pod kropki na
+         zdjęciu/mediach) — u nas stoją na tle sekcji, więc wyłączamy to i barwimy wprost. */
+      mix-blend-mode: normal;
       --color: rgba(95, 49, 47, 0.25);
-      --color-active: #5F312F;
+      --color-active: var(--mmw-01, #5f312f);
       --color-hover: rgba(95, 49, 47, 0.4);
     }
 
@@ -136,13 +161,9 @@
       border: 1px solid rgba(95,49,47,.25); border-radius: 16px; overflow: hidden;
       align-items: center; justify-content: center; text-align: center; padding: 32px;
       text-decoration: none; background: var(--mmw-04);
-      transition: background-color .3s ease, transform .3s ease, box-shadow .3s ease;
+      transition: background-color .3s ease;
     }
-    #shopify-section-{{ section.id }} .mmw-pc__end:hover {
-      background: var(--mmw-03);
-      transform: translateY(-6px);
-      box-shadow: 0 14px 30px rgba(95,49,47,.15);
-    }
+    #shopify-section-{{ section.id }} .mmw-pc__end:hover { background: var(--mmw-03); }
     #shopify-section-{{ section.id }} .mmw-pc__end-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; }
     #shopify-section-{{ section.id }} .mmw-pc__end-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
     #shopify-section-{{ section.id }} .mmw-pc__end-heading { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 36px; line-height: 1.1; color: var(--mmw-01); }
@@ -219,17 +240,21 @@
         <div class="mmw-pc__body">
           <p class="mmw-pc__name">{{ product.title }}</p>
           {%- if card_text != blank -%}<p class="mmw-pc__excerpt">{{ card_text }}</p>{%- endif -%}
-          {%- if on_sale -%}
-            <div class="mmw-pc__price-line">
-              <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
-              <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
+          <div class="mmw-pc__price-row">
+            <div class="mmw-pc__price-block">
+              {%- if on_sale -%}
+                <div class="mmw-pc__price-line">
+                  <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
+                  <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
+                </div>
+                <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
+              {%- else -%}
+                <span class="mmw-pc__price">{{ product.price | money }}</span>
+              {%- endif -%}
             </div>
-            <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
-          {%- else -%}
-            <span class="mmw-pc__price">{{ product.price | money }}</span>
-          {%- endif -%}
+            {%- render 'quick-add', product: product, section_id: section.id -%}
+          </div>
         </div>
-        {%- render 'quick-add', product: product, section_id: section.id -%}
       </product-card>
     {%- endfor -%}
     {%- if show_end_card -%}
@@ -279,6 +304,10 @@
     if section.settings.icons_style != 'none'
       assign show_arrows = true
     endif
+    # Gutter jako style: bezpośrednio na 'slideshow' (dokładnie jak w sections/mmw-featured-collection.liquid,
+    # naszym już działającym wzorcu pełnej szerokości) — bez dodatkowego diva, żeby padding
+    # skrajnych slajdów miał jedno źródło, nie dwa.
+    assign carousel_style = gutter_style | append: ' --slide-width-max: 420px;'
   -%}
   {%- capture carousel_slides -%}
     {%- for item in cards_array -%}
@@ -296,22 +325,21 @@
     </div>
 
     <div class="resource-list resource-list__carousel mmw-pc__carousel-wrap" style="{{ resource_list_style }}">
-      <div style="{{ gutter_style }} --slide-width-max: 420px;">
-        {%- render 'slideshow',
-          ref: carousel_ref,
-          class: 'resource-list__carousel',
-          slides: carousel_slides,
-          show_arrows: show_arrows,
-          icon_style: section.settings.icons_style,
-          icon_shape: section.settings.icons_shape,
-          auto_hide_controls: false,
-          infinite: false,
-          initial_slide: 0,
-          slide_count: cards_array.size,
-          slideshow_gutters: slideshow_gutters,
-          controls: carousel_controls
-        -%}
-      </div>
+      {%- render 'slideshow',
+        ref: carousel_ref,
+        class: 'resource-list__carousel',
+        style: carousel_style,
+        slides: carousel_slides,
+        show_arrows: show_arrows,
+        icon_style: section.settings.icons_style,
+        icon_shape: section.settings.icons_shape,
+        auto_hide_controls: false,
+        infinite: false,
+        initial_slide: 0,
+        slide_count: cards_array.size,
+        slideshow_gutters: slideshow_gutters,
+        controls: carousel_controls
+      -%}
     </div>
   </section>
 {%- endif -%}
