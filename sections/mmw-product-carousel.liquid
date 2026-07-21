@@ -2,38 +2,6 @@
   mmw-product-carousel — UNIWERSALNA karuzela produktowa (Figma: BESTSELLERS, karta node 982:4042).
   Źródło: kolekcja + limit kart — jedna sekcja obsługuje bestsellery ×2, vouchery i produkty marki,
   bez osobnych wariantów.
-
-  WZORZEC NATYWNY (1:1, bez własnego JS/CSS geometrii slajdów):
-    - sections/product-list.liquid — natywna sekcja karuzeli produktów na kolekcjach
-      (layout_type: "carousel"), z niej wzięte id/opcje ustawień: columns, columns_gap,
-      mobile_card_size, section_width, icons_style, icons_shape.
-    - snippets/resource-list.liquid — sposób budowania CSS custom properties dla trybu
-      carousel (--column-count, --resource-list-column-gap-desktop, --mobile-card-size)
-      na wrapperze .resource-list.resource-list__carousel — ten sam wrapper/klasy tutaj.
-    - snippets/resource-list-carousel.liquid — jego logika (gutter/peek-width, strzałki)
-      jest tu skopiowana 1:1 (te same zmienne, te same wywołania 'slideshow'/'slideshow-slide'),
-      bo ten snippet nie ma parametru na "controls" (kropki), a potrzebujemy ich w tym samym
-      <slideshow-component> co karty (wymóg natywnego mechanizmu ref/JS w assets/slideshow.js —
-      slideshow-controls musi być potomkiem slideshow-component, inaczej nie działa). Geometria
-      slajdów (peek przez @container + var(--slide-width)) i strzałki (slideshow-arrows,
-      hover-reveal) pozostają więc IDENTYCZNE jak w resource-list-carousel.liquid.
-    - snippets/slideshow-controls.liquid (style: "dots") — natywny komponent kropek. UWAGA:
-      w całym repo żadna karuzela z wieloma widocznymi kartami (peek-width) nie ma kropek
-      per "widok" — natywnie kropki są zawsze 1:1 ze slajdami (assets/slideshow.js: dots[i]
-      odpowiada slides[i]). Przy geometrii peek (wymóg z poprzedniego zadania) 1 slajd = 1
-      karta produktu, więc kropki tu też są 1 na kartę — to jedyna wersja "kropek per widok",
-      jaka jest technicznie możliwa bez grupowania kart w jeden slajd (co złamałoby peek-width).
-    - snippets/quick-add.liquid — renderowany bez zmian stylów. Karta opakowana w prawdziwy
-      <product-card class="product-card"> z wymaganym linkiem ref="productCardLink"
-      (assets/product-card.js), żeby zadziałał natywny hover-selector
-      `product-card:is(:hover, :focus-within) .quick-add__button`. Widoczność sterowana tymi
-      samymi zmiennymi co w snippets/product-card.liquid (--quick-add-display itd.), liczonymi
-      z tych samych ustawień motywu (settings.quick_add / settings.mobile_quick_add).
-    - assets/icon-arrow.svg (przez inline_asset_content) — ta sama ikona co w
-      snippets/slideshow-arrow.liquid, użyta na karcie końcowej „Zobacz więcej”.
-    - sections/mmw-how-its-made.liquid — źródło wartości hover karty końcowej (translateY,
-      czas/easing, kolor tła).
-
   Customowa jest wyłącznie treść karty: obraz (+ hover na drugie zdjęcie, CSS-owy fallback —
   natywny card-gallery hover-image wymaga zagnieżdżonego slideshow per karta, którego nasz
   pełnokadrowy layout nie używa), badge (tagi bestseller/nowość lub cena promocyjna), tytuł,
@@ -201,12 +169,52 @@
     #shopify-section-{{ section.id }} .mmw-pc__end-btn .icon-arrow,
     #shopify-section-{{ section.id }} .mmw-pc__end-btn svg { width: 22px; height: 22px; }
 
+    .mmw-pc slideshow-slides {
+  padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+  padding-inline-end: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+  scroll-padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+}
+.mmw-pc .resource-list__slide,
+.mmw-pc slideshow-slide {
+  scroll-snap-align: start;
+}
+
     @media (max-width: 989px) {
       #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 24px; }
       #shopify-section-{{ section.id }} .mmw-pc__title { font-size: 36px; }
     }
     @media (max-width: 749px) {
       #shopify-section-{{ section.id }} .mmw-pc__excerpt { -webkit-line-clamp: 2; }
+
+      /* Mobile: jedna karta na ekran, wycentrowana, ze skrawkami sąsiadów po bokach.
+         --mmw-pc-gutter-mobile zastępuje --util-page-margin-offset TYLKO na mobile —
+         desktop (reguła wyżej) zostaje bez zmian. Szerokość karty nadal idzie przez
+         --slide-width (ten sam mechanizm co peek-width na desktopie w
+         resource-list-carousel.liquid), nie przez osobny system. */
+      #shopify-section-{{ section.id }} .mmw-pc { --mmw-pc-gutter-mobile: 24px; }
+
+      #shopify-section-{{ section.id }} .mmw-pc__head { padding-inline: var(--mmw-pc-gutter-mobile); }
+
+      .mmw-pc slideshow-slides {
+        padding-inline-start: var(--mmw-pc-gutter-mobile) !important;
+        padding-inline-end: var(--mmw-pc-gutter-mobile) !important;
+        scroll-padding-inline-start: var(--mmw-pc-gutter-mobile) !important;
+        scroll-padding-inline-end: var(--mmw-pc-gutter-mobile) !important;
+      }
+
+      #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap .resource-list__slide {
+        --slide-width: calc(100vw - 2 * var(--mmw-pc-gutter-mobile) + 12px);
+      }
+
+      /* scroll-snap-align: start (reguła wyżej) przy tej szerokości karty przykleja ją
+         do lewego gutteru — prawy skrawek wychodzi duży, lewego brak. center centruje
+         kartę w obrębie scroll-padding, dając skrawki po obu stronach. Tylko mobile —
+         desktop zostaje na start (peek-width tam jest symetryczny z automatu, bo karty
+         wypełniają cały wiersz). */
+      .mmw-pc .resource-list__slide,
+      .mmw-pc slideshow-slide {
+        scroll-snap-align: center;
+      }
     }
   {%- endstyle -%}
 
