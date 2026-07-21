@@ -131,6 +131,19 @@
       --quick-add-mobile-display: var(--quick-add-display);
       --quick-add-mobile-opacity: 1;
     }
+    /* .quick-add__product-form-component/.shopify-product-form mają w natywnym CSS
+       container-type: inline-size + height:100%, licząc na to, że .quick-add (rodzic) ma
+       position:absolute; inset:0 (pełny rozmiar karty) — w naszym układzie w linii (position:
+       static, flex item) to size containment odcina formularz od jego własnej zawartości,
+       więc guzik nie może urosnąć w pigułkę na hover. Zdejmujemy containment i sztywną
+       wysokość, reszta (grid-template-columns na .add-to-cart-text__content) zostaje natywna. */
+    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__product-form-component,
+    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__product-form-component .shopify-product-form {
+      height: auto;
+    }
+    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__product-form-component .shopify-product-form {
+      container-type: normal;
+    }
     #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__button {
       position: static; opacity: 1;
       background: linear-gradient(var(--mmw-02, #fc7753) 0 100%) padding-box;
