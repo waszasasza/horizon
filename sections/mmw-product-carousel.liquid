@@ -60,8 +60,8 @@
 -%}
 {%- if coll != blank and coll.products.size > 0 -%}
   {%- style -%}
-    #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; padding-inline: var(--page-margin, 40px); }
-    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); }
+    #shopify-section-{{ section.id }} .mmw-pc { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
+    #shopify-section-{{ section.id }} .mmw-pc__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--page-margin, 40px); }
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
@@ -69,6 +69,13 @@
     #shopify-section-{{ section.id }} .mmw-pc__card {
       display: block; width: 100%; aspect-ratio: {{ card_ratio }};
       border-radius: 16px; overflow: hidden; background: var(--mmw-01);
+      /* Natywny quick-add liczy prawy-dolny róg z --border-radius/--padding-inline-end/
+         --padding-block-end (snippets/quick-add-styles.liquid). Bez nich te zmienne są
+         invalid (nikt ich tu nie ustawia poza natywnym systemem spacing-style/product-grid,
+         którego nie używamy) i przycisk renderuje się w złym miejscu / poza kadrem. */
+      --border-radius: 16px;
+      --padding-inline-start: 24px; --padding-inline-end: 24px;
+      --padding-block-start: 24px; --padding-block-end: 24px;
     }
     #shopify-section-{{ section.id }} .mmw-pc__media { position: absolute; inset: 0; z-index: 0; display: block; }
     #shopify-section-{{ section.id }} .mmw-pc__img,
@@ -84,9 +91,10 @@
       background: linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.92) 100%);
     }
     #shopify-section-{{ section.id }} .mmw-pc__badge {
-      position: absolute; top: 24px; right: 24px; z-index: 2; background: var(--mmw-03); color: var(--mmw-01);
-      font-family: var(--mmw-font-label); font-weight: 700; font-size: 14px; letter-spacing: 2px;
-      text-transform: uppercase; padding: 10px 14px; border-radius: 58px; line-height: 1.2;
+      position: absolute; top: clamp(12px, 3vw, 24px); right: clamp(12px, 3vw, 24px); z-index: 2;
+      background: var(--mmw-03); color: var(--mmw-01);
+      font-family: var(--mmw-font-label); font-weight: 700; font-size: clamp(11px, 2.5vw, 14px); letter-spacing: 2px;
+      text-transform: uppercase; padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 14px); border-radius: 58px; line-height: 1.2;
     }
     #shopify-section-{{ section.id }} .mmw-pc__badge--sale { background: var(--mmw-02); }
     #shopify-section-{{ section.id }} .mmw-pc__body {
@@ -113,8 +121,14 @@
     /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
     #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap { width: 100%; }
 
-    /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots, bez dodatkowego CSS) */
-    #shopify-section-{{ section.id }} slideshow-controls { margin-top: 8px; }
+    /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots) — kolory przez
+       zmienne komponentu (--color/--color-active/--color-hover), bez twardych selektorów */
+    #shopify-section-{{ section.id }} slideshow-controls {
+      margin-top: 8px;
+      --color: rgba(95, 49, 47, 0.25);
+      --color-active: #5F312F;
+      --color-hover: rgba(95, 49, 47, 0.4);
+    }
 
     /* Karta końcowa „Zobacz więcej” — ten sam rozmiar slajdu co karty produktów + hover jak mmw-how-its-made */
     #shopify-section-{{ section.id }} .mmw-pc__end {
@@ -142,6 +156,9 @@
     @media (max-width: 989px) {
       #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 24px; }
       #shopify-section-{{ section.id }} .mmw-pc__title { font-size: 36px; }
+    }
+    @media (max-width: 749px) {
+      #shopify-section-{{ section.id }} .mmw-pc__excerpt { -webkit-line-clamp: 2; }
     }
   {%- endstyle -%}
 
@@ -250,7 +267,10 @@
     assign carousel_ref = 'mmwPc-' | append: section.id
     if section.settings.section_width == 'page-width'
       assign slideshow_gutters = 'start end'
-      assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset);'
+      # --util-page-margin-offset wymaga ancestora .section (grid Horizona), którego ta
+      # sekcja nie ma — używamy --page-margin (ten sam token co reszta sekcji mmw-*), żeby
+      # gutter faktycznie działał zamiast po cichu spadać do 0.
+      assign gutter_style = '--gutter-slide-width: var(--page-margin, 40px);'
     else
       assign slideshow_gutters = null
       assign gutter_style = '--gutter-slide-width: 0px;'
