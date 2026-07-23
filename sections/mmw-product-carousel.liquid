@@ -69,7 +69,7 @@
     #shopify-section-{{ section.id }} .mmw-pc__badge {
       position: absolute; top: clamp(12px, 3vw, 24px); right: clamp(12px, 3vw, 24px); z-index: 2;
       background: var(--mmw-03); color: var(--mmw-01);
-      font-family: var(--mmw-font-label); font-weight: 700; font-size: clamp(11px, 2.5vw, 14px); letter-spacing: 2px;
+      font-family: var(--mmw-font-label); font-weight: 700; font-size: clamp(11px, 2.5vw, 14px); letter-spacing: 1px;
       text-transform: uppercase; padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 14px); border-radius: 58px; line-height: 1.2;
     }
     #shopify-section-{{ section.id }} .mmw-pc__badge--sale { background: var(--mmw-02); }
@@ -136,7 +136,7 @@
        bazowego slideshow-slide (snippets/slideshow-styles.liquid). Deklarujemy to też u siebie
        — bez tego przeglądarka snapuje pierwszy slajd na ŚRODEK viewportu, nie na start gutteru,
        więc "spoczynek" karty nie licuje się z nagłówkiem nawet przy poprawnym --gutter-slide-width. */
-    #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap .resource-list__slide { scroll-snap-align: start; }
+    .mmw-pc__carousel-wrap .resource-list__slide { scroll-snap-align: start; }
 
     /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots) — kolory przez
        zmienne komponentu (--color/--color-active/--color-hover), bez twardych selektorów */
@@ -180,7 +180,7 @@
 }
 
     @media (max-width: 989px) {
-      #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 24px; }
+      #shopify-section-{{ section.id }} .mmw-pc { padding-block: 40px; gap: 36px; }
       #shopify-section-{{ section.id }} .mmw-pc__title { font-size: 36px; }
     }
     @media (max-width: 749px) {
@@ -191,9 +191,13 @@
          desktop (reguła wyżej) zostaje bez zmian. Szerokość karty nadal idzie przez
          --slide-width (ten sam mechanizm co peek-width na desktopie w
          resource-list-carousel.liquid), nie przez osobny system. */
-      #shopify-section-{{ section.id }} .mmw-pc { --mmw-pc-gutter-mobile: 24px; }
+      #shopify-section-{{ section.id }} .mmw-pc { --mmw-pc-gutter-mobile: 36px; }
 
       #shopify-section-{{ section.id }} .mmw-pc__head { padding-inline: var(--mmw-pc-gutter-mobile); }
+
+       .mmw-pc slideshow-arrows {
+    display: none;
+  }
 
       .mmw-pc slideshow-slides {
         padding-inline-start: var(--mmw-pc-gutter-mobile) !important;
