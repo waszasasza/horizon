@@ -28,6 +28,11 @@
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
     {%- render 'fonts' -%}
+    {%- comment -%} DM Sans 700 — jedyna waga realnie używana dziś przez --mmw-font-label
+       i --button-font-family-* (etykiety, przyciski, quick-add). Preload tylko podzbioru
+       "latin" (podstawowe znaki), bez "latin-ext" (polskie diakrytyki) — ta część nie jest
+       krytyczna dla pierwszego renderu. {%- endcomment -%}
+    {{ 'dm-sans-700.woff2' | asset_url | preload_tag: as: 'font' }}
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {% render 'mmw-tokens' %}
