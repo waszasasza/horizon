@@ -77,23 +77,35 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x proximity;
-      padding-bottom: 8px; /* odsuwa pasek przewijania od dolnej krawędzi kafelków */
+      padding-bottom: 10px; /* odsuwa pasek przewijania od dolnej krawędzi kafelków */
+      /* Grubość i kolory 1:1 z Figmy (node 982:6964, "timelines"): tor h-[2px]
+         rgba(95,49,47,.25), thumb h-[2px] #5f312f, oba rounded-[99px]. */
       scrollbar-width: thin;
-      scrollbar-color: rgba(95, 49, 47, .4) rgba(95, 49, 47, .1);
+      scrollbar-color: var(--mmw-01, #5f312f) rgba(95, 49, 47, .25);
     }
     .mmw-siblings::-webkit-scrollbar {
-      height: 5px;
+      height: 2px;
     }
     .mmw-siblings::-webkit-scrollbar-track {
-      background: rgba(95, 49, 47, .1);
-      border-radius: 3px;
+      background: rgba(95, 49, 47, .25);
+      border-radius: 99px;
     }
     .mmw-siblings::-webkit-scrollbar-thumb {
-      background: rgba(95, 49, 47, .4);
-      border-radius: 3px;
+      background: var(--mmw-01, #5f312f);
+      border-radius: 99px;
     }
-    .mmw-siblings::-webkit-scrollbar-thumb:hover {
-      background: rgba(95, 49, 47, .6);
+
+    /* Mobile: pasek znika całkiem, ale overflow-x:auto zostaje — swipe palcem dalej działa,
+       tylko bez widocznego natywnego scrollbara (przewijanie dotykiem nie wymaga jego
+       widoczności). */
+    @media (max-width: 749px) {
+      .mmw-siblings {
+        scrollbar-width: none;
+        padding-bottom: 0;
+      }
+      .mmw-siblings::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .mmw-siblings__item {
