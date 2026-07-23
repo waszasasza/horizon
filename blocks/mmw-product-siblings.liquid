@@ -3,9 +3,25 @@
   żeby przełącznik dało się wpiąć w blocks/_product-details.liquid tym samym mechanizmem
   bloków co variant-picker/buy-buttons (block_order w templates/product.*.json).
 {%- enddoc -%}
-<div class="spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
+<div
+  class="spacing-style mmw-product-siblings-block"
+  style="{% render 'spacing-style', settings: block.settings %}"
+  {{ block.shopify_attributes }}
+>
   {% render 'mmw-product-siblings' %}
 </div>
+
+{% stylesheet %}
+  /* Ten wrapper jest flex itemem w .group-block-content (blocks/_product-details.liquid),
+     które z kolei jest w gridowej kolumnie .product-details — bez min-width:0 tutaj kolumna
+     nie pozwala wewnętrznemu poziomemu scrollowi (snippets/mmw-product-siblings.liquid)
+     zrobić się węższy niż jego treść. Patrz też :has() w snippets/mmw-product-siblings.liquid
+     domykający resztę łańcucha (.product-details/.group-block/.group-block-content). */
+  .mmw-product-siblings-block {
+    min-width: 0;
+    max-width: 100%;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

@@ -5,8 +5,8 @@
   Renderuje TYLKO gdy lista ma >1 pozycję (pojedynczy produkt = nic się nie renderuje, zero
   pustych kontenerów). Bieżący produkt (porównanie po handle) = stan aktywny, bez linku.
   Layout: do 4 kafelków w jednym wierszu (Figma node 982:6118); przy większej liczbie —
-  poziome przewijanie gestem (kafelki nie kurczą się poniżej min-width, scrollbar ukryty,
-  bez strzałek/dots).
+  poziome przewijanie gestem (kafelki nie kurczą się poniżej min-width), z cienkim,
+  stonowanym paskiem przewijania w kolorach marki (bez strzałek/dots).
 
   @example
   {% render 'mmw-product-siblings' %}
@@ -54,16 +54,47 @@
 {%- endif -%}
 
 {% stylesheet %}
+    /* Kontener scrolla jest jednocześnie display:flex (kafelki) i overflow-x:auto — ale flex/grid
+       itemy mają domyślnie min-width:auto, więc bez min-width:0 na całym łańcuchu przodków
+       (kolumna .product-details w gridzie media|details, .group-block, .group-block-content,
+       nasz wrapper theme-blocku) kontener nigdy nie może zrobić się węższy niż jego treść —
+       overflow-x:auto nie ma się wtedy z czego uruchomić. .product-details/.group-block/
+       .group-block-content to natywne klasy Horizona (blocks/_product-details.liquid,
+       snippets/group.liquid) — nie edytujemy tamtych plików, tylko domykamy łańcuch stąd,
+       przez :has(), żeby trafić WYŁĄCZNIE w gałąź zawierającą ten komponent. */
+    .product-details:has(.mmw-siblings),
+    .group-block:has(.mmw-siblings),
+    .group-block-content:has(.mmw-siblings) {
+      min-width: 0;
+    }
+
     .mmw-siblings {
       display: flex;
       gap: 10px;
       width: 100%;
+      min-width: 0;
+      max-width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       scroll-snap-type: x proximity;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      padding-bottom: 8px; /* odsuwa pasek przewijania od dolnej krawędzi kafelków */
+      scrollbar-width: thin;
+      scrollbar-color: rgba(95, 49, 47, .4) rgba(95, 49, 47, .1);
     }
-    .mmw-siblings::-webkit-scrollbar { display: none; }
+    .mmw-siblings::-webkit-scrollbar {
+      height: 5px;
+    }
+    .mmw-siblings::-webkit-scrollbar-track {
+      background: rgba(95, 49, 47, .1);
+      border-radius: 3px;
+    }
+    .mmw-siblings::-webkit-scrollbar-thumb {
+      background: rgba(95, 49, 47, .4);
+      border-radius: 3px;
+    }
+    .mmw-siblings::-webkit-scrollbar-thumb:hover {
+      background: rgba(95, 49, 47, .6);
+    }
 
     .mmw-siblings__item {
       flex: 1 1 0;
