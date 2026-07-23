@@ -1,0 +1,23 @@
+{%- doc -%}
+  mmw-product-siblings — theme block, cienki wrapper na snippets/mmw-product-siblings.liquid,
+  żeby przełącznik dało się wpiąć w blocks/_product-details.liquid tym samym mechanizmem
+  bloków co variant-picker/buy-buttons (block_order w templates/product.*.json).
+{%- enddoc -%}
+<div class="spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
+  {% render 'mmw-product-siblings' %}
+</div>
+
+{% schema %}
+{
+  "name": "MMW Warianty produktu",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 12 }
+  ],
+  "presets": [
+    { "name": "MMW Warianty produktu", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}

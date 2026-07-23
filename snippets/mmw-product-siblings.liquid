@@ -1,0 +1,127 @@
+{%- doc -%}
+  mmw-product-siblings — przełącznik produktów powiązanych (np. inne roczniki/pojemności tego
+  samego wina). Źródło: product.metafields.custom.warianty (lista referencji produktowych).
+
+  Renderuje TYLKO gdy lista ma >1 pozycję (pojedynczy produkt = nic się nie renderuje, zero
+  pustych kontenerów). Bieżący produkt (porównanie po handle) = stan aktywny, bez linku.
+  Layout: do 4 kafelków w jednym wierszu (Figma node 982:6118); przy większej liczbie —
+  poziome przewijanie gestem (kafelki nie kurczą się poniżej min-width, scrollbar ukryty,
+  bez strzałek/dots).
+
+  @example
+  {% render 'mmw-product-siblings' %}
+{%- enddoc -%}
+{%- liquid
+  assign siblings = product.metafields.custom.warianty.value
+-%}
+{%- if siblings != blank and siblings.size > 1 -%}
+  <div class="mmw-siblings" role="list" aria-label="Warianty produktu">
+    {%- for item in siblings -%}
+      {%- if item != blank -%}
+        {%- assign is_current = false -%}
+        {%- if item.handle == product.handle -%}
+          {%- assign is_current = true -%}
+        {%- endif -%}
+        {%- capture tile_media -%}
+          <span class="mmw-siblings__media">
+            {%- if item.featured_image != blank -%}
+              <img
+                src="{{ item.featured_image | image_url: width: 92 }}"
+                srcset="{{ item.featured_image | image_url: width: 46 }} 46w, {{ item.featured_image | image_url: width: 92 }} 92w"
+                sizes="46px"
+                width="46" height="46"
+                alt=""
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'mmw-siblings__media-placeholder' }}
+            {%- endif -%}
+          </span>
+          <span class="mmw-siblings__title">{{ item.title }}</span>
+        {%- endcapture -%}
+        {%- if is_current -%}
+          <div class="mmw-siblings__item mmw-siblings__item--active" role="listitem" aria-current="true">
+            {{ tile_media }}
+          </div>
+        {%- else -%}
+          <a class="mmw-siblings__item" role="listitem" href="{{ item.url }}">
+            {{ tile_media }}
+          </a>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {% stylesheet %}
+    .mmw-siblings {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .mmw-siblings::-webkit-scrollbar { display: none; }
+
+    .mmw-siblings__item {
+      flex: 1 1 0;
+      flex-shrink: 0;
+      min-width: 140px;
+      max-width: 220px;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border: 1px solid rgba(95, 49, 47, 0.25);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--mmw-01);
+      background: transparent;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+    a.mmw-siblings__item:hover,
+    a.mmw-siblings__item:focus-visible {
+      border-color: var(--mmw-01);
+    }
+    .mmw-siblings__item--active {
+      border: 2px solid var(--mmw-01);
+      background: var(--mmw-04);
+      padding: 7px; /* -1px, żeby grubszy border nie przesunął treści względem sąsiadów */
+      cursor: default;
+    }
+
+    .mmw-siblings__media {
+      flex: 0 0 46px;
+      width: 46px;
+      height: 46px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--mmw-04);
+      display: block;
+    }
+    .mmw-siblings__media img,
+    .mmw-siblings__media svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .mmw-siblings__item--active .mmw-siblings__media { background: var(--mmw-03); }
+
+    .mmw-siblings__title {
+      margin: 0;
+      font-family: var(--mmw-font-text);
+      font-size: 14px;
+      line-height: 1.3;
+      color: var(--mmw-01);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-width: 0;
+    }
+  {% endstylesheet %}
+{%- endif -%}
