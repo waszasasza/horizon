@@ -32,6 +32,15 @@ export class MmwStoryStack extends Component {
   /** @type {IntersectionObserver | null} */
   #intersectionObserver = null;
 
+  /** Whether the touch hint has already been scheduled once for this page view. */
+  #hintScheduled = false;
+
+  /** Whether the user has already touched or navigated the stack (suppresses the hint). */
+  #interacted = false;
+
+  /** @type {number[]} */
+  #hintTimeouts = [];
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -51,6 +60,11 @@ export class MmwStoryStack extends Component {
         (entries) => {
           for (const entry of entries) {
             this.toggleAttribute('out-of-view', !entry.isIntersecting);
+
+            if (entry.isIntersecting && !this.#hintScheduled) {
+              this.#hintScheduled = true;
+              this.#scheduleHint();
+            }
           }
         },
         { threshold: 0 }
@@ -64,11 +78,13 @@ export class MmwStoryStack extends Component {
     this.removeEventListener('animationend', this.#handleAnimationEnd);
     this.#intersectionObserver?.disconnect();
     this.#intersectionObserver = null;
+    this.#clearHintTimeouts();
   }
 
   /** Advances to the next card. */
   next() {
     if (this.#total < 2) return;
+    this.#markInteracted();
     this.#current = (this.#current + 1) % this.#total;
     this.#render();
   }
@@ -76,6 +92,7 @@ export class MmwStoryStack extends Component {
   /** Goes back to the previous card. */
   previous() {
     if (this.#total < 2) return;
+    this.#markInteracted();
     this.#current = (this.#current - 1 + this.#total) % this.#total;
     this.#render();
   }
@@ -102,6 +119,11 @@ export class MmwStoryStack extends Component {
    * @param {HTMLElement} card
    */
   #handlePointerDown(event, card) {
+    // Touching the stack always interrupts the touch hint immediately, even if this
+    // particular pointerdown doesn't end up starting a drag (e.g. it landed on a
+    // non-front card or a drag is already in progress).
+    this.#markInteracted();
+
     if (this.#total < 2 || this.#dragging) return;
     if (card.getAttribute('data-depth') !== '0') return;
     if (event.button !== 0 && event.pointerType === 'mouse') return;
@@ -190,6 +212,43 @@ export class MmwStoryStack extends Component {
 
     this.next();
   };
+
+  /**
+   * Schedules the one-off touch "fan" hint: reuses the same [fanned] CSS transform
+   * as the desktop :hover fan-out (see the stylesheet), played once ~400ms after the
+   * stack first enters the viewport, held briefly, then eased back to rest. Purely
+   * visual: it never touches #current/#render and the progress bar keeps running.
+   */
+  #scheduleHint() {
+    if (prefersReducedMotion() || !matchMedia('(hover: none)').matches) return;
+
+    const startTimeout = window.setTimeout(() => {
+      if (this.#interacted) return;
+
+      this.setAttribute('fanned', '');
+
+      const holdTimeout = window.setTimeout(() => {
+        this.removeAttribute('fanned');
+      }, 350 + 500);
+
+      this.#hintTimeouts.push(holdTimeout);
+    }, 400);
+
+    this.#hintTimeouts.push(startTimeout);
+  }
+
+  /** Marks the stack as interacted-with, cancelling/skipping the touch hint for good. */
+  #markInteracted() {
+    if (this.#interacted) return;
+    this.#interacted = true;
+    this.#clearHintTimeouts();
+    this.removeAttribute('fanned');
+  }
+
+  #clearHintTimeouts() {
+    this.#hintTimeouts.forEach((id) => window.clearTimeout(id));
+    this.#hintTimeouts = [];
+  }
 
   #render() {
     const { cards, segments, segmentFills, counter } = this.refs;
