@@ -1,0 +1,119 @@
+{%- doc -%}
+  _mmw-assurance — pojedyncza pozycja w mmw-product-assurances (ikona motywu lub własny
+  obraz + tekst, w jednej linii). Prywatny sub-blok, dodawany tylko wewnątrz
+  mmw-product-assurances.
+{%- enddoc -%}
+<div class="mmw-assurances__item" {{ block.shopify_attributes }}>
+  {% render 'icon-or-image',
+    icon: block.settings.icon,
+    image_upload: block.settings.image,
+    width: 20,
+    class_name: 'mmw-assurances__icon'
+  %}
+  {%- if block.settings.text != blank -%}
+    <span class="mmw-assurances__text">{{ block.settings.text }}</span>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .mmw-assurances__item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mmw-assurances__icon {
+    flex-shrink: 0;
+    color: var(--mmw-01);
+  }
+
+  .mmw-assurances__text {
+    font-family: var(--mmw-font-label);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.12;
+    color: var(--mmw-01);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Pozycja",
+  "tag": null,
+  "settings": [
+    {
+      "type": "select",
+      "id": "icon",
+      "label": "Ikona motywu",
+      "options": [
+        { "value": "none", "label": "t:options.none" },
+        { "value": "apple", "label": "t:options.apple" },
+        { "value": "arrow", "label": "t:options.arrow" },
+        { "value": "banana", "label": "t:options.banana" },
+        { "value": "bottle", "label": "t:options.bottle" },
+        { "value": "box", "label": "t:options.box" },
+        { "value": "carrot", "label": "t:options.carrot" },
+        { "value": "chat_bubble", "label": "t:options.chat_bubble" },
+        { "value": "check_box", "label": "t:options.check_box" },
+        { "value": "clipboard", "label": "t:options.clipboard" },
+        { "value": "dairy", "label": "t:options.dairy" },
+        { "value": "dairy_free", "label": "t:options.dairy_free" },
+        { "value": "dryer", "label": "t:options.dryer" },
+        { "value": "eye", "label": "t:options.eye" },
+        { "value": "fire", "label": "t:options.fire" },
+        { "value": "gluten_free", "label": "t:options.gluten_free" },
+        { "value": "heart", "label": "t:options.heart" },
+        { "value": "iron", "label": "t:options.iron" },
+        { "value": "leaf", "label": "t:options.leaf" },
+        { "value": "leather", "label": "t:options.leather" },
+        { "value": "lightning_bolt", "label": "t:options.lightning_bolt" },
+        { "value": "lipstick", "label": "t:options.lipstick" },
+        { "value": "lock", "label": "t:options.lock" },
+        { "value": "map_pin", "label": "t:options.map_pin" },
+        { "value": "nut_free", "label": "t:options.nut_free" },
+        { "value": "pants", "label": "t:options.pants" },
+        { "value": "paw_print", "label": "t:options.paw_print" },
+        { "value": "pepper", "label": "t:options.pepper" },
+        { "value": "perfume", "label": "t:options.perfume" },
+        { "value": "plane", "label": "t:options.plane" },
+        { "value": "plant", "label": "t:options.plant" },
+        { "value": "price_tag", "label": "t:options.price_tag" },
+        { "value": "question_mark", "label": "t:options.question_mark" },
+        { "value": "recycle", "label": "t:options.recycle" },
+        { "value": "return", "label": "t:options.return" },
+        { "value": "ruler", "label": "t:options.ruler" },
+        { "value": "serving_dish", "label": "t:options.serving_dish" },
+        { "value": "shirt", "label": "t:options.shirt" },
+        { "value": "shoe", "label": "t:options.shoe" },
+        { "value": "silhouette", "label": "t:options.silhouette" },
+        { "value": "snowflake", "label": "t:options.snowflake" },
+        { "value": "star", "label": "t:options.star" },
+        { "value": "stopwatch", "label": "t:options.stopwatch" },
+        { "value": "truck", "label": "t:options.truck" },
+        { "value": "washing", "label": "t:options.washing" }
+      ],
+      "default": "truck"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Własny obraz ikony (zastępuje ikonę motywu)"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Tekst",
+      "default": "Dostawa 24h"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pozycja",
+      "settings": {
+        "icon": "truck",
+        "text": "Dostawa 24h"
+      }
+    }
+  ]
+}
+{% endschema %}

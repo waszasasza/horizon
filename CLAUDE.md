@@ -36,6 +36,8 @@ Nowe:
 8. `mmw-blog-carousel` — karuzela „Opowieści z Winnicy” (karty artykułów).
 9. `mmw-product-badges` — badge'y cech produktu (ikona w kolorowym kółku + etykieta),
    źródło: metaobjekt `cecha_produktu`.
+10. `mmw-product-assurances` — pasek informacji o dostawie i płatnościach pod przyciskiem
+    kupna (treść z ustawień edytora, nie z metapól).
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.

@@ -240,6 +240,33 @@
               },
               "blocks": {}
             },
+            "mmw_product_assurances_1": {
+              "type": "mmw-product-assurances",
+              "name": "MMW Dostawa i płatności",
+              "settings": {
+                "padding-block-start": 16,
+                "padding-block-end": 0
+              },
+              "blocks": {
+                "assurance-1": {
+                  "type": "_mmw-assurance",
+                  "settings": { "icon": "truck", "text": "Dostawa 24h" }
+                },
+                "assurance-2": {
+                  "type": "_mmw-assurance",
+                  "settings": { "icon": "box", "text": "Pakowanie na prezent" }
+                },
+                "assurance-3": {
+                  "type": "_mmw-assurance",
+                  "settings": { "icon": "price_tag", "text": "Darmowa dostawa od 100 zł" }
+                },
+                "assurance-4": {
+                  "type": "_mmw-assurance",
+                  "settings": { "icon": "lightning_bolt", "text": "Szybkie płatności i BLIK" }
+                }
+              },
+              "block_order": ["assurance-1", "assurance-2", "assurance-3", "assurance-4"]
+            },
             "text_aEtTtq": {
               "type": "text",
               "name": "Product description",
@@ -377,6 +404,7 @@
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
             "mmw_product_badges_1",
+            "mmw_product_assurances_1",
             "text_aEtTtq",
             "accordion_dfE98U"
           ]

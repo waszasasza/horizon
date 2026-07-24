@@ -1,0 +1,80 @@
+{%- doc -%}
+  mmw-product-assurances — pasek informacji o dostawie/płatnościach pod przyciskiem kupna.
+  Treść z ustawień edytora (informacje ogólnosklepowe, NIE z metapól). Sub-bloki
+  _mmw-assurance (ikona motywu lub własny obraz + tekst). Figma: node 982:6147
+  (plik STRONA-WWW).
+
+  Layout: dwie kolumny wypełniane od lewej (grid-auto-flow: column, liczba wierszy
+  = ceil(liczba pozycji / 2), wyliczana w Liquid i przekazywana jako custom property).
+  Mobile (<=749px): jedna kolumna, pozycje pod sobą.
+{%- enddoc -%}
+{%- liquid
+  assign assurance_count = block.blocks.size
+  assign assurance_rows = assurance_count | plus: 1 | divided_by: 2
+-%}
+<div
+  class="mmw-assurances spacing-style"
+  style="--mmw-assurances-rows: {{ assurance_rows }}; {% render 'spacing-style', settings: block.settings %}"
+  {{ block.shopify_attributes }}
+>
+  {% content_for 'blocks' %}
+</div>
+
+{% stylesheet %}
+  .mmw-assurances {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-auto-flow: column;
+    grid-template-rows: repeat(var(--mmw-assurances-rows, 2), auto);
+    column-gap: 36px;
+    row-gap: 7px;
+  }
+
+  @media (max-width: 749px) {
+    .mmw-assurances {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      grid-auto-flow: row;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Dostawa i płatności",
+  "tag": null,
+  "blocks": [
+    { "type": "_mmw-assurance" }
+  ],
+  "settings": [
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    {
+      "name": "MMW Dostawa i płatności",
+      "category": "t:categories.product",
+      "blocks": {
+        "assurance-1": {
+          "type": "_mmw-assurance",
+          "settings": { "icon": "truck", "text": "Dostawa 24h" }
+        },
+        "assurance-2": {
+          "type": "_mmw-assurance",
+          "settings": { "icon": "box", "text": "Pakowanie na prezent" }
+        },
+        "assurance-3": {
+          "type": "_mmw-assurance",
+          "settings": { "icon": "price_tag", "text": "Darmowa dostawa od 100 zł" }
+        },
+        "assurance-4": {
+          "type": "_mmw-assurance",
+          "settings": { "icon": "lightning_bolt", "text": "Szybkie płatności i BLIK" }
+        }
+      },
+      "block_order": ["assurance-1", "assurance-2", "assurance-3", "assurance-4"]
+    }
+  ]
+}
+{% endschema %}
