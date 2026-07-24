@@ -13,9 +13,18 @@
   bez wysypu.
 
   Figma: plik "Brudnopis MMW" (h2JP36MCaovEA1H2cUi9zN), node 1098:8444.
+
+  Przycisk pobrania karty produktu (PDF) pod skalami: product.metafields.
+  custom.karta_produktu.value.url — renderuje się tylko gdy metapole wypełnione.
+  Używa natywnej klasy .button (assets/base.css: pigułka, wersaliki, tracking,
+  font motywu), kolory nadpisane przez --button-background-color/--button-color
+  w scope .mmw-sensory-scales .button (wyższa specyficzność niż baza, żeby
+  przebić natywny :hover).
 {%- enddoc -%}
 {%- liquid
   assign levels = product.metafields.custom.skale.value
+  assign pdf_file = product.metafields.custom.karta_produktu.value
+  assign pdf_label = block.settings.pdf_button_label | default: 'Pobierz PDF'
 -%}
 {%- if levels != blank and levels.size > 0 -%}
   <div class="mmw-sensory-scales spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
@@ -82,6 +91,19 @@
         {%- endif -%}
       {%- endif -%}
     {%- endfor -%}
+    {%- if pdf_file != blank -%}
+      <div class="mmw-sensory-scales__pdf-wrap">
+        <a
+          class="button mmw-sensory-scales__pdf"
+          href="{{ pdf_file.url }}"
+          target="_blank"
+          rel="noopener"
+          download
+        >
+          {{- pdf_label -}}
+        </a>
+      </div>
+    {%- endif -%}
   </div>
 {%- endif -%}
 
@@ -137,7 +159,7 @@
     margin: 0;
     font-family: var(--mmw-font-label);
     font-weight: 700;
-    font-size: 11px;
+    font-size: 14px;
     line-height: 1.12;
     letter-spacing: 0.7px;
     text-transform: uppercase;
@@ -157,6 +179,27 @@
     height: 1px;
     background: var(--mmw-sensory-active-color, var(--mmw-01));
   }
+
+  .mmw-sensory-scales__pdf-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-self: center;
+  }
+
+  /* Reużywamy natywnej klasy .button (pigułka, wersaliki, tracking, font motywu) —
+     nadpisane są wyłącznie kolory, przez te same custom property, których .button
+     i .button:hover już używają (assets/base.css). Scope na .mmw-sensory-scales
+     podnosi specyficzność ponad bazowe .button/.button:hover. */
+  .mmw-sensory-scales .button {
+    --button-background-color: var(--mmw-02, #fc7753);
+    --button-color: var(--mmw-01, #5f312f);
+  }
+
+  .mmw-sensory-scales .button:hover {
+    --button-background-color: var(--mmw-02, #fc7753);
+    --button-color: var(--mmw-01, #5f312f);
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -164,6 +207,13 @@
   "name": "MMW Skale sensoryczne",
   "tag": null,
   "settings": [
+    {
+      "type": "text",
+      "id": "pdf_button_label",
+      "label": "Etykieta przycisku pobrania PDF",
+      "default": "Pobierz PDF",
+      "info": "Widoczny tylko gdy uzupełnione metapole product.metafields.custom.karta_produktu"
+    },
     { "type": "header", "content": "t:content.padding" },
     { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
     { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 }
