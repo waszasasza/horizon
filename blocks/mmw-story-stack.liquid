@@ -108,6 +108,10 @@
 
 {% stylesheet %}
   .mmw-story-stack {
+    --mmw-story-peek: 10px;
+    --mmw-story-scale-step: 0.04;
+    --mmw-story-fan-x: 14px;
+    --mmw-story-fan-rotate: 8deg;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -198,6 +202,9 @@
     width: 100%;
     max-width: 362px;
     display: grid;
+    /* Miejsce nad wierzchnią kartą na wystające warstwy stosu (max. 3 warstwy w głąb),
+       żeby nic nie wchodziło pod pasek postępu/licznik powyżej. */
+    padding-top: calc(var(--mmw-story-peek) * 3 + 4px);
   }
 
   .mmw-story-stack__card {
@@ -218,9 +225,10 @@
     will-change: transform;
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
-    transform: translate(calc(var(--mmw-story-depth) * -14px), calc(var(--mmw-story-depth) * -18px))
-      rotate(calc(var(--mmw-story-depth) * var(--mmw-story-rotate-sign, 1) * 8deg))
-      scale(calc(1 - var(--mmw-story-depth) * 0.04));
+    /* Stan spoczynku: bez rotacji/przesunięcia poziomego — kolejne warstwy tylko
+       lekko mniejsze i przesunięte w górę, tak by wystawały zza wierzchniej karty. */
+    transform: translateY(calc(var(--mmw-story-depth) * var(--mmw-story-peek) * -1))
+      scale(calc(1 - var(--mmw-story-depth) * var(--mmw-story-scale-step)));
   }
 
   .mmw-story-stack__card:not([data-depth='0']) {
@@ -233,12 +241,26 @@
   }
 
   .mmw-story-stack__card[data-depth='1'],
-  .mmw-story-stack__card[data-depth='2'] {
+  .mmw-story-stack__card[data-depth='2'],
+  .mmw-story-stack__card[data-depth='3'] {
     opacity: 0.6;
   }
 
   .mmw-story-stack[dragging] .mmw-story-stack__card[data-depth='0'] {
     cursor: grabbing;
+  }
+
+  /* Hover: wachlarz — tylko realne urządzenia z hover, tylko bez prefers-reduced-motion,
+     tylko warstwy pod wierzchnią kartą. Sama zmiana transform, bez wpływu na layout. */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .mmw-story-stack:hover .mmw-story-stack__card:not([data-depth='0']) {
+      transform: translate(
+          calc(var(--mmw-story-depth) * var(--mmw-story-rotate-sign, 1) * var(--mmw-story-fan-x)),
+          calc(var(--mmw-story-depth) * var(--mmw-story-peek) * -1)
+        )
+        rotate(calc(var(--mmw-story-depth) * var(--mmw-story-rotate-sign, 1) * var(--mmw-story-fan-rotate)))
+        scale(calc(1 - var(--mmw-story-depth) * var(--mmw-story-scale-step)));
+    }
   }
 
   .mmw-story-stack__image {
@@ -258,13 +280,13 @@
   .mmw-story-stack__label {
     position: relative;
     margin: 0;
-    padding: 10px 11px;
+    padding: 8px 10px;
     border-radius: 58px;
     background: var(--mmw-01);
     color: var(--mmw-04);
     font-family: var(--mmw-font-label);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
     white-space: nowrap;
@@ -274,7 +296,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     color: var(--mmw-04);
   }
 
@@ -291,18 +313,21 @@
     font-size: 15px;
     line-height: 1.4;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
   @media (max-width: 749px) {
+    .mmw-story-stack {
+      --mmw-story-peek: 6px;
+      --mmw-story-fan-x: 8px;
+      --mmw-story-fan-rotate: 5deg;
+    }
+
     .mmw-story-stack__card {
       padding: 24px;
-      transform: translate(calc(var(--mmw-story-depth) * -10px), calc(var(--mmw-story-depth) * -12px))
-        rotate(calc(var(--mmw-story-depth) * var(--mmw-story-rotate-sign, 1) * 6deg))
-        scale(calc(1 - var(--mmw-story-depth) * 0.04));
     }
 
     .mmw-story-stack__title {

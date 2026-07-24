@@ -160,7 +160,7 @@ export class MmwStoryStack extends Component {
       return;
     }
 
-    const flyDistance = direction * (card.offsetWidth + 120);
+    const flyDistance = direction * card.offsetWidth * 1.2;
 
     const onTransitionEnd = () => {
       card.removeEventListener('transitionend', onTransitionEnd);
@@ -177,7 +177,7 @@ export class MmwStoryStack extends Component {
     };
 
     card.addEventListener('transitionend', onTransitionEnd, { once: true });
-    card.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+    card.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
     card.style.transform = `translateX(${flyDistance}px) rotate(${direction * 18}deg)`;
     card.style.opacity = '0';
   }
@@ -196,8 +196,10 @@ export class MmwStoryStack extends Component {
     const autoAdvance = this.#total > 1 && !prefersReducedMotion();
 
     cards?.forEach((card, index) => {
-      const depth = Math.min((index - this.#current + this.#total) % this.#total, 2);
-      card.style.setProperty('--mmw-story-depth', String(depth));
+      // True depth drives stacking order and the opacity cutoff; the CSS custom
+      // property is capped at 3 visible layers so 6+ cards don't grow the fan forever.
+      const depth = (index - this.#current + this.#total) % this.#total;
+      card.style.setProperty('--mmw-story-depth', String(Math.min(depth, 3)));
       card.style.zIndex = String(this.#total - depth);
       card.setAttribute('data-depth', String(depth));
       card.setAttribute('aria-hidden', depth === 0 ? 'false' : 'true');
