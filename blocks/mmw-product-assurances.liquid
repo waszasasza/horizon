@@ -6,7 +6,8 @@
 
   Layout: dwie kolumny wypełniane od lewej (grid-auto-flow: column, liczba wierszy
   = ceil(liczba pozycji / 2), wyliczana w Liquid i przekazywana jako custom property).
-  Mobile (<=749px): jedna kolumna, pozycje pod sobą.
+  Mobile (<=749px): 2 pozycje w rzędzie (flex-wrap), kolejne rzędy zawijają się, gdy
+  pozycji jest więcej niż 4.
 {%- enddoc -%}
 {%- liquid
   assign assurance_count = block.blocks.size
@@ -32,9 +33,14 @@
 
   @media (max-width: 749px) {
     .mmw-assurances {
-      grid-template-columns: 1fr;
-      grid-template-rows: none;
-      grid-auto-flow: row;
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 16px;
+      row-gap: 7px;
+    }
+
+    .mmw-assurances__item {
+      flex: 0 1 calc(50% - 8px);
     }
   }
 {% endstylesheet %}
