@@ -231,6 +231,15 @@
               },
               "block_order": []
             },
+            "mmw_product_badges_1": {
+              "type": "mmw-product-badges",
+              "name": "MMW Cechy produktu",
+              "settings": {
+                "padding-block-start": 12,
+                "padding-block-end": 12
+              },
+              "blocks": {}
+            },
             "text_aEtTtq": {
               "type": "text",
               "name": "Product description",
@@ -367,6 +376,7 @@
             "mmw_product_siblings_1",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
+            "mmw_product_badges_1",
             "text_aEtTtq",
             "accordion_dfE98U"
           ]

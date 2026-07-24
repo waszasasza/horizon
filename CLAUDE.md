@@ -34,6 +34,8 @@ Nowe:
 7. `mmw-reviews` — opinie klientów (na start: bloki wpisywane ręcznie; integracja
    z appką opinii w Etapie 2).
 8. `mmw-blog-carousel` — karuzela „Opowieści z Winnicy” (karty artykułów).
+9. `mmw-product-badges` — badge'y cech produktu (ikona w kolorowym kółku + etykieta),
+   źródło: metaobjekt `cecha_produktu`.
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.

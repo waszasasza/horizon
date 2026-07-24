@@ -1,0 +1,125 @@
+{%- doc -%}
+  mmw-product-badges — badge'y cech produktu (ikona w kolorowym kółku + etykieta pod spodem).
+  Źródło: product.metafields.custom.cechy (lista referencji do metaobjektu cecha_produktu;
+  pola: etykieta, ikona, kolor_tla). Figma: node 982:6130 / 982:6984 (plik STRONA-WWW).
+
+  Renderuje TYLKO gdy lista niepusta; bezpieczna iteracja (referencja może wskazywać na
+  usunięty/pusty metaobjekt). Rozmiar kółka (i proporcjonalnie ikony/typografii) sterowany
+  jedną zmienną --mmw-badge-size: 90px desktop, 66px mobile (<=749px) — 4 badge'e mieszczą
+  się w jednym rzędzie na obu. Przy >4 elementach: zawijanie (flex-wrap, justify-content:
+  flex-start, żeby niepełny ostatni wiersz nie rozjeżdżał się na całą szerokość).
+{%- enddoc -%}
+{%- liquid
+  assign features = product.metafields.custom.cechy.value
+-%}
+{%- if features != blank and features.size > 0 -%}
+  <div class="mmw-badges spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
+    {%- for feature in features -%}
+      {%- if feature != blank -%}
+        {%- liquid
+          assign icon = feature.ikona
+          assign bg_color = feature.kolor_tla
+        -%}
+        <div class="mmw-badges__item">
+          <div class="mmw-badges__circle" style="{% if bg_color != blank %}background-color: {{ bg_color }};{% endif %}">
+            {%- if icon != blank -%}
+              {%- assign icon_url = icon.url -%}
+              {%- if icon_url contains '.svg' -%}
+                {%- comment -%} image_url nie obsługuje plików SVG — dla nich trzeba użyć surowego .url {%- endcomment -%}
+                <img class="mmw-badges__icon" src="{{ icon_url }}" width="44" height="44" alt="" loading="lazy">
+              {%- else -%}
+                <img
+                  class="mmw-badges__icon"
+                  src="{{ icon | image_url: width: 200 }}"
+                  srcset="{{ icon | image_url: width: 100 }} 100w, {{ icon | image_url: width: 200 }} 200w"
+                  width="44" height="44"
+                  alt=""
+                  loading="lazy"
+                >
+              {%- endif -%}
+            {%- endif -%}
+          </div>
+          {%- if feature.etykieta != blank -%}
+            <p class="mmw-badges__label">{{ feature.etykieta }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .mmw-badges {
+    --mmw-badge-size: 90px;
+    --mmw-badge-gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: var(--mmw-badge-gap);
+  }
+
+  @media (max-width: 749px) {
+    .mmw-badges {
+      --mmw-badge-size: 66px;
+      --mmw-badge-gap: 8px;
+    }
+  }
+
+  /* Szerokość kafelka = trochę więcej niż średnica kółka, żeby etykieta (często szersza niż
+     samo kółko, patrz Figma) miała gdzie się zawinąć bez ściskania sąsiadów — proporcjonalnie
+     do tej samej zmiennej, więc 4 kafelki nadal mieszczą się w rzędzie na obu breakpointach. */
+  .mmw-badges__item {
+    flex: 0 0 calc(var(--mmw-badge-size) + 8px);
+    width: calc(var(--mmw-badge-size) + 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: calc(var(--mmw-badge-size) * 0.11);
+    text-align: center;
+  }
+
+  .mmw-badges__circle {
+    flex: 0 0 auto;
+    width: var(--mmw-badge-size);
+    height: var(--mmw-badge-size);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--mmw-04);
+  }
+
+  .mmw-badges__icon {
+    width: 48%;
+    height: 48%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .mmw-badges__label {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: calc(var(--mmw-badge-size) * 0.1667);
+    line-height: 1.33;
+    letter-spacing: 0.047em;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Cechy produktu",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 12 }
+  ],
+  "presets": [
+    { "name": "MMW Cechy produktu", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}
