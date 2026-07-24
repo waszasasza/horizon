@@ -186,7 +186,7 @@
     }
     @media (min-width: 990px) {
       .mmw-siblings-row .slideshow-control {
-        display: flex;
+        display: none;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -200,11 +200,7 @@
       .mmw-siblings-row .slideshow-control:focus-visible {
         opacity: 1;
       }
-      /* Disabled = całkowicie usunięte (nie tylko niewidoczne przez opacity) — bez tego
-         strzałka na krawędzi, choć wizualnie ukryta, dałaby się wciąż zfocusować Tabem. */
-      .mmw-siblings-row .slideshow-control[disabled] {
-        display: none;
-      }
+      
     }
 
     .mmw-siblings {
