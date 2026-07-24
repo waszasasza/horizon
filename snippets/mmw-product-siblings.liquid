@@ -5,8 +5,10 @@
   Renderuje TYLKO gdy lista ma >1 pozycję (pojedynczy produkt = nic się nie renderuje, zero
   pustych kontenerów). Bieżący produkt (porównanie po handle) = stan aktywny, bez linku.
   Layout: do 4 kafelków w jednym wierszu (Figma node 982:6118); przy większej liczbie —
-  poziome przewijanie gestem (kafelki nie kurczą się poniżej min-width), z cienkim,
-  stonowanym paskiem przewijania w kolorach marki (bez strzałek/dots).
+  poziome przewijanie (kafelki nie kurczą się poniżej min-width): drag myszką na desktopie,
+  natywny swipe na mobile. Customowy tor + wskaźnik pozycji (Figma node 982:6964) zamiast
+  natywnego scrollbara — chowa się w spoczynku, pokazuje na hover/focus i podczas aktywnego
+  przewijania (bez strzałek/dots).
 
   @example
   {% render 'mmw-product-siblings' %}
@@ -15,42 +17,113 @@
   assign siblings = product.metafields.custom.warianty.value
 -%}
 {%- if siblings != blank and siblings.size > 1 -%}
-  <div class="mmw-siblings" role="list" aria-label="Warianty produktu">
-    {%- for item in siblings -%}
-      {%- if item != blank -%}
-        {%- assign is_current = false -%}
-        {%- if item.handle == product.handle -%}
-          {%- assign is_current = true -%}
+  <div class="mmw-siblings-wrap" data-mmw-siblings>
+    <div class="mmw-siblings" role="list" aria-label="Warianty produktu">
+      {%- for item in siblings -%}
+        {%- if item != blank -%}
+          {%- assign is_current = false -%}
+          {%- if item.handle == product.handle -%}
+            {%- assign is_current = true -%}
+          {%- endif -%}
+          {%- capture tile_media -%}
+            <span class="mmw-siblings__media">
+              {%- if item.featured_image != blank -%}
+                <img
+                  src="{{ item.featured_image | image_url: width: 92 }}"
+                  srcset="{{ item.featured_image | image_url: width: 46 }} 46w, {{ item.featured_image | image_url: width: 92 }} 92w"
+                  sizes="46px"
+                  width="46" height="46"
+                  alt=""
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'mmw-siblings__media-placeholder' }}
+              {%- endif -%}
+            </span>
+            <span class="mmw-siblings__title">{{ item.title }}</span>
+          {%- endcapture -%}
+          {%- if is_current -%}
+            <div class="mmw-siblings__item mmw-siblings__item--active" role="listitem" aria-current="true">
+              {{ tile_media }}
+            </div>
+          {%- else -%}
+            <a class="mmw-siblings__item" role="listitem" href="{{ item.url }}">
+              {{ tile_media }}
+            </a>
+          {%- endif -%}
         {%- endif -%}
-        {%- capture tile_media -%}
-          <span class="mmw-siblings__media">
-            {%- if item.featured_image != blank -%}
-              <img
-                src="{{ item.featured_image | image_url: width: 92 }}"
-                srcset="{{ item.featured_image | image_url: width: 46 }} 46w, {{ item.featured_image | image_url: width: 92 }} 92w"
-                sizes="46px"
-                width="46" height="46"
-                alt=""
-                loading="lazy"
-              >
-            {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'mmw-siblings__media-placeholder' }}
-            {%- endif -%}
-          </span>
-          <span class="mmw-siblings__title">{{ item.title }}</span>
-        {%- endcapture -%}
-        {%- if is_current -%}
-          <div class="mmw-siblings__item mmw-siblings__item--active" role="listitem" aria-current="true">
-            {{ tile_media }}
-          </div>
-        {%- else -%}
-          <a class="mmw-siblings__item" role="listitem" href="{{ item.url }}">
-            {{ tile_media }}
-          </a>
-        {%- endif -%}
-      {%- endif -%}
-    {%- endfor -%}
+      {%- endfor -%}
+    </div>
+    <div class="mmw-siblings__track" aria-hidden="true">
+      <div class="mmw-siblings__indicator"></div>
+    </div>
   </div>
+
+  <script>
+    (function () {
+      document.querySelectorAll('[data-mmw-siblings]').forEach(function (wrap) {
+        if (wrap.dataset.mmwSiblingsInit) return;
+        wrap.dataset.mmwSiblingsInit = 'true';
+
+        var scroller = wrap.querySelector('.mmw-siblings');
+        var indicator = wrap.querySelector('.mmw-siblings__indicator');
+        if (!scroller || !indicator) return;
+
+        var isDown = false;
+        var startX = 0;
+        var startScrollLeft = 0;
+        var idleTimer = null;
+
+        function showWhileActive() {
+          wrap.classList.add('is-scrolling');
+          clearTimeout(idleTimer);
+          idleTimer = setTimeout(function () {
+            wrap.classList.remove('is-scrolling');
+          }, 1000);
+        }
+
+        function updateIndicator() {
+          var scrollable = scroller.scrollWidth - scroller.clientWidth;
+          var thumbPercent = Math.min(100, (scroller.clientWidth / scroller.scrollWidth) * 100);
+          var progress = scrollable > 0 ? scroller.scrollLeft / scrollable : 0;
+          indicator.style.width = thumbPercent + '%';
+          indicator.style.left = (progress * (100 - thumbPercent)) + '%';
+        }
+
+        scroller.addEventListener('scroll', function () {
+          updateIndicator();
+          showWhileActive();
+        }, { passive: true });
+
+        // Drag-to-scroll myszką (desktop) — dotyk (mobile) zostaje w 100% natywny,
+        // nie podpinamy się pod touchstart/touchmove, żeby nie psuć momentum scrolla.
+        scroller.addEventListener('mousedown', function (e) {
+          isDown = true;
+          scroller.classList.add('is-dragging');
+          startX = e.clientX;
+          startScrollLeft = scroller.scrollLeft;
+        });
+
+        window.addEventListener('mousemove', function (e) {
+          if (!isDown) return;
+          e.preventDefault();
+          scroller.scrollLeft = startScrollLeft - (e.clientX - startX);
+        });
+
+        function endDrag() {
+          if (!isDown) return;
+          isDown = false;
+          scroller.classList.remove('is-dragging');
+        }
+        window.addEventListener('mouseup', endDrag);
+        scroller.addEventListener('mouseleave', endDrag);
+
+        updateIndicator();
+
+        window.addEventListener('resize', updateIndicator);
+      });
+    })();
+  </script>
 {%- endif -%}
 
 {% stylesheet %}
@@ -68,6 +141,15 @@
       min-width: 0;
     }
 
+    .mmw-siblings-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+    }
+
     .mmw-siblings {
       display: flex;
       gap: 10px;
@@ -77,22 +159,43 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x proximity;
-      padding-bottom: 10px; /* odsuwa pasek przewijania od dolnej krawędzi kafelków */
-      /* Grubość i kolory 1:1 z Figmy (node 982:6964, "timelines"): tor h-[2px]
-         rgba(95,49,47,.25), thumb h-[2px] #5f312f, oba rounded-[99px]. */
-      scrollbar-width: thin;
-      scrollbar-color: var(--mmw-01, #5f312f) rgba(95, 49, 47, .25);
+      cursor: grab;
+      /* Natywny scrollbar wyłączony — jego rolę przejmuje customowy .mmw-siblings__track
+         poniżej (1:1 z Figmy, node 982:6964), sterowany JS-em zamiast CSS-owego skina. */
+      scrollbar-width: none;
     }
-    .mmw-siblings::-webkit-scrollbar {
+    .mmw-siblings::-webkit-scrollbar { display: none; }
+    .mmw-siblings.is-dragging {
+      cursor: grabbing;
+      user-select: none;
+      scroll-snap-type: none;
+    }
+
+    /* Tor + wskaźnik pozycji — czysto dekoracyjne (aria-hidden), samo przewijanie idzie przez
+       .mmw-siblings (drag myszką na desktopie, natywny swipe na mobile). Domyślnie niewidoczne,
+       pokazują się na hover/focus oraz podczas aktywnego przewijania (klasa .is-scrolling
+       dodawana w JS, zdejmowana ~1s po ostatnim scrollu) — tak jak przy natywnym znikającym
+       scrollbarze na mobile. */
+    .mmw-siblings__track {
+      position: relative;
       height: 2px;
-    }
-    .mmw-siblings::-webkit-scrollbar-track {
-      background: rgba(95, 49, 47, .25);
       border-radius: 99px;
+      background: var(--MMW-400-stroke, rgba(95, 49, 47, 0.25));
+      opacity: 0;
+      transition: opacity .3s ease;
     }
-    .mmw-siblings::-webkit-scrollbar-thumb {
-      background: var(--mmw-01, #5f312f);
+    .mmw-siblings-wrap:hover .mmw-siblings__track,
+    .mmw-siblings-wrap:focus-within .mmw-siblings__track,
+    .mmw-siblings-wrap.is-scrolling .mmw-siblings__track {
+      opacity: 1;
+    }
+    .mmw-siblings__indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
       border-radius: 99px;
+      background: #5F312F;
     }
 
     .mmw-siblings__item {
