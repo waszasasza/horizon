@@ -5,10 +5,11 @@
   Renderuje TYLKO gdy lista ma >1 pozycję (pojedynczy produkt = nic się nie renderuje, zero
   pustych kontenerów). Bieżący produkt (porównanie po handle) = stan aktywny, bez linku.
   Layout: do 4 kafelków w jednym wierszu (Figma node 982:6118); przy większej liczbie —
-  poziome przewijanie (kafelki nie kurczą się poniżej min-width): drag myszką na desktopie,
-  natywny swipe na mobile. Customowy tor + wskaźnik pozycji (Figma node 982:6964) zamiast
-  natywnego scrollbara — chowa się w spoczynku, pokazuje na hover/focus i podczas aktywnego
-  przewijania (bez strzałek/dots).
+  poziome przewijanie (kafelki nie kurczą się poniżej min-width): drag myszką lub strzałki na
+  desktopie (snippets/slideshow-arrow.liquid, tylko ≥990px, ukryte w spoczynku — pokazują się
+  na hover wiersza), natywny swipe na mobile. Customowy tor + wskaźnik pozycji (Figma node
+  982:6964) zamiast natywnego scrollbara — chowa się w spoczynku, pokazuje na hover/focus i
+  podczas aktywnego przewijania.
 
   @example
   {% render 'mmw-product-siblings' %}
@@ -18,6 +19,9 @@
 -%}
 {%- if siblings != blank and siblings.size > 1 -%}
   <div class="mmw-siblings-wrap" data-mmw-siblings>
+    <div class="mmw-siblings-row">
+      {%- render 'slideshow-arrow', action: 'previous', icon_style: 'arrow', icon_shape: 'circle' -%}
+      {%- render 'slideshow-arrow', action: 'next', icon_style: 'arrow', icon_shape: 'circle' -%}
     <div class="mmw-siblings" role="list" aria-label="Warianty produktu">
       {%- for item in siblings -%}
         {%- if item != blank -%}
@@ -54,6 +58,7 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
+    </div>
     <div class="mmw-siblings__track" aria-hidden="true">
       <div class="mmw-siblings__indicator"></div>
     </div>
@@ -67,6 +72,8 @@
 
         var scroller = wrap.querySelector('.mmw-siblings');
         var indicator = wrap.querySelector('.mmw-siblings__indicator');
+        var prevButton = wrap.querySelector('[ref="previous"]');
+        var nextButton = wrap.querySelector('[ref="next"]');
         if (!scroller || !indicator) return;
 
         var isDown = false;
@@ -88,12 +95,29 @@
           var progress = scrollable > 0 ? scroller.scrollLeft / scrollable : 0;
           indicator.style.width = thumbPercent + '%';
           indicator.style.left = (progress * (100 - thumbPercent)) + '%';
+
+          if (prevButton) prevButton.disabled = scroller.scrollLeft <= 1;
+          if (nextButton) nextButton.disabled = scroller.scrollLeft >= scrollable - 1;
         }
 
         scroller.addEventListener('scroll', function () {
           updateIndicator();
           showWhileActive();
         }, { passive: true });
+
+        // Strzałki — natywny snippets/slideshow-arrow.liquid (te same klasy/ikona co w innych
+        // karuzelach motywu), ale bez slideshow-component nie działa jego on:click="/next"
+        // (nie ma do czego dispatchować), więc podpinamy własny scrollBy o "stronę" widoku.
+        if (prevButton) {
+          prevButton.addEventListener('click', function () {
+            scroller.scrollBy({ left: -scroller.clientWidth * 0.8, behavior: 'smooth' });
+          });
+        }
+        if (nextButton) {
+          nextButton.addEventListener('click', function () {
+            scroller.scrollBy({ left: scroller.clientWidth * 0.8, behavior: 'smooth' });
+          });
+        }
 
         // Drag-to-scroll myszką (desktop) — dotyk (mobile) zostaje w 100% natywny,
         // nie podpinamy się pod touchstart/touchmove, żeby nie psuć momentum scrolla.
@@ -148,6 +172,34 @@
       width: 100%;
       min-width: 0;
       max-width: 100%;
+    }
+
+    .mmw-siblings-row {
+      position: relative;
+    }
+
+    /* Strzałki — natywny snippets/slideshow-arrow.liquid, tylko desktop (na mobile i tak
+       przewija się swipe'em, strzałki tam nie mają sensu). Ukryte w spoczynku, pokazują się
+       na hover wiersza/focus przycisku — ten sam wzorzec co przy .mmw-siblings__track. */
+    .mmw-siblings-row .slideshow-control {
+      display: none;
+    }
+    @media (min-width: 990px) {
+      .mmw-siblings-row .slideshow-control {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        opacity: 0;
+        transition: opacity .2s ease;
+      }
+      .mmw-siblings-row .slideshow-control--previous { left: -6px; }
+      .mmw-siblings-row .slideshow-control--next { right: -6px; }
+      .mmw-siblings-row:hover .slideshow-control:not([disabled]),
+      .mmw-siblings-row .slideshow-control:focus-visible {
+        opacity: 1;
+      }
     }
 
     .mmw-siblings {
