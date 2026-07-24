@@ -10,9 +10,9 @@
   --mmw-story-depth (JS), NIE przez przestawianie DOM — działa dla dowolnej
   liczby kart (kolejność w stosie liczona modulo).
 
-  Umieszczenie: theme block do sekcji product-details (kolumna z resztą bloków
-  informacyjnych, ~50% szerokości na desktopie), na końcu — tak by na mobile
-  (kolumny ułożone jedna pod drugą) pojawiał się pod galerią produktu.
+  Umieszczenie: statyczny blok w lewej kolumnie sections/mmw-product-story.liquid
+  (wpięty przez content_for 'block', id "story-stack"), obok mmw-sensory-scales
+  w prawej kolumnie. Mobile: pełna szerokość, nad skalami.
 {%- enddoc -%}
 {%- liquid
   assign stories = product.metafields.custom.karty_historii.value
@@ -223,7 +223,7 @@
     touch-action: pan-y;
     cursor: grab;
     will-change: transform;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.2s ease, opacity 0.1s ease;
     opacity: 0;
     /* Stan spoczynku: bez rotacji/przesunięcia poziomego — kolejne warstwy tylko
        lekko mniejsze i przesunięte w górę, tak by wystawały zza wierzchniej karty. */
@@ -252,7 +252,7 @@
   .mmw-story-stack__card[data-depth='1'],
   .mmw-story-stack__card[data-depth='2'],
   .mmw-story-stack__card[data-depth='3'] {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   .mmw-story-stack[dragging] .mmw-story-stack__card[data-depth='0'] {
@@ -325,7 +325,7 @@
 
   @media (max-width: 749px) {
     .mmw-story-stack {
-      --mmw-story-peek: 6px;
+      --mmw-story-peek: 22px;
     }
 
     .mmw-story-stack__card {

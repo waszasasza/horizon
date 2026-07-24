@@ -1,0 +1,79 @@
+{%- comment -%}
+  mmw-product-story — dwukolumnowa sekcja: lewa kolumna = mmw-story-stack (stos kart,
+  Instagram Stories), prawa kolumna = mmw-sensory-scales (Wygląd/Aromat/Kwasowość/Ciało).
+  Obie kolumny to statyczne theme bloki wpięte przez content_for 'block' — dokładnie ten
+  sam mechanizm co natywne _product-media-gallery/_product-details w
+  sections/product-information.liquid (patrz też sections/product-information.liquid).
+  Ustawienia per-instancja bloków żyją w templates/*.json pod tą sekcją (id "story-stack" /
+  "sensory-scales"), nie w schemacie tej sekcji.
+  Mobile: jedna kolumna, stos kart nad skalami.
+  Figma (skale sensoryczne): plik "Brudnopis MMW" (h2JP36MCaovEA1H2cUi9zN), node 1098:8444.
+{%- endcomment -%}
+{%- style -%}
+  /* .section wyłącznie po to, żeby odziedziczyć --util-page-margin-offset (assets/base.css) —
+     ID-scoped .mmw-story{display:flex} ma wyższą specyficzność niż .section{display:grid}
+     i nadpisuje go z powrotem, więc natywny grid-template-columns nigdy się nie aktywuje
+     (ten sam wzorzec co sections/mmw-product-carousel.liquid). */
+  #shopify-section-{{ section.id }} .mmw-story {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding-block: 60px;
+    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
+  }
+
+  #shopify-section-{{ section.id }} .mmw-story__col {
+    width: 100%;
+    min-width: 0;
+  }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .mmw-story {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: {{ section.settings.gap | default: 64 }}px;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-story__col {
+      flex: 1 1 0;
+    }
+  }
+{%- endstyle -%}
+
+<section class="mmw-story section color-{{ section.settings.color_scheme }}">
+  <div class="mmw-story__col mmw-story__col--stories">
+    {%- content_for 'block', type: 'mmw-story-stack', id: 'story-stack' -%}
+  </div>
+  <div class="mmw-story__col mmw-story__col--scales">
+    {%- content_for 'block', type: 'mmw-sensory-scales', id: 'sensory-scales' -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "MMW Opowieść produktu",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "gap",
+      "label": "Odstęp między kolumnami (desktop)",
+      "min": 16,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 64
+    }
+  ],
+  "presets": [
+    { "name": "MMW Opowieść produktu", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}

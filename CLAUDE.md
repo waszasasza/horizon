@@ -40,6 +40,9 @@ Nowe:
     kupna (treść z ustawień edytora, nie z metapól).
 11. `mmw-story-stack` — stos kart przeglądanych swipe'em z automatyczną zmianą (mechanika
     jak Instagram Stories), źródło: metaobjekt `karta_historii`.
+12. `mmw-product-story` — dwukolumnowa sekcja: lewa kolumna `mmw-story-stack`, prawa
+    kolumna `mmw-sensory-scales` (skale sensoryczne: Wygląd/Aromat/Kwasowość/Ciało),
+    źródło: metaobjekty `poziom_skali` / `skala_sensoryczna`.
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.

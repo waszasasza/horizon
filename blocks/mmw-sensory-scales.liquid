@@ -1,0 +1,175 @@
+{%- doc -%}
+  mmw-sensory-scales — skale sensoryczne produktu (Wygląd, Aromat, Kwasowość, Ciało...).
+  Źródło: product.metafields.custom.skale — lista referencji do metaobjektu poziom_skali
+  (pola: nazwa, skala [referencja do metaobjektu skala_sensoryczna], wartosc [1-3]).
+
+  UWAGA — zagnieżdżone referencje metaobjektów, każdy poziom wymaga .value:
+    poziom.wartosc.value, poziom.skala.value (obiekt skali), a na skali:
+    .nazwa.value, .ikona.value, .etykieta.value (lista 3 stringów lewa->prawa),
+    .kolor.value (lista kolorów odpowiadająca etykietom — może być pusta/krótsza).
+
+  Render tylko gdy lista skal niepusta. Bezpieczna iteracja: referencja może wskazywać
+  usunięty wpis, skala może być nil, listy mogą być puste — wadliwa pozycja jest pomijana,
+  bez wysypu.
+
+  Figma: plik "Brudnopis MMW" (h2JP36MCaovEA1H2cUi9zN), node 1098:8444.
+{%- enddoc -%}
+{%- liquid
+  assign levels = product.metafields.custom.skale.value
+-%}
+{%- if levels != blank and levels.size > 0 -%}
+  <div class="mmw-sensory-scales spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
+    {%- for poziom in levels -%}
+      {%- if poziom != blank -%}
+        {%- liquid
+          assign wartosc = poziom.wartosc.value
+          assign skala = poziom.skala.value
+        -%}
+        {%- if skala != blank and wartosc != blank -%}
+          {%- liquid
+            assign scale_name = skala.nazwa.value
+            assign scale_icon = skala.ikona.value
+            assign scale_labels = skala.etykieta.value
+            assign scale_colors = skala.kolor.value
+            assign active_index = wartosc | minus: 1
+            assign active_color = blank
+            if scale_colors != blank
+              assign active_color = scale_colors[active_index]
+            endif
+          -%}
+          {%- if scale_labels != blank and scale_labels.size > 0 -%}
+            <div class="mmw-sensory-scales__item">
+              <div class="mmw-sensory-scales__header">
+                {%- if scale_icon != blank -%}
+                  {%- assign icon_url = scale_icon.url -%}
+                  {%- if icon_url contains '.svg' -%}
+                    {%- comment -%} image_url nie obsługuje SVG — surowy .url {%- endcomment -%}
+                    <img class="mmw-sensory-scales__icon" src="{{ icon_url }}" width="30" height="36" alt="" loading="lazy">
+                  {%- else -%}
+                    <img
+                      class="mmw-sensory-scales__icon"
+                      src="{{ scale_icon | image_url: width: 120 }}"
+                      srcset="{{ scale_icon | image_url: width: 60 }} 60w, {{ scale_icon | image_url: width: 120 }} 120w"
+                      width="30"
+                      height="36"
+                      alt=""
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                {%- endif -%}
+                {%- if scale_name != blank -%}
+                  <p class="mmw-sensory-scales__title">{{ scale_name }}</p>
+                {%- endif -%}
+              </div>
+              <div
+                class="mmw-sensory-scales__row"
+                style="
+                  --mmw-sensory-index: {{ active_index }};
+                  {% if active_color != blank %}--mmw-sensory-active-color: {{ active_color }};{% endif %}
+                "
+              >
+                <div class="mmw-sensory-scales__labels">
+                  {%- for label in scale_labels -%}
+                    <p class="mmw-sensory-scales__label{% if forloop.index0 == active_index %} mmw-sensory-scales__label--active{% endif %}">
+                      {{- label -}}
+                    </p>
+                  {%- endfor -%}
+                </div>
+                <div class="mmw-sensory-scales__indicator"></div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+{%- endif -%}
+
+{% stylesheet %}
+  .mmw-sensory-scales {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+  }
+
+  .mmw-sensory-scales__item {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .mmw-sensory-scales__header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mmw-sensory-scales__icon {
+    height: 36px;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .mmw-sensory-scales__title {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-size: 36px;
+    line-height: 1.1;
+    color: var(--mmw-01);
+  }
+
+  .mmw-sensory-scales__row {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid var(--MMW-400-stroke, rgba(95, 49, 47, 0.25));
+    padding-block: 10px;
+  }
+
+  .mmw-sensory-scales__labels {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 20px;
+  }
+
+  .mmw-sensory-scales__label {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 1.12;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(95, 49, 47, 0.25);
+  }
+
+  .mmw-sensory-scales__label--active {
+    color: var(--mmw-sensory-active-color, var(--mmw-01));
+  }
+
+  .mmw-sensory-scales__indicator {
+    position: absolute;
+    left: calc(var(--mmw-sensory-index, 0) * 33.333%);
+    bottom: -1px;
+    width: 33.333%;
+    height: 1px;
+    background: var(--mmw-sensory-active-color, var(--mmw-01));
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Skale sensoryczne",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    { "name": "MMW Skale sensoryczne", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}

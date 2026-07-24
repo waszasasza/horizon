@@ -395,17 +395,6 @@
                 "accordion_row_EGHQwV",
                 "accordion_row_r6xQtj"
               ]
-            },
-            "mmw_story_stack_1": {
-              "type": "mmw-story-stack",
-              "name": "MMW Stos historii",
-              "settings": {
-                "heading": "Jak powstaje?",
-                "card_duration": 15,
-                "padding-block-start": 24,
-                "padding-block-end": 24
-              },
-              "blocks": {}
             }
           },
           "block_order": [
@@ -417,8 +406,7 @@
             "mmw_product_badges_1",
             "mmw_product_assurances_1",
             "text_aEtTtq",
-            "accordion_dfE98U",
-            "mmw_story_stack_1"
+            "accordion_dfE98U"
           ]
         }
       },
@@ -432,6 +420,38 @@
         "color_scheme": "",
         "padding-block-start": 0,
         "padding-block-end": 0
+      }
+    },
+    "mmw_product_story_1": {
+      "type": "mmw-product-story",
+      "blocks": {
+        "story-stack": {
+          "type": "mmw-story-stack",
+          "static": true,
+          "name": "MMW Stos historii",
+          "settings": {
+            "heading": "Jak powstaje?",
+            "card_duration": 15,
+            "padding-block-start": 0,
+            "padding-block-end": 0
+          },
+          "blocks": {}
+        },
+        "sensory-scales": {
+          "type": "mmw-sensory-scales",
+          "static": true,
+          "name": "MMW Skale sensoryczne",
+          "settings": {
+            "padding-block-start": 0,
+            "padding-block-end": 0
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [],
+      "settings": {
+        "color_scheme": "",
+        "gap": 64
       }
     },
     "product_recommendations_qggXJq": {
@@ -590,6 +610,7 @@
   },
   "order": [
     "main",
+    "mmw_product_story_1",
     "product_recommendations_qggXJq",
     "mmw_heritage_note_w8Qqnf",
     "mmw_product_carousel_wino"
