@@ -184,9 +184,14 @@
     .mmw-siblings-row .slideshow-control {
       display: none;
     }
+    @media (max-width: 767px) {
+      .mmw-siblings-row .slideshow-control {
+        display: none!important;
+      }
+    }
     @media (min-width: 990px) {
       .mmw-siblings-row .slideshow-control {
-        display: none;
+        display: flex;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -200,7 +205,11 @@
       .mmw-siblings-row .slideshow-control:focus-visible {
         opacity: 1;
       }
-      
+      /* Disabled = całkowicie usunięte (nie tylko niewidoczne przez opacity) — bez tego
+         strzałka na krawędzi, choć wizualnie ukryta, dałaby się wciąż zfocusować Tabem. */
+      .mmw-siblings-row .slideshow-control[disabled] {
+        display: none;
+      }
     }
 
     .mmw-siblings {
