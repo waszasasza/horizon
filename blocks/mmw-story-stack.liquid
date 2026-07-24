@@ -267,17 +267,12 @@
     }
   }
 
-  /* Podpowiedź-afordancja na dotyku: ten sam wachlarz co hover (ta sama zmienna
-     --mmw-story-fanned-transform), odpalana raz przez JS ([fanned] na kontenerze)
-     przy pierwszym wejściu w viewport. Rozsunięcie i powrót mają różny easing,
-     dlatego różne transition dla stanu z [fanned] i bez niego. */
-  @media (hover: none) and (prefers-reduced-motion: no-preference) {
+  /* Dotyk: stan spoczynku = wachlarz od razu (ta sama zmienna
+     --mmw-story-fanned-transform co reguła hover na desktopie) — statyczny układ
+     od pierwszego renderu, bez przejścia przy wejściu (nie ma stanu pośredniego,
+     z którego dałoby się animować). */
+  @media (hover: none) {
     .mmw-story-stack__card:not([data-depth='0']) {
-      transition: transform 0.35s ease-in-out, opacity 0.3s ease;
-    }
-
-    .mmw-story-stack[fanned] .mmw-story-stack__card:not([data-depth='0']) {
-      transition: transform 0.35s ease-out, opacity 0.3s ease;
       transform: var(--mmw-story-fanned-transform);
     }
   }
@@ -341,8 +336,12 @@
   @media (max-width: 749px) {
     .mmw-story-stack {
       --mmw-story-peek: 6px;
-      --mmw-story-fan-x: 8px;
-      --mmw-story-fan-rotate: 5deg;
+      /* Na dotyku wachlarz jest stały (nie tylko na hover jak na desktopie), więc
+         te wartości muszą być wyraźnie mniejsze niż desktopowe (14px / 8deg) —
+         inaczej rotacja tak wysokich kart wypycha je poza szerokość kolumny na
+         wąskich viewportach (sprawdzone na 375px). */
+      --mmw-story-fan-x: 5px;
+      --mmw-story-fan-rotate: 2deg;
     }
 
     .mmw-story-stack__card {
