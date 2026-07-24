@@ -200,6 +200,11 @@
       .mmw-siblings-row .slideshow-control:focus-visible {
         opacity: 1;
       }
+      /* Disabled = całkowicie usunięte (nie tylko niewidoczne przez opacity) — bez tego
+         strzałka na krawędzi, choć wizualnie ukryta, dałaby się wciąż zfocusować Tabem. */
+      .mmw-siblings-row .slideshow-control[disabled] {
+        display: none;
+      }
     }
 
     .mmw-siblings {
