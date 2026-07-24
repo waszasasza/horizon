@@ -1,0 +1,353 @@
+{%- doc -%}
+  mmw-story-stack — stos kart przeglądanych swipe'em z automatyczną zmianą co N sekund
+  (mechanika jak Instagram Stories). Źródło: product.metafields.custom.karty_historii
+  (lista referencji do metaobjektu karta_historii; pola: etykieta, tytul, tresc, obraz).
+  Figma: node 982:6173 (plik STRONA-WWW).
+
+  Renderuje TYLKO gdy lista niepusta. Przy 1 karcie: bez paska postępu, licznika
+  i automatycznej zmiany (statyczna karta) — patrz assets/mmw-story-stack.js.
+  Kolejność kart w stosie sterowana przez z-index i custom property
+  --mmw-story-depth (JS), NIE przez przestawianie DOM — działa dla dowolnej
+  liczby kart (kolejność w stosie liczona modulo).
+
+  Umieszczenie: theme block do sekcji product-details (kolumna z resztą bloków
+  informacyjnych, ~50% szerokości na desktopie), na końcu — tak by na mobile
+  (kolumny ułożone jedna pod drugą) pojawiał się pod galerią produktu.
+{%- enddoc -%}
+{%- liquid
+  assign stories = product.metafields.custom.karty_historii.value
+  assign story_count = stories.size
+  assign duration = block.settings.card_duration | default: 15
+-%}
+{%- if stories != blank and story_count > 0 -%}
+  <mmw-story-stack
+    class="mmw-story-stack spacing-style"
+    style="--mmw-story-duration: {{ duration }}s; {% render 'spacing-style', settings: block.settings %}"
+    {% if story_count > 1 %}
+      on:keydown="/handleKeydown"
+    {% endif %}
+    {{ block.shopify_attributes }}
+  >
+    {%- if block.settings.heading != blank -%}
+      <p class="mmw-story-stack__heading">{{ block.settings.heading }}</p>
+    {%- endif -%}
+
+    {%- if story_count > 1 -%}
+      <div class="mmw-story-stack__meter">
+        <p class="mmw-story-stack__counter" ref="counter" aria-live="polite">1 z {{ story_count }}</p>
+        <div class="mmw-story-stack__segments">
+          {%- for story in stories -%}
+            <div class="mmw-story-stack__segment" ref="segments[]">
+              <div class="mmw-story-stack__segment-fill" ref="segmentFills[]"></div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+
+    <div class="mmw-story-stack__stage">
+      {%- for story in stories -%}
+        {%- liquid
+          assign depth = forloop.index0
+          assign rotate_sign = 1
+          assign is_odd = forloop.index0 | modulo: 2
+          if is_odd == 1
+            assign rotate_sign = -1
+          endif
+        -%}
+        <article
+          class="mmw-story-stack__card"
+          ref="cards[]"
+          style="--mmw-story-depth: {{ depth }}; --mmw-story-rotate-sign: {{ rotate_sign }};"
+          data-depth="{{ depth }}"
+          aria-hidden="{% if depth == 0 %}false{% else %}true{% endif %}"
+          tabindex="{% if depth == 0 %}0{% else %}-1{% endif %}"
+        >
+          {%- if story.obraz != blank -%}
+            <img
+              class="mmw-story-stack__image"
+              src="{{ story.obraz | image_url: width: 800 }}"
+              srcset="
+                {{ story.obraz | image_url: width: 400 }} 400w,
+                {{ story.obraz | image_url: width: 800 }} 800w,
+                {{ story.obraz | image_url: width: 1200 }} 1200w
+              "
+              sizes="(min-width: 750px) 400px, 90vw"
+              width="{{ story.obraz.width }}"
+              height="{{ story.obraz.height }}"
+              alt=""
+              loading="lazy"
+            >
+          {%- endif -%}
+          <div class="mmw-story-stack__scrim" aria-hidden="true"></div>
+          {%- if story.etykieta != blank -%}
+            <p class="mmw-story-stack__label">{{ story.etykieta }}</p>
+          {%- endif -%}
+          <div class="mmw-story-stack__content">
+            {%- if story.tytul != blank -%}
+              <p class="mmw-story-stack__title">{{ story.tytul }}</p>
+            {%- endif -%}
+            {%- if story.tresc != blank -%}
+              <p class="mmw-story-stack__text">{{ story.tresc }}</p>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- if story_count > 1 -%}
+      <button type="button" class="visually-hidden" ref="previous" on:click="/previous">
+        Poprzednia karta
+      </button>
+      <button type="button" class="visually-hidden" ref="next" on:click="/next">
+        Następna karta
+      </button>
+    {%- endif -%}
+  </mmw-story-stack>
+{%- endif -%}
+
+{% stylesheet %}
+  .mmw-story-stack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .mmw-story-stack__heading {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+    text-align: center;
+  }
+
+  .mmw-story-stack__meter {
+    width: 100%;
+    max-width: 362px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mmw-story-stack__counter {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+  }
+
+  .mmw-story-stack__segments {
+    display: flex;
+    gap: 3px;
+    width: 100%;
+  }
+
+  .mmw-story-stack__segment {
+    flex: 1 0 0;
+    height: 2px;
+    min-width: 1px;
+    border-radius: 99px;
+    background: var(--MMW-400-stroke, rgba(95, 49, 47, 0.25));
+    overflow: hidden;
+  }
+
+  .mmw-story-stack__segment-fill {
+    height: 100%;
+    width: 100%;
+    border-radius: 99px;
+    background: var(--mmw-01);
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+
+  .mmw-story-stack__segment.is-complete .mmw-story-stack__segment-fill {
+    transform: scaleX(1);
+  }
+
+  .mmw-story-stack__segment-fill.is-active {
+    animation: mmw-story-progress var(--mmw-story-duration, 15s) linear forwards;
+  }
+
+  @keyframes mmw-story-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .mmw-story-stack:hover .mmw-story-stack__segment-fill.is-active,
+  .mmw-story-stack[dragging] .mmw-story-stack__segment-fill.is-active,
+  .mmw-story-stack[out-of-view] .mmw-story-stack__segment-fill.is-active {
+    animation-play-state: paused;
+  }
+
+  .mmw-story-stack__stage {
+    position: relative;
+    width: 100%;
+    max-width: 362px;
+    display: grid;
+  }
+
+  .mmw-story-stack__card {
+    grid-column: 1;
+    grid-row: 1;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 362.237 / 554.831;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    touch-action: pan-y;
+    cursor: grab;
+    will-change: transform;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    transform: translate(calc(var(--mmw-story-depth) * -14px), calc(var(--mmw-story-depth) * -18px))
+      rotate(calc(var(--mmw-story-depth) * var(--mmw-story-rotate-sign, 1) * 8deg))
+      scale(calc(1 - var(--mmw-story-depth) * 0.04));
+  }
+
+  .mmw-story-stack__card:not([data-depth='0']) {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .mmw-story-stack__card[data-depth='0'] {
+    opacity: 1;
+  }
+
+  .mmw-story-stack__card[data-depth='1'],
+  .mmw-story-stack__card[data-depth='2'] {
+    opacity: 0.6;
+  }
+
+  .mmw-story-stack[dragging] .mmw-story-stack__card[data-depth='0'] {
+    cursor: grabbing;
+  }
+
+  .mmw-story-stack__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .mmw-story-stack__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.85) 100%);
+  }
+
+  .mmw-story-stack__label {
+    position: relative;
+    margin: 0;
+    padding: 10px 11px;
+    border-radius: 58px;
+    background: var(--mmw-01);
+    color: var(--mmw-04);
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .mmw-story-stack__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--mmw-04);
+  }
+
+  .mmw-story-stack__title {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-size: 44px;
+    line-height: 1.1;
+  }
+
+  .mmw-story-stack__text {
+    margin: 0;
+    font-family: var(--mmw-font-text);
+    font-size: 15px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  @media (max-width: 749px) {
+    .mmw-story-stack__card {
+      padding: 24px;
+      transform: translate(calc(var(--mmw-story-depth) * -10px), calc(var(--mmw-story-depth) * -12px))
+        rotate(calc(var(--mmw-story-depth) * var(--mmw-story-rotate-sign, 1) * 6deg))
+        scale(calc(1 - var(--mmw-story-depth) * 0.04));
+    }
+
+    .mmw-story-stack__title {
+      font-size: 32px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-story-stack__card {
+      transition: none;
+    }
+
+    .mmw-story-stack__segment-fill {
+      animation: none !important;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Stos historii",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tytuł nadrzędny",
+      "default": "Jak powstaje?"
+    },
+    {
+      "type": "range",
+      "id": "card_duration",
+      "label": "Czas trwania karty",
+      "min": 3,
+      "max": 30,
+      "step": 1,
+      "unit": "s",
+      "default": 15
+    },
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 }
+  ],
+  "presets": [
+    { "name": "MMW Stos historii", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}

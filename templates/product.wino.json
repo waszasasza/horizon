@@ -395,6 +395,17 @@
                 "accordion_row_EGHQwV",
                 "accordion_row_r6xQtj"
               ]
+            },
+            "mmw_story_stack_1": {
+              "type": "mmw-story-stack",
+              "name": "MMW Stos historii",
+              "settings": {
+                "heading": "Jak powstaje?",
+                "card_duration": 15,
+                "padding-block-start": 24,
+                "padding-block-end": 24
+              },
+              "blocks": {}
             }
           },
           "block_order": [
@@ -406,7 +417,8 @@
             "mmw_product_badges_1",
             "mmw_product_assurances_1",
             "text_aEtTtq",
-            "accordion_dfE98U"
+            "accordion_dfE98U",
+            "mmw_story_stack_1"
           ]
         }
       },

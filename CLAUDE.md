@@ -38,6 +38,8 @@ Nowe:
    źródło: metaobjekt `cecha_produktu`.
 10. `mmw-product-assurances` — pasek informacji o dostawie i płatnościach pod przyciskiem
     kupna (treść z ustawień edytora, nie z metapól).
+11. `mmw-story-stack` — stos kart przeglądanych swipe'em z automatyczną zmianą (mechanika
+    jak Instagram Stories), źródło: metaobjekt `karta_historii`.
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.
