@@ -30,7 +30,10 @@
   @media (min-width: 750px) {
     #shopify-section-{{ section.id }} .mmw-story {
       flex-direction: row;
-      align-items: flex-start;
+      /* Wyśrodkowanie prawej kolumny (skale) względem pełnej wysokości lewej
+         (stos kart, łącznie z paskiem postępu/licznikiem) — flex align-items
+         centruje całe kolumny wobec siebie, nie tylko pojedynczy element. */
+      align-items: center;
       gap: {{ section.settings.gap | default: 64 }}px;
     }
 
