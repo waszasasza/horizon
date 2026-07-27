@@ -41,93 +41,9 @@
     #shopify-section-{{ section.id }} .mmw-pc__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
     #shopify-section-{{ section.id }} .mmw-pc__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
 
-    /* Karta produktu — treść, NIE geometria slajdu (to daje resource-list-carousel) */
-    #shopify-section-{{ section.id }} .mmw-pc__card {
-      display: block; width: 100%; aspect-ratio: {{ card_ratio }};
-      border-radius: 16px; overflow: hidden; background: var(--mmw-01);
-      /* Natywny quick-add liczy prawy-dolny róg z --border-radius/--padding-inline-end/
-         --padding-block-end (snippets/quick-add-styles.liquid). Bez nich te zmienne są
-         invalid (nikt ich tu nie ustawia poza natywnym systemem spacing-style/product-grid,
-         którego nie używamy) i przycisk renderuje się w złym miejscu / poza kadrem. */
-      --border-radius: 16px;
-      --padding-inline-start: 24px; --padding-inline-end: 24px;
-      --padding-block-start: 24px; --padding-block-end: 24px;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__media { position: absolute; inset: 0; z-index: 0; display: block; }
-    #shopify-section-{{ section.id }} .mmw-pc__img,
-    #shopify-section-{{ section.id }} .mmw-pc__img svg {
-      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__img--hover {
-      opacity: 0; transition: opacity var(--hover-transition-duration, .3s) var(--hover-transition-timing, ease);
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__card:hover .mmw-pc__img--hover { opacity: 1; }
-    #shopify-section-{{ section.id }} .mmw-pc__card::after {
-      content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 48%, rgba(0,0,0,.92) 100%);
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__badge {
-      position: absolute; top: clamp(12px, 3vw, 24px); right: clamp(12px, 3vw, 24px); z-index: 2;
-      background: var(--mmw-03); color: var(--mmw-01);
-      font-family: var(--mmw-font-label); font-weight: 700; font-size: clamp(11px, 2.5vw, 14px); letter-spacing: 1px;
-      text-transform: uppercase; padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 14px); border-radius: 58px; line-height: 1.2;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__badge--sale { background: var(--mmw-02); }
-    #shopify-section-{{ section.id }} .mmw-pc__body {
-      position: absolute; z-index: 2; left: 24px; right: 24px; bottom: 24px;
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__name {
-      margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 24px; line-height: 1;
-      color: var(--mmw-04);
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__excerpt {
-      margin: 0; font-family: var(--mmw-font-text); font-size: 12px; line-height: 1.4; color: var(--mmw-04);
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__price { font-family: var(--mmw-font-label); font-weight: 700; font-size: 18px; text-transform: uppercase; color: var(--mmw-04); }
-    #shopify-section-{{ section.id }} .mmw-pc__price--sale { color: var(--mmw-02); }
-    #shopify-section-{{ section.id }} .mmw-pc__price-line { display: flex; align-items: baseline; gap: 6px; }
-    #shopify-section-{{ section.id }} .mmw-pc__price-compare {
-      font-family: var(--mmw-font-label); font-weight: 700; font-size: 12px; color: var(--mmw-04);
-      text-decoration: line-through; opacity: .85;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__price-note { margin: 4px 0 0; font-family: var(--mmw-font-text); font-size: 10px; line-height: 1.4; color: var(--mmw-04); opacity: .85; }
-
-    /* Wiersz ceny: cena po lewej, natywny quick-add po prawej, wyrównane w pionie do ceny.
-       Odstęp quick-add od prawej krawędzi karty = padding body od lewej (24px), bo oba
-       siedzą w tym samym .mmw-pc__body (left/right: 24px) — symetria "za darmo" z flexa. */
-    #shopify-section-{{ section.id }} .mmw-pc__price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    #shopify-section-{{ section.id }} .mmw-pc__price-block { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-
-    /* Reskin natywnego quick-add — tylko nadpisania w scope sekcji (pozycja + kolory marki),
-       snippets/quick-add.liquid i jego globalny CSS zostają nietknięte. */
-    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add {
-      position: static; inset: auto; pointer-events: auto; flex: 0 0 auto;
-      --quick-add-mobile-display: var(--quick-add-display);
-      --quick-add-mobile-opacity: 1;
-    }
-    /* .quick-add__product-form-component/.shopify-product-form mają w natywnym CSS
-       container-type: inline-size + height:100%, licząc na to, że .quick-add (rodzic) ma
-       position:absolute; inset:0 (pełny rozmiar karty) — w naszym układzie w linii (position:
-       static, flex item) to size containment odcina formularz od jego własnej zawartości,
-       więc guzik nie może urosnąć w pigułkę na hover. Zdejmujemy containment i sztywną
-       wysokość, reszta (grid-template-columns na .add-to-cart-text__content) zostaje natywna. */
-    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__product-form-component,
-    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__product-form-component .shopify-product-form {
-      height: auto;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__product-form-component .shopify-product-form {
-      container-type: normal;
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__button {
-      position: static; opacity: 1;
-      background: linear-gradient(var(--mmw-02, #fc7753) 0 100%) padding-box;
-      color: var(--mmw-01, #5f312f);
-    }
-    #shopify-section-{{ section.id }} .mmw-pc__price-row .quick-add__button .add-to-cart-text {
-      background: var(--mmw-02, #fc7753);
-    }
+    /* Karta produktu: snippets/mmw-carousel-card.liquid (współdzielona z
+       mmw-product-recommendations.liquid) — tylko przekazujemy card_ratio z ustawień
+       sekcji przez parametr renderu, żadnego CSS specyficznego dla karty tutaj. */
 
     /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
     #shopify-section-{{ section.id }} .mmw-pc__carousel-wrap { width: 100%; }
@@ -184,7 +100,7 @@
       #shopify-section-{{ section.id }} .mmw-pc__title { font-size: 36px; }
     }
     @media (max-width: 749px) {
-      #shopify-section-{{ section.id }} .mmw-pc__excerpt { -webkit-line-clamp: 2; }
+      #shopify-section-{{ section.id }} .mmw-carousel-card__excerpt { -webkit-line-clamp: 2; }
 
       /* Mobile: jedna karta na ekran, wycentrowana, ze skrawkami sąsiadów po bokach.
          --mmw-pc-gutter-mobile zastępuje --util-page-margin-offset TYLKO na mobile —
@@ -228,73 +144,7 @@
     {%- for product in coll.products limit: count -%}
       {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}
       {%- assign item_index = item_index | plus: 1 -%}
-      {%- liquid
-        assign on_sale = false
-        assign badge_text = blank
-        assign badge_class = 'mmw-pc__badge'
-        if product.compare_at_price > product.price
-          assign on_sale = true
-          assign discount_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
-          assign badge_text = '-' | append: discount_pct | append: '%'
-          assign badge_class = badge_class | append: ' mmw-pc__badge--sale'
-        elsif product.tags contains 'bestseller' or product.tags contains 'Bestseller'
-          assign badge_text = 'Bestseller'
-        elsif product.tags contains 'nowość' or product.tags contains 'nowosc' or product.tags contains 'Nowość'
-          assign badge_text = 'Nowość'
-        endif
-        assign card_text = product.metafields.custom.opis_karty.value | default: product.description
-        assign card_text = card_text | strip_html | truncate: desc_len
-
-        # Widoczność quick-add liczona tak samo jak w snippets/product-card.liquid
-        assign has_quick_add = false
-        if settings.quick_add and product.available
-          assign has_quick_add = true
-        endif
-        assign has_mobile_quick_add = false
-        if has_quick_add and settings.mobile_quick_add
-          assign has_mobile_quick_add = true
-        endif
-      -%}
-      <product-card class="product-card mmw-pc__card" style="--quick-add-display: {% if has_quick_add %}flex{% else %}none{% endif %}; --quick-add-mobile-display: {% if has_mobile_quick_add %}flex{% else %}none{% endif %}; --quick-add-mobile-opacity: {% if has_mobile_quick_add %}1{% else %}0{% endif %};">
-        <a href="{{ product.url }}" class="product-card__link" ref="productCardLink" id="mmw-pc-link-{{ section.id }}-{{ product.id }}">
-          <span class="visually-hidden">{{ product.title | escape }}</span>
-        </a>
-        <a class="mmw-pc__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
-          {%- if product.featured_image != blank -%}
-            <img class="mmw-pc__img" loading="lazy" width="640" height="980"
-              src="{{ product.featured_image | image_url: width: 640 }}"
-              srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 640 }} 640w, {{ product.featured_image | image_url: width: 900 }} 900w"
-              sizes="(max-width: 749px) 60cqw, 400px"
-              alt="">
-          {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'mmw-pc__img' }}
-          {%- endif -%}
-          {%- if product.media.size > 1 -%}
-            <img class="mmw-pc__img mmw-pc__img--hover" loading="lazy" width="640" height="980"
-              src="{{ product.media[1].preview_image | image_url: width: 640 }}"
-              alt="">
-          {%- endif -%}
-        </a>
-        {%- if badge_text != blank -%}<span class="{{ badge_class }}">{{ badge_text }}</span>{%- endif -%}
-        <div class="mmw-pc__body">
-          <p class="mmw-pc__name">{{ product.title }}</p>
-          {%- if card_text != blank -%}<p class="mmw-pc__excerpt">{{ card_text }}</p>{%- endif -%}
-          <div class="mmw-pc__price-row">
-            <div class="mmw-pc__price-block">
-              {%- if on_sale -%}
-                <div class="mmw-pc__price-line">
-                  <span class="mmw-pc__price mmw-pc__price--sale">{{ product.price | money }}</span>
-                  <span class="mmw-pc__price-compare">{{ product.compare_at_price | money }}</span>
-                </div>
-                <p class="mmw-pc__price-note">Ostatnia cena przed obniżką: {{ product.compare_at_price | money }}</p>
-              {%- else -%}
-                <span class="mmw-pc__price">{{ product.price | money }}</span>
-              {%- endif -%}
-            </div>
-            {%- render 'quick-add', product: product, section_id: section.id -%}
-          </div>
-        </div>
-      </product-card>
+      {%- render 'mmw-carousel-card', product: product, section_id: section.id, card_ratio: card_ratio, desc_len: desc_len -%}
     {%- endfor -%}
     {%- if show_end_card -%}
       {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}

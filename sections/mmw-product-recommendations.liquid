@@ -1,0 +1,265 @@
+{%- comment -%}
+  mmw-product-recommendations — "Zobacz także": natywne rekomendacje Shopify
+  (related / complementary), wygląd i mechanika 1:1 jak mmw-product-carousel.liquid.
+
+  Wrapper <product-recommendations> + data-atrybuty + gałęzie performed/onboarding/
+  skeleton skopiowane VERBATIM z sections/product-recommendations.liquid — lazy-load
+  (IntersectionObserver + fetch + morphSection) i oba tryby działają identycznie jak
+  w natywnej, przez NIEZMIENIONY assets/product-recommendations.js.
+
+  Podmienione jest TYLKO renderowanie: karta = snippets/mmw-carousel-card.liquid (ta
+  sama, której używa mmw-product-carousel.liquid), layout = zawsze karuzela (slideshow +
+  slideshow-slide + slideshow-controls + gutter/peek-width, 1:1 jak w
+  mmw-product-carousel.liquid) zamiast natywnego grida + bloku _product-card.
+
+  Natywna sekcja NIE ma trybu "ręczna lista produktów" — recommendation_type ma tylko
+  dwie wartości, obie algorytmiczne (related / complementary); "product" to picker
+  produktu-źródła rekomendacji (domyślnie bieżący produkt), nie lista do pokazania.
+  Ten sam zestaw ustawień (product/recommendation_type/max_products) skopiowany
+  1:1 ze schematu natywnej sekcji, plus własny "heading" (u natywnej to blok, tu
+  ustawienie sekcji, żeby nie duplikować systemu bloków dla jednego tekstu).
+{%- endcomment -%}
+<script
+  src="{{ 'product-recommendations.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{%- liquid
+  assign desc_len = 140
+  assign card_ratio = '331 / 507'
+-%}
+{%- style -%}
+  /* Ten sam wzorzec co mmw-product-carousel.liquid: .mmw-rec dostaje klasę .section
+     TYLKO po to, żeby odziedziczyć --util-page-margin-offset — ID-scoped
+     #id .mmw-rec{display:flex} ma wyższą specyficzność niż .section{display:grid}
+     i nadpisuje go z powrotem, więc natywny grid-template-columns się nie aktywuje. */
+  #shopify-section-{{ section.id }} .mmw-rec { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
+  #shopify-section-{{ section.id }} .mmw-rec__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px)); }
+  #shopify-section-{{ section.id }} .mmw-rec__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
+
+  #shopify-section-{{ section.id }} .mmw-rec__carousel-wrap { width: 100%; }
+  .mmw-rec__carousel-wrap .resource-list__slide { scroll-snap-align: start; }
+
+  /* Kropki — ten sam wyjątek co mmw-product-carousel.liquid: natywny
+     mix-blend-mode: difference jest myślany pod kropki na zdjęciu, u nas stoją
+     na tle sekcji, więc wyłączamy go i barwimy wprost przez zmienne komponentu. */
+  #shopify-section-{{ section.id }} slideshow-controls {
+    margin-top: 8px;
+    mix-blend-mode: normal;
+    --color: rgba(95, 49, 47, 0.25);
+    --color-active: var(--mmw-01, #5f312f);
+    --color-hover: rgba(95, 49, 47, 0.4);
+  }
+
+  #shopify-section-{{ section.id }} .mmw-rec__skeleton {
+    display: flex;
+    gap: 24px;
+    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
+  }
+  #shopify-section-{{ section.id }} .product-recommendations__skeleton-item {
+    flex: 1 0 0;
+    aspect-ratio: {{ card_ratio }};
+    max-width: 400px;
+    border-radius: 16px;
+    background: var(--mmw-04);
+  }
+
+  .mmw-rec slideshow-slides {
+    padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    padding-inline-end: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    scroll-padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+  }
+  .mmw-rec .resource-list__slide,
+  .mmw-rec slideshow-slide {
+    scroll-snap-align: start;
+  }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} .mmw-rec { padding-block: 40px; gap: 36px; }
+    #shopify-section-{{ section.id }} .mmw-rec__title { font-size: 36px; }
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-carousel-card__excerpt { -webkit-line-clamp: 2; }
+
+    /* Mobile: jedna karta na ekran, wycentrowana, ze skrawkami sąsiadów po bokach —
+       ten sam mechanizm co --mmw-pc-gutter-mobile w mmw-product-carousel.liquid. */
+    #shopify-section-{{ section.id }} .mmw-rec { --mmw-rec-gutter-mobile: 36px; }
+    #shopify-section-{{ section.id }} .mmw-rec__head { padding-inline: var(--mmw-rec-gutter-mobile); }
+    #shopify-section-{{ section.id }} .mmw-rec__skeleton { padding-inline: var(--mmw-rec-gutter-mobile); }
+
+    .mmw-rec slideshow-arrows { display: none; }
+
+    .mmw-rec slideshow-slides {
+      padding-inline-start: var(--mmw-rec-gutter-mobile) !important;
+      padding-inline-end: var(--mmw-rec-gutter-mobile) !important;
+      scroll-padding-inline-start: var(--mmw-rec-gutter-mobile) !important;
+      scroll-padding-inline-end: var(--mmw-rec-gutter-mobile) !important;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-rec__carousel-wrap .resource-list__slide {
+      --slide-width: calc((100vw - 2 * var(--mmw-rec-gutter-mobile) + 12px) * 0.85);
+    }
+
+    .mmw-rec .resource-list__slide,
+    .mmw-rec slideshow-slide {
+      scroll-snap-align: center;
+    }
+  }
+{%- endstyle -%}
+
+<product-recommendations
+  id="product-recommendations-{{ section.id }}"
+  class="product-recommendations"
+  data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.max_products }}"
+  data-section-id="{{ section.id }}"
+  data-product-id="{{ section.settings.product.id | default: product.id }}"
+  data-intent="{{ section.settings.recommendation_type }}"
+  data-testid="mmw-product-recommendations-section"
+  data-recommendations-performed="{{ recommendations.performed }}"
+  data-hydration-key="product-recommendations-{{ section.id }}"
+  {{ section.shopify_attributes }}
+>
+  <div class="section-background color-{{ section.settings.color_scheme }}"></div>
+  <section class="mmw-rec section color-{{ section.settings.color_scheme }}">
+    {%- if section.settings.heading != blank -%}
+      <div class="mmw-rec__head">
+        <h2 class="mmw-rec__title">{{ section.settings.heading }}</h2>
+      </div>
+    {%- endif -%}
+
+    {%- if recommendations.performed or section.settings.product == blank -%}
+      {%- liquid
+        if section.settings.product == blank
+          # Onboarding mode (edytor bez wybranego produktu): puste miejsca na karty
+          assign products = null
+          for i in (1..section.settings.max_products)
+            assign products = products | append: ', '
+            assign products = products | split: ','
+          endfor
+        elsif recommendations.performed and recommendations.products_count == 0
+          # Brak rekomendacji — dociągamy z całego katalogu, tak jak natywna sekcja
+          if section.settings.recommendation_type == 'related'
+            assign products = collections.all.products | reject: 'id', section.settings.product.id
+          elsif section.settings.recommendation_type == 'complementary'
+            assign products = null
+          endif
+        else
+          assign products = recommendations.products
+        endif
+      -%}
+
+      {%- comment -%} Karty → tablica HTML (ten sam trik co cards_concat w mmw-product-carousel.liquid). {%- endcomment -%}
+      {%- capture cards_concat -%}
+        {%- assign item_index = 0 -%}
+        {%- for rec_product in products limit: section.settings.max_products -%}
+          {%- if item_index > 0 -%}<!--@mmw-rec/split-->{%- endif -%}
+          {%- assign item_index = item_index | plus: 1 -%}
+          {%- render 'mmw-carousel-card', product: rec_product, section_id: section.id, card_ratio: card_ratio, desc_len: desc_len -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-rec/split-->' -%}
+
+      {%- capture resource_list_style -%}
+        --resource-list-column-gap-desktop: 24px;
+        --column-count: 3;
+        --column-count-mobile: 1;
+        --mobile-card-size: 60cqw;
+      {%- endcapture -%}
+
+      {%- liquid
+        assign carousel_ref = 'mmwRec-' | append: section.id
+        assign slideshow_gutters = 'start end'
+        assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, var(--page-margin, 40px)); --slide-width-max: 400px;'
+      -%}
+      {%- capture carousel_slides -%}
+        {%- for item in cards_array -%}
+          {%- render 'slideshow-slide', index: forloop.index0, children: item, class: 'resource-list__slide' -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+      {%- capture carousel_controls -%}
+        {%- render 'slideshow-controls', style: 'dots', item_count: cards_array.size, show_arrows: false, pagination_position: 'center' -%}
+      {%- endcapture -%}
+
+      <div class="resource-list resource-list__carousel mmw-rec__carousel-wrap" style="{{ resource_list_style }}">
+        <div style="{{ gutter_style }}">
+          {%- render 'slideshow',
+            ref: carousel_ref,
+            class: 'resource-list__carousel',
+            slides: carousel_slides,
+            show_arrows: true,
+            icon_style: 'arrow',
+            icon_shape: 'circle',
+            auto_hide_controls: false,
+            infinite: false,
+            initial_slide: 0,
+            slide_count: cards_array.size,
+            slideshow_gutters: slideshow_gutters,
+            controls: carousel_controls
+          -%}
+        </div>
+      </div>
+    {%- else -%}
+      <div class="mmw-rec__skeleton">
+        {%- for i in (1..section.settings.max_products) -%}
+          <div
+            class="product-recommendations__skeleton-item"
+            aria-label="{{ 'accessibility.loading_product_recommendations' | t }}"
+          ></div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+</product-recommendations>
+
+{% schema %}
+{
+  "name": "MMW Zobacz także",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zobacz także" },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "t:settings.product"
+    },
+    {
+      "type": "select",
+      "id": "recommendation_type",
+      "label": "t:settings.type",
+      "options": [
+        { "value": "related", "label": "t:options.related" },
+        { "value": "complementary", "label": "t:options.complementary" }
+      ],
+      "default": "related"
+    },
+    { "type": "paragraph", "content": "t:content.complementary_products" },
+    {
+      "type": "range",
+      "id": "max_products",
+      "label": "t:settings.product_count",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 4
+    },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" }
+  ],
+  "presets": [
+    {
+      "name": "MMW Zobacz także",
+      "category": "t:categories.product",
+      "settings": {
+        "heading": "Zobacz także",
+        "product": "{{ closest.product }}",
+        "recommendation_type": "related",
+        "max_products": 4,
+        "color_scheme": "scheme-1"
+      }
+    }
+  ]
+}
+{% endschema %}

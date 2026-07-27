@@ -608,11 +608,15 @@
       "name": "MMW Szacunek",
       "settings": {}
     },
-    "mmw_product_carousel_wino": {
-      "type": "mmw-product-carousel",
-      "name": "MMW Karuzela produktów",
+    "mmw_product_recommendations_1": {
+      "type": "mmw-product-recommendations",
+      "name": "MMW Zobacz także",
       "settings": {
-        "heading": "Zobacz także"
+        "heading": "Zobacz także",
+        "product": "{{ closest.product }}",
+        "recommendation_type": "related",
+        "max_products": 4,
+        "color_scheme": ""
       }
     }
   },
@@ -622,6 +626,6 @@
     "mmw_product_pairing_1",
     "product_recommendations_qggXJq",
     "mmw_heritage_note_w8Qqnf",
-    "mmw_product_carousel_wino"
+    "mmw_product_recommendations_1"
   ]
 }

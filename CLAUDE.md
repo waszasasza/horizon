@@ -45,6 +45,14 @@ Nowe:
     źródło: metaobjekty `poziom_skali` / `skala_sensoryczna`.
 13. `mmw-product-pairing` — „Polecamy do": kafelki propozycji podania (obraz, tytuł,
     opis), nagłówek/opis z ustawień edytora, źródło kafelków: metaobjekt `polecamy_do`.
+14. `mmw-product-recommendations` — „Zobacz także": natywne rekomendacje Shopify
+    (related/complementary, wrapper `<product-recommendations>` + lazy-load
+    skopiowane verbatim z natywnej `sections/product-recommendations.liquid`,
+    `assets/product-recommendations.js` nietknięty), wygląd i karuzela jak
+    `mmw-product-carousel`. Karta produktu wydzielona do współdzielonego snippetu
+    `snippets/mmw-carousel-card.liquid` (używa jej też `mmw-product-carousel`) —
+    NIE mylić z istniejącym, niepowiązanym `snippets/mmw-product-card.liquid`
+    (starszy komponent, używany przez `mmw-article-body`/`mmw-article-products`).
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.
