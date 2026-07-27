@@ -34,7 +34,10 @@
           assign tile_title = item.tytul.value
           assign tile_desc = item.opis.value
           assign tile_image = item.obraz.value
-          assign tile_link = item.link.value
+          # Pole "link" jest typu URL (link), zwraca obiekt {text, url} — nie string.
+          # Sam tekst linku jest nam zbędny (link owija cały kafelek, a-11y idzie
+          # z tytułu), więc bierzemy tylko .url.
+          assign tile_link = item.link.value.url
         -%}
         <div class="mmw-pairing__tile">
           {%- if tile_link != blank -%}
