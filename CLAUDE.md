@@ -53,6 +53,10 @@ Nowe:
     `snippets/mmw-carousel-card.liquid` (używa jej też `mmw-product-carousel`) —
     NIE mylić z istniejącym, niepowiązanym `snippets/mmw-product-card.liquid`
     (starszy komponent, używany przez `mmw-article-body`/`mmw-article-products`).
+15. `mmw-product-seo-faq` — SEO + FAQ na dole strony produktu: lewa kolumna tekst
+    SEO (metapole `custom.tekst_seo`, rich text), prawa kolumna akordeony FAQ
+    (metaobjekt `pytanie_faq` przez `custom.faq`). Akordeony na natywnym
+    `snippets/accordion-custom-component.liquid`. Znika, gdy obie kolumny puste.
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.

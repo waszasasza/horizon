@@ -1,0 +1,275 @@
+{%- comment -%}
+  mmw-product-seo-faq — SEO + FAQ na dole strony produktu. Lewa kolumna: tekst
+  SEO (rich text, product.metafields.custom.tekst_seo, wyrenderowany przez
+  | metafield_tag — ten sam wzorzec co istniejące bloki rich-text w
+  templates/product.wino.json, np. metafields.custom.przechowywanie). Prawa
+  kolumna: FAQ (akordeony, product.metafields.custom.faq — lista referencji do
+  metaobjektu pytanie_faq, pola pytanie/odpowiedz czytane przez .value — dla
+  metaobjektów, w odróżnieniu od metapól produktu, to .value daje już gotowy
+  HTML rich text, metafield_tag tu nie działa).
+
+  Akordeony korzystają z natywnego mechanizmu Horizona: snippets/accordion-
+  custom-component.liquid + klasy .details/.details__header/.details-content/
+  .icon-caret/.icon-animated — dokładnie te same, których używa
+  blocks/_accordion-row.liquid. Animacja otwierania, rotacja chevronu
+  (assets/base.css: "details[open] > summary .icon-animated > svg") i
+  dostępność (natywna semantyka <details>/<summary>) działają bez własnego JS.
+
+  Cała sekcja znika, gdy OBIE kolumny puste. Gdy jedna pusta — w markupie po
+  prostu nie renderuje się jej wrapper (.mmw-seo-faq__col), a czysto CSS-owy
+  selektor :only-child rozciąga i centruje tę jedyną obecną kolumnę (bez
+  Liquid w {% stylesheet %}).
+
+  Figma: plik STRONA-WWW, node 982:6763.
+{%- endcomment -%}
+{%- liquid
+  assign seo_metafield = product.metafields.custom.tekst_seo
+  assign faqs = product.metafields.custom.faq.value
+
+  assign has_seo = false
+  if seo_metafield.value != blank
+    assign has_seo = true
+  endif
+
+  assign has_faq = false
+  if faqs != blank and faqs.size > 0
+    assign has_faq = true
+  endif
+-%}
+{%- if has_seo or has_faq -%}
+  <section class="mmw-seo-faq section color-{{ section.settings.color_scheme }}">
+    {%- if has_seo -%}
+      <div class="mmw-seo-faq__col mmw-seo-faq__col--seo">
+        {%- if section.settings.seo_heading != blank -%}
+          <h2 class="mmw-seo-faq__heading">{{ section.settings.seo_heading }}</h2>
+        {%- endif -%}
+        <div class="mmw-seo-faq__seo-body">
+          {{ seo_metafield | metafield_tag }}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if has_faq -%}
+      <div class="mmw-seo-faq__col mmw-seo-faq__col--faq">
+        {%- if section.settings.faq_heading != blank -%}
+          <h2 class="mmw-seo-faq__heading">{{ section.settings.faq_heading }}</h2>
+        {%- endif -%}
+        <div class="mmw-seo-faq__accordions">
+          {%- for faq in faqs -%}
+            {%- if faq != blank -%}
+              {%- liquid
+                assign question = faq.pytanie.value
+                assign answer = faq.odpowiedz.value
+                assign is_first = false
+                if forloop.index0 == 0
+                  assign is_first = true
+                endif
+              -%}
+              {%- if question != blank -%}
+                {%- capture faq_details -%}
+                  <details class="details mmw-seo-faq__accordion" {% if is_first %}open{% endif %}>
+                    <summary class="details__header mmw-seo-faq__summary">
+                      <span class="mmw-seo-faq__question">{{ question }}</span>
+                      <span class="svg-wrapper icon-caret icon-animated mmw-seo-faq__chevron">
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </span>
+                    </summary>
+                    {%- if answer != blank -%}
+                      <div class="details-content mmw-seo-faq__answer">
+                        {{ answer }}
+                      </div>
+                    {%- endif -%}
+                  </details>
+                {%- endcapture -%}
+                {%- render 'accordion-custom-component',
+                  children: faq_details,
+                  open_by_default_on_desktop: is_first,
+                  open_by_default_on_mobile: is_first
+                -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% stylesheet %}
+  .mmw-seo-faq.section {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding-block: 60px;
+    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
+  }
+
+  .mmw-seo-faq__col {
+    width: 100%;
+    min-width: 0;
+    color: var(--mmw-01);
+  }
+
+  .mmw-seo-faq__col--seo {
+    text-align: center;
+  }
+
+  .mmw-seo-faq__heading {
+    margin: 0 0 40px;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1;
+  }
+
+  .mmw-seo-faq__col--faq .mmw-seo-faq__heading {
+    text-align: center;
+  }
+
+  /* Prose dla dowolnej treści rich text z edytora — nagłówki/akapity skalowane
+     wg Figmy, bez zakładania konkretnej struktury pól. */
+  .mmw-seo-faq__seo-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mmw-seo-faq__seo-body h2,
+  .mmw-seo-faq__seo-body h3 {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .mmw-seo-faq__seo-body p,
+  .mmw-seo-faq__seo-body li {
+    margin: 0;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .mmw-seo-faq__accordions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mmw-seo-faq__accordion {
+    width: 100%;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--MMW-400-stroke, rgba(95, 49, 47, 0.25));
+  }
+
+  .mmw-seo-faq__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mmw-seo-faq__question {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .mmw-seo-faq__chevron {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: var(--mmw-01);
+  }
+
+  .mmw-seo-faq__chevron svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mmw-seo-faq__answer {
+    margin-top: 24px;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .mmw-seo-faq__answer > :first-child {
+    margin-top: 0;
+  }
+
+  .mmw-seo-faq__answer > :last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 750px) {
+    .mmw-seo-faq.section {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 115px;
+    }
+
+    .mmw-seo-faq__col {
+      flex: 1 1 0;
+    }
+
+    /* Gdy tylko jedna kolumna jest wyrenderowana (druga pusta i pominięta w
+       markupie) — :only-child rozciąga ją do czytelnej szerokości i centruje,
+       zamiast zostawiać pustą połowę sekcji. Czysty CSS, bez Liquid. */
+    .mmw-seo-faq__col:only-child {
+      flex: 0 1 720px;
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .mmw-seo-faq__heading {
+      font-size: 44px;
+      margin-bottom: 24px;
+    }
+
+    .mmw-seo-faq__question {
+      font-size: 22px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW SEO + FAQ",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "seo_heading",
+      "label": "Nagłówek kolumny SEO",
+      "default": "O tym winie"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Nagłówek kolumny FAQ",
+      "default": "Najczęstsze pytania"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:settings.color_scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    { "name": "MMW SEO + FAQ", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}
