@@ -454,6 +454,14 @@
         "gap": 64
       }
     },
+    "mmw_product_pairing_1": {
+      "type": "mmw-product-pairing",
+      "settings": {
+        "heading": "Polecamy do",
+        "description": "Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie.",
+        "color_scheme": ""
+      }
+    },
     "product_recommendations_qggXJq": {
       "type": "product-recommendations",
       "blocks": {
@@ -611,6 +619,7 @@
   "order": [
     "main",
     "mmw_product_story_1",
+    "mmw_product_pairing_1",
     "product_recommendations_qggXJq",
     "mmw_heritage_note_w8Qqnf",
     "mmw_product_carousel_wino"

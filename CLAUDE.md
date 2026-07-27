@@ -43,6 +43,8 @@ Nowe:
 12. `mmw-product-story` — dwukolumnowa sekcja: lewa kolumna `mmw-story-stack`, prawa
     kolumna `mmw-sensory-scales` (skale sensoryczne: Wygląd/Aromat/Kwasowość/Ciało),
     źródło: metaobjekty `poziom_skali` / `skala_sensoryczna`.
+13. `mmw-product-pairing` — „Polecamy do": kafelki propozycji podania (obraz, tytuł,
+    opis), nagłówek/opis z ustawień edytora, źródło kafelków: metaobjekt `polecamy_do`.
 Przebudowa:
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.
