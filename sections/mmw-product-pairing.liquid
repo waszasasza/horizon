@@ -1,15 +1,110 @@
 {%- comment -%}
-  mmw-product-pairing — "Polecamy do": propozycje podania produktu (kafelki obraz+
-  tytuł+opis). Nagłówek/opis z ustawień edytora (nie metapola). Kafelki: metaobjekt
-  polecamy_do (pola: tytul, opis, obraz), product.metafields.custom.polecamy_do.
-  Renderuje się TYLKO gdy lista kafelków niepusta — inaczej cała sekcja (razem
-  z nagłówkiem) znika.
+  mmw-product-pairing — "Polecamy do": propozycje podania produktu, jako natywna
+  karuzela Horizon — DOKŁADNIE ten sam wzorzec co mmw-product-carousel.liquid:
+  slideshow + slideshow-slide + slideshow-controls + gutter/peek-width 1:1 z
+  snippets/resource-list.liquid i snippets/resource-list-carousel.liquid. Snippety
+  NIE są modyfikowane — cała mechanika (snap, strzałki na hover, gutter/padding
+  pasa, zachowanie przy krótkiej liście) pochodzi z assets/slideshow.js i
+  snippets/slideshow*.liquid/resource-list*.liquid, tak jak w karuzeli bestsellerów.
+
+  Nagłówek i opis pod nim: ustawienia sekcji (editor), NIE metapola.
+  Kafelki: product.metafields.custom.polecamy_do — lista referencji do
+  metaobjektu polecamy_do (pola: tytul, opis, obraz, opcjonalnie link — jeśli
+  pole nie istnieje w definicji metaobjektu, po prostu nigdy się nie wypełni
+  i kafelek renderuje się bez linku, bez błędu).
+
+  Renderuje się TYLKO gdy lista kafelków niepusta — inaczej cała sekcja
+  (razem z nagłówkiem) znika. Bezpieczna iteracja: wpis może być usunięty,
+  obraz pusty — wartości czytane przez .value, wadliwe pozycje pomijane.
+
   Figma: plik STRONA-WWW, node 982:6305.
 {%- endcomment -%}
 {%- liquid
   assign pairings = product.metafields.custom.polecamy_do.value
 -%}
 {%- if pairings != blank and pairings.size > 0 -%}
+  {%- comment -%} Kafelki → tablica HTML (ten sam trik co cards_concat w mmw-product-carousel.liquid). {%- endcomment -%}
+  {%- capture tiles_concat -%}
+    {%- assign tile_index = 0 -%}
+    {%- for item in pairings -%}
+      {%- if item != blank -%}
+        {%- if tile_index > 0 -%}<!--@mmw-pairing/split-->{%- endif -%}
+        {%- assign tile_index = tile_index | plus: 1 -%}
+        {%- liquid
+          assign tile_title = item.tytul.value
+          assign tile_desc = item.opis.value
+          assign tile_image = item.obraz.value
+          assign tile_link = item.link.value
+        -%}
+        <div class="mmw-pairing__tile">
+          {%- if tile_link != blank -%}
+            <a class="mmw-pairing__tile-link" href="{{ tile_link }}">
+              <span class="visually-hidden">{{ tile_title | default: product.title | escape }}</span>
+            </a>
+          {%- endif -%}
+          {%- if tile_image != blank -%}
+            <div class="mmw-pairing__media">
+              <img
+                class="mmw-pairing__img"
+                loading="lazy"
+                width="225"
+                height="250"
+                src="{{ tile_image | image_url: width: 450 }}"
+                srcset="
+                  {{ tile_image | image_url: width: 225 }} 225w,
+                  {{ tile_image | image_url: width: 450 }} 450w,
+                  {{ tile_image | image_url: width: 675 }} 675w
+                "
+                sizes="(max-width: 749px) 60cqw, 280px"
+                alt=""
+              >
+            </div>
+          {%- endif -%}
+          {%- if tile_title != blank or tile_desc != blank -%}
+            <div class="mmw-pairing__body">
+              {%- if tile_title != blank -%}
+                <p class="mmw-pairing__title">{{ tile_title }}</p>
+              {%- endif -%}
+              {%- if tile_desc != blank -%}
+                <p class="mmw-pairing__desc">{{ tile_desc }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- assign tiles_array = tiles_concat | strip | split: '<!--@mmw-pairing/split-->' -%}
+
+  {%- comment -%}
+    Od tego miejsca w dół — logika 1:1 skopiowana z mmw-product-carousel.liquid
+    (samo pochodzi z snippets/resource-list.liquid + snippets/resource-list-carousel.liquid).
+  {%- endcomment -%}
+  {%- capture resource_list_style -%}
+    --resource-list-column-gap-desktop: 28px;
+    --column-count: 3;
+    --column-count-mobile: 1;
+    --mobile-card-size: 60cqw;
+  {%- endcapture -%}
+
+  {%- liquid
+    assign carousel_ref = 'mmwPairing-' | append: section.id
+    # Gutter 1:1 jak w mmw-product-carousel.liquid / resource-list-carousel.liquid: div ze
+    # zmiennymi wokół <slideshow-component>, gutters="start end" generuje ślepe guttery
+    # o szerokości --gutter-slide-width na początku/końcu pasa — jedyny mechanizm
+    # wyrównania skrajnych kart, bez żadnego własnego paddingu z naszej strony.
+    assign slideshow_gutters = 'start end'
+    assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, var(--page-margin, 40px)); --slide-width-max: 280px;'
+  -%}
+  {%- capture carousel_slides -%}
+    {%- for item in tiles_array -%}
+      {%- render 'slideshow-slide', index: forloop.index0, children: item, class: 'resource-list__slide' -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture carousel_controls -%}
+    {%- render 'slideshow-controls', style: 'dots', item_count: tiles_array.size, show_arrows: false, pagination_position: 'center' -%}
+  {%- endcapture -%}
+
   <section class="mmw-pairing section color-{{ section.settings.color_scheme }}">
     {%- if section.settings.heading != blank or section.settings.description != blank -%}
       <div class="mmw-pairing__head">
@@ -21,46 +116,24 @@
         {%- endif -%}
       </div>
     {%- endif -%}
-    <div class="mmw-pairing__grid">
-      {%- for item in pairings -%}
-        {%- if item != blank -%}
-          {%- liquid
-            assign tile_title = item.tytul.value
-            assign tile_desc = item.opis.value
-            assign tile_image = item.obraz.value
-          -%}
-          <div class="mmw-pairing__tile">
-            {%- if tile_image != blank -%}
-              <div class="mmw-pairing__media">
-                <img
-                  class="mmw-pairing__img"
-                  src="{{ tile_image | image_url: width: 450 }}"
-                  srcset="
-                    {{ tile_image | image_url: width: 225 }} 225w,
-                    {{ tile_image | image_url: width: 450 }} 450w,
-                    {{ tile_image | image_url: width: 675 }} 675w
-                  "
-                  sizes="225px"
-                  width="225"
-                  height="250"
-                  alt="{{ tile_title | default: product.title | escape }}"
-                  loading="lazy"
-                >
-              </div>
-            {%- endif -%}
-            {%- if tile_title != blank or tile_desc != blank -%}
-              <div class="mmw-pairing__body">
-                {%- if tile_title != blank -%}
-                  <p class="mmw-pairing__title">{{ tile_title }}</p>
-                {%- endif -%}
-                {%- if tile_desc != blank -%}
-                  <p class="mmw-pairing__desc">{{ tile_desc }}</p>
-                {%- endif -%}
-              </div>
-            {%- endif -%}
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
+
+    <div class="resource-list resource-list__carousel mmw-pairing__carousel-wrap" style="{{ resource_list_style }}">
+      <div style="{{ gutter_style }}">
+        {%- render 'slideshow',
+          ref: carousel_ref,
+          class: 'resource-list__carousel',
+          slides: carousel_slides,
+          show_arrows: true,
+          icon_style: 'arrow',
+          icon_shape: 'circle',
+          auto_hide_controls: false,
+          infinite: false,
+          initial_slide: 0,
+          slide_count: tiles_array.size,
+          slideshow_gutters: slideshow_gutters,
+          controls: carousel_controls
+        -%}
+      </div>
     </div>
   </section>
 {%- endif -%}
@@ -69,17 +142,15 @@
   /* .section wyłącznie po to, żeby odziedziczyć --util-page-margin-offset
      (assets/base.css). Compound selector .mmw-pairing.section ma wyższą
      specyficzność niż samo .section, więc nadpisuje jego display:grid z
-     powrotem na nasz flex, niezależnie od kolejności ładowania arkuszy —
-     dedykowany blok stylów tej sekcji nie jest scopowany po ID sekcji, więc
-     specyficzność (nie ID) musi wystarczyć. Ten sam cel co ID-scoped reguła
-     w mmw-product-carousel.liquid, inny mechanizm bo inny sposób stylowania. */
+     powrotem na nasz flex — ten sam cel co ID-scoped reguła w
+     mmw-product-carousel.liquid, inny mechanizm bo ten dedykowany blok
+     stylów tej sekcji nie jest scopowany po ID sekcji jak klasyczny
+     mechanizm stylowania z tamtego pliku. */
   .mmw-pairing.section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 30px;
+    gap: 32px;
     padding-block: 60px;
-    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
   }
 
   .mmw-pairing__head {
@@ -89,6 +160,7 @@
     gap: 10px;
     text-align: center;
     color: var(--mmw-01);
+    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
   }
 
   .mmw-pairing__heading {
@@ -107,25 +179,59 @@
     line-height: 1.4;
   }
 
-  .mmw-pairing__grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 28px;
+  /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
+  .mmw-pairing__carousel-wrap {
     width: 100%;
   }
 
+  .mmw-pairing__carousel-wrap .resource-list__slide {
+    scroll-snap-align: start;
+  }
+
+  .mmw-pairing slideshow-slides {
+    padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    padding-inline-end: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    scroll-padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+  }
+
+  .mmw-pairing .resource-list__slide,
+  .mmw-pairing slideshow-slide {
+    scroll-snap-align: start;
+  }
+
+  /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots) — kolory przez
+     zmienne komponentu, bez twardych selektorów. Natywnie kropki są barwione przez
+     mix-blend-mode: difference (myślane pod kropki na zdjęciu/mediach) — u nas stoją
+     na tle sekcji, więc wyłączamy to i barwimy wprost — ten sam wyjątek co w
+     mmw-product-carousel.liquid. */
+  .mmw-pairing slideshow-controls {
+    margin-top: 8px;
+    mix-blend-mode: normal;
+    --color: rgba(95, 49, 47, 0.25);
+    --color-active: var(--mmw-01, #5f312f);
+    --color-hover: rgba(95, 49, 47, 0.4);
+  }
+
+  /* Treść kafelka (nie geometria slajdu — to daje resource-list-carousel) */
   .mmw-pairing__tile {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 18px;
-    width: 225px;
+    width: 100%;
+  }
+
+  .mmw-pairing__tile-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   .mmw-pairing__media {
-    width: 225px;
-    height: 250px;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 225 / 250;
     border-radius: 20px;
     overflow: hidden;
   }
@@ -164,7 +270,7 @@
     line-height: 1.4;
   }
 
-  @media (max-width: 749px) {
+  @media (max-width: 989px) {
     .mmw-pairing.section {
       padding-block: 40px;
       gap: 24px;
@@ -173,25 +279,41 @@
     .mmw-pairing__heading {
       font-size: 44px;
     }
+  }
+
+  @media (max-width: 749px) {
+    /* Mobile: jedna karta na ekran, wycentrowana, ze skrawkami sąsiadów po bokach —
+       ten sam mechanizm co --mmw-pc-gutter-mobile w mmw-product-carousel.liquid. */
+    .mmw-pairing {
+      --mmw-pairing-gutter-mobile: 36px;
+    }
+
+    .mmw-pairing__head {
+      padding-inline: var(--mmw-pairing-gutter-mobile);
+    }
 
     .mmw-pairing__description {
       max-width: 100%;
     }
 
-    .mmw-pairing__grid {
-      flex-direction: column;
-      align-items: center;
+    .mmw-pairing slideshow-arrows {
+      display: none;
     }
 
-    .mmw-pairing__tile {
-      width: 100%;
-      max-width: 320px;
+    .mmw-pairing slideshow-slides {
+      padding-inline-start: var(--mmw-pairing-gutter-mobile) !important;
+      padding-inline-end: var(--mmw-pairing-gutter-mobile) !important;
+      scroll-padding-inline-start: var(--mmw-pairing-gutter-mobile) !important;
+      scroll-padding-inline-end: var(--mmw-pairing-gutter-mobile) !important;
     }
 
-    .mmw-pairing__media {
-      width: 100%;
-      height: auto;
-      aspect-ratio: 225 / 250;
+    .mmw-pairing__carousel-wrap .resource-list__slide {
+      --slide-width: calc((100vw - 2 * var(--mmw-pairing-gutter-mobile) + 12px) * 0.85);
+    }
+
+    .mmw-pairing .resource-list__slide,
+    .mmw-pairing slideshow-slide {
+      scroll-snap-align: center;
     }
   }
 {% endstylesheet %}
