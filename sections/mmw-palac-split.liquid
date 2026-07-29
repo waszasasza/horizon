@@ -191,6 +191,9 @@
     .mmw-palac-split__content {
       flex: 1 1 0;
       min-width: 0;
+      /* Wg Figmy (1440px i 1920px): kolumna treści ma padding-inline 0 przy
+         1440px i 70px przy 1920px — fluidnie interpolowane, nie stały blok. */
+      padding-inline: clamp(0px, calc((100vw - 1440px) * 70 / 480), 70px);
     }
 
     .mmw-palac-split__heading {
