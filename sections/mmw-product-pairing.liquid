@@ -103,6 +103,17 @@
     # wyrównania skrajnych kart, bez żadnego własnego paddingu z naszej strony.
     assign slideshow_gutters = 'start end'
     assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, var(--page-margin, 40px)); --slide-width-max: 280px;'
+
+    # Strzałki tylko gdy jest co przewijać na desktopie: --column-count (wyżej) = 5,
+    # więc przy <=5 kafelkach cały rząd mieści się bez scrolla. Liczone z Liquid
+    # (znany w czasie renderu tiles_array.size i stała liczba kolumn), nie z JS —
+    # natywny atrybut [disabled] na strzałkach nie ukrywa ich, tylko wyszarza.
+    # Mobile i tak chowa strzałki całkowicie w CSS (@media max-width:749px) niżej,
+    # więc ten warunek dotyczy wyłącznie desktopu.
+    assign show_arrows = false
+    if tiles_array.size > 5
+      assign show_arrows = true
+    endif
   -%}
   {%- capture carousel_slides -%}
     {%- for item in tiles_array -%}
@@ -131,10 +142,10 @@
           ref: carousel_ref,
           class: 'resource-list__carousel',
           slides: carousel_slides,
-          show_arrows: true,
+          show_arrows: show_arrows,
           icon_style: 'arrow',
           icon_shape: 'circle',
-          auto_hide_controls: false,
+          auto_hide_controls: true,
           infinite: false,
           initial_slide: 0,
           slide_count: tiles_array.size,
