@@ -83,9 +83,14 @@
     Od tego miejsca w dół — logika 1:1 skopiowana z mmw-product-carousel.liquid
     (samo pochodzi z snippets/resource-list.liquid + snippets/resource-list-carousel.liquid).
   {%- endcomment -%}
+  {%- comment -%}
+    --column-count: 5 na desktopie (container query ≥750px w resource-list-carousel.liquid
+    liczy szerokość slajdu z tej wartości: (100% - gap*(count-1) - peek) / count) — mobile
+    nieruszone, bo tam szerokość idzie z zupełnie innej gałęzi (clamp z --mobile-card-size).
+  {%- endcomment -%}
   {%- capture resource_list_style -%}
     --resource-list-column-gap-desktop: 28px;
-    --column-count: 3;
+    --column-count: 5;
     --column-count-mobile: 1;
     --mobile-card-size: 60cqw;
   {%- endcapture -%}
