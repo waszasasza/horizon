@@ -478,6 +478,11 @@
         "color_scheme": ""
       }
     },
+    "mmw_palac_split_1": {
+      "type": "mmw-palac-split",
+      "name": "MMW Pałac — split",
+      "settings": {}
+    },
     "mmw_product_seo_faq_1": {
       "type": "mmw-product-seo-faq",
       "name": "MMW SEO + FAQ",
@@ -494,6 +499,7 @@
     "mmw_product_pairing_1",
     "mmw_heritage_note_w8Qqnf",
     "mmw_product_recommendations_1",
+    "mmw_palac_split_1",
     "mmw_product_seo_faq_1"
   ]
 }

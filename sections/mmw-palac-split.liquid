@@ -1,0 +1,237 @@
+{%- comment -%}
+  mmw-palac-split — "Zarezerwuj wizytę w Pałacu": split obraz + treść.
+  Sekcja ogólnosklepowa (reużywalna na głównej i na stronie produktu) — cała
+  treść z ustawień edytora, bez metapól.
+
+  Figma: plik STRONA-WWW, node 982:13783.
+{%- endcomment -%}
+
+<section class="mmw-palac-split section color-{{ section.settings.color_scheme }}">
+  <div class="mmw-palac-split__inner">
+    <div class="mmw-palac-split__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          class="mmw-palac-split__img"
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          srcset="{{ section.settings.image | image_url: width: 600 }} 600w,
+                  {{ section.settings.image | image_url: width: 900 }} 900w,
+                  {{ section.settings.image | image_url: width: 1200 }} 1200w,
+                  {{ section.settings.image | image_url: width: 1600 }} 1600w"
+          sizes="(max-width: 749px) 100vw, 48vw"
+          alt="{{ section.settings.image.alt | escape }}"
+          width="1200"
+          height="1266"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </div>
+
+    <div class="mmw-palac-split__content">
+      {%- if section.settings.label != blank or section.settings.heading != blank or section.settings.description != blank -%}
+        <div class="mmw-palac-split__copy">
+          {%- if section.settings.label != blank -%}
+            <p class="mmw-palac-split__label">{{ section.settings.label }}</p>
+          {%- endif -%}
+          {%- if section.settings.heading != blank -%}
+            <h2 class="mmw-palac-split__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.description != blank -%}
+            <p class="mmw-palac-split__desc">{{ section.settings.description }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.offer_line != blank or section.settings.button_label != blank -%}
+        <div class="mmw-palac-split__cta">
+          {%- if section.settings.offer_line != blank -%}
+            <p class="mmw-palac-split__offer">{{ section.settings.offer_line }}</p>
+          {%- endif -%}
+          {%- if section.settings.button_label != blank -%}
+            <a class="button mmw-palac-split__button" href="{{ section.settings.button_link | default: '#' }}">
+              {{ section.settings.button_label }}
+              <span class="svg-wrapper mmw-palac-split__button-icon" aria-hidden="true">
+                {{- 'mmw-icon-calendar-check.svg' | inline_asset_content -}}
+              </span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .mmw-palac-split {
+    display: flex;
+    flex-direction: column;
+    padding-block: 40px;
+    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
+  }
+
+  .mmw-palac-split__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .mmw-palac-split__media {
+    width: 100%;
+    aspect-ratio: 629 / 664;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--mmw-03);
+  }
+
+  .mmw-palac-split__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mmw-palac-split__content {
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+  }
+
+  .mmw-palac-split__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .mmw-palac-split__label,
+  .mmw-palac-split__offer {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+  }
+
+  .mmw-palac-split__heading {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 80px;
+    line-height: 1.2;
+    letter-spacing: normal;
+    color: var(--mmw-01);
+  }
+
+  .mmw-palac-split__desc {
+    margin: 0;
+    max-width: 532px;
+    font-family: var(--mmw-font-text);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--mmw-01);
+  }
+
+  .mmw-palac-split__cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .mmw-palac-split__button {
+    --button-background-color: var(--mmw-02);
+    --button-color: var(--mmw-01);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding-block: 16px;
+    padding-inline: 24px;
+    font-size: 14px;
+  }
+
+  .mmw-palac-split__button:hover {
+    --button-background-color: var(--mmw-02);
+    --button-color: var(--mmw-01);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .mmw-palac-split__button-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+  }
+
+  .mmw-palac-split__button-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  @media (min-width: 750px) {
+    .mmw-palac-split {
+      padding-block: 60px;
+    }
+
+    .mmw-palac-split__inner {
+      flex-direction: row;
+      align-items: center;
+      gap: 96px;
+    }
+
+    .mmw-palac-split__media {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .mmw-palac-split__content {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+
+  @media (max-width: 989px) {
+    .mmw-palac-split__heading {
+      font-size: 56px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .mmw-palac-split__heading {
+      font-size: 40px;
+    }
+
+    .mmw-palac-split__desc {
+      max-width: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Pałac — split",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+    { "type": "text", "id": "label", "label": "Etykieta górna", "default": "PAŁAC MAŁA WIEŚ" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zarezerwuj wizytę w Pałacu" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Opis",
+      "default": "„Czy w malowniczej scenerii południowego Mazowsza można stworzyć magiczną przestrzeń, która emanuje luksusem, dobrym smakiem i wyrafinowaniem? Jak najbardziej! Jesteśmy tego doskonałym przykładem. Naszą bazą jest dawny majątek ziemski o fascynującej historii. Przez dekady Pałac Mała Wieś zachwycał przepychem, gustem i finezją. Nie dziwi, że ulegliśmy temu czarowi, który dziś jest w Twoim zasięgu."
+    },
+    { "type": "text", "id": "offer_line", "label": "Linia oferty", "default": "HOTEL | RESTAURACJA | SPA | WESELA" },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Zarezerwuj teraz" },
+    { "type": "url", "id": "button_link", "label": "Link przycisku" },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" }
+  ],
+  "presets": [
+    { "name": "MMW Pałac — split" }
+  ]
+}
+{% endschema %}
