@@ -195,11 +195,26 @@
     padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
     padding-inline-end: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
     scroll-padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    /* Domyślnie align-items: normal ≈ stretch — rozciąga wszystkie slajdy do
+       wspólnej wysokości najwyższego. U nas kafelek to obraz + tekst w stosie
+       (nie nałożony absolutnie jak w mmw-carousel-card), więc bywa wyższy niż
+       natywny slideshow-slide { max-height: 100% } na to pozwala — stretch +
+       ta natywna reguła obcinały kafelek. start = brak rozciągania. */
+    align-items: start;
   }
 
   .mmw-pairing .resource-list__slide,
   .mmw-pairing slideshow-slide {
     scroll-snap-align: start;
+    /* Zdejmujemy natywny limit wysokości slajdu (slideshow-styles.liquid:
+       max-height: 100%; overflow: hidden) TYLKO w scope tej sekcji — kafelek
+       (obraz + tytuł + opis w normalnym flow) bywa wyższy niż sam obraz i był
+       przez to obcinany. overflow-x zostaje hidden, żeby nie rozjechać
+       szerokości/scrollowania pasa — tniemy tylko oś pionową. */
+    max-height: none;
+    overflow-x: hidden;
+    overflow-y: visible;
+    align-self: start;
   }
 
   /* Kropki wyśrodkowane pod karuzelą (native .slideshow-controls__dots) — kolory przez
