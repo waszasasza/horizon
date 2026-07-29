@@ -126,7 +126,6 @@
 
   .mmw-palac-split__desc {
     margin: 0;
-    max-width: 532px;
     font-family: var(--mmw-font-text);
     font-weight: 400;
     font-size: 16px;
@@ -191,9 +190,9 @@
     .mmw-palac-split__content {
       flex: 1 1 0;
       min-width: 0;
-      /* Wg Figmy (1440px i 1920px): kolumna treści ma padding-inline 0 przy
-         1440px i 70px przy 1920px — fluidnie interpolowane, nie stały blok. */
-      padding-inline: clamp(0px, calc((100vw - 1440px) * 70 / 480), 70px);
+      /* 750–1440px: ten sam gutter co reszta sekcji MMW (--util-page-margin-offset),
+         zamiast osobnej, jednorazowej wartości — spójnie z resztą sekcji. */
+      padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
     }
 
     .mmw-palac-split__heading {
@@ -201,9 +200,15 @@
     }
   }
 
-  @media (max-width: 749px) {
-    .mmw-palac-split__desc {
-      max-width: none;
+  @media (min-width: 1440px) {
+    .mmw-palac-split__content {
+      /* Od 1440px w górę: fluidny wzrost od gutteru (jak wyżej) do 70px przy
+         1920px, wg Figmy (node 1189:5157 @1440 / 1189:5125 @1920). */
+      padding-inline: clamp(
+        var(--util-page-margin-offset, var(--page-margin, 40px)),
+        calc(var(--util-page-margin-offset, var(--page-margin, 40px)) + (100vw - 1440px) * 30 / 480),
+        70px
+      );
     }
   }
 {% endstylesheet %}
