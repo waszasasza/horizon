@@ -124,7 +124,7 @@
     {%- render 'slideshow-controls', style: 'dots', item_count: tiles_array.size, show_arrows: false, pagination_position: 'center' -%}
   {%- endcapture -%}
 
-  <section class="mmw-pairing section color-{{ section.settings.color_scheme }}">
+  <section class="mmw-pairing section color-{{ section.settings.color_scheme }}{% unless show_arrows %} mmw-pairing--fits-desktop{% endunless %}">
     {%- if section.settings.heading != blank or section.settings.description != blank -%}
       <div class="mmw-pairing__head">
         {%- if section.settings.heading != blank -%}
@@ -244,6 +244,20 @@
     --color: rgba(95, 49, 47, 0.25);
     --color-active: var(--mmw-01, #5f312f);
     --color-hover: rgba(95, 49, 47, 0.4);
+  }
+
+  /* Kropki na desktopie: auto-hide-controls (natywny JS, mierzy scrollWidth vs
+     offsetWidth) nie chował ich niezawodnie przy pierwszym renderze — pomiar
+     najwyraźniej łapie moment przed ostatecznym layoutem/container query.
+     Ten sam warunek co przy strzałkach (--column-count: 5, policzone w Liquid
+     jako show_arrows), tylko doklejony jako klasa na sekcji: przy <=5 kafelkach
+     desktop nigdy nie scrolluje, więc kropki są tam zbędne bez względu na
+     dokładną szerokość viewportu ≥750px. Mobile (auto-hide-controls z JS)
+     zostaje bez zmian. */
+  @media (min-width: 750px) {
+    .mmw-pairing--fits-desktop slideshow-controls {
+      display: none;
+    }
   }
 
   /* Treść kafelka (nie geometria slajdu — to daje resource-list-carousel) */
