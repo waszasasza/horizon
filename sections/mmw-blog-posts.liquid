@@ -1,47 +1,251 @@
 {%- comment -%}
-  mmw-blog-posts — "Nasze artykuły". Siatka wpisów z bloga + paginacja.
-  Karta: zdjęcie (rounded 13) + data + tytuł + zajawka.
+  mmw-blog-posts — "Nasze artykuły": karuzela wpisów bloga, wzorem mmw-product-carousel.liquid
+  (ten sam mechanizm: natywny slideshow + resource-list-carousel, ten sam gap/peek/gutter,
+  strzałki/kropki chowane gdy nie ma czego przewijać — jak w mmw-product-pairing.liquid).
+  Ostatni slajd = karta CTA "Zobacz więcej artykułów", ZAWSZE (nie ma checkboxa on/off jak
+  w mmw-product-carousel — karuzela nie ma paginacji, to jedyna droga powrotu do pełnej
+  listy bloga).
+
+  PRZEBUDOWANA z gridu + {% paginate %}. Oryginał brał artykuły przez kontekstowy globalny
+  `blog` (blog.articles), a schema nie miała enabled_on/templates — sekcję dało się dodać
+  edytorem na dowolną stronę; poza szablonem bloga `blog` bywa nil, stąd
+  "Array 'blog.articles' is not paginateable". Ta wersja bierze blog przez WŁASNE ustawienie
+  sekcji (blog picker, jak natywny featured-blog-posts.liquid) — działa identycznie
+  niezależnie od tego, na jakiej stronie stoi. Naprawia przyczynę, nie tylko objaw.
+
+  Karta: snippets/mmw-post-card.liquid, bez zmian.
 {%- endcomment -%}
-{%- style -%}
-  #shopify-section-{{ section.id }} .mmw-bp { display:flex; flex-direction:column; align-items:center; gap:35px; padding-block:40px; padding-inline: var(--page-margin, 40px); }
-  #shopify-section-{{ section.id }} .mmw-bp__head { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
-  #shopify-section-{{ section.id }} .mmw-bp__grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:50px 38px; width:100%; }
-  #shopify-section-{{ section.id }} .mmw-bp__card { display:flex; flex-direction:column; gap:13px; text-decoration:none; }
-  #shopify-section-{{ section.id }} .mmw-bp__img { width:100%; aspect-ratio: 355 / 429; border-radius:13px; overflow:hidden; }
-  #shopify-section-{{ section.id }} .mmw-bp__img img, #shopify-section-{{ section.id }} .mmw-bp__img svg { width:100%; height:100%; object-fit:cover; display:block; }
-  #shopify-section-{{ section.id }} .mmw-bp__date { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
-  #shopify-section-{{ section.id }} .mmw-bp__title { font-family: var(--mmw-font-display); font-weight:400; font-size:36px; line-height:1; color: var(--mmw-01); margin:0; }
-  #shopify-section-{{ section.id }} .mmw-bp__excerpt { font-family: var(--mmw-font-text); font-size:18px; line-height:1.4; color: var(--mmw-01); margin:0; }
-  #shopify-section-{{ section.id }} .mmw-bp__btn { display:inline-flex; align-items:center; justify-content:center; background: var(--mmw-03); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:20px 45px; border-radius:30px; text-decoration:none; }
-  @media (max-width:989px){ #shopify-section-{{ section.id }} .mmw-bp__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width:649px){ #shopify-section-{{ section.id }} .mmw-bp__grid { grid-template-columns: 1fr; } }
-{%- endstyle -%}
-<section class="mmw-bp">
-  {%- if section.settings.heading != blank -%}<p class="mmw-bp__head">{{ section.settings.heading }}</p>{%- endif -%}
-  {%- paginate blog.articles by section.settings.per_page -%}
-    <div class="mmw-bp__grid">
-      {%- for post in blog.articles -%}
-        <a class="mmw-bp__card" href="{{ post.url }}">
-          <div class="mmw-bp__img">{%- if post.image -%}<img src="{{ post.image | image_url: width: 720 }}" alt="{{ post.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
-          <p class="mmw-bp__date">{{ post.published_at | date: '%d/%m/%Y' }}</p>
-          <p class="mmw-bp__title">{{ post.title }}</p>
-          <p class="mmw-bp__excerpt">{{ post.excerpt_or_content | strip_html | truncatewords: 14 }}</p>
-        </a>
-      {%- endfor -%}
+{%- liquid
+  assign blog_ref = section.settings.blog
+  assign count = section.settings.posts_count | default: 8
+  assign columns = section.settings.columns | default: 3
+  assign columns_gap = section.settings.columns_gap | default: 24
+  assign mobile_card_size = section.settings.mobile_card_size | default: '60cqw'
+
+  # sizes — identyczny wzór co mmw-product-carousel.liquid (pełne uzasadnienie tam):
+  # desktop (100vw - gap*(columns-1) - peek) / columns, peek = --peek-next-slide-size
+  # (theme-styles-variables.liquid, 3rem/48px), 100vw bo .mmw-bp jest full-bleed (bez
+  # schema "class":"section"). Mobile: ten sam clamp, cqw→vw (liczbowo równoważne, kontener
+  # też full-bleed).
+  assign gaps_and_peek = columns | minus: 1 | times: columns_gap | plus: 48
+  assign mobile_vw = mobile_card_size | default: '60cqw' | replace: 'cqw', 'vw'
+  assign card_sizes = 'auto, (max-width: 749px) clamp(150px, ' | append: mobile_vw | append: ', 400px), calc((100vw - ' | append: gaps_and_peek | append: 'px) / ' | append: columns | append: ')'
+-%}
+{%- if blog_ref != blank and blog_ref.articles.size > 0 -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .mmw-bp { display: flex; flex-direction: column; gap: 32px; padding-block: 60px; }
+    #shopify-section-{{ section.id }} .mmw-bp__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px)); }
+    #shopify-section-{{ section.id }} .mmw-bp__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 50px; line-height: 1; }
+    #shopify-section-{{ section.id }} .mmw-bp__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
+
+    #shopify-section-{{ section.id }} .mmw-bp__carousel-wrap { width: 100%; }
+    .mmw-bp__carousel-wrap .resource-list__slide { scroll-snap-align: start; }
+
+    #shopify-section-{{ section.id }} slideshow-controls {
+      margin-top: 8px;
+      mix-blend-mode: normal;
+      --color: rgba(95, 49, 47, 0.25);
+      --color-active: var(--mmw-01, #5f312f);
+      --color-hover: rgba(95, 49, 47, 0.4);
+    }
+
+    /* Kropki na desktopie: chowane gdy wszystkie kafelki (posty + CTA) mieszczą się
+       w jednym rzędzie bez scrolla — ten sam wzorzec co mmw-pairing--fits-desktop
+       w mmw-product-pairing.liquid. mmw-product-carousel (wzorzec mechaniki karuzeli)
+       tego NIE robi, ale tam produktów zwykle jest sporo; tu liczba wpisów bywa mała,
+       więc świadomie dokładam tę poprawkę. */
+    @media (min-width: 750px) {
+      .mmw-bp--fits-desktop slideshow-controls { display: none; }
+
+      /* Przy małej liczbie kafelków (rzadsze niż u produktów — patrz komentarz wyżej)
+         rząd nie scrolluje i mieści się w całości między gutterami — bez tego domyślny
+         justify-content: flex-start zostawia kafelki przyklejone do lewej z pustym
+         miejscem po prawej. Ten sam fix co mmw-pairing--fits-desktop w
+         mmw-product-pairing.liquid. */
+      .mmw-bp--fits-desktop slideshow-slides {
+        justify-content: center;
+      }
+    }
+
+    /* Karta końcowa "Zobacz więcej artykułów" — te same tokeny --mmw-media-card-*
+       co snippets/mmw-post-card.liquid (nie ad-hoc jak starszy .mmw-pc__end, ten plik
+       powstał już po wprowadzeniu tokenów). */
+    #shopify-section-{{ section.id }} .mmw-bp__end {
+      position: relative; display: flex; width: 100%;
+      aspect-ratio: var(--mmw-media-card-ratio);
+      border: 1px solid rgba(95, 49, 47, .25);
+      border-radius: var(--mmw-media-card-radius);
+      overflow: hidden;
+      align-items: center; justify-content: center; text-align: center;
+      padding: var(--mmw-media-card-padding);
+      text-decoration: none; background: var(--mmw-04);
+      transition: background-color .3s ease;
+    }
+    #shopify-section-{{ section.id }} .mmw-bp__end:hover { background: var(--mmw-03); }
+    #shopify-section-{{ section.id }} .mmw-bp__end-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .18; }
+    #shopify-section-{{ section.id }} .mmw-bp__end-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+    #shopify-section-{{ section.id }} .mmw-bp__end-heading { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 36px; line-height: 1.1; color: var(--mmw-01); }
+    #shopify-section-{{ section.id }} .mmw-bp__end-btn {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--mmw-01); color: var(--mmw-04);
+      display: grid; place-items: center;
+    }
+    #shopify-section-{{ section.id }} .mmw-bp__end-btn .icon-arrow,
+    #shopify-section-{{ section.id }} .mmw-bp__end-btn svg { width: 22px; height: 22px; }
+
+    .mmw-bp slideshow-slides {
+      padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+      padding-inline-end: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+      scroll-padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    }
+    .mmw-bp .resource-list__slide,
+    .mmw-bp slideshow-slide {
+      scroll-snap-align: start;
+    }
+
+    @media (max-width: 989px) {
+      #shopify-section-{{ section.id }} .mmw-bp { padding-block: 40px; gap: 36px; }
+      #shopify-section-{{ section.id }} .mmw-bp__title { font-size: 36px; }
+    }
+    @media (max-width: 749px) {
+      #shopify-section-{{ section.id }} .mmw-bp { --mmw-bp-gutter-mobile: 36px; }
+      #shopify-section-{{ section.id }} .mmw-bp__head { padding-inline: var(--mmw-bp-gutter-mobile); }
+
+      .mmw-bp slideshow-arrows { display: none; }
+
+      .mmw-bp slideshow-slides {
+        padding-inline-start: var(--mmw-bp-gutter-mobile) !important;
+        padding-inline-end: var(--mmw-bp-gutter-mobile) !important;
+        scroll-padding-inline-start: var(--mmw-bp-gutter-mobile) !important;
+        scroll-padding-inline-end: var(--mmw-bp-gutter-mobile) !important;
+      }
+
+      #shopify-section-{{ section.id }} .mmw-bp__carousel-wrap .resource-list__slide {
+        --slide-width: calc((100vw - 2 * var(--mmw-bp-gutter-mobile) + 12px) * 0.85);
+      }
+
+      .mmw-bp .resource-list__slide,
+      .mmw-bp slideshow-slide {
+        scroll-snap-align: center;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- comment -%} Karty postów + karta CTA (zawsze) → tablica HTML, ten sam trik co w mmw-product-carousel.liquid. {%- endcomment -%}
+  {%- capture cards_concat -%}
+    {%- assign item_index = 0 -%}
+    {%- for post in blog_ref.articles limit: count -%}
+      {%- if item_index > 0 -%}<!--@mmw-bp/split-->{%- endif -%}
+      {%- assign item_index = item_index | plus: 1 -%}
+      {%- render 'mmw-post-card', article: post, section_id: section.id, sizes: card_sizes -%}
+    {%- endfor -%}
+    {%- if item_index > 0 -%}<!--@mmw-bp/split-->{%- endif -%}
+    <a class="mmw-bp__end" href="{{ section.settings.end_card_link | default: blog_ref.url }}">
+      {%- if section.settings.end_card_image != blank -%}
+        <img class="mmw-bp__end-img" src="{{ section.settings.end_card_image | image_url: width: 640 }}" width="640" height="980" alt="" loading="lazy">
+      {%- endif -%}
+      <div class="mmw-bp__end-content">
+        <p class="mmw-bp__end-heading">{{ section.settings.end_card_heading | newline_to_br }}</p>
+        <span class="mmw-bp__end-btn" aria-hidden="true">
+          <span class="svg-wrapper icon-arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+        </span>
+      </div>
+    </a>
+  {%- endcapture -%}
+  {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-bp/split-->' -%}
+
+  {%- capture resource_list_style -%}
+    --resource-list-column-gap-desktop: {{ columns_gap }}px;
+    --column-count: {{ columns }};
+    --column-count-mobile: 1;
+    --mobile-card-size: {{ mobile_card_size }};
+  {%- endcapture -%}
+
+  {%- liquid
+    assign carousel_ref = 'mmwBp-' | append: section.id
+    assign show_arrows = false
+    if section.settings.icons_style != 'none' and cards_array.size > columns
+      assign show_arrows = true
+    endif
+    assign slideshow_gutters = 'start end'
+    assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, var(--page-margin, 40px)); --slide-width-max: 400px;'
+  -%}
+  {%- capture carousel_slides -%}
+    {%- for item in cards_array -%}
+      {%- render 'slideshow-slide', index: forloop.index0, children: item, class: 'resource-list__slide' -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture carousel_controls -%}
+    {%- render 'slideshow-controls', style: 'dots', item_count: cards_array.size, show_arrows: false, pagination_position: 'center' -%}
+  {%- endcapture -%}
+
+  <section class="mmw-bp section color-{{ section.settings.color_scheme }}{% if cards_array.size <= columns %} mmw-bp--fits-desktop{% endif %}">
+    <div class="mmw-bp__head">
+      {%- if section.settings.heading != blank -%}<h2 class="mmw-bp__title">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.description != blank -%}<p class="mmw-bp__desc">{{ section.settings.description }}</p>{%- endif -%}
     </div>
-    {%- if paginate.next -%}
-      <a class="mmw-bp__btn" href="{{ paginate.next.url }}">{{ section.settings.button_label }}</a>
-    {%- endif -%}
-  {%- endpaginate -%}
-</section>
+
+    <div class="resource-list resource-list__carousel mmw-bp__carousel-wrap" style="{{ resource_list_style }}">
+      <div style="{{ gutter_style }}">
+        {%- render 'slideshow',
+          ref: carousel_ref,
+          class: 'resource-list__carousel',
+          slides: carousel_slides,
+          show_arrows: show_arrows,
+          icon_style: section.settings.icons_style,
+          icon_shape: section.settings.icons_shape,
+          auto_hide_controls: false,
+          infinite: false,
+          initial_slide: 0,
+          slide_count: cards_array.size,
+          slideshow_gutters: slideshow_gutters,
+          controls: carousel_controls
+        -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
 {% schema %}
 {
   "name": "MMW Blog wpisy",
   "tag": "section",
   "settings": [
     { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Nasze artykuły" },
-    { "type": "range", "id": "per_page", "min": 3, "max": 12, "step": 3, "label": "Wpisów na stronę", "default": 6 },
-    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Załaduj więcej" }
+    { "type": "textarea", "id": "description", "label": "Opis (opcjonalnie)" },
+    { "type": "blog", "id": "blog", "label": "Blog" },
+    { "type": "range", "id": "posts_count", "min": 2, "max": 16, "step": 1, "label": "Liczba wpisów", "default": 8 },
+    { "type": "color_scheme", "id": "color_scheme", "label": "Schemat kolorów (strzałki, kropki)", "default": "scheme-1" },
+    { "type": "header", "content": "Karuzela (jak w natywnych karuzelach produktów)" },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Kart na widok (desktop)", "default": 3 },
+    { "type": "range", "id": "columns_gap", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "Odstęp między kartami", "default": 24 },
+    {
+      "type": "select", "id": "mobile_card_size", "label": "Rozmiar karty (mobile)", "default": "60cqw",
+      "options": [
+        { "value": "60cqw", "label": "Duża (ok. 1 karta na ekranie)" },
+        { "value": "44cqw", "label": "Mniejsza (ok. 2 karty na ekranie)" }
+      ]
+    },
+    {
+      "type": "select", "id": "icons_style", "label": "Styl strzałek", "default": "arrow",
+      "options": [
+        { "value": "arrow", "label": "Strzałka" },
+        { "value": "chevron", "label": "Szewron" },
+        { "value": "arrows_large", "label": "Strzałka (duża)" },
+        { "value": "chevron_large", "label": "Szewron (duży)" },
+        { "value": "none", "label": "Brak" }
+      ]
+    },
+    {
+      "type": "select", "id": "icons_shape", "label": "Tło strzałek", "default": "circle",
+      "options": [
+        { "value": "none", "label": "Brak" },
+        { "value": "circle", "label": "Koło" },
+        { "value": "square", "label": "Kwadrat" }
+      ]
+    },
+    { "type": "header", "content": "Karta końcowa „Zobacz więcej”" },
+    { "type": "textarea", "id": "end_card_heading", "label": "Tekst karty końcowej", "default": "Zobacz więcej\nartykułów" },
+    { "type": "url", "id": "end_card_link", "label": "Link karty końcowej (domyślnie strona bloga)" },
+    { "type": "image_picker", "id": "end_card_image", "label": "Tło karty końcowej (opcjonalnie)" }
   ],
   "presets": [{ "name": "MMW Blog wpisy" }]
 }

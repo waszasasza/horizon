@@ -9,12 +9,11 @@
   #shopify-section-{{ section.id }} .mmw-rel__container { display:flex; flex-direction:column; gap:38px; width:100%; max-width: var(--mmw-article-width, 1240px); }
   #shopify-section-{{ section.id }} .mmw-rel__head { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
   #shopify-section-{{ section.id }} .mmw-rel__list { display:flex; gap:50px; justify-content:center; flex-wrap:wrap; }
-  #shopify-section-{{ section.id }} .mmw-rel__card { display:flex; flex-direction:column; gap:13px; width:355px; max-width:100%; text-decoration:none; }
-  #shopify-section-{{ section.id }} .mmw-rel__img { width:100%; aspect-ratio: 355 / 429; border-radius:13px; overflow:hidden; }
-  #shopify-section-{{ section.id }} .mmw-rel__img img, #shopify-section-{{ section.id }} .mmw-rel__img svg { width:100%; height:100%; object-fit:cover; display:block; }
-  #shopify-section-{{ section.id }} .mmw-rel__date { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; }
-  #shopify-section-{{ section.id }} .mmw-rel__title { font-family: var(--mmw-font-display); font-weight:400; font-size:36px; line-height:1; color: var(--mmw-01); margin:0; }
-  #shopify-section-{{ section.id }} .mmw-rel__excerpt { font-family: var(--mmw-font-text); font-size:18px; line-height:1.4; color: var(--mmw-01); margin:0; }
+  /* Karta = snippets/mmw-post-card.liquid (współdzielona, docelowo jedyna karta posta
+     w motywie) — tu tylko wymuszamy jej stałą szerokość w tym konkretnym, nie-karuzelowym,
+     flex-wrap layoucie; reszta wyglądu (proporcje/gradient/badge/tytuł/data/CZYTAJ) żyje
+     w samym snippecie i tokenach --mmw-media-card-* z mmw-tokens.liquid. */
+  #shopify-section-{{ section.id }} .mmw-rel__list .mmw-post-card { width: 355px; max-width: 100%; }
   #shopify-section-{{ section.id }} .mmw-rel__btn { display:inline-flex; align-items:center; justify-content:center; background: var(--mmw-03); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:20px 45px; border-radius:30px; text-decoration:none; }
   @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-rel { padding:40px 20px; } #shopify-section-{{ section.id }} .mmw-rel__container { padding:0; } }
 {%- endstyle -%}
@@ -26,14 +25,7 @@
       {%- for post in blog.articles -%}
         {%- unless post.id == article.id -%}
           {%- if shown < limit -%}
-            <a class="mmw-rel__card" href="{{ post.url }}">
-              <div class="mmw-rel__img">
-                {%- if post.image -%}<img src="{{ post.image | image_url: width: 720 }}" alt="{{ post.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
-              </div>
-              <p class="mmw-rel__date">{{ post.published_at | date: '%d/%m/%Y' }}</p>
-              <p class="mmw-rel__title">{{ post.title }}</p>
-              <p class="mmw-rel__excerpt">{{ post.excerpt_or_content | strip_html | truncatewords: 14 }}</p>
-            </a>
+            {%- render 'mmw-post-card', article: post, section_id: section.id, sizes: 'auto, 355px' -%}
             {%- assign shown = shown | plus: 1 -%}
           {%- endif -%}
         {%- endunless -%}

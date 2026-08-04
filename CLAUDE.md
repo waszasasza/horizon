@@ -4,11 +4,13 @@ Sklep: `majatekmalawies.myshopify.com` · Live theme: `192137462093` (NIE pushow
 Branch roboczy: `zmiany-marek` · Podgląd: `shopify theme dev` → 127.0.0.1:9292
 
 ## Kontekst sprintu
+
 Przebudowa strony głównej pod nowy design z Figmy („HOME opcja 1").
 Design context (struktura, tokeny, screenshoty z Figmy) dostarcza Ola — nie zgaduj wyglądu,
 jeśli brakuje specyfikacji, zapytaj o nią zamiast improwizować.
 
 ## Konwencje
+
 - Wszystkie customowe sekcje: prefix `mmw-`, jeden plik = jedna sekcja w `sections/`.
 - Schema settings: labelki i defaulty **po polsku**.
 - CSS scoping: klasy z prefixem sekcji (np. `.mmw-pc__card`), style w `{% stylesheet %}`
@@ -22,7 +24,9 @@ jeśli brakuje specyfikacji, zapytaj o nią zamiast improwizować.
   (ustawienie w schema), bez autoplay przy `prefers-reduced-motion`.
 
 ## Budżet sekcji tego sprintu — NIE tworzyć sekcji spoza tej listy
+
 Nowe:
+
 1. `mmw-product-carousel` — UNIWERSALNA karuzela produktowa (nagłówek, opis, kolekcja,
    liczba kart, dots, opcjonalna karta końcowa „Zobacz więcej” z linkiem).
    Obsługuje: bestsellery ×2, vouchery, produkty marki. NIE robić osobnych wariantów.
@@ -57,7 +61,8 @@ Nowe:
     SEO (metapole `custom.tekst_seo`, rich text), prawa kolumna akordeony FAQ
     (metaobjekt `pytanie_faq` przez `custom.faq`). Akordeony na natywnym
     `snippets/accordion-custom-component.liquid`. Znika, gdy obie kolumny puste.
-Przebudowa:
+    Przebudowa:
+
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
 - `mmw-footer` — nowy design.
 - `marquee` — pasek logotypów prasowych (bloki z obrazami, przewijanie).
@@ -65,15 +70,42 @@ Przebudowa:
   destrukcyjnie; „Opowieści” na głównej robi nowa `mmw-blog-carousel`.
 
 ## Czego NIE ruszać w tym sprincie
-- Sekcje podstron: `mmw-article-*`, `mmw-blog-hero/posts/tags`, `mmw-related-posts`,
+
+- Sekcje podstron: `mmw-article-*`, `mmw-blog-hero/posts/tags`,
   `mmw-firms-*`, `mmw-collection-*`, `mmw-history-*`, `mmw-chronicle`, `mmw-heritage-note`,
   `mmw-process`, `mmw-team`, `mmw-promo-tiles`, `mmw-map`, `mmw-brands`.
 - NIE kasować starych sekcji (`mmw-philosophy`, `mmw-stories`, `mmw-video-product`,
   `mmw-how-its-made`, `mmw-instagram`, `mmw-featured-collection`) — sprzątanie to osobne
   zadanie na koniec, po akceptacji nowej strony głównej.
 - Eventy/wydarzenia — poza zakresem, wrócą przy stronie wydarzeń.
+- WYJĄTEK: `mmw-related-posts` była na tej liście, ale została świadomie ruszona przy
+  konsolidacji karty posta bloga (`snippets/mmw-post-card.liquid`, patrz sekcja niżej) —
+  zamiana własnego inline markupu karty na wspólny snippet, reszta sekcji (nagłówek,
+  layout listy, przycisk) bez zmian.
+
+## Zmiany w plikach natywnych Horizona
+
+Konsolidacja karty posta bloga (`snippets/mmw-post-card.liquid`) wymagała edycji
+plików natywnych motywu — ryzyko nadpisania przy aktualizacji Horizona:
+
+- `blocks/_featured-blog-posts-card.liquid` — wnętrze zastąpione jednym
+  `render 'mmw-post-card'`; schema (ustawienia bloku) celowo NIE wyczyszczona,
+  część pól jest już nieużywana (osobny diff porządkowy, jeszcze nie zrobiony).
+- `sections/featured-blog-posts.liquid` — TYLKO schema `presets` (3 warianty:
+  carousel/grid/editorial), każdy miał zaszyte te same martwe teraz statyczne
+  sub-bloki (`title`/`blog-post-info-text`/`blog-post-description`) co punkt wyżej —
+  wyczyszczone do `"blocks": {}`, żeby `shopify theme check` (`ValidBlockTarget`)
+  nie raportował błędu. Sama logika renderowania sekcji (grid/carousel/editorial,
+  `content_for 'block', type: '_featured-blog-posts-card'`) NIE zmieniona.
+- `blocks/_blog-post-card.liquid` — planowana, jeszcze nie zrobiona (main-blog.liquid,
+  hero na `/blogs/news`).
+
+Osierocone od tej zmiany (nieusunięte, czekają na osobny diff porządkowy):
+`blocks/_blog-post-image.liquid`, `blocks/_featured-blog-posts-image.liquid`,
+`blocks/_blog-post-info-text.liquid`, `blocks/_blog-post-description.liquid`.
 
 ## Workflow
+
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.
 - `templates/index.json` przepinać na nowe sekcje dopiero, gdy sekcja jest gotowa i sprawdzona
   na 127.0.0.1:9292 (desktop + mobile 375px).
@@ -81,3 +113,15 @@ Przebudowa:
 - Dane katalogowe (produkty, metapola, kolekcje) NIE mają stagingu — zmiany w adminie są
   natychmiast live. Definicje metapól i tagi można dodawać bezpiecznie; niczego nie nadpisywać
   ani nie usuwać bez potwierdzenia.
+
+## scripts/
+
+Katalog `scripts/` zawiera narzędzia poza theme'em: skrypty importowe
+(Admin API / Matrixify) oraz ich pliki danych (np. `sensoryka-dane.json`
+— kanoniczne definicje skal sensorycznych). Shopify CLI ignoruje ten
+katalog przy `theme push` i `theme dev`, więc nic stąd nie trafia na
+sklep jako plik theme'u. Nie umieszczaj tu assetów theme'u ani nie
+odwołuj się do tych plików z Liquid. Skrypty operujące na danych
+katalogowych (metaobiekty, metafieldy) muszą być idempotentne
+(upsert po handle) i mieć domyślny tryb `--dry-run` — dane katalogowe
+nie mają warstwy staging i idą prosto na produkcję.

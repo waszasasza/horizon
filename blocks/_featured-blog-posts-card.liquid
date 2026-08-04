@@ -1,151 +1,41 @@
-{% assign block_settings = block.settings %}
+{%- comment -%}
+  PLIK NATYWNY HORIZONA, ZMODYFIKOWANY — patrz CLAUDE.md, sekcja "Zmiany w plikach
+  natywnych Horizona" (ryzyko nadpisania przy aktualizacji motywu).
 
-{% liquid
+  Karta = snippets/mmw-post-card.liquid (współdzielona, docelowo jedyna karta posta
+  w motywie — patrz doc-comment tamtego pliku). Oryginalna implementacja (content_for
+  bloki _featured-blog-posts-image/_heading/_blog-post-info-text/_blog-post-description)
+  zastąpiona jednym render. Te cztery sub-bloki są teraz osierocone w całym motywie —
+  NIE usunięte jeszcze, czekają na osobny diff porządkowy.
+
+  Ustawienia tego bloku (alignment/gap/border/padding niżej w schemacie) są od teraz
+  NIEUŻYWANE — schemat zostaje bez zmian celowo (osobny diff czyszczący), więc merchant
+  może jeszcze widzieć martwe pola w edytorze do czasu tamtej poprawki. Z tego samego
+  powodu block.shopify_attributes nie jest już nigdzie wypisywany — zaznaczanie tego
+  konkretnego bloku w edytorze (kontur na hover/klik w panelu) może przestać działać
+  precyzyjnie do czasu tamtego porządkowania; to świadomy, niższy priorytet niż wygląd.
+
+  sizes liczone z realnej siatki tej sekcji, na dziś skonfigurowanej w templates/index.json:
+  layout_type: grid, columns: 3, columns_gap: 24, mobile_columns: 2, section_width:
+  page-width → globalny settings.page_width="normal" (120rem/1920px cap, config/
+  settings_data.json), page-margin 60px ≥750px / 24px poniżej (assets/base.css).
+  Jeśli w edytorze ktoś przełączy layout_type na "carousel" lub "editorial", ta wartość
+  przestanie być dokładna (inna matematyka szerokości, patrz mmw-carousel-card dla wzorca
+  karuzelowego) — do poprawki, gdyby faktycznie zmieniono tryb.
+{%- endcomment -%}
+{%- liquid
   assign onboarding = false
-
-  if article == blank
+  if article == blank or article.title == blank
     assign onboarding = true
-    # Assign placeholder variables
-    assign display_title = 'placeholders.blog_post_title' | t
-    assign display_author = 'placeholders.blog_post_author' | t
-    assign display_date = 'placeholders.blog_post_date' | t
-    assign display_description = 'placeholders.blog_post_description' | t
-  else
-    assign display_title = article.title
-    assign display_author = article.author
-    assign display_date = article.published_at
-    assign display_description = null
   endif
-
-  assign truncate_description = true
-  if section.settings.layout_type == 'editorial'
-    assign truncate_description = false
-  endif
-%}
-
-{% capture image %}
-  {% content_for 'block',
-    id: 'image',
-    type: '_featured-blog-posts-image',
-    image: article.image,
-    parent_block_id: block.id
-  %}
-{% endcapture %}
-
-{% capture title %}
-  {% content_for 'block', id: 'title', type: '_heading', text: display_title %}
-{% endcapture %}
-
-{% capture details %}
-  {% content_for 'block',
-    id: 'blog-post-info-text',
-    type: '_blog-post-info-text',
-    alignment: block_settings.alignment,
-    author: display_author,
-    date: display_date
-  %}
-{% endcapture %}
-
-{% capture description %}
-  {% content_for 'block',
-    id: 'blog-post-description',
-    type: '_blog-post-description',
+-%}
+{%- unless onboarding -%}
+  {%- render 'mmw-post-card',
     article: article,
-    show_read_more: false,
-    should_truncate: truncate_description,
-    onboarding_text: display_description
-  %}
-{% endcapture %}
-
-<div
-  class="
-    featured-blog-posts-card spacing-style border-style
-    {% if section.settings.layout_type == 'editorial' %}blog-post-card--flexible-aspect-ratio{% endif %}
-    {% if block_settings.inherit_color_scheme == false %}color-{{ block_settings.color_scheme }}{% endif %}
-  "
-  data-block-id="{{ block.id }}"
-  data-testid="featured-blog-posts-card"
-  {% if onboarding %}
-    data-placeholder="true"
-  {% endif %}
-  style="
-    {%- render 'spacing-style', settings: block_settings -%}
-    {%- render 'border-override', settings: block_settings -%}
-    --text-align: {{ block_settings.alignment }};
-    --horizontal-alignment: {{ block_settings.alignment }};
-    --gap: {{ block_settings.gap }}px;
-  "
-  {{ block.shopify_attributes }}
->
-  <a
-    class="featured-blog-posts-card__link"
-    {% unless onboarding %}
-      href="{{ article.url }}"
-    {% endunless %}
-  >
-    <span class="visually-hidden">{{ display_title }}</span>
-  </a>
-
-  <div class="featured-blog-posts-card__inner">
-    {% if onboarding or article.image %}
-      {{ image }}
-    {% endif %}
-
-    <div class="featured-blog-posts-card__content layout-panel-flex--column">
-      <h4>{{ title }}</h4>
-      {{ details }}
-      {{ description }}
-    </div>
-  </div>
-</div>
-
-{% stylesheet %}
-  .featured-blog-posts-card {
-    text-align: var(--text-align);
-  }
-
-  .featured-blog-posts-card__inner {
-    gap: var(--gap);
-  }
-
-  .resource-list--grid .resource-list__item {
-    min-width: 0;
-  }
-
-  /* Editorial layout */
-  .resource-list:not(.hidden--desktop) .blog-post-card--flexible-aspect-ratio {
-    .featured-blog-posts-card__content {
-      --flex-wrap: nowrap;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .resource-list:not(.hidden--desktop) .blog-post-card--flexible-aspect-ratio {
-      .featured-blog-posts-card__image,
-      .blog-placeholder-svg {
-        aspect-ratio: unset;
-      }
-    }
-  }
-
-  .featured-blog-posts-card__inner a,
-  .featured-blog-posts-card__inner button {
-    pointer-events: auto;
-  }
-
-  /* allow all blocks to be selectable in editor preview */
-  .shopify-design-mode .featured-blog-posts-card__content * {
-    pointer-events: auto;
-  }
-
-  .featured-blog-posts-card__content {
-    --flex-wrap: wrap;
-  }
-
-  .featured-blog-posts-card__content h4 {
-    margin: 0;
-  }
-{% endstylesheet %}
+    section_id: section.id,
+    sizes: 'auto, (max-width: 749px) calc((100vw - 72px) / 2), calc((min(1920px, 100vw - 120px) - 48px) / 3)'
+  -%}
+{%- endunless -%}
 
 {% schema %}
 {

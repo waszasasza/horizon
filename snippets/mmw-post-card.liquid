@@ -1,0 +1,266 @@
+{%- doc -%}
+  mmw-post-card — wspólna karta posta bloga. Docelowo jedyna implementacja karty posta
+  w motywie, zastępująca cztery dzisiejsze (mmw-related-posts, mmw-blog-posts, natywne
+  blocks/_blog-post-card.liquid i blocks/_featured-blog-posts-card.liquid) — podpięcie
+  w tamtych czterech miejscach to kolejne kroki, nie ten plik.
+
+  Design: Figma STRONA-WWW, node 993:9056. Wygląd/mechanika 1:1 z kartą produktu
+  (snippets/mmw-carousel-card.liquid) — oba komponenty czerpią wymiary/gradient/badge
+  ze wspólnych tokenów --mmw-media-card-* w snippets/mmw-tokens.liquid, więc nie da się
+  ich w przyszłości niezależnie rozjechać bez świadomej zmiany w jednym miejscu.
+
+  Cała karta to JEDEN <a> (jeden stop focusa) — "CZYTAJ" jest elementem czysto wizualnym
+  (span, aria-hidden), nie linkiem ani przyciskiem, bo nie niesie treści ponad to, co robi
+  już cała karta. Tagi NIE są aria-hidden — kategoria wpisu to informacja, nie dekoracja,
+  czytnik ekranu ma ją odczytać. Żeby mimo to accessible name samego <a> zostało krótkie
+  (Tab/lista linków), link ma jawne aria-label = sam tytuł — nadpisuje to nazwę linku, ale
+  NIE ukrywa zagnieżdżonych tagów jako osobnej, czytelnej treści w drzewie dostępności.
+
+  @param {object} article - artykuł do wyrenderowania
+  @param {string} section_id - id sekcji wołającej (unikalny id linku, ten sam wzorzec co w mmw-carousel-card)
+  @param {string} [sizes] - atrybut HTML sizes dla obrazu, liczony przez wołającą sekcję
+    z jej realnej szerokości karuzeli/grida (patrz mmw-carousel-card — NIE cqw, nieprawidłowe
+    w sizes). Domyślnie zakłada 3 kolumny, jak w mmw-carousel-card/mmw-product-recommendations.
+  @param {string} [ratio] - override aspect-ratio karty (np. dla hero na /blogs/news, gdzie
+    pełna szerokość wymaga szerszego formatu niż domyślny 331/507). Domyślnie puste —
+    CSS spada wtedy wprost na var(--mmw-media-card-ratio) bez inline override.
+  @param {number} [tags_limit] - ile tagów artykułu pokazać jako pille badge, domyślnie 2.
+    UWAGA: tagi ponad ten limit NIE są pokazywane w ogóle (bez "+N") — ucięcie jest
+    scentralizowane w JEDNEJ linii niżej (assign shown_tags = article.tags | slice: 0, ...),
+    więc zmiana reguły (np. na listę dozwolonych tagów zamiast limitu liczbowego) to zmiana
+    tej jednej linii, nie przepisywanie całego snippetu. Nie używam `| first: N` — Liquid nie
+    ma `first` z argumentem liczby (sprawdzone grepem po repo), `slice: offset, length` już
+    jest używane gdzie indziej w motywie i robi to samo poprawnie.
+  @param {string} [button_label] - domyślnie "Czytaj"
+  @param {string} [loading] - domyślnie 'lazy'. Dla obrazu LCP (np. hero pierwszego posta
+    na /blogs/news) przekaż 'eager'. UWAGA: sizes="auto" (domyślne w tym snippecie) działa
+    WYŁĄCZNIE z loading="lazy" (spec) — przy loading:'eager' MUSISZ przekazać też własne
+    'sizes' bez prefiksu "auto," (w pełni rozwiązana wartość), inaczej "auto" zostanie po
+    prostu zignorowane przez przeglądarkę bez ostrzeżenia.
+  @param {string} [fetchpriority] - domyślnie brak atrybutu. Dla obrazu LCP przekaż 'high'
+    (razem z loading:'eager' — tak jak natywny _blog-post-image.liquid robił to dla hero).
+
+  @example
+  {% render 'mmw-post-card', article: article, section_id: section.id, sizes: 'auto, (max-width: 749px) clamp(150px, 60vw, 400px), calc((100vw - 96px) / 3)' %}
+
+  @example hero na /blogs/news — LCP, więc eager+high, i sizes BEZ "auto," (patrz wyżej)
+  {% render 'mmw-post-card', article: article, section_id: section.id, sizes: 'calc(...)', ratio: '2 / 1', tags_limit: 3, loading: 'eager', fetchpriority: 'high' %}
+{%- enddoc -%}
+{%- liquid
+  assign card_sizes = sizes | default: 'auto, (max-width: 749px) clamp(150px, 60vw, 400px), calc((100vw - 96px) / 3)'
+  assign card_ratio = ratio | default: 'var(--mmw-media-card-ratio)'
+  assign tags_limit = tags_limit | default: 2
+  assign button_label = button_label | default: 'Czytaj'
+  assign img_loading = loading | default: 'lazy'
+
+  # Ucięcie tagów w jednym miejscu — patrz @param tags_limit wyżej.
+  assign shown_tags = article.tags | slice: 0, tags_limit
+-%}
+<a
+  class="mmw-post-card"
+  href="{{ article.url }}"
+  id="mmw-post-card-link-{{ section_id }}-{{ article.id }}"
+  aria-label="{{ article.title | escape }}"
+  style="--mmw-post-card-ratio: {{ card_ratio }};"
+>
+  <span class="mmw-post-card__media">
+    {%- if article.image != blank -%}
+      <img
+        class="mmw-post-card__img"
+        loading="{{ img_loading }}"
+        {%- if fetchpriority != blank %}
+        fetchpriority="{{ fetchpriority }}"
+        {%- endif %}
+        width="640"
+        height="980"
+        src="{{ article.image | image_url: width: 640 }}"
+        srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 640 }} 640w, {{ article.image | image_url: width: 900 }} 900w"
+        sizes="{{ card_sizes }}"
+        alt=""
+      >
+    {%- endif -%}
+  </span>
+
+  {%- if shown_tags != blank and shown_tags.size > 0 -%}
+    <span class="mmw-post-card__badges">
+      {%- for tag in shown_tags -%}
+        <span class="mmw-post-card__badge">{{ tag }}</span>
+      {%- endfor -%}
+    </span>
+  {%- endif -%}
+
+  <span class="mmw-post-card__body">
+    <h3 class="mmw-post-card__title">{{ article.title }}</h3>
+    <span class="mmw-post-card__meta">
+      <span class="mmw-post-card__date">{{ article.published_at | time_tag: format: 'date' }}</span>
+      <span class="mmw-post-card__cta" aria-hidden="true">{{ button_label }}</span>
+    </span>
+  </span>
+</a>
+
+{% stylesheet %}
+  .mmw-post-card {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--mmw-post-card-ratio, var(--mmw-media-card-ratio));
+    border-radius: var(--mmw-media-card-radius);
+    overflow: hidden;
+    background: var(--mmw-04);
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mmw-post-card:focus-visible {
+    outline: 2px solid var(--mmw-04);
+    outline-offset: -4px;
+    border-radius: var(--mmw-media-card-radius);
+  }
+
+  .mmw-post-card__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: block;
+  }
+
+  .mmw-post-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mmw-post-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    pointer-events: none;
+    background: var(--mmw-media-card-gradient);
+  }
+
+  .mmw-post-card__badges {
+    position: absolute;
+    z-index: 2;
+    top: var(--mmw-media-card-padding);
+    right: var(--mmw-media-card-padding);
+    left: var(--mmw-media-card-padding);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--mmw-media-card-badge-gap);
+  }
+
+  .mmw-post-card__badge {
+    background: var(--mmw-03);
+    color: var(--mmw-01);
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: var(--mmw-media-card-badge-font-size);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: var(--mmw-media-card-badge-padding);
+    border-radius: var(--mmw-media-card-badge-radius);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .mmw-post-card__body {
+    position: absolute;
+    z-index: 2;
+    left: var(--mmw-media-card-padding);
+    right: var(--mmw-media-card-padding);
+    bottom: var(--mmw-media-card-padding);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mmw-post-card__title {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.1;
+    color: var(--mmw-04);
+    /* Dwie linie, jak przykład w Figmie — karta ma stałą wysokość z aspect-ratio,
+       dłuższy tytuł musi się uciąć, nie rozpychać karty. */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .mmw-post-card__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .mmw-post-card__date {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--mmw-04);
+    white-space: nowrap;
+  }
+
+  .mmw-post-card__cta {
+    flex: 0 0 auto;
+    background: var(--mmw-02);
+    color: var(--mmw-01);
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 13px 22px;
+    white-space: nowrap;
+  }
+
+  /* "Czytaj" domyślnie widoczny (dotyk — nie ma hover, afordancja akcji zostaje zawsze
+     na ekranie). Tylko na urządzeniach z realnym hover chowamy go do najechania/focusa,
+     przez opacity (nie display/visibility) — element cały czas zajmuje swoje miejsce
+     w wierszu .mmw-post-card__meta, więc layout się nie przesuwa, gdy się pojawia. */
+  @media (hover: hover) {
+    .mmw-post-card__cta {
+      opacity: 0;
+      transition: opacity var(--hover-transition-duration, 0.3s) var(--hover-transition-timing, ease);
+    }
+
+    .mmw-post-card:hover .mmw-post-card__cta,
+    .mmw-post-card:focus-visible .mmw-post-card__cta {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-post-card__cta {
+      transition: none;
+    }
+  }
+  @media (max-width: 1024px) {
+      .mmw-post-card__date {
+    font-size: 12px;
+  }
+   .mmw-post-card__title {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .mmw-post-card__cta {
+    display: none;
+   }
+
+  }
+{% endstylesheet %}
