@@ -126,16 +126,33 @@
     /*wielkości sekcji*/
     --mmw-max-width: 1080px;
   }
+
+  {%- comment -%}
+    Media card (karta produktu + karta posta bloga) — współdzielone wymiary/gradient/badge,
+    żeby snippets/mmw-carousel-card.liquid i snippets/mmw-post-card.liquid (+ docelowo
+    natywne blocks/_blog-post-card.liquid i blocks/_featured-blog-posts-card.liquid) nie
+    rozjechały się przy niezależnych edycjach. Wartości 1:1 z tego, co już jest zaszyte
+    w mmw-carousel-card.liquid (ratio = domyślny/"tall" branch card_ratio, 331/507 —
+    potwierdzone jako to, co faktycznie renderuje się w "Zobacz także" i jest oznaczone
+    w schemacie mmw-product-carousel jako "Wysoka (jak w Figmie)").
+  {%- endcomment -%}
+  :root {
+    --mmw-media-card-ratio: 331 / 507;
+    --mmw-media-card-radius: 16px;
+    --mmw-media-card-padding: 24px;
+    --mmw-media-card-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, 0.92) 100%);
+    --mmw-media-card-badge-font-size: clamp(11px, 2.5vw, 14px);
+    --mmw-media-card-badge-padding: clamp(6px, 1.5vw, 10px) clamp(8px, 2vw, 14px);
+    --mmw-media-card-badge-radius: 58px;
+    --mmw-media-card-badge-gap: 8px;
+  }
   .mmw-wrap {
   width: 100%;
   margin-inline: auto;   /* centruje */
   padding-inline: 20px;  /* gutter na wąskich ekranach */
 
   }
-  
 
-
-}
 @media (max-width: 1439px) {
   .mmw-wrap {
     max-width: var(--mmw-max-width);
