@@ -155,7 +155,12 @@
         {%- for rec_product in products limit: section.settings.max_products -%}
           {%- if item_index > 0 -%}<!--@mmw-rec/split-->{%- endif -%}
           {%- assign item_index = item_index | plus: 1 -%}
-          {%- render 'mmw-carousel-card', product: rec_product, section_id: section.id, card_ratio: card_ratio, desc_len: desc_len -%}
+          {%- comment -%}
+            sizes liczone z realnego --column-count: 3 tej sekcji (gap 24px×2 + peek 48px = 96px)
+            — patrz komentarz przy card_sizes w mmw-product-carousel.liquid dla pełnego wyjaśnienia
+            (cqw nieprawidłowe w atrybucie sizes, 100vw bo sekcja jest full-bleed).
+          {%- endcomment -%}
+          {%- render 'mmw-carousel-card', product: rec_product, section_id: section.id, card_ratio: card_ratio, desc_len: desc_len, sizes: 'auto, (max-width: 749px) clamp(150px, 60vw, 400px), calc((100vw - 96px) / 3)' -%}
         {%- endfor -%}
       {%- endcapture -%}
       {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-rec/split-->' -%}

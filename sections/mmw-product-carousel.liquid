@@ -17,6 +17,21 @@
   assign columns_gap = section.settings.columns_gap | default: 24
   assign mobile_card_size = section.settings.mobile_card_size | default: '60cqw'
 
+  # sizes dla <img> karty (snippets/mmw-carousel-card.liquid) — cqw jest nieprawidłowe
+  # w atrybucie HTML sizes (tylko <length>/funkcje matematyczne, viewport nie container),
+  # więc liczymy realny odpowiednik w vw z tych samych ustawień sekcji co CSS:
+  # - desktop: (100% - gap*(columns-1) - peek) / columns, peek = --peek-next-slide-size
+  #   (theme-styles-variables.liquid, 3rem = 48px), 100% = 100vw bo .mmw-pc jest full-bleed
+  #   (bez schema "class":"section" — brak grid/page-width confinement, sprawdzone w łańcuchu
+  #   main > .content-for-layout > body/html, nigdzie max-width).
+  # - mobile: ten sam clamp co resource-list-carousel.liquid, cqw→vw (liczbowo równoważne,
+  #   bo kontener też jest full-bleed), mobile_card_size zagwarantowane non-nil przez default
+  #   wyżej — drugi "| default" tutaj to lokalna gwarancja, niezależna od kolejności linii.
+  # 400 = --slide-width-max z gutter_style niżej (literał, nie zmienna Liquid w tym pliku)
+  assign gaps_and_peek = columns | minus: 1 | times: columns_gap | plus: 48
+  assign mobile_vw = mobile_card_size | default: '60cqw' | replace: 'cqw', 'vw'
+  assign card_sizes = 'auto, (max-width: 749px) clamp(150px, ' | append: mobile_vw | append: ', 400px), calc((100vw - ' | append: gaps_and_peek | append: 'px) / ' | append: columns | append: ')'
+
   case section.settings.card_ratio
     when 'portrait'
       assign card_ratio = '4 / 5'
@@ -144,7 +159,7 @@
     {%- for product in coll.products limit: count -%}
       {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}
       {%- assign item_index = item_index | plus: 1 -%}
-      {%- render 'mmw-carousel-card', product: product, section_id: section.id, card_ratio: card_ratio, desc_len: desc_len -%}
+      {%- render 'mmw-carousel-card', product: product, section_id: section.id, card_ratio: card_ratio, desc_len: desc_len, sizes: card_sizes -%}
     {%- endfor -%}
     {%- if show_end_card -%}
       {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}

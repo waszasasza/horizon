@@ -13,6 +13,10 @@
   @param {string} section_id - id sekcji wołającej (unikalny link + quick-add form id)
   @param {string} [card_ratio] - aspect-ratio karty (CSS), domyślnie '331 / 507'
   @param {number} [desc_len] - długość skracanego opisu karty, domyślnie 140
+  @param {string} [sizes] - atrybut HTML sizes dla obu <img> (główny + hover), liczony
+    przez wołającą sekcję z jej realnego --column-count/gap (cqw jest nieprawidłowe w
+    sizes — patrz komentarz przy card_sizes w mmw-product-carousel.liquid). Domyślnie
+    założenie 3 kolumn (jak mmw-product-recommendations.liquid).
 
   @example
   {% render 'mmw-carousel-card', product: product, section_id: section.id %}
@@ -20,6 +24,7 @@
 {%- liquid
   assign card_ratio = card_ratio | default: '331 / 507'
   assign desc_len = desc_len | default: 140
+  assign card_sizes = sizes | default: 'auto, (max-width: 749px) clamp(150px, 60vw, 400px), calc((100vw - 96px) / 3)'
 
   assign on_sale = false
   assign badge_text = blank
@@ -59,12 +64,21 @@
   <a href="{{ product.url }}" class="product-card__link" ref="productCardLink" id="mmw-pc-link-{{ section_id }}-{{ product.id }}">
     <span class="visually-hidden">{{ product.title | escape }}</span>
   </a>
+  {%- comment -%}
+    sizes="auto" (Chrome/Edge od poł. 2024, Firefox od kwietnia 2026 — Safari jeszcze nie,
+    WebKit#253143) wymaga loading="lazy" na TYM SAMYM <img>: bez lazy przeglądarka ignoruje
+    "auto" i od razu liczy z listy fallback po przecinku. Nie usuwać loading="lazy" bez
+    usunięcia też "auto" z sizes, inaczej realny rozmiar przestanie być mierzony z layoutu.
+    Srcset celowo ograniczony do 400/640/900 — realna rozdzielczość zdjęć produktowych w tym
+    sklepie nie jest zweryfikowana (brak dostępu do Admin/API w tej sesji), więc nie dodajemy
+    większych kandydatów (np. 1600w) bez potwierdzenia, że oryginały są tak duże.
+  {%- endcomment -%}
   <a class="mmw-carousel-card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
     {%- if product.featured_image != blank -%}
       <img class="mmw-carousel-card__img" loading="lazy" width="640" height="980"
         src="{{ product.featured_image | image_url: width: 640 }}"
         srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 640 }} 640w, {{ product.featured_image | image_url: width: 900 }} 900w"
-        sizes="(max-width: 749px) 60cqw, 400px"
+        sizes="{{ card_sizes }}"
         alt="">
     {%- else -%}
       {{ 'product-1' | placeholder_svg_tag: 'mmw-carousel-card__img' }}
@@ -72,6 +86,8 @@
     {%- if product.media.size > 1 -%}
       <img class="mmw-carousel-card__img mmw-carousel-card__img--hover" loading="lazy" width="640" height="980"
         src="{{ product.media[1].preview_image | image_url: width: 640 }}"
+        srcset="{{ product.media[1].preview_image | image_url: width: 400 }} 400w, {{ product.media[1].preview_image | image_url: width: 640 }} 640w, {{ product.media[1].preview_image | image_url: width: 900 }} 900w"
+        sizes="{{ card_sizes }}"
         alt="">
     {%- endif -%}
   </a>
