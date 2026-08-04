@@ -1,0 +1,59 @@
+{
+  "$comment": "Kanoniczne dane skal sensorycznych MMW — zatwierdzone 2026-08-03. Słodkość i kwaśność wg rekomendacji Suprematic (zmiana vs Figma), konsystencja i gęstość 1:1 z Figmy (node 982-6186). Handle \"kwasnosc\" (nie \"kwasowosc\") celowo — na sklepie już istnieje żywa skala skala_sensoryczna:kwasowosc (wina, niska/średnia/wysoka), używana przez realne produkty; ta tu jest odrębną, nową skalą. Etykiety w naturalnej kapitalizacji — uppercase robi CSS w mmw-sensory-scales.",
+  "wersja": 1,
+  "zrodlo_ikon": {
+    "figma_file": "xcPKtMDRiMGgk7b9PikCyv",
+    "figma_node": "982-6186",
+    "format": "svg"
+  },
+  "skale": [
+    {
+      "handle": "slodkosc",
+      "nazwa": "Słodkość",
+      "ikona_plik": "mmw-ikona-slodkosc.svg",
+      "ikona_opis_w_figmie": "czerpak do miodu z kapiącym miodem",
+      "sort": 1,
+      "poziomy": [
+        { "handle": "slodkosc-1", "wartosc": 1, "etykieta": "Subtelna" },
+        { "handle": "slodkosc-2", "wartosc": 2, "etykieta": "Wyraźna" },
+        { "handle": "slodkosc-3", "wartosc": 3, "etykieta": "Intensywna" }
+      ]
+    },
+    {
+      "handle": "kwasnosc",
+      "nazwa": "Kwaśność",
+      "ikona_plik": "mmw-ikona-kwasnosc.svg",
+      "ikona_opis_w_figmie": "cytryna",
+      "sort": 2,
+      "poziomy": [
+        { "handle": "kwasnosc-1", "wartosc": 1, "etykieta": "Łagodna" },
+        { "handle": "kwasnosc-2", "wartosc": 2, "etykieta": "Wyrazista" },
+        { "handle": "kwasnosc-3", "wartosc": 3, "etykieta": "Orzeźwiająca" }
+      ]
+    },
+    {
+      "handle": "konsystencja",
+      "nazwa": "Konsystencja",
+      "ikona_plik": "mmw-ikona-konsystencja.svg",
+      "ikona_opis_w_figmie": "jabłko z owocami jagodowymi",
+      "sort": 3,
+      "poziomy": [
+        { "handle": "konsystencja-1", "wartosc": 1, "etykieta": "Gładka" },
+        { "handle": "konsystencja-2", "wartosc": 2, "etykieta": "Drobna" },
+        { "handle": "konsystencja-3", "wartosc": 3, "etykieta": "Z owocami" }
+      ]
+    },
+    {
+      "handle": "gestosc",
+      "nazwa": "Gęstość",
+      "ikona_plik": "mmw-ikona-gestosc.svg",
+      "ikona_opis_w_figmie": "łyżka z kapiącym płynem",
+      "sort": 4,
+      "poziomy": [
+        { "handle": "gestosc-1", "wartosc": 1, "etykieta": "Lejąca" },
+        { "handle": "gestosc-2", "wartosc": 2, "etykieta": "Średnia" },
+        { "handle": "gestosc-3", "wartosc": 3, "etykieta": "Zwarta" }
+      ]
+    }
+  ]
+}

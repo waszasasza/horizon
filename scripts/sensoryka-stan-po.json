@@ -1,0 +1,24 @@
+{
+  "zapisano": "2026-08-03T12:48:01.216Z",
+  "skala_sensoryczna": {
+    "slodkosc": "gid://shopify/Metaobject/360138244429",
+    "kwasnosc": "gid://shopify/Metaobject/360138277197",
+    "konsystencja": "gid://shopify/Metaobject/360138309965",
+    "gestosc": "gid://shopify/Metaobject/360138342733"
+  },
+  "poziom_skali_ok": [
+    "slodkosc-1",
+    "slodkosc-2",
+    "slodkosc-3",
+    "kwasnosc-1",
+    "kwasnosc-2",
+    "kwasnosc-3",
+    "konsystencja-1",
+    "konsystencja-2",
+    "konsystencja-3",
+    "gestosc-1",
+    "gestosc-2",
+    "gestosc-3"
+  ],
+  "bledy": []
+}

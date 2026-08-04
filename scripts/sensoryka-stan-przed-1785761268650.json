@@ -1,0 +1,472 @@
+{
+  "zapisano": "2026-08-03T12:47:48.650Z",
+  "skala_sensoryczna": [
+    {
+      "id": "gid://shopify/Metaobject/354278146381",
+      "handle": "wyglad-wina-biale",
+      "displayName": "Wygląd (wina białe)",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd (wina białe)",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "ikona",
+          "value": "gid://shopify/MediaImage/63763336560973",
+          "type": "file_reference"
+        },
+        {
+          "key": "etykieta",
+          "value": "[\"słomkowy\",\"złocisty\",\"bursztynowy\"]",
+          "type": "list.single_line_text_field"
+        },
+        {
+          "key": "kolor",
+          "value": "[\"#c7b24a\",\"#e0a417\",\"#dd8900\"]",
+          "type": "list.color"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278211917",
+      "handle": "wyglad-wina-czerwone",
+      "displayName": "Wygląd (wina czerwone)",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd (wina czerwone)",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "ikona",
+          "value": "gid://shopify/MediaImage/63763336560973",
+          "type": "file_reference"
+        },
+        {
+          "key": "etykieta",
+          "value": "[\"rubinowy\",\"purpurowy\",\"ceglasty\"]",
+          "type": "list.single_line_text_field"
+        },
+        {
+          "key": "kolor",
+          "value": "[\"#9b1b30\",\"#6e2639\",\"#a9452b\"]",
+          "type": "list.color"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278310221",
+      "handle": "aromat",
+      "displayName": "Aromat",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Aromat",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "ikona",
+          "value": "gid://shopify/MediaImage/63763336495437",
+          "type": "file_reference"
+        },
+        {
+          "key": "etykieta",
+          "value": "[\"delikatny\",\"średnio intensywny\",\"bardzo intensywny\"]",
+          "type": "list.single_line_text_field"
+        },
+        {
+          "key": "kolor",
+          "value": null,
+          "type": "list.color"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278375757",
+      "handle": "kwasowosc",
+      "displayName": "Kwasowość",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Kwasowość",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "ikona",
+          "value": "gid://shopify/MediaImage/63763336593741",
+          "type": "file_reference"
+        },
+        {
+          "key": "etykieta",
+          "value": "[\"niska\",\"średnia\",\"wysoka\"]",
+          "type": "list.single_line_text_field"
+        },
+        {
+          "key": "kolor",
+          "value": null,
+          "type": "list.color"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278441293",
+      "handle": "cialo",
+      "displayName": "Ciało",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Ciało",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "ikona",
+          "value": "gid://shopify/MediaImage/63763336528205",
+          "type": "file_reference"
+        },
+        {
+          "key": "etykieta",
+          "value": "[\"lekkie\",\"średnie\",\"pełne\"]",
+          "type": "list.single_line_text_field"
+        },
+        {
+          "key": "kolor",
+          "value": null,
+          "type": "list.color"
+        }
+      ]
+    }
+  ],
+  "poziom_skali": [
+    {
+      "id": "gid://shopify/Metaobject/354278539597",
+      "handle": "wyglad-biale-slomkowy",
+      "displayName": "Wygląd białe – słomkowy",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd białe – słomkowy",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278146381",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "1",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278605133",
+      "handle": "wyglad-biale-zlocisty",
+      "displayName": "Wygląd białe – złocisty",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd białe – złocisty",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278146381",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "2",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278670669",
+      "handle": "wyglad-biale-bursztynowy",
+      "displayName": "Wygląd białe – bursztynowy",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd białe – bursztynowy",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278146381",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "3",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278768973",
+      "handle": "wyglad-czerwone-rubinowy",
+      "displayName": "Wygląd czerwone – rubinowy",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd czerwone – rubinowy",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278211917",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "1",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278867277",
+      "handle": "wyglad-czerwone-purpurowy",
+      "displayName": "Wygląd czerwone – purpurowy",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd czerwone – purpurowy",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278211917",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "2",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354278932813",
+      "handle": "wyglad-czerwone-ceglasty",
+      "displayName": "Wygląd czerwone – ceglasty",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Wygląd czerwone – ceglasty",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278211917",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "3",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354281357645",
+      "handle": "aromat-delikatny",
+      "displayName": "Aromat – delikatny",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Aromat – delikatny",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278310221",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "1",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282209613",
+      "handle": "aromat-srednio-intensywny",
+      "displayName": "Aromat – średnio intensywny",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Aromat – średnio intensywny",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278310221",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "2",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282242381",
+      "handle": "aromat-bardzo-intensywny",
+      "displayName": "Aromat – bardzo intensywny",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Aromat – bardzo intensywny",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278310221",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "3",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282307917",
+      "handle": "kwasowosc-niska",
+      "displayName": "Kwasowość – niska",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Kwasowość – niska",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278375757",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "1",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282373453",
+      "handle": "kwasowosc-srednia",
+      "displayName": "Kwasowość – średnia",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Kwasowość – średnia",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278375757",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "2",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282406221",
+      "handle": "kwasowosc-wysoka",
+      "displayName": "Kwasowość – wysoka",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Kwasowość – wysoka",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278375757",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "3",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282471757",
+      "handle": "cialo-lekkie",
+      "displayName": "Ciało – lekkie",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Ciało – lekkie",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278441293",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "1",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282504525",
+      "handle": "cialo-srednie",
+      "displayName": "Ciało – średnie",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Ciało – średnie",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278441293",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "2",
+          "type": "number_integer"
+        }
+      ]
+    },
+    {
+      "id": "gid://shopify/Metaobject/354282635597",
+      "handle": "cialo-pelne",
+      "displayName": "Ciało – pełne",
+      "fields": [
+        {
+          "key": "nazwa",
+          "value": "Ciało – pełne",
+          "type": "single_line_text_field"
+        },
+        {
+          "key": "skala",
+          "value": "gid://shopify/Metaobject/354278441293",
+          "type": "metaobject_reference"
+        },
+        {
+          "key": "wartosc",
+          "value": "3",
+          "type": "number_integer"
+        }
+      ]
+    }
+  ]
+}
