@@ -1,1 +1,6 @@
 .DS_Store
+.env
+scripts/node_modules
+scripts/eksport/
+scripts/inspect-produkty-raw.json
+scripts/inspect-metaobjekty-referencje.json
