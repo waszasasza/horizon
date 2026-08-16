@@ -1,0 +1,64 @@
+{%- doc -%}
+  mmw-cart-addon-grouping — blok narzędziowy (bez własnego widocznego contentu
+  poza komunikatem błędu) dla strony koszyka: wpięty w templates/cart.json,
+  sekcja main-cart. Ładuje assets/mmw-cart-addon-grouping.js, który:
+
+  1. Sprawdza sieroty — pozycje z line item property `_event_id` (dodatek do
+     wydarzenia) bez odpowiadającej pozycji biletu (product.id == _event_id)
+     w koszyku. Klient mógł usunąć bilet, zostawiając dodatki. Usuwa je przez
+     /cart/change.js i pokazuje komunikat w kontenerze poniżej.
+  2. Grupuje wizualnie: dodatki z tym samym _event_id dostają modyfikator
+     klasy .cart-items__table-row--mmw-addon (wcięcie + podpis "Dodatek do:
+     {tytuł}") — WYŁĄCZNIE prezentacja, bez zmiany struktury danych koszyka.
+
+  UWAGA (patrz też assets/mmw-cart-addon-grouping.js): line item properties
+  przychodzą z przeglądarki i dają się spreparować — to wygoda dla klienta,
+  NIE zabezpieczenie. Źródłem prawdy jest zamówienie.
+
+  Działa przez fetch('/cart.js') (properties bez podkreślnika-filtrowania,
+  którego natywny snippets/cart-products.liquid używa tylko do WYŚWIETLANIA)
+  + data-key już obecny na natywnych wierszach — zero edycji plików natywnych.
+{%- enddoc -%}
+<div class="mmw-cart-grouping__notice" data-mmw-cart-notice role="status" hidden></div>
+
+<script src="{{ 'mmw-cart-addon-grouping.js' | asset_url }}" type="module"></script>
+
+{% stylesheet %}
+  .mmw-cart-grouping__notice {
+    margin-block-end: 16px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--mmw-02) 15%, transparent);
+    font-family: var(--mmw-font-text);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--mmw-01);
+  }
+
+  /* Wcięcie + subtelna kreska po lewej dla dodatków zgrupowanych pod biletem —
+     scoped przez własne klasy, .cart-items__table-row--mmw-addon dokładany
+     przez JS, bez ingerencji w natywny CSS/markup wiersza. */
+  .cart-items__table-row--mmw-addon .cart-items__product-info {
+    padding-inline-start: 20px;
+    border-inline-start: 1px solid color-mix(in srgb, var(--mmw-01) 25%, transparent);
+  }
+
+  .mmw-cart-grouping__caption {
+    margin: 2px 0 0;
+    font-family: var(--mmw-font-label);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--mmw-01) 60%, transparent);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Dodatki w koszyku",
+  "tag": null,
+  "presets": [
+    { "name": "MMW Dodatki w koszyku" }
+  ]
+}
+{% endschema %}
