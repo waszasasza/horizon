@@ -1,0 +1,384 @@
+{%- comment -%}
+  mmw-event-timeline — "Timeline doświadczenia": harmonogram wydarzenia.
+
+  Mechanika 1:1 skopiowana z sections/mmw-history-timeline.liquid (karuzela
+  na /pages/filozofia) — TEN plik jest na liście "Czego NIE ruszać" w
+  CLAUDE.md (mmw-history-*), więc kod jest tu przepisany, nie współdzielony:
+  - Karuzela: BEZ natywnych slideshow*/resource-list* — zwykły
+    overflow-x:auto div + dwa <button> prev/next wołające scrollBy(), jak
+    w mmw-tl__viewport. Mobile: natywny swipe na tym samym elemencie.
+  - Linia łącząca: JEDNA ciągła pozioma linia pod całym rzędem punktów
+    (::before na wrapperze rzędu) + okrągła kropka nad każdym punktem
+    (::before na karcie) — NIE pigułka maskująca linię (ten pomysł z
+    wcześniejszej wersji tego pliku porzucony, /filozofia go nie ma).
+  - Padding: var(--page-margin, 40px), jak w mmw-tl, nie literalne 60/24px.
+  - Kolor linii/kropki: var(--mmw-03) — dokładnie taki, jaki faktycznie
+    renderuje się na /filozofia (custom var tam domyślnie na #C6D4E2,
+    czyli równe --mmw-03), nie --mmw-01 z wcześniejszej wersji tego pliku.
+
+  Różnice względem /filozofia (świadome, bo inny model danych i inny brief):
+  - Źródło: product.metafields.custom.harmonogram (lista referencji do
+    punkt_harmonogramu: godzina, opis, obraz) — NIE bloki edytora. Sekcja
+    stoi na szablonie produktu, każde wydarzenie ma własny harmonogram,
+    bloki edytora byłyby wspólne dla wszystkich wydarzeń.
+  - Jeden punkt = jedna karta (obraz + godzina + opis), niesiony jednym
+    wspólnym loopem po metaobiektach — nie dwa niezależne rzędy bloków
+    ręcznie parowane po pozycji jak photo/year na /filozofia. Rząd zdjęć
+    i rząd punktów nadal wizualnie rozdzielone (jak w źródle), ale oba
+    wynikają z TEJ SAMEJ listy, więc zawsze mają tyle samo kolumn — jeśli
+    pojedynczy punkt ma puste "obraz", jego kolumna w rzędzie zdjęć zostaje
+    pusta (nie znika), żeby rząd zdjęć i rząd punktów nie rozjechały się
+    pozycyjnie.
+  - Nagłówek + podtytuł z ustawień sekcji (nie samo "eyebrow" jak w źródle).
+  - Strzałki: TYLKO desktop (na /filozofia widoczne zawsze) — na mobile
+    wyłącznie przeciąganie palcem.
+  - Obraz: proporcja 4:5 (jedyna zamierzona różnica wizualna wg briefu),
+    /filozofia ma sztywny box 410×420 (blisko kwadratu).
+  - Pusty harmonogram → sekcja nie renderuje się wcale (bez pustego
+    kontenera) — /filozofia renderuje kontener nawet bez bloków.
+
+  Figma: desktop 982:7790, mobile 982:9808.
+{%- endcomment -%}
+{%- liquid
+  assign timeline_points = product.metafields.custom.harmonogram.value
+  assign valid_point_count = 0
+  for point in timeline_points
+    if point != blank
+      assign valid_point_count = valid_point_count | plus: 1
+    endif
+  endfor
+-%}
+{%- if timeline_points != blank and valid_point_count > 0 -%}
+  <section class="mmw-timeline" data-mmw-tl>
+    {%- if section.settings.heading != blank or section.settings.subheading != blank -%}
+      <div class="mmw-timeline__head">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="mmw-timeline__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subheading != blank -%}
+          <p class="mmw-timeline__subheading">{{ section.settings.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="mmw-timeline__nav" data-mmw-tl-nav>
+      <button class="mmw-timeline__arrow" type="button" data-mmw-tl-prev aria-label="Poprzedni punkt harmonogramu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button class="mmw-timeline__arrow" type="button" data-mmw-tl-next aria-label="Następny punkt harmonogramu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <div class="mmw-timeline__viewport" data-mmw-tl-vp>
+      <div class="mmw-timeline__track">
+        <div class="mmw-timeline__row mmw-timeline__photos">
+          {%- for point in timeline_points -%}
+            {%- if point != blank -%}
+              {%- assign point_image = point.obraz.value -%}
+              <div class="mmw-timeline__photo">
+                {%- if point_image != blank -%}
+                  <img
+                    src="{{ point_image | image_url: width: 410 }}"
+                    srcset="
+                      {{ point_image | image_url: width: 300 }} 300w,
+                      {{ point_image | image_url: width: 410 }} 410w,
+                      {{ point_image | image_url: width: 600 }} 600w,
+                      {{ point_image | image_url: width: 820 }} 820w
+                    "
+                    sizes="(max-width: 749px) 300px, 410px"
+                    loading="lazy"
+                    width="410"
+                    height="512"
+                    alt=""
+                  >
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="mmw-timeline__row mmw-timeline__points">
+          {%- for point in timeline_points -%}
+            {%- if point != blank -%}
+              {%- liquid
+                assign point_time = point.godzina.value
+                assign point_desc = point.opis.value
+              -%}
+              <div class="mmw-timeline__point">
+                {%- if point_time != blank -%}
+                  <p class="mmw-timeline__hour">{{ point_time }}</p>
+                {%- endif -%}
+                {%- if point_desc != blank -%}
+                  <p class="mmw-timeline__desc">{{ point_desc }}</p>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function(){
+      var root = document.getElementById('shopify-section-{{ section.id }}');
+      if (!root) return;
+      var vp = root.querySelector('[data-mmw-tl-vp]');
+      var nav = root.querySelector('[data-mmw-tl-nav]');
+      var prev = root.querySelector('[data-mmw-tl-prev]');
+      var next = root.querySelector('[data-mmw-tl-next]');
+      var track = vp ? vp.querySelector('.mmw-timeline__track') : null;
+      if (!vp || !nav || !prev || !next || !track) return;
+
+      function step() {
+        var card = track.querySelector('.mmw-timeline__photo');
+        var row = track.querySelector('.mmw-timeline__row');
+        var gap = 0;
+        if (row) {
+          var cg = getComputedStyle(row).columnGap || getComputedStyle(row).gap;
+          gap = parseFloat(cg) || 0;
+        }
+        var w = card ? card.getBoundingClientRect().width : 410;
+        return Math.round(w + gap);
+      }
+
+      function update() {
+        var maxScroll = vp.scrollWidth - vp.clientWidth;
+        if (maxScroll <= 1) {
+          nav.style.display = 'none';
+          return;
+        }
+        nav.style.display = '';
+        prev.disabled = vp.scrollLeft <= 1;
+        next.disabled = vp.scrollLeft >= (maxScroll - 1);
+      }
+
+      prev.addEventListener('click', function () { vp.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { vp.scrollBy({ left: step(), behavior: 'smooth' }); });
+      vp.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+{%- endif -%}
+
+{% stylesheet %}
+  .mmw-timeline {
+    padding-block: 60px;
+  }
+
+  .mmw-timeline__head {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-inline: var(--page-margin, 40px);
+    margin-bottom: 24px;
+    color: var(--mmw-01);
+  }
+
+  .mmw-timeline__heading {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1;
+  }
+
+  .mmw-timeline__subheading {
+    margin: 0;
+    max-width: 480px;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .mmw-timeline__nav {
+    display: flex;
+    gap: 14px;
+    justify-content: flex-end;
+    padding-inline: var(--page-margin, 40px);
+    margin-bottom: 24px;
+  }
+
+  .mmw-timeline__arrow {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid var(--mmw-01);
+    background: transparent;
+    color: var(--mmw-01);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+
+  .mmw-timeline__arrow:hover:not(:disabled) {
+    background: var(--mmw-03);
+  }
+
+  .mmw-timeline__arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .mmw-timeline__arrow svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+  }
+
+  .mmw-timeline__viewport {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mmw-timeline__viewport::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-timeline__viewport {
+      scroll-behavior: auto;
+    }
+  }
+
+  .mmw-timeline__track {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: max-content;
+    padding-inline: var(--page-margin, 40px);
+  }
+
+  .mmw-timeline__row {
+    display: flex;
+    gap: 60px;
+  }
+
+  .mmw-timeline__photo {
+    flex: 0 0 410px;
+    aspect-ratio: 4 / 5;
+    border-radius: 20px;
+    overflow: hidden;
+    background: color-mix(in srgb, var(--mmw-01) 8%, transparent);
+  }
+
+  .mmw-timeline__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Linia łącząca — jedna ciągła pozioma linia pod całym rzędem punktów +
+     kropka nad każdym punktem, nie pigułka maskująca segment linii. Ten sam
+     mechanizm co .mmw-tl__years/.mmw-tl__year na /filozofia (kolor = to, co
+     tam faktycznie się renderuje: var(--mmw-03), nie hardkodowany hex). */
+  .mmw-timeline__points {
+    position: relative;
+  }
+
+  .mmw-timeline__points::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 7px;
+    height: 2px;
+    background: var(--mmw-03);
+  }
+
+  .mmw-timeline__point {
+    flex: 0 0 410px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 34px;
+    position: relative;
+    color: var(--mmw-01);
+  }
+
+  .mmw-timeline__point::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--mmw-03);
+  }
+
+  .mmw-timeline__hour {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 1.1;
+  }
+
+  .mmw-timeline__desc {
+    margin: 0;
+    font-family: var(--mmw-font-text);
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 749px) {
+    .mmw-timeline__heading {
+      font-size: 36px;
+      line-height: 1.1;
+    }
+
+    .mmw-timeline__subheading {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    /* Strzałki tylko na desktopie — na /filozofia widoczne zawsze, ale ten
+       brief chce mobile wyłącznie na przeciąganie. */
+    .mmw-timeline__nav {
+      display: none;
+    }
+
+    .mmw-timeline__row {
+      gap: 24px;
+    }
+
+    .mmw-timeline__photo,
+    .mmw-timeline__point {
+      flex-basis: 300px;
+    }
+
+    .mmw-timeline__hour {
+      font-size: 48px;
+    }
+
+    .mmw-timeline__desc {
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Timeline wydarzenia",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Timeline doświadczenia" },
+    { "type": "textarea", "id": "subheading", "label": "Podtytuł" }
+  ],
+  "presets": [
+    { "name": "MMW – Timeline wydarzenia", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}
