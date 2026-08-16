@@ -454,6 +454,11 @@
         "gap": 64
       }
     },
+    "mmw_product_video_hero_1": {
+      "type": "mmw-product-video-hero",
+      "name": "MMW Wideo — Skąd to pochodzi",
+      "settings": {}
+    },
     "mmw_product_pairing_1": {
       "type": "mmw-product-pairing",
       "settings": {
@@ -496,6 +501,7 @@
   "order": [
     "main",
     "mmw_product_story_1",
+    "mmw_product_video_hero_1",
     "mmw_product_pairing_1",
     "mmw_heritage_note_w8Qqnf",
     "mmw_product_recommendations_1",

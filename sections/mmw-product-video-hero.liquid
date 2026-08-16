@@ -1,0 +1,339 @@
+{%- comment -%}
+  mmw-product-video-hero — pełnoekranowa sekcja wideo "Skąd to pochodzi", WYŁĄCZNIE
+  w templates/product.jedzenie.json (nie ma jej w product.wino.json). Figma: STRONA-WWW,
+  node 982:7159 (sekcja), 982:7161 (przycisk play), 982:7164 (blok tekstowy).
+
+  Treść wyłącznie z ustawień sekcji — bez metafieldów/metaobiektów (decyzja: wspólna dla
+  wszystkich produktów spożywczych, nie per-produkt).
+
+  Mechanika: natywny <deferred-media> (snippets/video.liquid — ten sam, którego używa
+  natywny blocks/video.liquid) — klik odtwarza wideo w miejscu, wideo NIE ładuje się
+  wcześniej (brak preload przed interakcją, natywne, zero JS z naszej strony). Dwa źródła
+  jak w blocks/video.liquid: Shopify-hosted (type: video) lub link zewnętrzny
+  (type: video_url, YouTube/Vimeo).
+
+  Fonty: --mmw-font-label (nadnagłówek — DM Sans, jak wszędzie), --mmw-font-display
+  (nagłówek — Roslindale Display Condensed, JUŻ ISTNIEJĄCA wartość tej zmiennej w
+  mmw-tokens.liquid, nie nowy font), --mmw-font-text (opis — Roslindale Text, tak samo
+  już istniejące). Zweryfikowane w mmw-tokens.liquid przed napisaniem tego pliku.
+
+  Przycisk play: natywna ikona deferred-media jest domyślnie wyśrodkowana na całej
+  wysokości (assets/base.css: .deferred-media__poster-icon { top:50%; left:50% }), a
+  Figma pokazuje ją tuż nad tekstem, blisko dołu. Rozwiązanie: chowamy natywną ikonę
+  (display:none, tylko w zasięgu tej sekcji) i rysujemy WŁASNĄ, czysto dekoracyjną
+  (aria-hidden, ten sam inline icon-play.svg) wewnątrz naszego układu flex (gap 113px
+  jak w Figmie, prawdziwy flex, nie zgadywanie stałego przesunięcia w px). Prawdziwy
+  natywny <button> (z poprawnym aria-label, focus, klawiaturą) zostaje pod spodem i
+  wypełnia całą sekcję — cała sekcja jest klikalna, nasza nakładka ma
+  pointer-events:none, więc klik przechodzi na natywny przycisk.
+
+  Zanikanie tekstu/ikony po starcie wideo: hook na natywnym deferred-media[data-media-loaded]
+  (assets/media.js — ustawiane raz, nigdy nie usuwane, więc nie trzeba pilnować "powrotu"
+  po pauzie). Ten sam czas przejścia (0.3s) co natywny fade posteru w base.css, żeby oba
+  elementy znikały razem, spójnie.
+{%- endcomment -%}
+{%- liquid
+  assign has_video = false
+  if section.settings.video_source == 'uploaded' and section.settings.video != blank
+    assign has_video = true
+  elsif section.settings.video_source == 'url' and section.settings.video_url != blank
+    assign has_video = true
+  endif
+
+  assign has_text = false
+  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.description != blank
+    assign has_text = true
+  endif
+
+  assign has_content = false
+  if has_video or section.settings.poster_image != blank or has_text
+    assign has_content = true
+  endif
+
+  assign video_alt = section.settings.heading | default: 'Wideo produktu'
+
+  # sizes posteru — sekcja full-bleed (bez schema "class":"section", jak nasze karuzele),
+  # więc realna szerokość = 100vw na każdym breakpoincie. Bez cqw (nieprawidłowe w sizes).
+  assign poster_sizes = '(min-width: 750px) 100vw, 100vw'
+-%}
+{%- if has_content -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .mmw-pvh {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: var(--mmw-01);
+      color: var(--mmw-04);
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh--full-screen { min-height: 100svh; }
+    #shopify-section-{{ section.id }} .mmw-pvh--large { min-height: var(--section-height-large); }
+    #shopify-section-{{ section.id }} .mmw-pvh--medium { min-height: var(--section-height-medium); }
+
+    /* Tło: obraz/wideo full-bleed. deferred-media/img/iframe pozycjonowanie 1:1 z
+       natywnym base.css (deferred-media img/iframe { height:100%; object-fit:cover }),
+       tu tylko dopinamy width/absolute, bo tam liczą na rodzica o zadanym rozmiarze —
+       naszym rodzicem jest .mmw-pvh (min-height ustawione wyżej), nie domyślny box. */
+    #shopify-section-{{ section.id }} .mmw-pvh__bg,
+    #shopify-section-{{ section.id }} .mmw-pvh__bg deferred-media,
+    #shopify-section-{{ section.id }} .mmw-pvh__bg img,
+    #shopify-section-{{ section.id }} .mmw-pvh__bg iframe,
+    #shopify-section-{{ section.id }} .mmw-pvh__poster-static {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh__poster-static {
+      object-fit: cover;
+      display: block;
+    }
+    /* Chowamy natywną wyśrodkowaną ikonę deferred-media — patrz komentarz na górze pliku,
+       rysujemy własną w .mmw-pvh__icon, w prawdziwym flexie z tekstem. */
+    #shopify-section-{{ section.id }} .mmw-pvh .deferred-media__poster-icon {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-pvh__overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, var(--mmw-pvh-overlay-opacity, 0.3));
+      pointer-events: none;
+    }
+
+    /* Nakładka ikona+tekst — prawdziwy flex, gap 113px jak w Figmie (nie stałe przesunięcie
+       w px zgadywane pod długość tekstu). pointer-events:none na całości, żeby klik
+       przechodził do prawdziwego <button> pod spodem (deferred-media wypełnia 100% sekcji). */
+    #shopify-section-{{ section.id }} .mmw-pvh__content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 113px;
+      min-height: inherit;
+      padding: 42px 38px;
+      text-align: center;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh:has(deferred-media[data-media-loaded]) .mmw-pvh__content {
+      opacity: 0;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-pvh__icon {
+      flex: 0 0 auto;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(250, 242, 232, 0.2);
+    }
+    /* backdrop-filter (efekt mlecznego szkła z Figmy) — obsługiwane szeroko, ale nie
+       wszędzie (starsze przeglądarki, część mobile). @supports = jawny fallback: samo
+       półprzezroczyste tło (już ustawione wyżej jako baza) bez rozmycia, przycisk zostaje
+       widoczny i klikalny niezależnie od wsparcia. */
+    @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+      #shopify-section-{{ section.id }} .mmw-pvh__icon {
+        -webkit-backdrop-filter: blur(5px);
+        backdrop-filter: blur(5px);
+      }
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh__icon svg,
+    #shopify-section-{{ section.id }} .mmw-pvh__icon .icon-play {
+      width: 22px;
+      height: 22px;
+      color: var(--mmw-04);
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} .mmw-pvh__text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 19px;
+      max-width: 518px;
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh__eyebrow {
+      margin: 0;
+      font-family: var(--mmw-font-label);
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh__heading {
+      margin: 0;
+      font-family: var(--mmw-font-display);
+      font-weight: 400;
+      font-size: 60px;
+      line-height: 1;
+    }
+    #shopify-section-{{ section.id }} .mmw-pvh__description {
+      margin: 0;
+      font-family: var(--mmw-font-text);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 749px) {
+      #shopify-section-{{ section.id }} .mmw-pvh__content {
+        padding: 28px 24px;
+        gap: 48px;
+      }
+      #shopify-section-{{ section.id }} .mmw-pvh__heading {
+        font-size: 36px;
+      }
+      #shopify-section-{{ section.id }} .mmw-pvh__eyebrow {
+        font-size: 20px;
+      }
+      #shopify-section-{{ section.id }} .mmw-pvh__description {
+        font-size: 15px;
+      }
+    }
+  {%- endstyle -%}
+
+  <section class="mmw-pvh mmw-pvh--{{ section.settings.section_height }} color-{{ section.settings.color_scheme }}">
+    <div class="mmw-pvh__bg" aria-hidden="true">
+      {%- if has_video -%}
+        {%- if section.settings.video_source == 'uploaded' -%}
+          {%- render 'video',
+            video: section.settings.video,
+            video_preview_image: section.settings.poster_image,
+            sizes: poster_sizes,
+            loading: 'eager'
+          -%}
+        {%- else -%}
+          {%- render 'video',
+            video_from_url: true,
+            video: section.settings.video_url.id,
+            video_type: section.settings.video_url.type,
+            video_alt: video_alt,
+            video_preview_image: section.settings.poster_image,
+            sizes: poster_sizes,
+            loading: 'eager'
+          -%}
+        {%- endif -%}
+      {%- elsif section.settings.poster_image != blank -%}
+        <img
+          class="mmw-pvh__poster-static"
+          width="{{ section.settings.poster_image.width }}"
+          height="{{ section.settings.poster_image.height }}"
+          src="{{ section.settings.poster_image | image_url: width: 1600 }}"
+          srcset="
+            {{ section.settings.poster_image | image_url: width: 800 }} 800w,
+            {{ section.settings.poster_image | image_url: width: 1200 }} 1200w,
+            {{ section.settings.poster_image | image_url: width: 1600 }} 1600w,
+            {{ section.settings.poster_image | image_url: width: 2400 }} 2400w
+          "
+          sizes="{{ poster_sizes }}"
+          fetchpriority="high"
+          alt=""
+        >
+      {%- endif -%}
+      <div
+        class="mmw-pvh__overlay"
+        style="--mmw-pvh-overlay-opacity: {{ section.settings.overlay_opacity | default: 30 | divided_by: 100.0 }};"
+      ></div>
+    </div>
+
+    {%- if has_video or has_text -%}
+      <div class="mmw-pvh__content">
+        {%- if has_video -%}
+          <span class="mmw-pvh__icon" aria-hidden="true">
+            {{- 'icon-play.svg' | inline_asset_content -}}
+          </span>
+        {%- endif -%}
+        {%- if has_text -%}
+          <div class="mmw-pvh__text">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="mmw-pvh__eyebrow">{{ section.settings.eyebrow }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <h2 class="mmw-pvh__heading">{{ section.settings.heading }}</h2>
+            {%- endif -%}
+            {%- if section.settings.description != blank -%}
+              <p class="mmw-pvh__description">{{ section.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "MMW Wideo produktu",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Wideo" },
+    {
+      "type": "select",
+      "id": "video_source",
+      "label": "Źródło wideo",
+      "default": "uploaded",
+      "options": [
+        { "value": "uploaded", "label": "Wgrane do Shopify" },
+        { "value": "url", "label": "Link zewnętrzny (YouTube / Vimeo)" }
+      ]
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Wideo",
+      "visible_if": "{{ section.settings.video_source == 'uploaded' }}"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Link do wideo",
+      "accept": ["youtube", "vimeo"],
+      "info": "YouTube lub Vimeo — przydatne przy dłuższym materiale (Shopify ma limit rozmiaru pliku wideo). Wymaga ustawionego niżej obrazu plakatu — bez niego wideo załaduje się od razu, bez czekania na kliknięcie.",
+      "visible_if": "{{ section.settings.video_source == 'url' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Obraz plakatu",
+      "info": "Przy wgranym wideo: jeśli puste, użyty zostanie automatyczny kadr z wideo. Przy linku zewnętrznym: wymagane (patrz uwaga wyżej)."
+    },
+    { "type": "header", "content": "Treść" },
+    { "type": "text", "id": "eyebrow", "label": "Nadnagłówek / rok" },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Skąd to pochodzi?" },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Opis",
+      "default": "Poznaj historię i pochodzenie tego produktu — od pierwszego pomysłu aż po dzisiejszą recepturę.",
+      "info": "Przykładowa treść — finalny tekst dostarcza klient."
+    },
+    { "type": "header", "content": "Wygląd" },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Przyciemnienie tła",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "select",
+      "id": "section_height",
+      "label": "Wysokość sekcji",
+      "default": "full-screen",
+      "options": [
+        { "value": "full-screen", "label": "Pełny ekran" },
+        { "value": "large", "label": "Duża" },
+        { "value": "medium", "label": "Średnia" }
+      ]
+    },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" }
+  ],
+  "presets": [{ "name": "MMW Wideo produktu" }]
+}
+{% endschema %}
