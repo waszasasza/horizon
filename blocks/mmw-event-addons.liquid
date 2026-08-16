@@ -1,0 +1,422 @@
+{%- doc -%}
+  mmw-event-addons — lista opcjonalnych dodatków do wydarzenia z progresywnym
+  ujawnianiem (zwinięty wiersz → rozwinięty: select godziny [gdy >1 wariant] +
+  licznik ilości). Figma: node 982:14616.
+
+  Źródło: closest.product.metafields.custom.dodatki (list.product_reference).
+  Renderuje TYLKO gdy metapole niepuste i przynajmniej jedna referencja wskazuje
+  na istniejący produkt — usunięte/puste referencje są pomijane.
+
+  Zakres: renderowanie + interakcja UI (assets/mmw-event-addons.js). Wysyłka do
+  koszyka to osobny etap — stan wyboru trzymany w atrybutach data-* na wierszu
+  (data-addon-variant-id / data-addon-quantity), odczyt przez publiczną metodę
+  <mmw-event-addons>.getSelectedAddons(), NIE zagnieżdżone w natywnym <product-form>
+  (Shopify wysyła jeden wariant na submit, dodatki pójdą osobnym fetch('/cart/add.js')
+  z properties._event_id / _event_title do grupowania w koszyku).
+{%- enddoc -%}
+{%- liquid
+  assign addon_refs = closest.product.metafields.custom.dodatki.value
+  assign valid_addon_count = 0
+  for ref in addon_refs
+    if ref != blank and ref.title != blank
+      assign valid_addon_count = valid_addon_count | plus: 1
+    endif
+  endfor
+-%}
+{%- if addon_refs != blank and valid_addon_count > 0 -%}
+  <mmw-event-addons
+    class="mmw-addons spacing-style"
+    style="{% render 'spacing-style', settings: block.settings %}"
+    data-event-id="{{ closest.product.id }}"
+    data-event-title="{{ closest.product.title | escape }}"
+    {{ block.shopify_attributes }}
+  >
+    <p class="mmw-addons__error" data-addons-error role="alert" hidden></p>
+    <ul class="mmw-addons__list" role="list">
+      {%- for addon in addon_refs -%}
+        {%- if addon != blank and addon.title != blank -%}
+          {%- liquid
+            assign row_id = block.id | append: '-' | append: forloop.index
+            assign variants = addon.variants
+            assign has_multi_variant = false
+            if variants.size > 1
+              assign has_multi_variant = true
+            endif
+            assign single_variant = variants.first
+          -%}
+          <li
+            class="mmw-addons__row{% unless addon.available %} mmw-addons__row--soldout{% endunless %}"
+            data-addon-row
+            data-addon-product-id="{{ addon.id }}"
+            data-expanded="false"
+            {%- unless has_multi_variant %}
+              data-addon-fixed-variant-id="{{ single_variant.id }}"
+              {%- unless single_variant.title == 'Default Title' %}
+                data-addon-fixed-variant-title="{{ single_variant.title | escape }}"
+              {%- endunless %}
+              data-addon-fixed-variant-max="{{ single_variant.inventory_quantity | default: 0 }}"
+              data-addon-fixed-variant-tracked="{{ single_variant.inventory_management | default: '' }}"
+              data-addon-fixed-variant-policy="{{ single_variant.inventory_policy | default: '' }}"
+            {%- endunless %}
+          >
+            <button
+              type="button"
+              class="mmw-addons__toggle"
+              aria-expanded="false"
+              aria-controls="mmw-addons-controls-{{ row_id }}"
+              {% unless addon.available %}disabled aria-label="{{ addon.title }} — wyprzedane"{% endunless %}
+            >
+              <span class="mmw-addons__icon" aria-hidden="true"></span>
+              <span class="mmw-addons__text">
+                <span class="mmw-addons__name">{{ addon.title }}</span>
+                <span class="mmw-addons__price">{% render 'mmw-addon-price', price: addon.price_min %}</span>
+              </span>
+            </button>
+            <div class="mmw-addons__controls-wrap">
+              <div class="mmw-addons__controls" id="mmw-addons-controls-{{ row_id }}" inert>
+                {%- if has_multi_variant -%}
+                  <div class="mmw-addons__field">
+                    <select class="mmw-addons__select" data-addon-variant-select required aria-label="Wybierz godzinę">
+                      <option value="" selected disabled>Wybierz godzinę</option>
+                      {%- for variant in variants -%}
+                        <option
+                          value="{{ variant.id }}"
+                          data-max="{{ variant.inventory_quantity | default: 0 }}"
+                          data-tracked="{{ variant.inventory_management | default: '' }}"
+                          data-policy="{{ variant.inventory_policy | default: '' }}"
+                          {% unless variant.available %}disabled{% endunless %}
+                        >
+                          {{ variant.title }}{% unless variant.available %} (brak miejsc){% endunless %}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                    <span class="mmw-addons__chevron" aria-hidden="true">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+                  </div>
+                {%- endif -%}
+                <div class="mmw-addons__qty-row">
+                  <span class="mmw-addons__qty-label">Wybierz ilość</span>
+                  <div class="mmw-addons__qty">
+                    <button type="button" class="mmw-addons__qty-btn" data-qty-decrease disabled aria-label="Zmniejsz ilość">
+                      <span class="svg-wrapper svg-wrapper--small">{{ 'icon-minus.svg' | inline_asset_content }}</span>
+                    </button>
+                    <span class="mmw-addons__qty-value" data-qty-value>1</span>
+                    <button type="button" class="mmw-addons__qty-btn" data-qty-increase disabled aria-label="Zwiększ ilość">
+                      <span class="svg-wrapper svg-wrapper--small">{{ 'icon-plus.svg' | inline_asset_content }}</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </mmw-event-addons>
+
+  <script src="{{ 'mmw-event-addons.js' | asset_url }}" type="module"></script>
+  <script src="{{ 'mmw-event-cart.js' | asset_url }}" type="module"></script>
+{%- endif -%}
+
+{% stylesheet %}
+  .mmw-addons__error {
+    margin: 0 0 14px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--mmw-02) 15%, transparent);
+    font-family: var(--mmw-font-text);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--mmw-01);
+  }
+
+  .mmw-addons__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mmw-addons__row {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 8px 24px;
+    border-bottom: 1px solid color-mix(in srgb, var(--mmw-01) 25%, transparent);
+    transition: gap 0.25s ease, padding 0.25s ease;
+  }
+
+  .mmw-addons__row[data-expanded='true'] {
+    gap: 24px;
+    padding: 8px 24px 21px 24px;
+  }
+
+  .mmw-addons__row--soldout {
+    opacity: 0.4;
+  }
+
+  .mmw-addons__toggle {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mmw-addons__row--soldout .mmw-addons__toggle {
+    cursor: not-allowed;
+  }
+
+  .mmw-addons__icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    transition: background-color 0.25s ease;
+  }
+
+  .mmw-addons__icon::before,
+  .mmw-addons__icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    background: var(--mmw-01);
+  }
+
+  .mmw-addons__icon::before {
+    width: 11px;
+    height: 1px;
+  }
+
+  .mmw-addons__icon::after {
+    width: 1px;
+    height: 11px;
+  }
+
+  .mmw-addons__row[data-expanded='true'] .mmw-addons__icon {
+    background: var(--mmw-02);
+  }
+
+  .mmw-addons__row[data-expanded='true'] .mmw-addons__icon::after {
+    display: none;
+  }
+
+  .mmw-addons__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .mmw-addons__name {
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--mmw-01);
+  }
+
+  .mmw-addons__price {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+  }
+
+  .mmw-addons__controls-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+  }
+
+  .mmw-addons__row[data-expanded='true'] .mmw-addons__controls-wrap {
+    grid-template-rows: 1fr;
+  }
+
+  .mmw-addons__controls {
+    overflow: hidden;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .mmw-addons__field {
+    position: relative;
+    width: 100%;
+  }
+
+  .mmw-addons__select {
+    appearance: none;
+    width: 100%;
+    border: 1px solid color-mix(in srgb, var(--mmw-01) 25%, transparent);
+    border-radius: 99px;
+    padding: 16px 44px 16px 15px;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    color: var(--mmw-01);
+    background: none;
+    cursor: pointer;
+  }
+
+  .mmw-addons__select:invalid {
+    color: color-mix(in srgb, var(--mmw-01) 50%, transparent);
+  }
+
+  .mmw-addons__select option {
+    color: var(--mmw-01);
+  }
+
+  .mmw-addons__chevron {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    translate: 0 -50%;
+    width: 20px;
+    height: 20px;
+    color: var(--mmw-01);
+    pointer-events: none;
+  }
+
+  .mmw-addons__chevron svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mmw-addons__qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 14px;
+    width: 100%;
+  }
+
+  .mmw-addons__qty-label {
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    color: color-mix(in srgb, var(--mmw-01) 50%, transparent);
+  }
+
+  .mmw-addons__qty {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 120px;
+    height: 48px;
+    padding-inline: 12px;
+    border: 1px solid color-mix(in srgb, var(--mmw-01) 25%, transparent);
+    border-radius: 99px;
+  }
+
+  .mmw-addons__qty-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    background: none;
+    color: var(--mmw-01);
+    cursor: pointer;
+  }
+
+  .mmw-addons__qty-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .mmw-addons__qty-value {
+    min-width: 1.5ch;
+    font-family: var(--mmw-font-display);
+    font-size: 26px;
+    line-height: 1.2;
+    color: var(--mmw-01);
+    text-align: center;
+  }
+
+  @media (max-width: 749px) {
+    .mmw-addons__row {
+      padding-inline: 16px;
+    }
+
+    .mmw-addons__row[data-expanded='true'] {
+      padding: 8px 16px 21px 16px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-addons__row,
+    .mmw-addons__icon,
+    .mmw-addons__controls-wrap {
+      transition: none;
+    }
+  }
+
+  /* Stan ładowania przycisku "Dodaj do koszyka" (biletu) podczas wysyłki
+     kombinowanego żądania bilet+dodatki — assets/mmw-event-cart.js. Klasa
+     dotyczy natywnego przycisku w sąsiednim buy_buttons_event; .mmw-loading
+     to nasza własna klasa, dokładana wyłącznie przez ten skrypt, więc nie
+     potrzebuje dodatkowego scope'owania (stylesheet w blokach jest statyczny
+     — nie pozwala na zmienne Liquid w ogóle, stąd bez interpolacji section id). */
+  .add-to-cart-button.mmw-loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+  }
+
+  .add-to-cart-button.mmw-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    margin: -9px 0 0 -9px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in srgb, var(--mmw-04) 40%, transparent);
+    border-top-color: var(--mmw-04);
+    animation: mmw-addons-spin 0.7s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .add-to-cart-button.mmw-loading::after {
+      animation: none;
+    }
+  }
+
+  @keyframes mmw-addons-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Dodatki do wydarzenia",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    { "name": "MMW Dodatki do wydarzenia", "category": "t:categories.product" }
+  ]
+}
+{% endschema %}

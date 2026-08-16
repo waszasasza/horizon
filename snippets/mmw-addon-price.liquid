@@ -1,0 +1,19 @@
+{%- doc -%}
+  mmw-addon-price — cena dodatku wydarzenia w formacie "+ 600,-" (PLN), NIE natywny
+  format Shopify (money/money_with_currency). Grosze pomijane, gdy końcówka .00.
+
+  @param {number} price - cena w groszach (np. product.price_min / variant.price)
+
+  @example
+  {% render 'mmw-addon-price', price: addon.price_min %}
+{%- enddoc -%}
+{%- liquid
+  assign major = price | divided_by: 100
+  assign minor = price | modulo: 100
+-%}
+{%- if minor == 0 -%}
+  + {{ major }},-
+{%- else -%}
+  {%- assign minor_padded = minor | prepend: '00' | slice: -2, 2 -%}
+  + {{ major }},{{ minor_padded }},-
+{%- endif -%}
