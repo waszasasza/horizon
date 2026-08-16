@@ -61,6 +61,12 @@ Nowe:
     SEO (metapole `custom.tekst_seo`, rich text), prawa kolumna akordeony FAQ
     (metaobjekt `pytanie_faq` przez `custom.faq`). Akordeony na natywnym
     `snippets/accordion-custom-component.liquid`. Znika, gdy obie kolumny puste.
+16. `mmw-product-video-hero` — pełnoekranowa sekcja wideo "Skąd to pochodzi",
+    WYŁĄCZNIE w `templates/product.jedzenie.json` (nie ma jej w `product.wino.json`).
+    Treść z ustawień sekcji (bez metafieldów/metaobiektów — wspólna dla wszystkich
+    produktów spożywczych). Wideo przez natywny `<deferred-media>`
+    (`snippets/video.liquid`, ten sam co natywny `blocks/video.liquid`) — klik
+    odtwarza w miejscu, brak autoplay/preload z góry. Figma: node 982:7159.
     Przebudowa:
 
 - `mmw-hero` — obsługa wideo LUB obrazu (media picker), nowy layout.
@@ -103,6 +109,35 @@ plików natywnych motywu — ryzyko nadpisania przy aktualizacji Horizona:
 Osierocone od tej zmiany (nieusunięte, czekają na osobny diff porządkowy):
 `blocks/_blog-post-image.liquid`, `blocks/_featured-blog-posts-image.liquid`,
 `blocks/_blog-post-info-text.liquid`, `blocks/_blog-post-description.liquid`.
+
+Koszyk dodatków do wydarzeń (Etap 4, `mmw-event-addons`/`mmw-event-cart.js`):
+
+- `templates/cart.json` — dodany JEDEN nowy blok `mmw_cart_addon_grouping_1`
+  (`type: mmw-cart-addon-grouping`, patrz `blocks/mmw-cart-addon-grouping.liquid`)
+  w sekcji `main-cart`, między istniejącymi static blokami `cart-page-title` i
+  `cart-page-items`. Blok narzędziowy — bez własnego widocznego contentu poza
+  komunikatem błędu, ładuje `assets/mmw-cart-addon-grouping.js` (sieroty +
+  grupowanie wizualne pozycji koszyka). Żaden istniejący blok/setting w pliku
+  NIE zmieniony.
+- Żaden plik `.liquid` poza `blocks/` (a więc żaden faktyczny natywny render)
+  nie został dotknięty — grupowanie w koszyku działa przez `fetch('/cart.js')`
+  + istniejący `data-key` na natywnych wierszach (`snippets/cart-products.liquid`
+  nieedytowany), usuwanie sierot przez `/cart/change.js` + `morphSection`.
+  Ticket na przyszłość, gdyby okazało się za mało: dodanie `data-event-id` wprost
+  na `<tr>` w `snippets/cart-products.liquid` (obecnie omijane przez fetch JSON).
+- **`assets/mmw-event-cart.js` usuwa w RUNTIME (JS, nie plik) atrybuty
+  `on:submit` z `<product-form-component>` i `on:click` z przycisku
+  add-to-cart** (`blocks/buy-buttons.liquid` / `snippets/add-to-cart-button.liquid`),
+  żeby przejąć submit ticketu+dodatków bez pojedynczego natywnego POST-a i bez
+  mylącej animacji "lot do koszyka" przy błędzie 422 — patrz komentarz na górze
+  pliku po uzasadnienie (dlaczego nie da się tego zrobić przez wyścig listenerów
+  submit/click). **To pierwsze miejsce do sprawdzenia przy aktualizacji
+  Horizona** — jeśli zmieni się nazwa/mechanizm atrybutów `on:*`, struktura
+  `ProductFormComponent`/`AddToCartComponent`, albo `ref="addToCartButton"`,
+  ten hack przestanie działać. Zabezpieczenie: usuwanie atrybutów następuje
+  DOPIERO PO podpięciu własnego listenera submit (nie wcześniej) — jeśli ten
+  plik się nie załaduje albo coś w nim rzuci wyjątek wcześniej, przycisk
+  nadal działa natywnie (sam bilet, bez dodatków), zamiast być martwy.
 
 ## Workflow
 
