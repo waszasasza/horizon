@@ -19,7 +19,7 @@
     flex-direction: column;
     gap: 48px;
     padding-block: 60px;
-    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
+    /*padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));*/
   }
 
   #shopify-section-{{ section.id }} .mmw-story__col {
@@ -34,7 +34,7 @@
          (stos kart, łącznie z paskiem postępu/licznikiem) — flex align-items
          centruje całe kolumny wobec siebie, nie tylko pojedynczy element. */
       align-items: center;
-      gap: {{ section.settings.gap | default: 64 }}px;
+      gap: {{ section.settings.gap | default: 48 }}px;
     }
 
     #shopify-section-{{ section.id }} .mmw-story__col {
@@ -72,7 +72,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 64
+      "default": 48
     }
   ],
   "presets": [

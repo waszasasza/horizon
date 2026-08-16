@@ -65,7 +65,6 @@
     display: flex;
     flex-direction: column;
     padding-block: 40px;
-    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
   }
 
   .mmw-palac-split__inner {
@@ -99,7 +98,7 @@
   .mmw-palac-split__copy {
     display: flex;
     flex-direction: column;
-    gap: 11px;
+    gap: 12px;
   }
 
   .mmw-palac-split__label,
@@ -179,7 +178,7 @@
     .mmw-palac-split__inner {
       flex-direction: row;
       align-items: center;
-      gap: 96px;
+      gap: 48px;
     }
 
     .mmw-palac-split__media {
@@ -190,9 +189,6 @@
     .mmw-palac-split__content {
       flex: 1 1 0;
       min-width: 0;
-      /* 750–1440px: ten sam gutter co reszta sekcji MMW (--util-page-margin-offset),
-         zamiast osobnej, jednorazowej wartości — spójnie z resztą sekcji. */
-      padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
     }
 
     .mmw-palac-split__heading {

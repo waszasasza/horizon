@@ -101,7 +101,6 @@
     flex-direction: column;
     gap: 48px;
     padding-block: 60px;
-    padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
   }
 
   .mmw-seo-faq__col {
@@ -215,7 +214,7 @@
     .mmw-seo-faq.section {
       flex-direction: row;
       align-items: flex-start;
-      gap: 115px;
+      gap: 48px;
     }
 
     .mmw-seo-faq__col {
@@ -235,11 +234,22 @@
     .mmw-seo-faq__heading {
       font-size: 44px;
       margin-bottom: 24px;
+      text-align: left;
     }
 
     .mmw-seo-faq__question {
       font-size: 22px;
     }
+    .mmw-seo-faq__seo-body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    text-align: left;
+    padding-top: 14px;
+  }
+  .mmw-seo-faq__col--faq .mmw-seo-faq__heading {
+    text-align: left;
+}
   }
 {% endstylesheet %}
 

@@ -176,7 +176,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     text-align: center;
     color: var(--mmw-01);
     padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px));
@@ -258,6 +258,16 @@
     .mmw-pairing--fits-desktop slideshow-controls {
       display: none;
     }
+
+    /* Przy <=5 kafelkach rząd nie scrolluje (patrz show_arrows wyżej) i mieści się
+       w całości między gutterami — bez tego domyślny justify-content: flex-start
+       natywnego slideshow-slides (display:flex) zostawia kafelki przyklejone do
+       lewej, z pustym miejscem po prawej. Wyśrodkowanie dotyczy tylko tego wariantu:
+       przy >5 kafelkach rząd i tak wypełnia/scrolluje całą szerokość, więc flex-start
+       zostaje (potrzebny do poprawnego scrolla od pierwszej karty). */
+    .mmw-pairing--fits-desktop slideshow-slides {
+      justify-content: center;
+    }
   }
 
   /* Treść kafelka (nie geometria slajdu — to daje resource-list-carousel) */
@@ -333,7 +343,7 @@
     /* Mobile: jedna karta na ekran, wycentrowana, ze skrawkami sąsiadów po bokach —
        ten sam mechanizm co --mmw-pc-gutter-mobile w mmw-product-carousel.liquid. */
     .mmw-pairing {
-      --mmw-pairing-gutter-mobile: 36px;
+      --mmw-pairing-gutter-mobile: 24px;
     }
 
     .mmw-pairing__head {
@@ -370,7 +380,6 @@
 {
   "name": "MMW Polecamy do",
   "tag": "section",
-  "class": "section",
   "settings": [
     {
       "type": "text",
