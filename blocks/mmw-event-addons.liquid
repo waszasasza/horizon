@@ -271,10 +271,31 @@
     color: var(--mmw-01);
     background: none;
     cursor: pointer;
+    transition: border-color 0.15s ease, border-width 0.15s ease;
   }
 
   .mmw-addons__select:invalid {
     color: color-mix(in srgb, var(--mmw-01) 50%, transparent);
+  }
+
+  /* Zamiast globalnego outline (assets/base.css *:focus-visible) — który
+     nakładałby się na już istniejącą ramkę pigułki jako drugi, osobny stroke
+     — pogrubiamy i przyciemniamy TĘ SAMĄ ramkę. box-sizing:border-box jest
+     globalny (assets/base.css:2), więc dodatkowy 1px ramki nie przesuwa
+     layoutu. Fallback :focus dla przeglądarek bez :focus-visible, jak w
+     assets/base.css:306-311. */
+  .mmw-addons__select:focus-visible {
+    outline: none;
+    border-width: 2px;
+    border-color: var(--mmw-01);
+  }
+
+  @supports not selector(:focus-visible) {
+    .mmw-addons__select:focus {
+      outline: none;
+      border-width: 2px;
+      border-color: var(--mmw-01);
+    }
   }
 
   .mmw-addons__select option {
