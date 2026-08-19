@@ -1,0 +1,2274 @@
+[
+  {
+    "handle": "jak-przechowywac-sok-jablkowy",
+    "pytanie": "Jak przechowywać sok jabłkowy?",
+    "odpowiedz": {
+      "plain": "Przechowuj w chłodnym i ciemnym miejscu. Po otwarciu trzymaj w lodówce i zużyj w ciągu 3–4 dni — sok nie zawiera konserwantów, więc szybko traci świeżość.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przechowuj w chłodnym i ciemnym miejscu. Po otwarciu trzymaj w lodówce i zużyj w ciągu 3–4 dni — sok nie zawiera konserwantów, więc szybko traci świeżość."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-cydry-pomarium",
+    "pytanie": "Jak przechowywać cydry Pomarium?",
+    "odpowiedz": {
+      "plain": "Butelkę trzymaj w pozycji stojącej, w chłodnym i ciemnym miejscu, w temperaturze 8–15°C. Po otwarciu przechowuj w lodówce i spożyj w ciągu 2–3 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Butelkę trzymaj w pozycji stojącej, w chłodnym i ciemnym miejscu, w temperaturze 8–15°C. Po otwarciu przechowuj w lodówce i spożyj w ciągu 2–3 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-olej-ziolowy",
+    "pytanie": "Jak przechowywać olej ziołowy?",
+    "odpowiedz": {
+      "plain": "W chłodnym, ciemnym miejscu, z dala od kuchenki i innych źródeł ciepła. Po otwarciu zużyj w ciągu kilku tygodni — wtedy aromat ziół jest najpełniejszy.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W chłodnym, ciemnym miejscu, z dala od kuchenki i innych źródeł ciepła. Po otwarciu zużyj w ciągu kilku tygodni — wtedy aromat ziół jest najpełniejszy."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-jest-ta-pojemnosc",
+    "pytanie": "Dla kogo jest ta pojemność?",
+    "odpowiedz": {
+      "plain": "To format na większe okazje — rodzinne obiady, spotkania z bliskimi, przyjęcia. Worek z kranem pozwala nalewać porcjami bez otwierania całości naraz.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To format na większe okazje — rodzinne obiady, spotkania z bliskimi, przyjęcia. Worek z kranem pozwala nalewać porcjami bez otwierania całości naraz."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-podawac-cydr-pomarium-polwytrawny",
+    "pytanie": "Do czego podawać Cydr Pomarium Półwytrawny?",
+    "odpowiedz": {
+      "plain": "Świetnie sprawdza się do serów, dań z grilla i lekkich sałatek. Jego łagodna słodycz pasuje też do deserów owocowych i spotkań przy stole, gdzie wino bywa zbyt wytrawne.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Świetnie sprawdza się do serów, dań z grilla i lekkich sałatek. Jego łagodna słodycz pasuje też do deserów owocowych i spotkań przy stole, gdzie wino bywa zbyt wytrawne."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-podawac-cydr-pomarium-wytrawny",
+    "pytanie": "Do czego podawać Cydr Pomarium Wytrawny?",
+    "odpowiedz": {
+      "plain": "Podawaj do serów dojrzewających, drobiu, owoców morza i dań z grilla. Wytrawny, orzeźwiający charakter czyści podniebienie i dobrze znosi tłuste potrawy.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Podawaj do serów dojrzewających, drobiu, owoców morza i dań z grilla. Wytrawny, orzeźwiający charakter czyści podniebienie i dobrze znosi tłuste potrawy."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-korzystac-z-opakowania-z-kranem",
+    "pytanie": "Jak korzystać z opakowania z kranem?",
+    "odpowiedz": {
+      "plain": "Wyjmij kranik z kartonu, przekręć dźwignię i nalewaj. Nie wyjmuj worka z pudełka — chroni sok przed światłem. Po każdym użyciu domknij kranik do oporu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wyjmij kranik z kartonu, przekręć dźwignię i nalewaj. Nie wyjmuj worka z pudełka — chroni sok przed światłem. Po każdym użyciu domknij kranik do oporu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "kto-warzy-piwo-viva",
+    "pytanie": "Kto warzy Piwo VIVA?",
+    "odpowiedz": {
+      "plain": "Piwo powstaje według autorskiej, pałacowej receptury, a warzone jest dla nas przez rzemieślniczy browar w Krakowie.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Piwo powstaje według autorskiej, pałacowej receptury, a warzone jest dla nas przez rzemieślniczy browar w Krakowie."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wymaga_potwierdzenia": "Browar nie jest nazwany — potwierdzić, czy można podać nazwę."
+  },
+  {
+    "handle": "co-wyroznia-polini-aperitivo",
+    "pytanie": "Co wyróżnia Polini Aperitivo?",
+    "odpowiedz": {
+      "plain": "To pierwsze prawdziwe polskie aperitivo — zbudowane na balansie słodyczy i szlachetnej goryczki ziół i cytrusów, w duchu polskiej tradycji alkoholi ziołowo-owocowych.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To pierwsze prawdziwe polskie aperitivo — zbudowane na balansie słodyczy i szlachetnej goryczki ziół i cytrusów, w duchu polskiej tradycji alkoholi ziołowo-owocowych."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czy-chutney-jablkowy-jest-pikantny",
+    "pytanie": "Czy chutney jabłkowy jest pikantny?",
+    "odpowiedz": {
+      "plain": "Ma jedynie delikatną nutę pikantności — to raczej ciepło korzennych przypraw niż ostrość. Dominują kwaśne jabłka i przyprawy, nie chili.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ma jedynie delikatną nutę pikantności — to raczej ciepło korzennych przypraw niż ostrość. Dominują kwaśne jabłka i przyprawy, nie chili."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czy-konfitura-rozana-zawiera-cale-platki-rozy",
+    "pytanie": "Czy konfitura różana zawiera całe płatki róży?",
+    "odpowiedz": {
+      "plain": "Tak — w konfiturze znajdziesz aromatyczne płatki róży, a nie sam ekstrakt. To one odpowiadają za jej charakterystyczną teksturę i zapach.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Tak — w konfiturze znajdziesz aromatyczne płatki róży, a nie sam ekstrakt. To one odpowiadają za jej charakterystyczną teksturę i zapach."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czy-miod-wielokwiatowy-krystalizuje-sie",
+    "pytanie": "Czy miód wielokwiatowy krystalizuje się?",
+    "odpowiedz": {
+      "plain": "Tak i jest to naturalny proces, który świadczy o tym, że miód nie był podgrzewany. Nie wpływa na jakość ani smak. Jeśli wolisz płynną konsystencję, podgrzej słoik w kąpieli wodnej do temperatury najwyżej 40°C.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Tak i jest to naturalny proces, który świadczy o tym, że miód nie był podgrzewany. Nie wpływa na jakość ani smak. Jeśli wolisz płynną konsystencję, podgrzej słoik w kąpieli wodnej do temperatury najwyżej 40°C."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czy-syrop-lawendowy-jest-intensywnie-slodki",
+    "pytanie": "Czy syrop lawendowy jest intensywnie słodki?",
+    "odpowiedz": {
+      "plain": "Jest słodki, ale kwiatowy aromat lawendy równoważy słodycz. W napojach używaj go jak esencji — kilka łyżek na dzbanek w zupełności wystarczy.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Jest słodki, ale kwiatowy aromat lawendy równoważy słodycz. W napojach używaj go jak esencji — kilka łyżek na dzbanek w zupełności wystarczy."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-charakteryzuje-sie-jablko-odmiany-antonowka",
+    "pytanie": "Czym charakteryzuje się jabłko odmiany Antonówka?",
+    "odpowiedz": {
+      "plain": "To stara, tradycyjna odmiana o kwaskowato-słodkim smaku i intensywnym, rozpoznawalnym aromacie. W soku daje wyraźny zapach dojrzałego sadu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To stara, tradycyjna odmiana o kwaskowato-słodkim smaku i intensywnym, rozpoznawalnym aromacie. W soku daje wyraźny zapach dojrzałego sadu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-charakteryzuje-sie-jablko-odmiany-boskoop",
+    "pytanie": "Czym charakteryzuje się jabłko odmiany Boskoop?",
+    "odpowiedz": {
+      "plain": "Wyraźną kwaskowatością i intensywnym aromatem. To odmiana ceniona przez cukierników — w soku daje orzeźwiający, zdecydowany smak, bez mdłej słodyczy.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wyraźną kwaskowatością i intensywnym aromatem. To odmiana ceniona przez cukierników — w soku daje orzeźwiający, zdecydowany smak, bez mdłej słodyczy."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-charakteryzuje-sie-miod-lipowy",
+    "pytanie": "Czym charakteryzuje się miód lipowy?",
+    "odpowiedz": {
+      "plain": "Intensywnym, balsamicznym aromatem lipy i orzeźwiającym wykończeniem. Pochodzi z nektaru lipowych alej otaczających pałac.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Intensywnym, balsamicznym aromatem lipy i orzeźwiającym wykończeniem. Pochodzi z nektaru lipowych alej otaczających pałac."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-charakteryzuje-sie-miod-rzepakowy",
+    "pytanie": "Czym charakteryzuje się miód rzepakowy?",
+    "odpowiedz": {
+      "plain": "Jest jasny, delikatny i aksamitny w konsystencji, o łagodnej kwiatowej słodyczy. To jeden z pierwszych miodów sezonu — kwintesencja wiosny.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Jest jasny, delikatny i aksamitny w konsystencji, o łagodnej kwiatowej słodyczy. To jeden z pierwszych miodów sezonu — kwintesencja wiosny."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-charakteryzuje-sie-miod-wielokwiatowy",
+    "pytanie": "Czym charakteryzuje się miód wielokwiatowy?",
+    "odpowiedz": {
+      "plain": "Powstaje z nektaru wielu roślin kwitnących wokół pałacu, dlatego każdy zbiór ma nieco inny bukiet. Ma bursztynową barwę, kwiatową słodycz i wyczuwalne nuty ziół.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Powstaje z nektaru wielu roślin kwitnących wokół pałacu, dlatego każdy zbiór ma nieco inny bukiet. Ma bursztynową barwę, kwiatową słodycz i wyczuwalne nuty ziół."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-rozni-sie-miod-spadziowy-od-nektarowego",
+    "pytanie": "Czym różni się miód spadziowy od nektarowego?",
+    "odpowiedz": {
+      "plain": "Powstaje nie z nektaru kwiatów, lecz ze spadzi zbieranej przez pszczoły w lasach. Jest ciemniejszy, mniej słodki i głębszy w smaku, z wyraźną nutą mineralną.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Powstaje nie z nektaru kwiatów, lecz ze spadzi zbieranej przez pszczoły w lasach. Jest ciemniejszy, mniej słodki i głębszy w smaku, z wyraźną nutą mineralną."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-rozni-sie-od-wersji-boskoop",
+    "pytanie": "Czym różni się od wersji Boskoop?",
+    "odpowiedz": {
+      "plain": "Antonówka jest łagodniejsza i bardziej aromatyczna, Boskoop wyraźnie kwaśniejszy i bardziej orzeźwiający. To kwestia gustu, nie jakości.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Antonówka jest łagodniejsza i bardziej aromatyczna, Boskoop wyraźnie kwaśniejszy i bardziej orzeźwiający. To kwestia gustu, nie jakości."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-rozni-sie-od-wersji-mix",
+    "pytanie": "Czym różni się od wersji Mix?",
+    "odpowiedz": {
+      "plain": "Mix łączy kilka odmian w zbalansowaną całość. Wersja jednoodmianowa pokazuje charakter jednego jabłka — jest bardziej wyrazista i mniej kompromisowa.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Mix łączy kilka odmian w zbalansowaną całość. Wersja jednoodmianowa pokazuje charakter jednego jabłka — jest bardziej wyrazista i mniej kompromisowa."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-rozni-sie-wersja-mix-od-jednoodmianowej",
+    "pytanie": "Czym różni się wersja Mix od jednoodmianowej?",
+    "odpowiedz": {
+      "plain": "Mix to kompozycja kilku odmian jabłek, dobranych tak, by słodycz i kwasowość się równoważyły. Wersje jednoodmianowe — Boskoop czy Antonówka — pokazują charakter konkretnej odmiany.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Mix to kompozycja kilku odmian jabłek, dobranych tak, by słodycz i kwasowość się równoważyły. Wersje jednoodmianowe — Boskoop czy Antonówka — pokazują charakter konkretnej odmiany."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "czym-rozni-sie-wersja-wytrawna-od-polwytrawnej",
+    "pytanie": "Czym różni się wersja wytrawna od półwytrawnej?",
+    "odpowiedz": {
+      "plain": "Poziomem cukru resztkowego. Wytrawna jest bardziej cierpka i orzeźwiająca, w stylu francuskim. Półwytrawna zachowuje łagodną słodycz jabłek i jest przystępniejsza w odbiorze.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Poziomem cukru resztkowego. Wytrawna jest bardziej cierpka i orzeźwiająca, w stylu francuskim. Półwytrawna zachowuje łagodną słodycz jabłek i jest przystępniejsza w odbiorze."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-jest-cydr-pomarium-polwytrawny-330ml",
+    "pytanie": "Dla kogo jest Cydr Pomarium Półwytrawny 330ml?",
+    "odpowiedz": {
+      "plain": "Dla tych, którzy chcą spróbować jednej porcji bez otwierania dużej butelki — na piknik, kolację we dwoje albo jako element zestawu prezentowego.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dla tych, którzy chcą spróbować jednej porcji bez otwierania dużej butelki — na piknik, kolację we dwoje albo jako element zestawu prezentowego."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-jest-cydr-pomarium-polwytrawny",
+    "pytanie": "Dla kogo jest Cydr Pomarium Półwytrawny?",
+    "odpowiedz": {
+      "plain": "Dla osób, które lubią owocową świeżość z odrobiną słodyczy — także dla tych, którzy dopiero zaczynają przygodę z cydrem i szukają czegoś łagodniejszego niż wersja wytrawna.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dla osób, które lubią owocową świeżość z odrobiną słodyczy — także dla tych, którzy dopiero zaczynają przygodę z cydrem i szukają czegoś łagodniejszego niż wersja wytrawna."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-jest-cydr-pomarium-wytrawny-330ml",
+    "pytanie": "Dla kogo jest Cydr Pomarium Wytrawny 330ml?",
+    "odpowiedz": {
+      "plain": "Dla osób szukających pojedynczej porcji wytrawnego cydru — poręczna butelka sprawdza się na wyjazdach, piknikach i w zestawach degustacyjnych.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dla osób szukających pojedynczej porcji wytrawnego cydru — poręczna butelka sprawdza się na wyjazdach, piknikach i w zestawach degustacyjnych."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-jest-cydr-pomarium-wytrawny",
+    "pytanie": "Dla kogo jest Cydr Pomarium Wytrawny?",
+    "odpowiedz": {
+      "plain": "Dla miłośników czystego, wytrawnego smaku jabłek, bez słodyczy. Spodoba się osobom, które w winie cenią cierpkość i orzeźwienie.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dla miłośników czystego, wytrawnego smaku jabłek, bez słodyczy. Spodoba się osobom, które w winie cenią cierpkość i orzeźwienie."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-sa-chipsy-jablkowe",
+    "pytanie": "Dla kogo są Chipsy jabłkowe?",
+    "odpowiedz": {
+      "plain": "Dla wszystkich, którzy szukają przekąski bez dodatku cukru — do pracy, na wycieczkę, dla dzieci. Sprawdzają się też jako dodatek do owsianki i jogurtu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dla wszystkich, którzy szukają przekąski bez dodatku cukru — do pracy, na wycieczkę, dla dzieci. Sprawdzają się też jako dodatek do owsianki i jogurtu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dla-kogo-sa-orzechy-w-karmelu",
+    "pytanie": "Dla kogo są Orzechy w karmelu?",
+    "odpowiedz": {
+      "plain": "Dla tych, którzy lubią słodkie przekąski bez przesadnej słodyczy. Sprawdzają się do kawy, jako dodatek do deserów i jako drobny prezent.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dla tych, którzy lubią słodkie przekąski bez przesadnej słodyczy. Sprawdzają się do kawy, jako dodatek do deserów i jako drobny prezent."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dlaczego-miod-rzepakowy-szybko-krystalizuje",
+    "pytanie": "Dlaczego miód rzepakowy szybko krystalizuje?",
+    "odpowiedz": {
+      "plain": "Bo zawiera dużo glukozy, która krystalizuje szybciej niż fruktoza. To cecha odmiany, nie wada — świadczy o tym, że miód nie był podgrzewany.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Bo zawiera dużo glukozy, która krystalizuje szybciej niż fruktoza. To cecha odmiany, nie wada — świadczy o tym, że miód nie był podgrzewany."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dlaczego-miod-spadziowy-jest-rzadszy",
+    "pytanie": "Dlaczego miód spadziowy jest rzadszy?",
+    "odpowiedz": {
+      "plain": "Bo zależy od pojawienia się spadzi w lasach, a to zjawisko nie występuje co roku i trudno je przewidzieć. Stąd jego nazwa — „miód królewski”.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Bo zależy od pojawienia się spadzi w lasach, a to zjawisko nie występuje co roku i trudno je przewidzieć. Stąd jego nazwa — „miód królewski”."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "dlaczego-okres-zbioru-miodu-lipowego-jest-krotki",
+    "pytanie": "Dlaczego okres zbioru miodu lipowego jest krótki?",
+    "odpowiedz": {
+      "plain": "Bo lipy kwitną zaledwie przez dwa–trzy tygodnie w roku, a pogoda w tym czasie decyduje o całym zbiorze. Dlatego miód lipowy bywa dostępny w ograniczonych ilościach.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Bo lipy kwitną zaledwie przez dwa–trzy tygodnie w roku, a pogoda w tym czasie decyduje o całym zbiorze. Dlatego miód lipowy bywa dostępny w ograniczonych ilościach."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-chutney-jablkowy",
+    "pytanie": "Do czego wykorzystać chutney jabłkowy?",
+    "odpowiedz": {
+      "plain": "Do serów, mięs, pieczonych warzyw i kanapek. Dobrze sprawdza się jako dodatek do deski serów zamiast klasycznej konfitury.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do serów, mięs, pieczonych warzyw i kanapek. Dobrze sprawdza się jako dodatek do deski serów zamiast klasycznej konfitury."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-konfiture-jablkowo-rozana",
+    "pytanie": "Do czego wykorzystać konfiturę jabłkowo-różaną?",
+    "odpowiedz": {
+      "plain": "Do herbaty, deserów i serów pleśniowych. Elegancki, kwiatowy aromat sprawia, że dobrze wypada też na świątecznym stole.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do herbaty, deserów i serów pleśniowych. Elegancki, kwiatowy aromat sprawia, że dobrze wypada też na świątecznym stole."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-konfiture-malinowa",
+    "pytanie": "Do czego wykorzystać konfiturę malinową?",
+    "odpowiedz": {
+      "plain": "Do śniadań, naleśników, gofrów i domowych wypieków. Sprawdza się też jako dodatek do jogurtu i nadzienie do ciast.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do śniadań, naleśników, gofrów i domowych wypieków. Sprawdza się też jako dodatek do jogurtu i nadzienie do ciast."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-konfiture-morelowa",
+    "pytanie": "Do czego wykorzystać konfiturę morelową?",
+    "odpowiedz": {
+      "plain": "Do śniadań, drożdżówek i tart. Klasycznie używa się jej też do przecierania blatów ciast przed lukrowaniem.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do śniadań, drożdżówek i tart. Klasycznie używa się jej też do przecierania blatów ciast przed lukrowaniem."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-konfiture-rozana",
+    "pytanie": "Do czego wykorzystać konfiturę różaną?",
+    "odpowiedz": {
+      "plain": "Do ciast, naleśników i drożdżówek, ale też jako dodatek do serów pleśniowych. Klasycznie sprawdza się w pączkach i jako nadzienie do wypieków.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do ciast, naleśników i drożdżówek, ale też jako dodatek do serów pleśniowych. Klasycznie sprawdza się w pączkach i jako nadzienie do wypieków."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-konfiture-wisniowa",
+    "pytanie": "Do czego wykorzystać konfiturę wiśniową?",
+    "odpowiedz": {
+      "plain": "Do mięs, serów i wypieków. Głęboki, lekko cierpki smak wiśni świetnie równoważy tłuste dania — spróbuj jej do kaczki lub dojrzewającego sera.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do mięs, serów i wypieków. Głęboki, lekko cierpki smak wiśni świetnie równoważy tłuste dania — spróbuj jej do kaczki lub dojrzewającego sera."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-konfiture-z-pigwy",
+    "pytanie": "Do czego wykorzystać konfiturę z pigwy?",
+    "odpowiedz": {
+      "plain": "Do herbaty, serów dojrzewających i mięs — zwłaszcza pieczonych. Korzenny posmak pigwy dobrze równoważy tłuste i wyraziste smaki.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do herbaty, serów dojrzewających i mięs — zwłaszcza pieczonych. Korzenny posmak pigwy dobrze równoważy tłuste i wyraziste smaki."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-marmolade-jablkowa",
+    "pytanie": "Do czego wykorzystać marmoladę jabłkową?",
+    "odpowiedz": {
+      "plain": "Do wypieków, naleśników i kanapek. Gęsta konsystencja sprawia, że dobrze sprawdza się jako nadzienie do ciast — nie wypływa podczas pieczenia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do wypieków, naleśników i kanapek. Gęsta konsystencja sprawia, że dobrze sprawdza się jako nadzienie do ciast — nie wypływa podczas pieczenia."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-mini-bezy",
+    "pytanie": "Do czego wykorzystać mini bezy?",
+    "odpowiedz": {
+      "plain": "Jako samodzielną przekąskę do kawy, warstwę w deserach typu pavlova, dodatek do lodów albo dekorację tortów i ciast.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Jako samodzielną przekąskę do kawy, warstwę w deserach typu pavlova, dodatek do lodów albo dekorację tortów i ciast."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-olej-szczypiorkowy",
+    "pytanie": "Do czego wykorzystać olej szczypiorkowy?",
+    "odpowiedz": {
+      "plain": "Do sałatek, twarożku, jajek i pieczonych ziemniaków. Używaj go na zimno — podgrzewanie niszczy ziołowy aromat.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do sałatek, twarożku, jajek i pieczonych ziemniaków. Używaj go na zimno — podgrzewanie niszczy ziołowy aromat."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-olej-z-pestek-winogron",
+    "pytanie": "Do czego wykorzystać olej z pestek winogron?",
+    "odpowiedz": {
+      "plain": "Do sałatek, majonezów i lekkich sosów. Ma delikatny, orzechowy posmak i wysoką temperaturę dymienia, więc sprawdza się też do krótkiego smażenia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do sałatek, majonezów i lekkich sosów. Ma delikatny, orzechowy posmak i wysoką temperaturę dymienia, więc sprawdza się też do krótkiego smażenia."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-olej-z-warzywami-wedzonymi",
+    "pytanie": "Do czego wykorzystać olej z warzywami wędzonymi?",
+    "odpowiedz": {
+      "plain": "Do pieczonych warzyw, mięs, past kanapkowych i sałatek. Wędzony aromat sprawia, że nawet proste danie nabiera głębi — dodaj go na koniec, już po zdjęciu z ognia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do pieczonych warzyw, mięs, past kanapkowych i sałatek. Wędzony aromat sprawia, że nawet proste danie nabiera głębi — dodaj go na koniec, już po zdjęciu z ognia."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-olej-z-ziolami-prowansalskimi",
+    "pytanie": "Do czego wykorzystać olej z ziołami prowansalskimi?",
+    "odpowiedz": {
+      "plain": "Do sałatek, pieczonych warzyw, makaronów i jako baza do marynat. Sprawdza się też po prostu z dobrym pieczywem, na zimno — podgrzewanie odbiera mu aromat ziół.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do sałatek, pieczonych warzyw, makaronów i jako baza do marynat. Sprawdza się też po prostu z dobrym pieczywem, na zimno — podgrzewanie odbiera mu aromat ziół."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-syrop-lawendowy",
+    "pytanie": "Do czego wykorzystać syrop lawendowy?",
+    "odpowiedz": {
+      "plain": "Do lemoniad, koktajli, deserów i kawy. Wystarczy odrobina — lawenda jest wyrazista i łatwo zdominować nią całą kompozycję.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do lemoniad, koktajli, deserów i kawy. Wystarczy odrobina — lawenda jest wyrazista i łatwo zdominować nią całą kompozycję."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-syrop-rozany",
+    "pytanie": "Do czego wykorzystać syrop różany?",
+    "odpowiedz": {
+      "plain": "Do herbaty, kawy, koktajli i wypieków. Dobrze sprawdza się też jako polewa do lodów i naleśników.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do herbaty, kawy, koktajli i wypieków. Dobrze sprawdza się też jako polewa do lodów i naleśników."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "do-czego-wykorzystac-syrop-z-kwiatow-bzu",
+    "pytanie": "Do czego wykorzystać syrop z kwiatów bzu?",
+    "odpowiedz": {
+      "plain": "Do lemoniad, wody z cytryną, koktajli i deserów. Miodowy posmak bzu świetnie łączy się też z winem musującym.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Do lemoniad, wody z cytryną, koktajli i deserów. Miodowy posmak bzu świetnie łączy się też z winem musującym."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "ile-jablek-zawiera-3-litry-soku",
+    "pytanie": "Ile jabłek zawiera 3 litry soku?",
+    "odpowiedz": {
+      "plain": "Sok jest tłoczony bez dodatku wody, więc w butelce jest wyłącznie to, co wyszło z owoców. Dokładna liczba jabłek zależy od odmiany i zbioru.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok jest tłoczony bez dodatku wody, więc w butelce jest wyłącznie to, co wyszło z owoców. Dokładna liczba jabłek zależy od odmiany i zbioru."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wymaga_potwierdzenia": "Nie podano liczby — brak danych. Uzupełnić po potwierdzeniu wydajności tłoczenia."
+  },
+  {
+    "handle": "jak-dlugo-zachowuje-swiezosc-po-otwarciu",
+    "pytanie": "Jak długo zachowuje świeżość po otwarciu?",
+    "odpowiedz": {
+      "plain": "Po otwarciu przechowuj w lodówce i zużyj w ciągu 3–4 dni. Sok nie zawiera konserwantów, więc jego trwałość po otwarciu jest naturalnie krótka.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Po otwarciu przechowuj w lodówce i zużyj w ciągu 3–4 dni. Sok nie zawiera konserwantów, więc jego trwałość po otwarciu jest naturalnie krótka."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-podawac-piwo-viva-pale-ale",
+    "pytanie": "Jak podawać Piwo VIVA Pale Ale?",
+    "odpowiedz": {
+      "plain": "Schłodzone do 4–8°C, w wysokim kieliszku. Cytrusowy aromat i wytrawny finisz dobrze komponują się z grillowanymi mięsami i dojrzewającymi serami.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Schłodzone do 4–8°C, w wysokim kieliszku. Cytrusowy aromat i wytrawny finisz dobrze komponują się z grillowanymi mięsami i dojrzewającymi serami."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-podawac-piwo-viva-weissbier",
+    "pytanie": "Jak podawać Piwo VIVA Weissbier?",
+    "odpowiedz": {
+      "plain": "Schłodzone do 4–8°C, w wysokiej szklance pszenicznej. Przed nalaniem delikatnie obróć butelkę — drożdżowy osad jest naturalny i buduje kremową teksturę.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Schłodzone do 4–8°C, w wysokiej szklance pszenicznej. Przed nalaniem delikatnie obróć butelkę — drożdżowy osad jest naturalny i buduje kremową teksturę."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-podawac-polini-aperitivo",
+    "pytanie": "Jak podawać Polini Aperitivo?",
+    "odpowiedz": {
+      "plain": "Schłodzone, z lodem, samodzielnie lub jako baza koktajlu — z wodą gazowaną i plasterkiem pomarańczy. Idealne przed posiłkiem, bo goryczka pobudza apetyt.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Schłodzone, z lodem, samodzielnie lub jako baza koktajlu — z wodą gazowaną i plasterkiem pomarańczy. Idealne przed posiłkiem, bo goryczka pobudza apetyt."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-podawac-polini-spritz",
+    "pytanie": "Jak podawać Polini Spritz?",
+    "odpowiedz": {
+      "plain": "Schłodzony, w kieliszku z lodem, z plasterkiem pomarańczy. Możesz podać go solo albo dopełnić wodą gazowaną lub winem musującym.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Schłodzony, w kieliszku z lodem, z plasterkiem pomarańczy. Możesz podać go solo albo dopełnić wodą gazowaną lub winem musującym."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-podawac-wodke-walicki",
+    "pytanie": "Jak podawać Wódkę Walicki?",
+    "odpowiedz": {
+      "plain": "Dobrze schłodzoną, w małych kieliszkach, solo. Czysty destylat najlepiej pokazuje swoją strukturę bez dodatków — warto podać ją do wykwintnej kolacji lub jako element degustacji.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Dobrze schłodzoną, w małych kieliszkach, solo. Czysty destylat najlepiej pokazuje swoją strukturę bez dodatków — warto podać ją do wykwintnej kolacji lub jako element degustacji."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-podawac-gruszki-w-winie",
+    "pytanie": "Jak podawać gruszki w winie?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej lub lekko podgrzane, jako deser — z lodami, bitą śmietaną albo dodatkiem do sera pleśniowego. Syrop z gruszek warto wykorzystać jako polewę.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej lub lekko podgrzane, jako deser — z lodami, bitą śmietaną albo dodatkiem do sera pleśniowego. Syrop z gruszek warto wykorzystać jako polewę."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-herbate-swiateczna",
+    "pytanie": "Jak przechowywać Herbatę świąteczną?",
+    "odpowiedz": {
+      "plain": "W szczelnie zamkniętym opakowaniu, w suchym i ciemnym miejscu. Trzymaj z dala od przypraw i kawy — korzenny aromat łatwo się miesza.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W szczelnie zamkniętym opakowaniu, w suchym i ciemnym miejscu. Trzymaj z dala od przypraw i kawy — korzenny aromat łatwo się miesza."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-polini-aperitivo",
+    "pytanie": "Jak przechowywać Polini Aperitivo?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej, w pozycji stojącej, z dala od słońca. Po otwarciu spokojnie zachowuje jakość przez kilka miesięcy.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej, w pozycji stojącej, z dala od słońca. Po otwarciu spokojnie zachowuje jakość przez kilka miesięcy."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-wodke-walicki",
+    "pytanie": "Jak przechowywać Wódkę Walicki?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej, w pozycji stojącej, z dala od źródeł ciepła i słońca. Nie wymaga chłodzenia do momentu podania.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej, w pozycji stojącej, z dala od źródeł ciepła i słońca. Nie wymaga chłodzenia do momentu podania."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-chipsy-jablkowe",
+    "pytanie": "Jak przechowywać chipsy jabłkowe?",
+    "odpowiedz": {
+      "plain": "W szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i słońca. Wilgoć odbiera im chrupkość.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i słońca. Wilgoć odbiera im chrupkość."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-chutney-jablkowy",
+    "pytanie": "Jak przechowywać chutney jabłkowy?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłonięty od światła. Po otwarciu w lodówce, szczelnie zakręcony, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłonięty od światła. Po otwarciu w lodówce, szczelnie zakręcony, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-gruszki-w-winie",
+    "pytanie": "Jak przechowywać gruszki w winie?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłonięte od światła. Po otwarciu w lodówce, szczelnie zakręcone, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłonięte od światła. Po otwarciu w lodówce, szczelnie zakręcone, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-herbate-jablkowa",
+    "pytanie": "Jak przechowywać herbatę jabłkową?",
+    "odpowiedz": {
+      "plain": "W szczelnie zamkniętym opakowaniu, w suchym i ciemnym miejscu, z dala od produktów o intensywnym zapachu — susz łatwo je przejmuje.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W szczelnie zamkniętym opakowaniu, w suchym i ciemnym miejscu, z dala od produktów o intensywnym zapachu — susz łatwo je przejmuje."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-konfiture-jablkowo-rozana",
+    "pytanie": "Jak przechowywać konfiturę jabłkowo-różaną?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-konfiture-malinowa",
+    "pytanie": "Jak przechowywać konfiturę malinową?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-konfiture-morelowa",
+    "pytanie": "Jak przechowywać konfiturę morelową?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-konfiture-rozana",
+    "pytanie": "Jak przechowywać konfiturę różaną?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-konfiture-wisniowa",
+    "pytanie": "Jak przechowywać konfiturę wiśniową?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-konfiture-z-pigwy",
+    "pytanie": "Jak przechowywać konfiturę z pigwy?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-marmolade-jablkowa",
+    "pytanie": "Jak przechowywać marmoladę jabłkową?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w temperaturze pokojowej, osłoniętą od światła. Po otwarciu w lodówce, szczelnie zakręconą, do zużycia w ciągu 7–10 dni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-mini-bezy",
+    "pytanie": "Jak przechowywać mini bezy?",
+    "odpowiedz": {
+      "plain": "W szczelnie zamkniętym opakowaniu, w suchym miejscu. Bezy chłoną wilgoć z powietrza i tracą przez nią chrupkość — nie przechowuj ich w lodówce.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W szczelnie zamkniętym opakowaniu, w suchym miejscu. Bezy chłoną wilgoć z powietrza i tracą przez nią chrupkość — nie przechowuj ich w lodówce."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-miod-lipowy",
+    "pytanie": "Jak przechowywać miód lipowy?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Jeśli skrystalizuje, podgrzej go w kąpieli wodnej do temperatury najwyżej 40°C.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Jeśli skrystalizuje, podgrzej go w kąpieli wodnej do temperatury najwyżej 40°C."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-miod-rzepakowy",
+    "pytanie": "Jak przechowywać miód rzepakowy?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Skrystalizowany jest zupełnie naturalny i nadaje się do spożycia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Skrystalizowany jest zupełnie naturalny i nadaje się do spożycia."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-miod-spadziowy",
+    "pytanie": "Jak przechowywać miód spadziowy?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Krystalizuje wolniej niż miody nektarowe.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Krystalizuje wolniej niż miody nektarowe."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-miod",
+    "pytanie": "Jak przechowywać miód?",
+    "odpowiedz": {
+      "plain": "W temperaturze pokojowej, w suchym i ciemnym miejscu, w szczelnie zamkniętym słoiku. Nie trzymaj go w lodówce — chłód przyspiesza krystalizację.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W temperaturze pokojowej, w suchym i ciemnym miejscu, w szczelnie zamkniętym słoiku. Nie trzymaj go w lodówce — chłód przyspiesza krystalizację."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-olej-z-pestek-winogron",
+    "pytanie": "Jak przechowywać olej z pestek winogron?",
+    "odpowiedz": {
+      "plain": "W chłodnym, ciemnym miejscu, z dala od źródeł ciepła. Po otwarciu zużyj w ciągu kilku tygodni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W chłodnym, ciemnym miejscu, z dala od źródeł ciepła. Po otwarciu zużyj w ciągu kilku tygodni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-orzechy-w-karmelu",
+    "pytanie": "Jak przechowywać orzechy w karmelu?",
+    "odpowiedz": {
+      "plain": "W szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i słońca. Wilgoć rozmiękcza karmel i odbiera mu chrupkość.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "W szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i słońca. Wilgoć rozmiękcza karmel i odbiera mu chrupkość."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-sok-po-otwarciu",
+    "pytanie": "Jak przechowywać sok po otwarciu?",
+    "odpowiedz": {
+      "plain": "Po otwarciu trzymaj w lodówce i zużyj w ciągu 3–4 dni. W opakowaniu z kranem sok ma ograniczony kontakt z powietrzem, ale i tak najlepiej smakuje świeżo po nalaniu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Po otwarciu trzymaj w lodówce i zużyj w ciągu 3–4 dni. W opakowaniu z kranem sok ma ograniczony kontakt z powietrzem, ale i tak najlepiej smakuje świeżo po nalaniu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-syrop-lawendowy",
+    "pytanie": "Jak przechowywać syrop lawendowy?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w chłodnym, ciemnym miejscu. Po otwarciu w lodówce, do zużycia w ciągu 2–3 tygodni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w chłodnym, ciemnym miejscu. Po otwarciu w lodówce, do zużycia w ciągu 2–3 tygodni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-syrop-rozany",
+    "pytanie": "Jak przechowywać syrop różany?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w chłodnym, ciemnym miejscu. Po otwarciu w lodówce, do zużycia w ciągu 2–3 tygodni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w chłodnym, ciemnym miejscu. Po otwarciu w lodówce, do zużycia w ciągu 2–3 tygodni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jak-przechowywac-syrop-z-kwiatow-bzu",
+    "pytanie": "Jak przechowywać syrop z kwiatów bzu?",
+    "odpowiedz": {
+      "plain": "Przed otwarciem w chłodnym, ciemnym miejscu. Po otwarciu w lodówce, do zużycia w ciągu 2–3 tygodni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Przed otwarciem w chłodnym, ciemnym miejscu. Po otwarciu w lodówce, do zużycia w ciągu 2–3 tygodni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaka-jest-historia-wodki-walicki",
+    "pytanie": "Jaka jest historia Wódki Walicki?",
+    "odpowiedz": {
+      "plain": "Nazwa upamiętnia Bazylego Walickiego, wojewodę rawskiego i doradcę króla Stanisława Augusta Poniatowskiego, który w 1786 roku wzniósł pałac w Małej Wsi. Wódka jest hołdem dla blisko 200-letniej tradycji gorzelnictwa w tym majątku.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Nazwa upamiętnia Bazylego Walickiego, wojewodę rawskiego i doradcę króla Stanisława Augusta Poniatowskiego, który w 1786 roku wzniósł pałac w Małej Wsi. Wódka jest hołdem dla blisko 200-letniej tradycji gorzelnictwa w tym majątku."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaka-jest-zawartosc-alkoholu-w-piwie-viva-pale-ale",
+    "pytanie": "Jaka jest zawartość alkoholu w Piwie VIVA Pale Ale?",
+    "odpowiedz": {
+      "plain": "4,8% objętościowo.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "4,8% objętościowo."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaka-jest-zawartosc-alkoholu-w-piwie-viva-weissbier",
+    "pytanie": "Jaka jest zawartość alkoholu w Piwie VIVA Weissbier?",
+    "odpowiedz": {
+      "plain": "5% objętościowo.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "5% objętościowo."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-konfitury-malinowej",
+    "pytanie": "Jaki jest smak konfitury malinowej?",
+    "odpowiedz": {
+      "plain": "Intensywnie owocowy i słodki, z charakterystyczną malinową kwaskowatością w tle. To jedna z najbardziej wyrazistych konfitur w naszej Spiżarni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Intensywnie owocowy i słodki, z charakterystyczną malinową kwaskowatością w tle. To jedna z najbardziej wyrazistych konfitur w naszej Spiżarni."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-konfitury-morelowej",
+    "pytanie": "Jaki jest smak konfitury morelowej?",
+    "odpowiedz": {
+      "plain": "Słodki, z lekką kwaskowatością moreli. Gęsta konsystencja i wyczuwalne kawałki owoców sprawiają, że dobrze trzyma się na pieczywie.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Słodki, z lekką kwaskowatością moreli. Gęsta konsystencja i wyczuwalne kawałki owoców sprawiają, że dobrze trzyma się na pieczywie."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-konfitury-wisniowej",
+    "pytanie": "Jaki jest smak konfitury wiśniowej?",
+    "odpowiedz": {
+      "plain": "Wyrazisty i głęboki, z lekko cierpkim wykończeniem. Mniej słodki niż konfitura malinowa, przez co dobrze sprawdza się także w daniach wytrawnych.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wyrazisty i głęboki, z lekko cierpkim wykończeniem. Mniej słodki niż konfitura malinowa, przez co dobrze sprawdza się także w daniach wytrawnych."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-konfitury-z-pigwy",
+    "pytanie": "Jaki jest smak konfitury z pigwy?",
+    "odpowiedz": {
+      "plain": "Wyrazisty i lekko korzenny, z naturalną cierpkością pigwy. Konsystencja jest gęsta — pigwa zawiera dużo pektyn, więc konfitura tężeje sama, bez dodatków.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wyrazisty i lekko korzenny, z naturalną cierpkością pigwy. Konsystencja jest gęsta — pigwa zawiera dużo pektyn, więc konfitura tężeje sama, bez dodatków."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-syropu-rozanego",
+    "pytanie": "Jaki jest smak syropu różanego?",
+    "odpowiedz": {
+      "plain": "Słodki, z subtelnym zapachem róży. Kwiatowa nuta jest wyraźna, ale nie perfumowana — nie przytłacza napoju, w którym się znajdzie.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Słodki, z subtelnym zapachem róży. Kwiatowa nuta jest wyraźna, ale nie perfumowana — nie przytłacza napoju, w którym się znajdzie."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-syropu-z-bzu",
+    "pytanie": "Jaki jest smak syropu z bzu?",
+    "odpowiedz": {
+      "plain": "Kwiatowy i lekko miodowy, z letnią świeżością — delikatniejszy i mniej słodki w odbiorze niż syropy owocowe.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Kwiatowy i lekko miodowy, z letnią świeżością — delikatniejszy i mniej słodki w odbiorze niż syropy owocowe."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jaki-jest-smak-tej-konfitury",
+    "pytanie": "Jaki jest smak tej konfitury?",
+    "odpowiedz": {
+      "plain": "Delikatny — jabłko daje łagodną bazę, a płatki róży kwiatowy aromat. Całość jest subtelniejsza niż konfitura wyłącznie różana.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Delikatny — jabłko daje łagodną bazę, a płatki róży kwiatowy aromat. Całość jest subtelniejsza niż konfitura wyłącznie różana."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "jakie-przyprawy-zawiera-marmolada-jablkowa",
+    "pytanie": "Jakie przyprawy zawiera marmolada jabłkowa?",
+    "odpowiedz": {
+      "plain": "Kompozycję przypraw korzennych, które podkreślają smak jabłek. Pełny skład znajdziesz na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Kompozycję przypraw korzennych, które podkreślają smak jabłek. Pełny skład znajdziesz na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wymaga_potwierdzenia": "Odpowiedź ogólna — dopytać o konkretne przyprawy."
+  },
+  {
+    "handle": "kiedy-najlepiej-pic-herbate-jablkowa",
+    "pytanie": "Kiedy najlepiej pić Herbatę jabłkową?",
+    "odpowiedz": {
+      "plain": "Najlepiej sprawdza się na chłodne wieczory i popołudniowy relaks. Rozgrzewająca słodycz jabłka z cynamonem działa kojąco po całym dniu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Najlepiej sprawdza się na chłodne wieczory i popołudniowy relaks. Rozgrzewająca słodycz jabłka z cynamonem działa kojąco po całym dniu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "na-jakie-okazje-pasuje-herbata-swiateczna",
+    "pytanie": "Na jakie okazje pasuje Herbata świąteczna?",
+    "odpowiedz": {
+      "plain": "Na zimowe wieczory, święta i rodzinne spotkania. Sprawdza się też jako drobny prezent — korzenny aromat od razu buduje świąteczny nastrój.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Na zimowe wieczory, święta i rodzinne spotkania. Sprawdza się też jako drobny prezent — korzenny aromat od razu buduje świąteczny nastrój."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-olej-ziolowy-szczypiorkowy",
+    "pytanie": "Z czego powstaje Olej Ziołowy Szczypiorkowy?",
+    "odpowiedz": {
+      "plain": "To olej rzepakowy tłoczony na miejscu w Tłoczni Książęcej, z dodatkiem świeżego szczypiorku.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To olej rzepakowy tłoczony na miejscu w Tłoczni Książęcej, z dodatkiem świeżego szczypiorku."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-olej-ziolowy-tlocznia-ksiazeca",
+    "pytanie": "Z czego powstaje Olej Ziołowy Tłocznia Książęca?",
+    "odpowiedz": {
+      "plain": "To olej rzepakowy tłoczony na zimno na miejscu, w Tłoczni Książęcej, z dodatkiem aromatycznych ziół. Surowce pochodzą z regionu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To olej rzepakowy tłoczony na zimno na miejscu, w Tłoczni Książęcej, z dodatkiem aromatycznych ziół. Surowce pochodzą z regionu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-olej-ziolowy-warzywa-wedzone",
+    "pytanie": "Z czego powstaje Olej Ziołowy Warzywa Wędzone?",
+    "odpowiedz": {
+      "plain": "To olej rzepakowy tłoczony na miejscu w Tłoczni Książęcej, z dodatkiem delikatnie wędzonych warzyw.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To olej rzepakowy tłoczony na miejscu w Tłoczni Książęcej, z dodatkiem delikatnie wędzonych warzyw."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-polini-spritz",
+    "pytanie": "Z czego powstaje Polini Spritz?",
+    "odpowiedz": {
+      "plain": "Na bazie naszego własnego wina Johanniter z Winnicy Pałac Mała Wieś, uzupełnionego nutami pomarańczy, rabarbaru, wanilii i ziół.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Na bazie naszego własnego wina Johanniter z Winnicy Pałac Mała Wieś, uzupełnionego nutami pomarańczy, rabarbaru, wanilii i ziół."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-sok-jablkowy-sad-ksiazecy-330-ml",
+    "pytanie": "Z czego powstaje Sok Jabłkowy Sad Książęcy 330 ml?",
+    "odpowiedz": {
+      "plain": "Z jabłek z sadów Majątku Mała Wieś, tłoczonych na miejscu. To ta sama receptura co w większych butelkach, tylko w kameralnej porcji.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Z jabłek z sadów Majątku Mała Wieś, tłoczonych na miejscu. To ta sama receptura co w większych butelkach, tylko w kameralnej porcji."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-sok-jablkowy-sad-ksiazecy",
+    "pytanie": "Z czego powstaje Sok Jabłkowy Sad Książęcy?",
+    "odpowiedz": {
+      "plain": "Wyłącznie z jabłek z sadów Majątku Mała Wieś, tłoczonych na miejscu. Bez dodatku cukru, wody i konserwantów — stąd naturalne zmętnienie i osad na dnie butelki.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wyłącznie z jabłek z sadów Majątku Mała Wieś, tłoczonych na miejscu. Bez dodatku cukru, wody i konserwantów — stąd naturalne zmętnienie i osad na dnie butelki."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaje-olej-z-pestek-winogron",
+    "pytanie": "Z czego powstaje olej z pestek winogron?",
+    "odpowiedz": {
+      "plain": "Z pestek winogron z naszej własnej winnicy, które zostają po produkcji wina. Tłoczymy je na miejscu w Tłoczni Książęcej — nic się nie marnuje.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Z pestek winogron z naszej własnej winnicy, które zostają po produkcji wina. Tłoczymy je na miejscu w Tłoczni Książęcej — nic się nie marnuje."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaja-chipsy-jablkowe",
+    "pytanie": "Z czego powstają Chipsy jabłkowe?",
+    "odpowiedz": {
+      "plain": "Z jabłek z sadów Majątku Mała Wieś, krojonych w plasterki i suszonych — bez cukru, konserwantów i sztucznych dodatków. W paczce jest wyłącznie owoc.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Z jabłek z sadów Majątku Mała Wieś, krojonych w plasterki i suszonych — bez cukru, konserwantów i sztucznych dodatków. W paczce jest wyłącznie owoc."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-powstaja-mini-bezy",
+    "pytanie": "Z czego powstają Mini bezy?",
+    "odpowiedz": {
+      "plain": "Ze starannie ubitych białek i cukru, według klasycznej francuskiej tradycji cukierniczej. Stąd ich chrupiąca skorupka i delikatnie miękkie wnętrze.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Ze starannie ubitych białek i cukru, według klasycznej francuskiej tradycji cukierniczej. Stąd ich chrupiąca skorupka i delikatnie miękkie wnętrze."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-sklada-sie-herbata-jablkowa",
+    "pytanie": "Z czego składa się Herbata jabłkowa?",
+    "odpowiedz": {
+      "plain": "To kompozycja suszonych owoców i ziół łączona według receptury Winnicy Pałac Mała Wieś, z wyraźnym udziałem jabłka i nutą cynamonu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To kompozycja suszonych owoców i ziół łączona według receptury Winnicy Pałac Mała Wieś, z wyraźnym udziałem jabłka i nutą cynamonu."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-sklada-sie-herbata-swiateczna",
+    "pytanie": "Z czego składa się Herbata świąteczna?",
+    "odpowiedz": {
+      "plain": "To korzenna kompozycja z pomarańczą, goździkami i cynamonem, łączona według receptury Winnicy Pałac Mała Wieś.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "To korzenna kompozycja z pomarańczą, goździkami i cynamonem, łączona według receptury Winnicy Pałac Mała Wieś."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-czego-skladaja-sie-orzechy-w-karmelu",
+    "pytanie": "Z czego składają się Orzechy w karmelu?",
+    "odpowiedz": {
+      "plain": "Z orzechów oblanych złocistym karmelem, przygotowywanych ręcznie w Spiżarni Książęcej. Pełny skład znajdziesz na etykiecie.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Z orzechów oblanych złocistym karmelem, przygotowywanych ręcznie w Spiżarni Książęcej. Pełny skład znajdziesz na etykiecie."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "wymaga_potwierdzenia": "Odpowiedź ogólna — dopytać o rodzaj orzechów."
+  },
+  {
+    "handle": "z-czym-najlepiej-laczyc-polini-spritz",
+    "pytanie": "Z czym najlepiej łączyć Polini Spritz?",
+    "odpowiedz": {
+      "plain": "Z lekkimi przekąskami przed posiłkiem — oliwkami, serami, pieczywem. Dobrze sprawdza się też jako baza koktajli na bazie wina musującego.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Z lekkimi przekąskami przed posiłkiem — oliwkami, serami, pieczywem. Dobrze sprawdza się też jako baza koktajli na bazie wina musującego."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "handle": "z-jakim-winem-powstaja-gruszki-w-winie",
+    "pytanie": "Z jakim winem powstają gruszki w winie?",
+    "odpowiedz": {
+      "plain": "Z winem z naszej Winnicy Pałac Mała Wieś. Gruszki gotujemy w nim powoli, z dodatkiem przypraw korzennych, aż nabiorą głębokiego koloru i smaku.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Z winem z naszej Winnicy Pałac Mała Wieś. Gruszki gotujemy w nim powoli, z dodatkiem przypraw korzennych, aż nabiorą głębokiego koloru i smaku."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]

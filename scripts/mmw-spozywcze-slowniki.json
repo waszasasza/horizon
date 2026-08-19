@@ -1,0 +1,926 @@
+{
+  "slowniki": {
+    "cechy": [
+      {
+        "wartosc": "Lokalny produkt",
+        "wystapien": 36
+      },
+      {
+        "wartosc": "Naturalne składniki",
+        "wystapien": 35
+      },
+      {
+        "wartosc": "Rzemieślnicza receptura",
+        "wystapien": 29
+      },
+      {
+        "wartosc": "Własna produkcja",
+        "wystapien": 16
+      },
+      {
+        "wartosc": "Produkt sezonu",
+        "wystapien": 10
+      },
+      {
+        "wartosc": "Ograniczona dostępność",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Bez konserwantów",
+        "wystapien": 2
+      }
+    ],
+    "faq": [
+      {
+        "wartosc": "Jak przechowywać sok jabłkowy?",
+        "wystapien": 4
+      },
+      {
+        "wartosc": "Jak przechowywać cydry Pomarium?",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Jak przechowywać olej ziołowy?",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Dla kogo jest ta pojemność?",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Do czego podawać Cydr Pomarium Półwytrawny?",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Do czego podawać Cydr Pomarium Wytrawny?",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Jak korzystać z opakowania z kranem?",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Kto warzy Piwo VIVA?",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Co wyróżnia Polini Aperitivo?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czy chutney jabłkowy jest pikantny?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czy konfitura różana zawiera całe płatki róży?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czy miód wielokwiatowy krystalizuje się?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czy syrop lawendowy jest intensywnie słodki?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym charakteryzuje się jabłko odmiany Antonówka?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym charakteryzuje się jabłko odmiany Boskoop?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym charakteryzuje się miód lipowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym charakteryzuje się miód rzepakowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym charakteryzuje się miód wielokwiatowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym różni się miód spadziowy od nektarowego?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym różni się od wersji Boskoop?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym różni się od wersji Mix?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym różni się wersja Mix od jednoodmianowej?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Czym różni się wersja wytrawna od półwytrawnej?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dla kogo jest Cydr Pomarium Półwytrawny 330ml?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dla kogo jest Cydr Pomarium Półwytrawny?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dla kogo jest Cydr Pomarium Wytrawny 330ml?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dla kogo jest Cydr Pomarium Wytrawny?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dla kogo są Chipsy jabłkowe?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dla kogo są Orzechy w karmelu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dlaczego miód rzepakowy szybko krystalizuje?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dlaczego miód spadziowy jest rzadszy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dlaczego okres zbioru miodu lipowego jest krótki?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać chutney jabłkowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać konfiturę jabłkowo-różaną?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać konfiturę malinową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać konfiturę morelową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać konfiturę różaną?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać konfiturę wiśniową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać konfiturę z pigwy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać marmoladę jabłkową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać mini bezy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać olej szczypiorkowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać olej z pestek winogron?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać olej z warzywami wędzonymi?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać olej z ziołami prowansalskimi?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać syrop lawendowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać syrop różany?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Do czego wykorzystać syrop z kwiatów bzu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Ile jabłek zawiera 3 litry soku?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak długo zachowuje świeżość po otwarciu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak podawać Piwo VIVA Pale Ale?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak podawać Piwo VIVA Weissbier?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak podawać Polini Aperitivo?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak podawać Polini Spritz?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak podawać Wódkę Walicki?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak podawać gruszki w winie?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać Herbatę świąteczną?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać Polini Aperitivo?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać Wódkę Walicki?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać chipsy jabłkowe?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać chutney jabłkowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać gruszki w winie?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać herbatę jabłkową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać konfiturę jabłkowo-różaną?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać konfiturę malinową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać konfiturę morelową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać konfiturę różaną?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać konfiturę wiśniową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać konfiturę z pigwy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać marmoladę jabłkową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać mini bezy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać miód lipowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać miód rzepakowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać miód spadziowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać miód?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać olej z pestek winogron?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać orzechy w karmelu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać sok po otwarciu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać syrop lawendowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać syrop różany?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jak przechowywać syrop z kwiatów bzu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaka jest historia Wódki Walicki?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaka jest zawartość alkoholu w Piwie VIVA Pale Ale?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaka jest zawartość alkoholu w Piwie VIVA Weissbier?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak konfitury malinowej?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak konfitury morelowej?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak konfitury wiśniowej?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak konfitury z pigwy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak syropu różanego?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak syropu z bzu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jaki jest smak tej konfitury?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jakie przyprawy zawiera marmolada jabłkowa?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Kiedy najlepiej pić Herbatę jabłkową?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Na jakie okazje pasuje Herbata świąteczna?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje Olej Ziołowy Szczypiorkowy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje Olej Ziołowy Tłocznia Książęca?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje Olej Ziołowy Warzywa Wędzone?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje Polini Spritz?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje Sok Jabłkowy Sad Książęcy 330 ml?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje Sok Jabłkowy Sad Książęcy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstaje olej z pestek winogron?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstają Chipsy jabłkowe?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego powstają Mini bezy?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego składa się Herbata jabłkowa?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego składa się Herbata świąteczna?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czego składają się Orzechy w karmelu?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z czym najlepiej łączyć Polini Spritz?",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Z jakim winem powstają gruszki w winie?",
+        "wystapien": 1
+      }
+    ],
+    "karty_historii": [
+      {
+        "wartosc": "Serce Mazowsza",
+        "wystapien": 28
+      },
+      {
+        "wartosc": "Ludzie Małej Wsi",
+        "wystapien": 19
+      },
+      {
+        "wartosc": "Zbiór owoców",
+        "wystapien": 18
+      },
+      {
+        "wartosc": "Spiżarnia Książęca",
+        "wystapien": 17
+      },
+      {
+        "wartosc": "Dziedzictwo Winnicy",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Pałacowy sad",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Pasieka Książęca",
+        "wystapien": 4
+      },
+      {
+        "wartosc": "Tłocznia Książęca",
+        "wystapien": 4
+      }
+    ],
+    "polecamy_do": [
+      {
+        "wartosc": "Desery",
+        "wystapien": 9
+      },
+      {
+        "wartosc": "Śniadania",
+        "wystapien": 8
+      },
+      {
+        "wartosc": "Koktajle",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Naleśniki i gofry",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Herbata",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Pieczywo",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Sery pleśniowe",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Dania z grilla",
+        "wystapien": 4
+      },
+      {
+        "wartosc": "Prezenty",
+        "wystapien": 4
+      },
+      {
+        "wartosc": "Sery",
+        "wystapien": 4
+      },
+      {
+        "wartosc": "Domowe wypieki",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Rodzinne spotkania",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Sałatki",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Spotkania towarzyskie",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Wypieki",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Dania z drobiu",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Imprezy i przyjęcia",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Jogurty",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Krewetki",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Mięsa",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Popołudniowy relaks",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Sery dojrzewające",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Sery półtwarde",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Aperitify",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Aperitify przed posiłkiem",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Chłodne wieczory",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Ciasta",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Cielęcina w jabłkowej glazurze",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Dania na ciepło",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Degustacje",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Deser",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Elegancki stół",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Herbata i kawa",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Herbata i napoje",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Jajka i śniadania",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Karmelizowane dania",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Kawa",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Kawa i desery",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Koktajle na bazie wina musującego",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Lemoniady",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Letnie spotkania",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Lody",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Napary rozgrzewające",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Napoje",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Owsianka",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Pieczone mięsa",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Pieczone warzywa",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Pikniki",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Prezenty świąteczne",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Relaks",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Rodzinne przyjęcia",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Sałatki vege",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Sery owcze i kozie",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Smoothie",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Spotkania przy stole",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Spotkania z bliskimi",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Tosty",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Zdrowe przekąski",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Zimowe wieczory",
+        "wystapien": 1
+      }
+    ],
+    "warianty": [
+      {
+        "wartosc": "Konfitura jabłkowo-różana",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Konfitura z pigwy",
+        "wystapien": 7
+      },
+      {
+        "wartosc": "Konfitura malinowa",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Konfitura morelowa",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Konfitura różana",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Konfitura wiśniowa",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Sok Jabłkowy Sad Książęcy 330 ml",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+        "wystapien": 5
+      },
+      {
+        "wartosc": "Cydr Pomarium 330ml Półwytrawny",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Cydr Pomarium 330ml Wytrawny",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Cydr Pomarium 750ml Półwytrawny",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Cydr Pomarium 750ml Wytrawny",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Miód Lipowy 400 ml",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Miód Rzepakowy 400 ml",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Miód Spadziowy 400 ml",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Miód Wielokwiatowy 400 ml",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Olej Ziołowy Tłocznia Książęca - Szczypiorkowy",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Olej Ziołowy Tłocznia Książęca - Warzywa Wędzone",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Olej Ziołowy Tłocznia Książęca - Zioła Prowansalskie",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Olej z pestek winogron Tłocznia Książęca",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Sok Jabłkowy Sad Książęcy 3 l",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Sok Jabłkowy Sad Książęcy 5 l",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Sok Jabłkowy Sad Książęcy 750 ml - Antonówka",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Sok Jabłkowy Sad Książęcy 750 ml - Boskoop",
+        "wystapien": 3
+      },
+      {
+        "wartosc": "Chipsy jabłkowe",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Chutney jabłkowy",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Gruszki w winie",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Marmolada jabłkowa",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Mini bezy",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Orzechy w karmelu",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Syrop lawendowy",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Syrop różany",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Syrop z kwiatów bzu",
+        "wystapien": 2
+      },
+      {
+        "wartosc": "Herbata jabłkowa",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Herbata świąteczna",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Piwo VIVA Pale ale",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Piwo VIVA Weissbier",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Polini Aperitivo",
+        "wystapien": 1
+      },
+      {
+        "wartosc": "Polini Spritz",
+        "wystapien": 1
+      }
+    ]
+  },
+  "pominiete_wiersze": [
+    {
+      "wiersz": 2,
+      "wartosc": "balsamico-jabkowe",
+      "powod": "wiersz WZÓR"
+    },
+    {
+      "wiersz": 43,
+      "wartosc": "Piwo zero",
+      "powod": "brak danych — produkt dopisany przez klienta"
+    },
+    {
+      "wiersz": 44,
+      "wartosc": "Vicu Spritz",
+      "powod": "brak danych — produkt dopisany przez klienta"
+    },
+    {
+      "wiersz": 45,
+      "wartosc": "konfitura z wina",
+      "powod": "brak danych — produkt dopisany przez klienta"
+    },
+    {
+      "wiersz": 46,
+      "wartosc": "marmolada jablkowa z przyprawami korzennymi",
+      "powod": "brak danych — produkt dopisany przez klienta"
+    }
+  ],
+  "warianty_nierozwiazane": []
+}

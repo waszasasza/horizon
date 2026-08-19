@@ -15,6 +15,7 @@
 
   Karta: snippets/mmw-post-card.liquid, bez zmian.
 {%- endcomment -%}
+{%- render 'mmw-carousel-styles' -%}
 {%- liquid
   assign blog_ref = section.settings.blog
   assign count = section.settings.posts_count | default: 8

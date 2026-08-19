@@ -1,0 +1,65 @@
+{%- doc -%}
+  mmw-carousel-styles — WYŁĄCZNIE {% stylesheet %}, zero markupu.
+
+  Powód istnienia: nasze sekcje mmw-* (event-carousel, product-carousel,
+  product-pairing, product-recommendations, blog-posts) reużywają klas
+  .resource-list__carousel / .resource-list__slide ze snippets/
+  resource-list-carousel.liquid, ale renderują karuzelę przez bezpośrednie
+  render 'slideshow' + render 'slideshow-slide' — NIE przez
+  render 'resource-list-carousel'. Na produkcji Shopify serwuje
+  compiled_assets/styles.css jako subset liczony per strona na podstawie
+  tego, które pliki faktycznie się wyrenderowały — skoro żadna nasza
+  sekcja nie renderuje resource-list-carousel.liquid literalnie, jego
+  {% stylesheet %} (w tym container-type/container-name na
+  .resource-list__carousel i oba bloki @container liczące --slide-width)
+  nie trafia do subsetu tej strony. Efekt: --slide-width niezdefiniowane,
+  var(--slide-width, 100%) w slideshow-styles.liquid wchodzi na fallback,
+  kafelek karuzeli zajmuje 100% szerokości. Potwierdzone na produkcji
+  (majatekmalawies.myshopify.com), nie teoria — patrz CLAUDE.md,
+  sekcja o reużywaniu klas z nierenderowanych natywnych snippetów.
+
+  shopify theme dev NIE odtwarza tego błędu — serwuje pełny,
+  niepocięty bundle bez parametru &subset=.
+
+  Reguły niżej skopiowane 1:1 z snippets/resource-list-carousel.liquid
+  (bez modyfikacji wartości) — TYLKO część ustawiająca container query
+  i --slide-width, nie cały stylesheet tamtego snippetu.
+
+  Render literalny w każdej sekcji reużywającej tych klas:
+  {% render 'mmw-carousel-styles' %}
+{%- enddoc -%}
+
+{% stylesheet %}
+  .resource-list__carousel {
+    --slide-width: 60vw;
+    width: 100%;
+    position: relative;
+    container-type: inline-size;
+    container-name: resource-list-carousel;
+
+    .slideshow-control[disabled] {
+      display: none;
+    }
+
+    .slideshow-control--next {
+      margin-inline-start: auto;
+    }
+  }
+
+  @container resource-list-carousel (max-width: 749px) {
+    .resource-list__carousel .resource-list__slide {
+      --slide-width: clamp(150px, var(--mobile-card-size, 60cqw), var(--slide-width-max));
+    }
+  }
+
+  @container resource-list-carousel (min-width: 750px) {
+    .resource-list__carousel .resource-list__slide {
+      --section-slide-width: calc(
+        (100% - (var(--resource-list-column-gap) * (var(--column-count) - 1)) - var(--peek-next-slide-size)) /
+          var(--column-count)
+      );
+      --fallback-slide-width: clamp(150px, var(--mobile-card-size, 60cqw), var(--slide-width-max));
+      --slide-width: var(--section-slide-width, var(--fallback-slide-width));
+    }
+  }
+{% endstylesheet %}

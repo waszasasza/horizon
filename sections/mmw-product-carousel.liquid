@@ -7,6 +7,7 @@
   pełnokadrowy layout nie używa), badge (tagi bestseller/nowość lub cena promocyjna), tytuł,
   opis (metapole custom.opis_karty, fallback na opis produktu), cena, karta końcowa.
 {%- endcomment -%}
+{%- render 'mmw-carousel-styles' -%}
 {%- liquid
   assign coll = section.settings.collection
   assign count = section.settings.products_count | default: 8

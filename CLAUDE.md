@@ -225,6 +225,61 @@ Już zgodne z tą konwencją (nic do przeniesienia): `mmw-event-addons.js` i
 `mmw-cart-addon-grouping.js` (`blocks/mmw-cart-addon-grouping.liquid`) —
 żaden z nich nigdy nie był w `scripts.liquid`.
 
+## Reużywanie klas CSS z nierenderowanych natywnych snippetów — NIE DZIAŁA na produkcji
+
+**To był realny incydent na produkcji (karuzele: jeden kafelek zajmował 100%
+szerokości), nie teoria.** Kilka sekcji mmw-* (`mmw-event-carousel`,
+`mmw-product-carousel`, `mmw-product-pairing`, `mmw-product-recommendations`,
+`mmw-blog-posts`) reużywało klas `.resource-list__carousel`/
+`.resource-list__slide` ze `snippets/resource-list-carousel.liquid` —
+ale renderowały karuzelę przez bezpośrednie `render 'slideshow'` +
+`render 'slideshow-slide'`, NIGDY `render 'resource-list-carousel'`.
+
+Na `shopify theme dev` to działa — dev serwuje pełny, niepocięty
+`compiled_assets/styles.css` (bez parametru `&subset=`). **Na produkcji
+Shopify serwuje ten sam plik jako subset liczony PER STRONA** (`?v=...
+&subset=<hash>`, inny hash na każdej stronie), najwyraźniej na podstawie
+tego, które pliki faktycznie się wyrenderowały w danym żądaniu — NIE na
+podstawie tego, jakie klasy CSS występują w gotowym HTML-u. Skoro żadna
+z naszych sekcji nie renderowała `resource-list-carousel.liquid`
+literalnie, jego `{% stylesheet %}` (w tym `container-type: inline-size` +
+`container-name` na `.resource-list__carousel` i oba bloki `@container`
+liczące `--slide-width`) nie trafiał do subsetu tych stron na produkcji —
+`--slide-width` zostawało niezdefiniowane, `var(--slide-width, 100%)` w
+`slideshow-styles.liquid` wchodziło na fallback 100%.
+
+**Naprawa**: `snippets/mmw-carousel-styles.liquid` — snippet zawierający
+WYŁĄCZNIE `{% stylesheet %}` z regułami skopiowanymi 1:1 z
+`resource-list-carousel.liquid` (bez modyfikacji wartości), renderowany
+literalnie (`{% render 'mmw-carousel-styles' %}`) w każdej z pięciu sekcji
+wymienionych wyżej — bo o literalny render chodzi subsetterowi.
+
+**Reguła na przyszłość**: jeśli sekcja mmw-* reużywa klasy CSS z natywnego
+pliku (Horizon albo naszego), ale NIE renderuje tego pliku literalnie —
+to nie zadziała na produkcji, niezależnie od tego, jak dobrze wygląda
+na `theme dev`. Albo renderować plik źródłowy literalnie, albo (gdy plik
+źródłowy emituje niechciany markup, jak tutaj) wydzielić potrzebne reguły
+do osobnego snippetu zawierającego TYLKO `{% stylesheet %}` i renderować
+ten literalnie wszędzie, gdzie klasy są używane.
+
+**Ostrzeżenia `ValidScopedCSSClass` z `theme check` sygnalizowały dokładnie
+ten problem.** Wcześniej w tej sesji te ostrzeżenia (dla
+`resource-list__carousel` w tych samych pięciu sekcjach) zostały błędnie
+sklasyfikowane jako "znany, zaakceptowany wzorzec" (świadome cross-file
+reuse, jak `.details`/`.details__header` w `mmw-product-seo-faq`, które
+faktycznie jest nieszkodliwe). To była pomyłka w klasyfikacji, nie w samym
+mechanizmie checkera — ValidScopedCSSClass miał rację przez cały czas.
+Po naprawie (literalny render `mmw-carousel-styles`) te konkretne 5
+ostrzeżeń zniknęło samo — checker rozpoznaje klasę jako poprawnie
+źródłowaną, skoro plik ją definiujący jest teraz faktycznie renderowany.
+
+**`shopify theme dev` nie odtwarza per-page subsettingu** — nie ma
+parametru `&subset=` w ogóle, serwuje pełny bundle zawsze. Testy wizualne
+na `127.0.0.1` przed pushem mają ograniczoną wartość dla tej klasy błędów
+(brakujące CSS z powodu subsettingu) — jedyna wiarygodna weryfikacja to
+pobranie `compiled_assets/styles.css?...&subset=...` bezpośrednio z
+produkcji i sprawdzenie, czy potrzebna reguła tam jest.
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.

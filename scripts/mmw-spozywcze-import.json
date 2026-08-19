@@ -1,0 +1,3352 @@
+[
+  {
+    "wiersz": 3,
+    "handle": "cydr-pomarium-750ml-powytrawny",
+    "tytul": "Cydr Pomarium 750ml Półwytrawny",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Dla kogo jest Cydr Pomarium Półwytrawny?",
+      "Do czego podawać Cydr Pomarium Półwytrawny?",
+      "Jak przechowywać cydry Pomarium?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Dania z drobiu",
+      "Cielęcina w jabłkowej glazurze",
+      "Sery półtwarde",
+      "Sery pleśniowe"
+    ],
+    "warianty": [
+      "Cydr Pomarium 750ml Wytrawny",
+      "Cydr Pomarium 330ml Półwytrawny",
+      "Cydr Pomarium 330ml Wytrawny"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, w pozycji stojącej, w temperaturze 8–15°C. Po otwarciu przechowywać w lodówce i spożyć w ciągu 2–3 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone i fermentowane na miejscu, w tradycyjny sposób.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Półwytrawny cydr z jabłek Majątku Mała Wieś – łagodna słodycz i owocowa świeżość w większej, 750 ml butelce.",
+    "dominujace_nuty": "jabłko, lekka słodycz, świeżość",
+    "tekst_seo": {
+      "plain": "Cydr Pomarium 750ml Półwytrawny to autorski cydr powstały z jabłek zebranych jesienią w sadach Majątku Mała Wieś. Tworzony ręcznie, tradycyjnymi metodami, zachowuje naturalny charakter owoców i łagodną, przyjemną słodycz. Świetnie komponuje się z daniami z drobiu i cielęciny w jabłkowej glazurze oraz z serami półtwardymi i pleśniowymi. To orzeźwiająca alternatywa dla piwa, idealna na letnie spotkania przy stole.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Cydr Pomarium 750ml Półwytrawny to autorski cydr powstały z jabłek zebranych jesienią w sadach Majątku Mała Wieś. Tworzony ręcznie, tradycyjnymi metodami, zachowuje naturalny charakter owoców i łagodną, przyjemną słodycz. Świetnie komponuje się z daniami z drobiu i cielęciny w jabłkowej glazurze oraz z serami półtwardymi i pleśniowymi. To orzeźwiająca alternatywa dla piwa, idealna na letnie spotkania przy stole."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "cydr-pomarium-750ml-wytrawny",
+      "cydr-pomarium-330ml-powytrawny",
+      "cydr-pomarium-330ml-wytrawny"
+    ],
+    "faq_handle": [
+      "dla-kogo-jest-cydr-pomarium-polwytrawny",
+      "do-czego-podawac-cydr-pomarium-polwytrawny",
+      "jak-przechowywac-cydry-pomarium"
+    ]
+  },
+  {
+    "wiersz": 4,
+    "handle": "cydr-pomarium-750ml-wytrawny",
+    "tytul": "Cydr Pomarium 750ml Wytrawny",
+    "skale_sensoryczne": {
+      "slodkosc": 1,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Dla kogo jest Cydr Pomarium Wytrawny?",
+      "Do czego podawać Cydr Pomarium Wytrawny?",
+      "Czym różni się wersja wytrawna od półwytrawnej?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Sery dojrzewające",
+      "Sery pleśniowe",
+      "Krewetki",
+      "Dania z grilla",
+      "Sałatki vege"
+    ],
+    "warianty": [
+      "Cydr Pomarium 750ml Półwytrawny",
+      "Cydr Pomarium 330ml Wytrawny",
+      "Cydr Pomarium 330ml Półwytrawny"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, w pozycji stojącej, w temperaturze 8–15°C. Po otwarciu przechowywać w lodówce i spożyć w ciągu 2–3 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone i fermentowane na miejscu, w tradycyjny sposób.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Wytrawny cydr w stylu francuskim, z jabłek Majątku Mała Wieś – czyste, orzeźwiające nuty w 750 ml butelce.",
+    "dominujace_nuty": "jabłko, cierpkość, orzeźwienie",
+    "tekst_seo": {
+      "plain": "Cydr Pomarium 750ml Wytrawny to autorski cydr inspirowany francuskim stylem cydrów wytrawnych. Produkowany ręcznie z jabłek z sadów Małej Wsi, zachowuje głęboki, czysty smak owoców bez nadmiernej słodyczy. Doskonały do serów dojrzewających i pleśniowych, krewetek oraz dań z grilla. To orzeźwiający wybór na ciepłe dni i towarzysko spędzany czas przy stole.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Cydr Pomarium 750ml Wytrawny to autorski cydr inspirowany francuskim stylem cydrów wytrawnych. Produkowany ręcznie z jabłek z sadów Małej Wsi, zachowuje głęboki, czysty smak owoców bez nadmiernej słodyczy. Doskonały do serów dojrzewających i pleśniowych, krewetek oraz dań z grilla. To orzeźwiający wybór na ciepłe dni i towarzysko spędzany czas przy stole."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "cydr-pomarium-750ml-powytrawny",
+      "cydr-pomarium-330ml-wytrawny",
+      "cydr-pomarium-330ml-powytrawny"
+    ],
+    "faq_handle": [
+      "dla-kogo-jest-cydr-pomarium-wytrawny",
+      "do-czego-podawac-cydr-pomarium-wytrawny",
+      "czym-rozni-sie-wersja-wytrawna-od-polwytrawnej"
+    ]
+  },
+  {
+    "wiersz": 5,
+    "handle": "cydr-pomarium-330ml-powytrawny",
+    "tytul": "Cydr Pomarium 330ml Półwytrawny",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Dla kogo jest Cydr Pomarium Półwytrawny 330ml?",
+      "Do czego podawać Cydr Pomarium Półwytrawny?",
+      "Jak przechowywać cydry Pomarium?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Dania z drobiu",
+      "Sery półtwarde",
+      "Sery pleśniowe",
+      "Karmelizowane dania"
+    ],
+    "warianty": [
+      "Cydr Pomarium 330ml Wytrawny",
+      "Cydr Pomarium 750ml Półwytrawny",
+      "Cydr Pomarium 750ml Wytrawny"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, w pozycji stojącej, w temperaturze 8–15°C. Po otwarciu przechowywać w lodówce i spożyć w ciągu 2–3 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone i fermentowane na miejscu, w tradycyjny sposób.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Poręczna, 330 ml wersja półwytrawnego cydru Pomarium – lekka słodycz jabłek w kameralnej butelce.",
+    "dominujace_nuty": "jabłko, delikatna słodycz, rześkość",
+    "tekst_seo": {
+      "plain": "Cydr Pomarium 330ml Półwytrawny to kameralna, poręczna wersja autorskiego cydru z jabłek zebranych w październiku w sadach Małej Wsi. Produkowany ręcznie i tradycyjnymi metodami, zachowuje naturalną słodycz i świeżość owoców. Sprawdzi się do dań z drobiu i cielęciny w jabłkowej glazurze oraz serów półtwardych i pleśniowych – doskonały na wypad za miasto lub domowe spotkanie.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Cydr Pomarium 330ml Półwytrawny to kameralna, poręczna wersja autorskiego cydru z jabłek zebranych w październiku w sadach Małej Wsi. Produkowany ręcznie i tradycyjnymi metodami, zachowuje naturalną słodycz i świeżość owoców. Sprawdzi się do dań z drobiu i cielęciny w jabłkowej glazurze oraz serów półtwardych i pleśniowych – doskonały na wypad za miasto lub domowe spotkanie."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "cydr-pomarium-330ml-wytrawny",
+      "cydr-pomarium-750ml-powytrawny",
+      "cydr-pomarium-750ml-wytrawny"
+    ],
+    "faq_handle": [
+      "dla-kogo-jest-cydr-pomarium-polwytrawny-330ml",
+      "do-czego-podawac-cydr-pomarium-polwytrawny",
+      "jak-przechowywac-cydry-pomarium"
+    ]
+  },
+  {
+    "wiersz": 6,
+    "handle": "cydr-pomarium-330ml-wytrawny",
+    "tytul": "Cydr Pomarium 330ml Wytrawny",
+    "skale_sensoryczne": {
+      "slodkosc": 1,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Dla kogo jest Cydr Pomarium Wytrawny 330ml?",
+      "Do czego podawać Cydr Pomarium Wytrawny?",
+      "Jak przechowywać cydry Pomarium?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Sery dojrzewające",
+      "Sery owcze i kozie",
+      "Krewetki",
+      "Dania z grilla"
+    ],
+    "warianty": [
+      "Cydr Pomarium 330ml Półwytrawny",
+      "Cydr Pomarium 750ml Wytrawny",
+      "Cydr Pomarium 750ml Półwytrawny"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, w pozycji stojącej, w temperaturze 8–15°C. Po otwarciu przechowywać w lodówce i spożyć w ciągu 2–3 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone i fermentowane na miejscu, w tradycyjny sposób.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Wytrawny cydr Pomarium w kameralnej, 330 ml butelce – czysty smak jabłek i rzemieślniczy charakter.",
+    "dominujace_nuty": "jabłko, cierpkość, rzemieślniczy charakter",
+    "tekst_seo": {
+      "plain": "Cydr Pomarium 330ml Wytrawny to autorski, wytrawny cydr z jabłek z sadów Majątku Mała Wieś, produkowany ręcznie w małej, poręcznej butelce. Zachowuje naturalny charakter i głęboki smak owoców, doceniany przez miłośników czystych, wytrawnych nut. Świetnie komponuje się z serami dojrzewającymi, owczymi i kozimi oraz z daniami z grilla – doskonałe orzeźwienie w upalne dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Cydr Pomarium 330ml Wytrawny to autorski, wytrawny cydr z jabłek z sadów Majątku Mała Wieś, produkowany ręcznie w małej, poręcznej butelce. Zachowuje naturalny charakter i głęboki smak owoców, doceniany przez miłośników czystych, wytrawnych nut. Świetnie komponuje się z serami dojrzewającymi, owczymi i kozimi oraz z daniami z grilla – doskonałe orzeźwienie w upalne dni."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "cydr-pomarium-330ml-powytrawny",
+      "cydr-pomarium-750ml-wytrawny",
+      "cydr-pomarium-750ml-powytrawny"
+    ],
+    "faq_handle": [
+      "dla-kogo-jest-cydr-pomarium-wytrawny-330ml",
+      "do-czego-podawac-cydr-pomarium-wytrawny",
+      "jak-przechowywac-cydry-pomarium"
+    ]
+  },
+  {
+    "wiersz": 7,
+    "handle": "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+    "tytul": "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Z czego powstaje Sok Jabłkowy Sad Książęcy?",
+      "Jak przechowywać sok jabłkowy?",
+      "Czym różni się wersja Mix od jednoodmianowej?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Pałacowy sad",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Śniadania",
+      "Naleśniki i gofry",
+      "Koktajle"
+    ],
+    "warianty": [
+      "Sok Jabłkowy Sad Książęcy 330 ml",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Boskoop",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Antonówka",
+      "Sok Jabłkowy Sad Książęcy 3 l",
+      "Sok Jabłkowy Sad Książęcy 5 l"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym i ciemnym miejscu. Po otwarciu przechowywać w lodówce i spożyć w ciągu 3–4 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone i fermentowane na miejscu, w tradycyjny sposób.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Naturalnie mętny sok z harmonijnej kompozycji jabłek z ponad 100-letniego sadu – zbalansowana słodycz i świeży aromat.",
+    "dominujace_nuty": "jabłko, świeżość, zbalansowana słodycz",
+    "tekst_seo": {
+      "plain": "Sok Jabłkowy Sad Książęcy 750 ml Mix to premium sok tworzony z kompozycji wybranych odmian jabłek pochodzących z ponad 100-letniego sadu w Grójcu. Naturalnie mętny, bez dodatku cukru i konserwantów, zachowuje pełen, zbalansowany smak i świeży, owocowy aromat świeżo tłoczonych jabłek. Doskonały na śniadanie, do naleśników lub jako baza orzeźwiających koktajli.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok Jabłkowy Sad Książęcy 750 ml Mix to premium sok tworzony z kompozycji wybranych odmian jabłek pochodzących z ponad 100-letniego sadu w Grójcu. Naturalnie mętny, bez dodatku cukru i konserwantów, zachowuje pełen, zbalansowany smak i świeży, owocowy aromat świeżo tłoczonych jabłek. Doskonały na śniadanie, do naleśników lub jako baza orzeźwiających koktajli."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "sok-jabkowy-sad-ksiazecy-330-ml",
+      "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "sok-jabkowy-sad-ksiazecy-3-l",
+      "sok-jabkowy-sad-ksiazecy-5-l"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-sok-jablkowy-sad-ksiazecy",
+      "jak-przechowywac-sok-jablkowy",
+      "czym-rozni-sie-wersja-mix-od-jednoodmianowej"
+    ]
+  },
+  {
+    "wiersz": 8,
+    "handle": "miod-wielokwiatowy-400-ml",
+    "tytul": "Miód Wielokwiatowy 400 ml",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 1,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Czym charakteryzuje się miód wielokwiatowy?",
+      "Jak przechowywać miód?",
+      "Czy miód wielokwiatowy krystalizuje się?"
+    ],
+    "karty_historii": [
+      "Pasieka Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Herbata",
+      "Naleśniki i gofry",
+      "Domowe wypieki"
+    ],
+    "warianty": [
+      "Miód Lipowy 400 ml",
+      "Miód Rzepakowy 400 ml",
+      "Miód Spadziowy 400 ml"
+    ],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Naturalna krystalizacja nie wpływa na jakość produktu.",
+    "skad_pochodzi": "Miód z Pasieki Książęcej, zbierany przez pszczoły w otoczeniu pól, sadów i ogrodów Winnicy Pałac Mała Wieś.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Miód wielokwiatowy z Pasieki Książęcej – niepowtarzalny \"bukiet\" nektarów z okolic Winnicy Mała Wieś.",
+    "dominujace_nuty": "kwiatowa słodycz, nuty ziół, bursztynowa barwa",
+    "tekst_seo": {
+      "plain": "Miód Wielokwiatowy 400 ml z Pasieki Książęcej to niepowtarzalna kompozycja nektarów zbieranych przez pszczoły wśród bioróżnorodnej flory Mazowsza. Barwa od jasnokremowej po bursztynową i zbalansowany, kwiatowy smak sprawiają, że każde miodobranie jest inne. Doskonały do herbaty, na naleśniki i do domowych wypieków – naturalne wsparcie odporności na każdy dzień.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Miód Wielokwiatowy 400 ml z Pasieki Książęcej to niepowtarzalna kompozycja nektarów zbieranych przez pszczoły wśród bioróżnorodnej flory Mazowsza. Barwa od jasnokremowej po bursztynową i zbalansowany, kwiatowy smak sprawiają, że każde miodobranie jest inne. Doskonały do herbaty, na naleśniki i do domowych wypieków – naturalne wsparcie odporności na każdy dzień."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "miod-lipowy-400-ml",
+      "miod-rzepakowy-400-ml",
+      "miod-spadziowy-400-ml"
+    ],
+    "faq_handle": [
+      "czym-charakteryzuje-sie-miod-wielokwiatowy",
+      "jak-przechowywac-miod",
+      "czy-miod-wielokwiatowy-krystalizuje-sie"
+    ]
+  },
+  {
+    "wiersz": 9,
+    "handle": "sok-jabkowy-sad-ksiazecy-330-ml",
+    "tytul": "Sok Jabłkowy Sad Książęcy 330 ml",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Własna produkcja"
+    ],
+    "faq": [
+      "Z czego powstaje Sok Jabłkowy Sad Książęcy 330 ml?",
+      "Jak przechowywać sok jabłkowy?",
+      "Dla kogo jest ta pojemność?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Pałacowy sad",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Śniadania",
+      "Herbata i napoje",
+      "Koktajle"
+    ],
+    "warianty": [
+      "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Boskoop",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Antonówka",
+      "Sok Jabłkowy Sad Książęcy 3 l",
+      "Sok Jabłkowy Sad Książęcy 5 l"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym i ciemnym miejscu. Po otwarciu przechowywać w lodówce i spożyć w ciągu 3–4 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Kameralna, 330 ml porcja soku jabłkowego z grójeckich jabłek – naturalna słodycz w poręcznej butelce.",
+    "dominujace_nuty": "jabłko, naturalna słodycz, lekka kwaskowatość",
+    "tekst_seo": {
+      "plain": "Sok Jabłkowy Sad Książęcy 330 ml to poręczna porcja naturalnego soku z jabłek pochodzących z Grójca i okolic – regionu od pokoleń kojarzonego z sadownictwem najwyższej jakości. Bez sztucznych dodatków, zachowuje autentyczny smak dojrzałych owoców. Idealny na wynos, do szkoły, pracy lub jako zdrowa alternatywa dla słodzonych napojów.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok Jabłkowy Sad Książęcy 330 ml to poręczna porcja naturalnego soku z jabłek pochodzących z Grójca i okolic – regionu od pokoleń kojarzonego z sadownictwem najwyższej jakości. Bez sztucznych dodatków, zachowuje autentyczny smak dojrzałych owoców. Idealny na wynos, do szkoły, pracy lub jako zdrowa alternatywa dla słodzonych napojów."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "sok-jabkowy-sad-ksiazecy-3-l",
+      "sok-jabkowy-sad-ksiazecy-5-l"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-sok-jablkowy-sad-ksiazecy-330-ml",
+      "jak-przechowywac-sok-jablkowy",
+      "dla-kogo-jest-ta-pojemnosc"
+    ]
+  },
+  {
+    "wiersz": 10,
+    "handle": "sok-jabkowy-sad-ksiazecy-3-l",
+    "tytul": "Sok Jabłkowy Sad Książęcy 3 l",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Jak korzystać z opakowania z kranem?",
+      "Jak przechowywać sok po otwarciu?",
+      "Ile jabłek zawiera 3 litry soku?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Pałacowy sad",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Rodzinne spotkania",
+      "Śniadania",
+      "Imprezy i przyjęcia"
+    ],
+    "warianty": [
+      "Sok Jabłkowy Sad Książęcy 5 l",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+      "Sok Jabłkowy Sad Książęcy 330 ml"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym i ciemnym miejscu. Po otwarciu przechowywać w lodówce i spożyć w ciągu 3–4 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Rodzinne opakowanie 3 l soku z grójeckich jabłek, w praktycznym worku z kranem – zbiór 2024.",
+    "dominujace_nuty": "jabłko, świeżość, pełnia smaku",
+    "tekst_seo": {
+      "plain": "Sok Jabłkowy Sad Książęcy 3 l to premium sok tłoczony z jabłek z ponad 100-letniego sadu w Grójcu, pakowany w praktyczny foliowy worek z kranem umieszczony w kartonie. To wygodne rozwiązanie dla całej rodziny i większych spotkań – wystarczy nalać porcję bez otwierania całego opakowania na raz, co pozwala zachować świeżość soku na dłużej.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok Jabłkowy Sad Książęcy 3 l to premium sok tłoczony z jabłek z ponad 100-letniego sadu w Grójcu, pakowany w praktyczny foliowy worek z kranem umieszczony w kartonie. To wygodne rozwiązanie dla całej rodziny i większych spotkań – wystarczy nalać porcję bez otwierania całego opakowania na raz, co pozwala zachować świeżość soku na dłużej."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "sok-jabkowy-sad-ksiazecy-5-l",
+      "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "sok-jabkowy-sad-ksiazecy-330-ml"
+    ],
+    "faq_handle": [
+      "jak-korzystac-z-opakowania-z-kranem",
+      "jak-przechowywac-sok-po-otwarciu",
+      "ile-jablek-zawiera-3-litry-soku"
+    ]
+  },
+  {
+    "wiersz": 11,
+    "handle": "sok-jabkowy-sad-ksiazecy-5-l",
+    "tytul": "Sok Jabłkowy Sad Książęcy 5 l",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Jak korzystać z opakowania z kranem?",
+      "Jak długo zachowuje świeżość po otwarciu?",
+      "Dla kogo jest ta pojemność?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Pałacowy sad",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Imprezy i przyjęcia",
+      "Rodzinne spotkania",
+      "Śniadania"
+    ],
+    "warianty": [
+      "Sok Jabłkowy Sad Książęcy 3 l",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+      "Sok Jabłkowy Sad Książęcy 330 ml"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym i ciemnym miejscu. Po otwarciu przechowywać w lodówce i spożyć w ciągu 3–4 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Duże, 5-litrowe opakowanie soku z grójeckich jabłek w worku z kranem – idealne na większe okazje.",
+    "dominujace_nuty": "jabłko, świeżość, pełnia smaku",
+    "tekst_seo": {
+      "plain": "Sok Jabłkowy Sad Książęcy 5 l to największe dostępne opakowanie naszego premium soku, tłoczonego z jabłek z ponad 100-letniego sadu w Grójcu. Foliowy worek z kranem w kartonowym opakowaniu ułatwia dozowanie i pozwala zachować świeżość produktu przez dłuższy czas. To ekonomiczne i praktyczne rozwiązanie na rodzinne przyjęcia, imprezy i większe spotkania.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok Jabłkowy Sad Książęcy 5 l to największe dostępne opakowanie naszego premium soku, tłoczonego z jabłek z ponad 100-letniego sadu w Grójcu. Foliowy worek z kranem w kartonowym opakowaniu ułatwia dozowanie i pozwala zachować świeżość produktu przez dłuższy czas. To ekonomiczne i praktyczne rozwiązanie na rodzinne przyjęcia, imprezy i większe spotkania."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "sok-jabkowy-sad-ksiazecy-3-l",
+      "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "sok-jabkowy-sad-ksiazecy-330-ml"
+    ],
+    "faq_handle": [
+      "jak-korzystac-z-opakowania-z-kranem",
+      "jak-dlugo-zachowuje-swiezosc-po-otwarciu",
+      "dla-kogo-jest-ta-pojemnosc"
+    ]
+  },
+  {
+    "wiersz": 12,
+    "handle": "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+    "tytul": "Olej Ziołowy Tłocznia Książęca - Zioła Prowansalskie",
+    "skale_sensoryczne": {
+      "konsystencja": 1,
+      "gestosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Z czego powstaje Olej Ziołowy Tłocznia Książęca?",
+      "Jak przechowywać olej ziołowy?",
+      "Do czego wykorzystać olej z ziołami prowansalskimi?"
+    ],
+    "karty_historii": [
+      "Tłocznia Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Sałatki",
+      "Pieczywo",
+      "Dania z grilla"
+    ],
+    "warianty": [
+      "Olej Ziołowy Tłocznia Książęca - Warzywa Wędzone",
+      "Olej Ziołowy Tłocznia Książęca - Szczypiorkowy",
+      "Olej z pestek winogron Tłocznia Książęca"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, z dala od źródeł ciepła. Po otwarciu zużyć w ciągu kilku tygodni dla zachowania pełni aromatu.",
+    "skad_pochodzi": "Olej tłoczony na miejscu w Tłoczni Książęcej, na bazie surowców z regionu.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Olej rzepakowy tłoczony na miejscu, z dodatkiem aromatycznych ziół prowansalskich. Pojemność 250 ml.",
+    "dominujace_nuty": "zioła prowansalskie, świeżość, lekka pikantność",
+    "tekst_seo": {
+      "plain": "Olej Ziołowy Tłocznia Książęca – Zioła Prowansalskie to wyjątkowe połączenie tłoczonego na miejscu oleju rzepakowego z aromatycznymi ziołami prowansalskimi. Tworzony z pasją i inspirowany tradycją, doskonale podkreśla smak sałatek, pieczywa i dań z grilla. Naturalny, rzemieślniczy charakter oleju sprawia, że to idealny dodatek do codziennej kuchni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Olej Ziołowy Tłocznia Książęca – Zioła Prowansalskie to wyjątkowe połączenie tłoczonego na miejscu oleju rzepakowego z aromatycznymi ziołami prowansalskimi. Tworzony z pasją i inspirowany tradycją, doskonale podkreśla smak sałatek, pieczywa i dań z grilla. Naturalny, rzemieślniczy charakter oleju sprawia, że to idealny dodatek do codziennej kuchni."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+      "olej-z-pestek-winogron-tocznia-ksiazeca"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-olej-ziolowy-tlocznia-ksiazeca",
+      "jak-przechowywac-olej-ziolowy",
+      "do-czego-wykorzystac-olej-z-ziolami-prowansalskimi"
+    ]
+  },
+  {
+    "wiersz": 13,
+    "handle": "polini-aperitivo",
+    "tytul": "Polini Aperitivo",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Rzemieślnicza receptura",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Co wyróżnia Polini Aperitivo?",
+      "Jak podawać Polini Aperitivo?",
+      "Jak przechowywać Polini Aperitivo?"
+    ],
+    "karty_historii": [
+      "Dziedzictwo Winnicy",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Aperitify przed posiłkiem",
+      "Koktajle",
+      "Spotkania towarzyskie"
+    ],
+    "warianty": [
+      "Polini Spritz"
+    ],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w pozycji stojącej, z dala od światła słonecznego. Po otwarciu spożyć w ciągu kilku miesięcy.",
+    "skad_pochodzi": "Produkt Winnicy Pałac Mała Wieś, tworzony z pasją do polskiej tradycji alkoholi ziołowo-owocowych.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Pierwsze prawdziwe polskie aperitivo – mistrzowski balans słodyczy i szlachetnej goryczki ziół i cytrusów.",
+    "dominujace_nuty": "zioła, owoce cytrusowe, szlachetna goryczka",
+    "tekst_seo": {
+      "plain": "Polini Aperitivo to pierwsze prawdziwe polskie aperitivo, powstałe z pasji do włoskiego stylu życia i wieloletniej tradycji tworzenia alkoholi celebrujących wspólne chwile. Mistrzowska kompozycja ziół i owoców cytrusowych daje idealny balans między orzeźwiającą słodyczą a szlachetną goryczką. To obowiązkowy element domowego barku dla miłośników aperitifów przed posiłkiem i towarzyskich spotkań.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Polini Aperitivo to pierwsze prawdziwe polskie aperitivo, powstałe z pasji do włoskiego stylu życia i wieloletniej tradycji tworzenia alkoholi celebrujących wspólne chwile. Mistrzowska kompozycja ziół i owoców cytrusowych daje idealny balans między orzeźwiającą słodyczą a szlachetną goryczką. To obowiązkowy element domowego barku dla miłośników aperitifów przed posiłkiem i towarzyskich spotkań."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "polini-spritz"
+    ],
+    "faq_handle": [
+      "co-wyroznia-polini-aperitivo",
+      "jak-podawac-polini-aperitivo",
+      "jak-przechowywac-polini-aperitivo"
+    ]
+  },
+  {
+    "wiersz": 14,
+    "handle": "polini-spritz",
+    "tytul": "Polini Spritz",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Rzemieślnicza receptura",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Z czego powstaje Polini Spritz?",
+      "Jak podawać Polini Spritz?",
+      "Z czym najlepiej łączyć Polini Spritz?"
+    ],
+    "karty_historii": [
+      "Dziedzictwo Winnicy",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Koktajle na bazie wina musującego",
+      "Aperitify",
+      "Spotkania towarzyskie"
+    ],
+    "warianty": [
+      "Polini Aperitivo"
+    ],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w pozycji stojącej, z dala od światła słonecznego. Po otwarciu spożyć w ciągu kilku miesięcy.",
+    "skad_pochodzi": "Autorskie Aperitivo prosto z Winnicy Pałac Mała Wieś, tworzony na bazie własnego wina Johanniter.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Pierwsze polskie aperitivo na bazie polskiego wina – nuty pomarańczy, rabarbaru, wanilii i ziół.",
+    "dominujace_nuty": "pomarańcza, rabarbar, wanilia, zioła",
+    "tekst_seo": {
+      "plain": "Polini Spritz to autorskie aperitivo, jako pierwsze w Polsce oparte na polskim winie – wykorzystujemy do jego produkcji wino Johanniter z Winnicy Pałac Mała Wieś. W aromacie wyraźne akcenty pomarańczy, rabarbaru, wanilii i ziół. Wystarczy połączyć go z winem musującym Medusa dla wersji słodszej lub Faun dla bardziej wytrawnej, by uzyskać orzeźwiający, towarzyski drink.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Polini Spritz to autorskie aperitivo, jako pierwsze w Polsce oparte na polskim winie – wykorzystujemy do jego produkcji wino Johanniter z Winnicy Pałac Mała Wieś. W aromacie wyraźne akcenty pomarańczy, rabarbaru, wanilii i ziół. Wystarczy połączyć go z winem musującym Medusa dla wersji słodszej lub Faun dla bardziej wytrawnej, by uzyskać orzeźwiający, towarzyski drink."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "polini-aperitivo"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-polini-spritz",
+      "jak-podawac-polini-spritz",
+      "z-czym-najlepiej-laczyc-polini-spritz"
+    ]
+  },
+  {
+    "wiersz": 15,
+    "handle": "herbata-jabkowa",
+    "tytul": "Herbata jabłkowa",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Z czego składa się Herbata jabłkowa?",
+      "Jak przechowywać herbatę jabłkową?",
+      "Kiedy najlepiej pić Herbatę jabłkową?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Chłodne wieczory",
+      "Deser",
+      "Relaks"
+    ],
+    "warianty": [
+      "Herbata świąteczna"
+    ],
+    "przechowywanie": "Przechowywać w szczelnie zamkniętym opakowaniu, w suchym i ciemnym miejscu, z dala od źródeł zapachów.",
+    "skad_pochodzi": "Kompozycja ziół i owoców łączona według receptury Winnicy Pałac Mała Wieś.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Rozgrzewająca herbata z soczystych jabłek i nuty cynamonu – na chłodne wieczory.",
+    "dominujace_nuty": "jabłko, cynamon, rozgrzewająca słodycz",
+    "tekst_seo": {
+      "plain": "Herbata jabłkowa to rozgrzewająca kompozycja soczystych owoców z delikatną nutą cynamonu. Idealna na chłodne wieczory, orzeźwia, relaksuje i przywraca dobre samopoczucie. To naturalny, aromatyczny wybór dla osób szukających przyjemnego rytuału na zakończenie dnia – wystarczy zalać gorącą wodą i cieszyć się ciepłem jabłkowo-cynamonowego aromatu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Herbata jabłkowa to rozgrzewająca kompozycja soczystych owoców z delikatną nutą cynamonu. Idealna na chłodne wieczory, orzeźwia, relaksuje i przywraca dobre samopoczucie. To naturalny, aromatyczny wybór dla osób szukających przyjemnego rytuału na zakończenie dnia – wystarczy zalać gorącą wodą i cieszyć się ciepłem jabłkowo-cynamonowego aromatu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "herbata-swiateczna"
+    ],
+    "faq_handle": [
+      "z-czego-sklada-sie-herbata-jablkowa",
+      "jak-przechowywac-herbate-jablkowa",
+      "kiedy-najlepiej-pic-herbate-jablkowa"
+    ]
+  },
+  {
+    "wiersz": 16,
+    "handle": "herbata-swiateczna",
+    "tytul": "Herbata świąteczna",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Z czego składa się Herbata świąteczna?",
+      "Jak przechowywać Herbatę świąteczną?",
+      "Na jakie okazje pasuje Herbata świąteczna?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Rodzinne spotkania",
+      "Zimowe wieczory",
+      "Prezenty świąteczne"
+    ],
+    "warianty": [
+      "Herbata jabłkowa"
+    ],
+    "przechowywanie": "Przechowywać w szczelnie zamkniętym opakowaniu, w suchym i ciemnym miejscu, z dala od źródeł zapachów.",
+    "skad_pochodzi": "Kompozycja ziół i owoców łączona według receptury Winnicy Pałac Mała Wieś.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Korzenna kompozycja pomarańczy, goździków i cynamonu – aromat świąt w filiżance.",
+    "dominujace_nuty": "pomarańcza, goździki, cynamon",
+    "tekst_seo": {
+      "plain": "Herbata świąteczna to wyjątkowa kompozycja pomarańczy, goździków i cynamonu, która przenosi w klimat Bożego Narodzenia. Rozgrzewająca, aromatyczna i pełna korzennych nut, idealna na rodzinne spotkania i zimowe wieczory. To sezonowy produkt, który świetnie sprawdzi się także jako świąteczny prezent dla bliskich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Herbata świąteczna to wyjątkowa kompozycja pomarańczy, goździków i cynamonu, która przenosi w klimat Bożego Narodzenia. Rozgrzewająca, aromatyczna i pełna korzennych nut, idealna na rodzinne spotkania i zimowe wieczory. To sezonowy produkt, który świetnie sprawdzi się także jako świąteczny prezent dla bliskich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "herbata-jabkowa"
+    ],
+    "faq_handle": [
+      "z-czego-sklada-sie-herbata-swiateczna",
+      "jak-przechowywac-herbate-swiateczna",
+      "na-jakie-okazje-pasuje-herbata-swiateczna"
+    ]
+  },
+  {
+    "wiersz": 17,
+    "handle": "chipsy-jabkowe",
+    "tytul": "Chipsy jabłkowe",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Bez konserwantów"
+    ],
+    "faq": [
+      "Z czego powstają Chipsy jabłkowe?",
+      "Jak przechowywać chipsy jabłkowe?",
+      "Dla kogo są Chipsy jabłkowe?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Pałacowy sad"
+    ],
+    "polecamy_do": [
+      "Zdrowe przekąski",
+      "Desery",
+      "Prezenty"
+    ],
+    "warianty": [
+      "Orzechy w karmelu",
+      "Mini bezy"
+    ],
+    "przechowywanie": "Przechowywać w szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i światła słonecznego.",
+    "skad_pochodzi": "Produkt ze Spiżarni Książęcej, przygotowywany z owoców i surowców z regionu Mazowsza.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Chrupiące plasterki suszonych jabłek Sad Książęcy – naturalny smak owoców bez zbędnych dodatków.",
+    "dominujace_nuty": "jabłko, lekka słodycz, chrupkość",
+    "tekst_seo": {
+      "plain": "Chipsy jabłkowe Sad Książęcy to chrupiące plasterki suszonych jabłek, które zachowują naturalny smak owoców bez zbędnych dodatków. To idealna, zdrowa alternatywa dla klasycznych słodyczy i wysoko przetworzonych przekąsek. Delikatnie słodkie i lekko kwaskowe, sprawdzą się jako samodzielna przekąska, dodatek do deserów lub praktyczny prezent dla bliskich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Chipsy jabłkowe Sad Książęcy to chrupiące plasterki suszonych jabłek, które zachowują naturalny smak owoców bez zbędnych dodatków. To idealna, zdrowa alternatywa dla klasycznych słodyczy i wysoko przetworzonych przekąsek. Delikatnie słodkie i lekko kwaskowe, sprawdzą się jako samodzielna przekąska, dodatek do deserów lub praktyczny prezent dla bliskich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "orzechy-w-karmelu",
+      "mini-bezy"
+    ],
+    "faq_handle": [
+      "z-czego-powstaja-chipsy-jablkowe",
+      "jak-przechowywac-chipsy-jablkowe",
+      "dla-kogo-sa-chipsy-jablkowe"
+    ]
+  },
+  {
+    "wiersz": 18,
+    "handle": "syrop-lawendowy",
+    "tytul": "Syrop lawendowy",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 1,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać syrop lawendowy?",
+      "Jak przechowywać syrop lawendowy?",
+      "Czy syrop lawendowy jest intensywnie słodki?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Lemoniady",
+      "Koktajle",
+      "Desery"
+    ],
+    "warianty": [
+      "Syrop różany",
+      "Syrop z kwiatów bzu"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu. Po otwarciu przechowywać w lodówce i zużyć w ciągu 2–3 tygodni.",
+    "skad_pochodzi": "Kwiaty i owoce zbierane w ogrodach Winnicy Pałacu Mała Wieś",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Delikatny syrop o uspokajającym aromacie lawendy – do lemoniad, koktajli i deserów.",
+    "dominujace_nuty": "lawenda, kwiatowa nuta, spokój",
+    "tekst_seo": {
+      "plain": "Syrop lawendowy ze Spiżarni Książęcej to delikatny syrop o uspokajającym aromacie lawendy. Doskonały do lemoniady, koktajli i deserów, wnosi do codziennych chwil spokój, harmonię i subtelny kwiatowy smak. To naturalny sposób na nadanie napojom i wypiekom wyjątkowego, kwiatowego charakteru.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Syrop lawendowy ze Spiżarni Książęcej to delikatny syrop o uspokajającym aromacie lawendy. Doskonały do lemoniady, koktajli i deserów, wnosi do codziennych chwil spokój, harmonię i subtelny kwiatowy smak. To naturalny sposób na nadanie napojom i wypiekom wyjątkowego, kwiatowego charakteru."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "syrop-rozany",
+      "syrop-z-kwiatow-bzu"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-syrop-lawendowy",
+      "jak-przechowywac-syrop-lawendowy",
+      "czy-syrop-lawendowy-jest-intensywnie-slodki"
+    ]
+  },
+  {
+    "wiersz": 19,
+    "handle": "syrop-z-kwiatow-bzu",
+    "tytul": "Syrop z kwiatów bzu",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 1,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Do czego wykorzystać syrop z kwiatów bzu?",
+      "Jak przechowywać syrop z kwiatów bzu?",
+      "Jaki jest smak syropu z bzu?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Napoje",
+      "Desery",
+      "Naleśniki i gofry"
+    ],
+    "warianty": [
+      "Syrop lawendowy",
+      "Syrop różany"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu. Po otwarciu przechowywać w lodówce i zużyć w ciągu 2–3 tygodni.",
+    "skad_pochodzi": "Kwiaty i owoce zbierane w ogrodach Winnicy Pałacu Mała Wieś",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Aromatyczny syrop z kwiatów czarnego bzu o lekko miodowym posmaku – esencja lata w butelce.",
+    "dominujace_nuty": "kwiat bzu, miodowy posmak, letnia świeżość",
+    "tekst_seo": {
+      "plain": "Syrop z kwiatów bzu to aromatyczny syrop o lekko miodowym posmaku, powstający z kwiatów czarnego bzu zbieranych w okolicach Pałacu Mała Wieś. Idealny do napojów, deserów i naleśników – to prawdziwa esencja lata zamknięta w butelce, subtelna, słodka i niezwykle uniwersalna w kuchni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Syrop z kwiatów bzu to aromatyczny syrop o lekko miodowym posmaku, powstający z kwiatów czarnego bzu zbieranych w okolicach Pałacu Mała Wieś. Idealny do napojów, deserów i naleśników – to prawdziwa esencja lata zamknięta w butelce, subtelna, słodka i niezwykle uniwersalna w kuchni."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "syrop-lawendowy",
+      "syrop-rozany"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-syrop-z-kwiatow-bzu",
+      "jak-przechowywac-syrop-z-kwiatow-bzu",
+      "jaki-jest-smak-syropu-z-bzu"
+    ]
+  },
+  {
+    "wiersz": 20,
+    "handle": "syrop-rozany",
+    "tytul": "Syrop różany",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 1,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać syrop różany?",
+      "Jak przechowywać syrop różany?",
+      "Jaki jest smak syropu różanego?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Herbata i kawa",
+      "Koktajle",
+      "Wypieki"
+    ],
+    "warianty": [
+      "Syrop lawendowy",
+      "Syrop z kwiatów bzu"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu. Po otwarciu przechowywać w lodówce i zużyć w ciągu 2–3 tygodni.",
+    "skad_pochodzi": "Kwiaty i owoce zbierane w ogrodach Winnicy Pałacu Mała Wieś",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Słodki syrop o subtelnym zapachu róży – do herbaty, kawy, koktajli i wypieków.",
+    "dominujace_nuty": "róża, kwiatowa słodycz, subtelność",
+    "tekst_seo": {
+      "plain": "Syrop różany to słodki syrop o subtelnym zapachu róży, doskonały do herbaty, kawy, koktajli i wypieków. Jego delikatny, kwiatowy smak sprawia, że każda chwila staje się bardziej wyjątkowa – to naturalny sposób na zamienienie codziennych rytuałów w mały, zmysłowy moment przyjemności.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Syrop różany to słodki syrop o subtelnym zapachu róży, doskonały do herbaty, kawy, koktajli i wypieków. Jego delikatny, kwiatowy smak sprawia, że każda chwila staje się bardziej wyjątkowa – to naturalny sposób na zamienienie codziennych rytuałów w mały, zmysłowy moment przyjemności."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "syrop-lawendowy",
+      "syrop-z-kwiatow-bzu"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-syrop-rozany",
+      "jak-przechowywac-syrop-rozany",
+      "jaki-jest-smak-syropu-rozanego"
+    ]
+  },
+  {
+    "wiersz": 21,
+    "handle": "konfitura-rozana",
+    "tytul": "Konfitura różana",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać konfiturę różaną?",
+      "Jak przechowywać konfiturę różaną?",
+      "Czy konfitura różana zawiera całe płatki róży?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Ciasta",
+      "Naleśniki i gofry",
+      "Śniadania"
+    ],
+    "warianty": [
+      "Konfitura jabłkowo-różana",
+      "Konfitura malinowa",
+      "Konfitura morelowa",
+      "Konfitura wiśniowa",
+      "Konfitura z pigwy"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Aromatyczne płatki róży w słodkiej konfiturze – uczta dla zmysłów do ciast i naleśników.",
+    "dominujace_nuty": "płatki róży, kwiatowa słodycz",
+    "tekst_seo": {
+      "plain": "Konfitura różana to aromatyczne płatki róży zamknięte w słodkiej konfiturze – prawdziwa uczta dla zmysłów. Przygotowana ręcznie w Spiżarni Książęcej, doskonała do ciast, naleśników lub jako elegancki dodatek do śniadaniowych przysmaków. To wyjątkowy, kwiatowy akcent w codziennej kuchni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Konfitura różana to aromatyczne płatki róży zamknięte w słodkiej konfiturze – prawdziwa uczta dla zmysłów. Przygotowana ręcznie w Spiżarni Książęcej, doskonała do ciast, naleśników lub jako elegancki dodatek do śniadaniowych przysmaków. To wyjątkowy, kwiatowy akcent w codziennej kuchni."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-jabkowo-rozana",
+      "konfitura-malinowa",
+      "konfitura-morelowa",
+      "konfitura-wisniowa",
+      "konfitura-z-pigwy"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-konfiture-rozana",
+      "jak-przechowywac-konfiture-rozana",
+      "czy-konfitura-rozana-zawiera-cale-platki-rozy"
+    ]
+  },
+  {
+    "wiersz": 22,
+    "handle": "wodka-walicki",
+    "tytul": "Wódka Walicki",
+    "skale_sensoryczne": {
+      "slodkosc": 1,
+      "kwasnosc": 1
+    },
+    "cechy": [
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Jaka jest historia Wódki Walicki?",
+      "Jak podawać Wódkę Walicki?",
+      "Jak przechowywać Wódkę Walicki?"
+    ],
+    "karty_historii": [
+      "Dziedzictwo Winnicy",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Degustacje",
+      "Prezenty",
+      "Spotkania towarzyskie"
+    ],
+    "warianty": [],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w pozycji stojącej, z dala od źródeł ciepła i światła słonecznego.",
+    "skad_pochodzi": "Destylat produkowany w Winnicy Pałacu Mała Wieś, w duchu blisko 200-letniej tradycji gorzelnictwa tego miejsca.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Hołd dla blisko 200-letniej tradycji gorzelnictwa w Majątku Mała Wieś – wódka dla wielbicieli alkoholi z wyższej półki.",
+    "dominujace_nuty": "czystość destylatu, delikatna, zbalansowana struktura",
+    "tekst_seo": {
+      "plain": "Wódka Walicki to coś znacznie więcej niż klasyczny wysokoprocentowy alkohol – to hołd oddany blisko 200-letniej tradycji gorzelnictwa w Majątku Mała Wieś. Tworzona z pasją i rygorystyczną starannością, stanowi ukłon w stronę dawnych mistrzów sztuki destylacji. Doceniona zostanie przez osoby cenące alkohole z wyższej półki, poszukujące jakości i autentycznej historii w każdej butelce.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wódka Walicki to coś znacznie więcej niż klasyczny wysokoprocentowy alkohol – to hołd oddany blisko 200-letniej tradycji gorzelnictwa w Majątku Mała Wieś. Tworzona z pasją i rygorystyczną starannością, stanowi ukłon w stronę dawnych mistrzów sztuki destylacji. Doceniona zostanie przez osoby cenące alkohole z wyższej półki, poszukujące jakości i autentycznej historii w każdej butelce."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [],
+    "faq_handle": [
+      "jaka-jest-historia-wodki-walicki",
+      "jak-podawac-wodke-walicki",
+      "jak-przechowywac-wodke-walicki"
+    ]
+  },
+  {
+    "wiersz": 23,
+    "handle": "konfitura-z-pigwy",
+    "tytul": "Konfitura z pigwy",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać konfiturę z pigwy?",
+      "Jak przechowywać konfiturę z pigwy?",
+      "Jaki jest smak konfitury z pigwy?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Herbata",
+      "Sery",
+      "Pieczone mięsa"
+    ],
+    "warianty": [
+      "Konfitura różana",
+      "Konfitura jabłkowo-różana",
+      "Konfitura malinowa",
+      "Konfitura morelowa",
+      "Konfitura wiśniowa"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Gęsta, aromatyczna konfitura z pigwy o korzennym posmaku – rewelacyjna do herbaty, serów i mięs.",
+    "dominujace_nuty": "pigwa, korzenny posmak, gęstość",
+    "tekst_seo": {
+      "plain": "Konfitura z pigwy to gęsta, aromatyczna konfitura o wyraźnym, korzennym posmaku, przygotowana ręcznie z owoców z sadów Majątku Mała Wieś. Rewelacyjnie komponuje się z herbatą, serami oraz pieczonymi mięsami, wnosząc do dań głęboki, jesienny charakter. To produkt dla osób ceniących wyraziste, niebanalne smaki.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Konfitura z pigwy to gęsta, aromatyczna konfitura o wyraźnym, korzennym posmaku, przygotowana ręcznie z owoców z sadów Majątku Mała Wieś. Rewelacyjnie komponuje się z herbatą, serami oraz pieczonymi mięsami, wnosząc do dań głęboki, jesienny charakter. To produkt dla osób ceniących wyraziste, niebanalne smaki."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-rozana",
+      "konfitura-jabkowo-rozana",
+      "konfitura-malinowa",
+      "konfitura-morelowa",
+      "konfitura-wisniowa"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-konfiture-z-pigwy",
+      "jak-przechowywac-konfiture-z-pigwy",
+      "jaki-jest-smak-konfitury-z-pigwy"
+    ]
+  },
+  {
+    "wiersz": 24,
+    "handle": "chutney-jabkowy",
+    "tytul": "Chutney jabłkowy",
+    "skale_sensoryczne": {
+      "slodkosc": 1,
+      "kwasnosc": 3,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać chutney jabłkowy?",
+      "Jak przechowywać chutney jabłkowy?",
+      "Czy chutney jabłkowy jest pikantny?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Sery",
+      "Mięsa",
+      "Pieczywo"
+    ],
+    "warianty": [
+      "Konfitura z pigwy",
+      "Konfitura jabłkowo-różana",
+      "Marmolada jabłkowa",
+      "Gruszki w winie"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Wyjątkowa kompozycja kwaśnych jabłek, korzennych przypraw i odrobiny pikanterii – do serów i mięs.",
+    "dominujace_nuty": "jabłko, korzenne przyprawy, lekka pikantność",
+    "tekst_seo": {
+      "plain": "Chutney jabłkowy to wyjątkowa kompozycja kwaśnych jabłek, korzennych przypraw i odrobiny pikanterii, przygotowana ręcznie w Spiżarni Książęcej. Doskonały do serów, mięs czy pieczywa, pozwala podkręcić smak codziennych dań i zaskoczyć gości niebanalnym dodatkiem na stole.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Chutney jabłkowy to wyjątkowa kompozycja kwaśnych jabłek, korzennych przypraw i odrobiny pikanterii, przygotowana ręcznie w Spiżarni Książęcej. Doskonały do serów, mięs czy pieczywa, pozwala podkręcić smak codziennych dań i zaskoczyć gości niebanalnym dodatkiem na stole."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-z-pigwy",
+      "konfitura-jabkowo-rozana",
+      "marmolada-jabkowa",
+      "gruszki-w-winie"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-chutney-jablkowy",
+      "jak-przechowywac-chutney-jablkowy",
+      "czy-chutney-jablkowy-jest-pikantny"
+    ]
+  },
+  {
+    "wiersz": 25,
+    "handle": "konfitura-jabkowo-rozana",
+    "tytul": "Konfitura jabłkowo-różana",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać konfiturę jabłkowo-różaną?",
+      "Jak przechowywać konfiturę jabłkowo-różaną?",
+      "Jaki jest smak tej konfitury?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Herbata",
+      "Desery",
+      "Sery pleśniowe"
+    ],
+    "warianty": [
+      "Konfitura malinowa",
+      "Konfitura morelowa",
+      "Konfitura różana",
+      "Konfitura wiśniowa",
+      "Konfitura z pigwy"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Delikatne jabłka w duecie z płatkami róży – elegancki aromat do herbaty, deserów i serów pleśniowych.",
+    "dominujace_nuty": "jabłko, płatki róży, elegancki aromat",
+    "tekst_seo": {
+      "plain": "Konfitura jabłkowo-różana to delikatne jabłka połączone z płatkami róży, tworzące konfiturę o eleganckim, kwiatowym aromacie. Przygotowana ręcznie w Spiżarni Książęcej, idealna do herbaty, deserów lub jako wyrafinowany dodatek do serów pleśniowych. To smak, który wnosi odrobinę elegancji do codziennego stołu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Konfitura jabłkowo-różana to delikatne jabłka połączone z płatkami róży, tworzące konfiturę o eleganckim, kwiatowym aromacie. Przygotowana ręcznie w Spiżarni Książęcej, idealna do herbaty, deserów lub jako wyrafinowany dodatek do serów pleśniowych. To smak, który wnosi odrobinę elegancji do codziennego stołu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-malinowa",
+      "konfitura-morelowa",
+      "konfitura-rozana",
+      "konfitura-wisniowa",
+      "konfitura-z-pigwy"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-konfiture-jablkowo-rozana",
+      "jak-przechowywac-konfiture-jablkowo-rozana",
+      "jaki-jest-smak-tej-konfitury"
+    ]
+  },
+  {
+    "wiersz": 26,
+    "handle": "konfitura-malinowa",
+    "tytul": "Konfitura malinowa",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 2,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać konfiturę malinową?",
+      "Jak przechowywać konfiturę malinową?",
+      "Jaki jest smak konfitury malinowej?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Desery",
+      "Naleśniki i gofry",
+      "Śniadania"
+    ],
+    "warianty": [
+      "Konfitura morelowa",
+      "Konfitura wiśniowa",
+      "Konfitura różana",
+      "Konfitura jabłkowo-różana",
+      "Konfitura z pigwy"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Intensywna, pełna owocowej słodyczy konfitura z malin – świetna do deserów i śniadań.",
+    "dominujace_nuty": "malina, intensywna owocowość",
+    "tekst_seo": {
+      "plain": "Konfitura malinowa to intensywna, pełna owocowej słodyczy konfitura z malin, przygotowana ręcznie w Spiżarni Książęcej. Świetna do deserów, naleśników i jako dodatek do śniadań – to klasyczny smak lata, który umili każdy poranek i podkreśli smak domowych wypieków.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Konfitura malinowa to intensywna, pełna owocowej słodyczy konfitura z malin, przygotowana ręcznie w Spiżarni Książęcej. Świetna do deserów, naleśników i jako dodatek do śniadań – to klasyczny smak lata, który umili każdy poranek i podkreśli smak domowych wypieków."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-morelowa",
+      "konfitura-wisniowa",
+      "konfitura-rozana",
+      "konfitura-jabkowo-rozana",
+      "konfitura-z-pigwy"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-konfiture-malinowa",
+      "jak-przechowywac-konfiture-malinowa",
+      "jaki-jest-smak-konfitury-malinowej"
+    ]
+  },
+  {
+    "wiersz": 27,
+    "handle": "konfitura-morelowa",
+    "tytul": "Konfitura morelowa",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 2,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać konfiturę morelową?",
+      "Jak przechowywać konfiturę morelową?",
+      "Jaki jest smak konfitury morelowej?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Naleśniki i gofry",
+      "Jogurty",
+      "Wypieki"
+    ],
+    "warianty": [
+      "Konfitura malinowa",
+      "Konfitura wiśniowa",
+      "Konfitura różana",
+      "Konfitura jabłkowo-różana",
+      "Konfitura z pigwy"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Soczyste morele w gęstej konfiturze – słodkie, z lekką kwaskowatością.",
+    "dominujace_nuty": "morela, słodycz z kwaskowatością",
+    "tekst_seo": {
+      "plain": "Konfitura morelowa to soczyste morele przetworzone w gęstą konfiturę – słodką, z lekką kwaskowatością. Przygotowana ręcznie w Spiżarni Książęcej, idealna do naleśników, jogurtów lub jako nadzienie do ciast. To uniwersalny smak, który sprawdzi się w wielu odsłonach domowej kuchni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Konfitura morelowa to soczyste morele przetworzone w gęstą konfiturę – słodką, z lekką kwaskowatością. Przygotowana ręcznie w Spiżarni Książęcej, idealna do naleśników, jogurtów lub jako nadzienie do ciast. To uniwersalny smak, który sprawdzi się w wielu odsłonach domowej kuchni."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-malinowa",
+      "konfitura-wisniowa",
+      "konfitura-rozana",
+      "konfitura-jabkowo-rozana",
+      "konfitura-z-pigwy"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-konfiture-morelowa",
+      "jak-przechowywac-konfiture-morelowa",
+      "jaki-jest-smak-konfitury-morelowej"
+    ]
+  },
+  {
+    "wiersz": 28,
+    "handle": "konfitura-wisniowa",
+    "tytul": "Konfitura wiśniowa",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 3,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Do czego wykorzystać konfiturę wiśniową?",
+      "Jak przechowywać konfiturę wiśniową?",
+      "Jaki jest smak konfitury wiśniowej?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Mięsa",
+      "Sery",
+      "Wypieki"
+    ],
+    "warianty": [
+      "Konfitura malinowa",
+      "Konfitura morelowa",
+      "Konfitura różana",
+      "Konfitura jabłkowo-różana",
+      "Konfitura z pigwy"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Wyrazista konfitura z wiśni o głębokim, lekko cierpkim posmaku – do mięs, serów i wypieków.",
+    "dominujace_nuty": "wiśnia, głęboka, lekko cierpka nuta",
+    "tekst_seo": {
+      "plain": "Konfitura wiśniowa to wyrazista konfitura z wiśni o głębokim, lekko cierpkim posmaku, przygotowana ręcznie w Spiżarni Książęcej. Idealna do mięs, serów i wypieków – jej intensywny charakter sprawia, że doskonale balansuje słodsze i bardziej stonowane smaki na talerzu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Konfitura wiśniowa to wyrazista konfitura z wiśni o głębokim, lekko cierpkim posmaku, przygotowana ręcznie w Spiżarni Książęcej. Idealna do mięs, serów i wypieków – jej intensywny charakter sprawia, że doskonale balansuje słodsze i bardziej stonowane smaki na talerzu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "konfitura-malinowa",
+      "konfitura-morelowa",
+      "konfitura-rozana",
+      "konfitura-jabkowo-rozana",
+      "konfitura-z-pigwy"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-konfiture-wisniowa",
+      "jak-przechowywac-konfiture-wisniowa",
+      "jaki-jest-smak-konfitury-wisniowej"
+    ]
+  },
+  {
+    "wiersz": 29,
+    "handle": "marmolada-jabkowa",
+    "tytul": "Marmolada jabłkowa",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2,
+      "konsystencja": 2,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Bez konserwantów"
+    ],
+    "faq": [
+      "Do czego wykorzystać marmoladę jabłkową?",
+      "Jak przechowywać marmoladę jabłkową?",
+      "Jakie przyprawy zawiera marmolada jabłkowa?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Tosty",
+      "Naleśniki i gofry",
+      "Sery"
+    ],
+    "warianty": [
+      "Chutney jabłkowy",
+      "Konfitura z pigwy",
+      "Gruszki w winie"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Owoce z sadów Majątku Mała Wieś, przetwarzane ręcznie w Spiżarni Książęcej według tradycyjnych receptur.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Gęsta marmolada z soczystych jabłek i aromatycznych przypraw korzennych – bez sztucznych dodatków.",
+    "dominujace_nuty": "jabłko, przyprawy korzenne, gęstość",
+    "tekst_seo": {
+      "plain": "Marmolada jabłkowa z przyprawami korzennymi to gęsta, intensywna marmolada z soczystych jabłek z dodatkiem aromatycznych przypraw. Jej wyrazisty smak doskonale komponuje się z tostami, naleśnikami, wypiekami, a także serami i deserami. Przygotowana bez sztucznych dodatków – tylko naturalna słodycz owoców i ciepły aromat przypraw.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Marmolada jabłkowa z przyprawami korzennymi to gęsta, intensywna marmolada z soczystych jabłek z dodatkiem aromatycznych przypraw. Jej wyrazisty smak doskonale komponuje się z tostami, naleśnikami, wypiekami, a także serami i deserami. Przygotowana bez sztucznych dodatków – tylko naturalna słodycz owoców i ciepły aromat przypraw."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "chutney-jabkowy",
+      "konfitura-z-pigwy",
+      "gruszki-w-winie"
+    ],
+    "faq_handle": [
+      "do-czego-wykorzystac-marmolade-jablkowa",
+      "jak-przechowywac-marmolade-jablkowa",
+      "jakie-przyprawy-zawiera-marmolada-jablkowa"
+    ]
+  },
+  {
+    "wiersz": 30,
+    "handle": "piwo-viva-pale-ale",
+    "tytul": "Piwo VIVA Pale ale",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 2,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Własna produkcja",
+      "Rzemieślnicza receptura",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Jaka jest zawartość alkoholu w Piwie VIVA Pale Ale?",
+      "Kto warzy Piwo VIVA?",
+      "Jak podawać Piwo VIVA Pale Ale?"
+    ],
+    "karty_historii": [
+      "Dziedzictwo Winnicy",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Popołudniowy relaks",
+      "Pikniki",
+      "Spotkania z bliskimi"
+    ],
+    "warianty": [
+      "Piwo VIVA Weissbier"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, najlepiej w lodówce w temperaturze 4–8°C. Podawać schłodzone.",
+    "skad_pochodzi": "Piwo warzone według autorskiej, pałacowej receptury przez rzemieślniczy browar w Krakowie.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Zawiera gluten (słód jęczmienny/pszeniczny). Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Zawiera gluten (słód jęczmienny/pszeniczny). Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Złociste piwo o lekkości lata i cytrusowym aromacie – autorska, pałacowa receptura. Zawartość alkoholu 4,8%.",
+    "dominujace_nuty": "cytrusy, złociste nuty, wytrawny finisz",
+    "tekst_seo": {
+      "plain": "Piwo VIVA Pale Ale to złociste piwo o lekkości lata i aromacie cytrusowych ogrodów, warzone według autorskiej, pałacowej receptury przez rzemieślniczy browar z serca Krakowa. Wytrawny finisz pozostawia nutę orzeźwienia, idealną na popołudniowy relaks, pikniki i spotkania z bliskimi. Zawartość alkoholu 4,8% sprawia, że to lekki wybór na letnie dni.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Piwo VIVA Pale Ale to złociste piwo o lekkości lata i aromacie cytrusowych ogrodów, warzone według autorskiej, pałacowej receptury przez rzemieślniczy browar z serca Krakowa. Wytrawny finisz pozostawia nutę orzeźwienia, idealną na popołudniowy relaks, pikniki i spotkania z bliskimi. Zawartość alkoholu 4,8% sprawia, że to lekki wybór na letnie dni."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "piwo-viva-weissbier"
+    ],
+    "faq_handle": [
+      "jaka-jest-zawartosc-alkoholu-w-piwie-viva-pale-ale",
+      "kto-warzy-piwo-viva",
+      "jak-podawac-piwo-viva-pale-ale"
+    ]
+  },
+  {
+    "wiersz": 31,
+    "handle": "piwo-viva-weissbier",
+    "tytul": "Piwo VIVA Weissbier",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Własna produkcja",
+      "Rzemieślnicza receptura",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Jaka jest zawartość alkoholu w Piwie VIVA Weissbier?",
+      "Kto warzy Piwo VIVA?",
+      "Jak podawać Piwo VIVA Weissbier?"
+    ],
+    "karty_historii": [
+      "Dziedzictwo Winnicy",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Popołudniowy relaks",
+      "Letnie spotkania",
+      "Rodzinne przyjęcia"
+    ],
+    "warianty": [
+      "Piwo VIVA Pale ale"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, najlepiej w lodówce w temperaturze 4–8°C. Podawać schłodzone.",
+    "skad_pochodzi": "Piwo warzone według autorskiej, pałacowej receptury przez rzemieślniczy browar w Krakowie.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Zawiera gluten (słód jęczmienny/pszeniczny). Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Zawiera gluten (słód jęczmienny/pszeniczny). Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Pszeniczne piwo o kremowej teksturze i aromacie banana i goździków – autorska interpretacja bawarskiej klasyki. Zawartość alkoholu 5%.",
+    "dominujace_nuty": "banan, goździki, kremowa aksamitność",
+    "tekst_seo": {
+      "plain": "Piwo VIVA Weissbier to pszeniczne piwo o kremowej, aksamitnej teksturze i harmonii aromatów banana oraz goździku, warzone według autorskiej, pałacowej receptury przez rzemieślniczy browar z serca Krakowa. To interpretacja bawarskiej klasyki stworzona dla gości Pałacu Mała Wieś, łącząca tradycję piwowarską z rzemieślniczym podejściem. Zawartość alkoholu 5% – idealne na letni poranek i towarzyskie spotkania.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Piwo VIVA Weissbier to pszeniczne piwo o kremowej, aksamitnej teksturze i harmonii aromatów banana oraz goździku, warzone według autorskiej, pałacowej receptury przez rzemieślniczy browar z serca Krakowa. To interpretacja bawarskiej klasyki stworzona dla gości Pałacu Mała Wieś, łącząca tradycję piwowarską z rzemieślniczym podejściem. Zawartość alkoholu 5% – idealne na letni poranek i towarzyskie spotkania."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "piwo-viva-pale-ale"
+    ],
+    "faq_handle": [
+      "jaka-jest-zawartosc-alkoholu-w-piwie-viva-weissbier",
+      "kto-warzy-piwo-viva",
+      "jak-podawac-piwo-viva-weissbier"
+    ]
+  },
+  {
+    "wiersz": 32,
+    "handle": "orzechy-w-karmelu",
+    "tytul": "Orzechy w karmelu",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 3
+    },
+    "cechy": [
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Z czego składają się Orzechy w karmelu?",
+      "Jak przechowywać orzechy w karmelu?",
+      "Dla kogo są Orzechy w karmelu?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Kawa i desery",
+      "Prezenty",
+      "Spotkania przy stole"
+    ],
+    "warianty": [
+      "Chipsy jabłkowe",
+      "Mini bezy"
+    ],
+    "przechowywanie": "Przechowywać w szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i światła słonecznego.",
+    "skad_pochodzi": "Produkt ze Spiżarni Książęcej, przygotowywany z owoców i surowców z regionu Mazowsza.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Zawiera orzechy. Może zawierać śladowe ilości innych orzechów, mleka i glutenu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Zawiera orzechy. Może zawierać śladowe ilości innych orzechów, mleka i glutenu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Orzechy w złocistym, chrupiącym karmelu – wyrazista, nieprzesadnie słodka przekąska.",
+    "dominujace_nuty": "orzechy, karmel, chrupiąca słodycz",
+    "tekst_seo": {
+      "plain": "Orzechy w karmelu to przekąska, która potrafi zatrzymać na chwilę codzienny pośpiech – połączenie intensywnego smaku orzechów i złocistej, delikatnie chrupiącej warstwy karmelu. Nieprzesadnie słodkie, ale wyraziste, z przyjemnym kontrastem tekstur. Doskonałe do kawy i deserów, a także jako elegancki prezent dla bliskich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Orzechy w karmelu to przekąska, która potrafi zatrzymać na chwilę codzienny pośpiech – połączenie intensywnego smaku orzechów i złocistej, delikatnie chrupiącej warstwy karmelu. Nieprzesadnie słodkie, ale wyraziste, z przyjemnym kontrastem tekstur. Doskonałe do kawy i deserów, a także jako elegancki prezent dla bliskich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "chipsy-jabkowe",
+      "mini-bezy"
+    ],
+    "faq_handle": [
+      "z-czego-skladaja-sie-orzechy-w-karmelu",
+      "jak-przechowywac-orzechy-w-karmelu",
+      "dla-kogo-sa-orzechy-w-karmelu"
+    ]
+  },
+  {
+    "wiersz": 33,
+    "handle": "gruszki-w-winie",
+    "tytul": "Gruszki w winie",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1,
+      "konsystencja": 3,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Jak podawać gruszki w winie?",
+      "Jak przechowywać gruszki w winie?",
+      "Z jakim winem powstają gruszki w winie?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Dziedzictwo Winnicy",
+      "Zbiór owoców"
+    ],
+    "polecamy_do": [
+      "Desery",
+      "Sery pleśniowe",
+      "Lody"
+    ],
+    "warianty": [
+      "Chutney jabłkowy",
+      "Konfitura jabłkowo-różana",
+      "Marmolada jabłkowa"
+    ],
+    "przechowywanie": "Przed otwarciem przechowywać w temperaturze pokojowej, w miejscu osłoniętym od światła. Po otwarciu przechowywać w lodówce, zakręcone szczelnie, i zużyć w ciągu 7–10 dni.",
+    "skad_pochodzi": "Gruszki gotowane w winie z Winnicy Pałac Mała Wieś, przygotowywane ręcznie w Spiżarni Książęcej.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Może zawierać siarczyny. Produkt alkoholowy – spożywać odpowiedzialnie, tylko dla osób pełnoletnich."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Soczyste gruszki powoli gotowane w aromatycznym winie z przyprawami – delikatny, głęboki smak.",
+    "dominujace_nuty": "gruszka, wino, korzenne przyprawy",
+    "tekst_seo": {
+      "plain": "Gruszki w winie to soczyste gruszki powoli gotowane w aromatycznym winie z dodatkiem przypraw, przygotowywane ręcznie w Spiżarni Książęcej. Delikatne, słodkie i pełne głębokiego smaku, doskonałe jako samodzielny deser, dodatek do lodów lub eleganckie połączenie z serami pleśniowymi.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Gruszki w winie to soczyste gruszki powoli gotowane w aromatycznym winie z dodatkiem przypraw, przygotowywane ręcznie w Spiżarni Książęcej. Delikatne, słodkie i pełne głębokiego smaku, doskonałe jako samodzielny deser, dodatek do lodów lub eleganckie połączenie z serami pleśniowymi."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "chutney-jabkowy",
+      "konfitura-jabkowo-rozana",
+      "marmolada-jabkowa"
+    ],
+    "faq_handle": [
+      "jak-podawac-gruszki-w-winie",
+      "jak-przechowywac-gruszki-w-winie",
+      "z-jakim-winem-powstaja-gruszki-w-winie"
+    ]
+  },
+  {
+    "wiersz": 34,
+    "handle": "olej-z-pestek-winogron-tocznia-ksiazeca",
+    "tytul": "Olej z pestek winogron Tłocznia Książęca",
+    "skale_sensoryczne": {
+      "konsystencja": 1,
+      "gestosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Z czego powstaje olej z pestek winogron?",
+      "Jak przechowywać olej z pestek winogron?",
+      "Do czego wykorzystać olej z pestek winogron?"
+    ],
+    "karty_historii": [
+      "Tłocznia Książęca",
+      "Dziedzictwo Winnicy",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Sałatki",
+      "Dania na ciepło",
+      "Pieczywo"
+    ],
+    "warianty": [
+      "Olej Ziołowy Tłocznia Książęca - Zioła Prowansalskie",
+      "Olej Ziołowy Tłocznia Książęca - Warzywa Wędzone",
+      "Olej Ziołowy Tłocznia Książęca - Szczypiorkowy"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, z dala od źródeł ciepła. Po otwarciu zużyć w ciągu kilku tygodni dla zachowania pełni aromatu.",
+    "skad_pochodzi": "Pestki winogron z własnej Winnicy Pałac Mała Wieś, tłoczone na miejscu w Tłoczni Książęcej.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Olej tłoczony z pestek winogron pochodzących z własnej winnicy – lekki, o delikatnym, orzechowym posmaku.",
+    "dominujace_nuty": "delikatny orzechowy posmak, lekkość, subtelność",
+    "tekst_seo": {
+      "plain": "Olej z pestek winogron Tłocznia Książęca to produkt powstający z pestek winogron pochodzących z własnej Winnicy Pałac Mała Wieś, tłoczonych na miejscu w Tłoczni Książęcej. Lekki, o delikatnym, orzechowym posmaku, sprawdza się jako dodatek do sałatek i dań na ciepło. To rzemieślniczy olej łączący dziedzictwo winnicy z tradycją tłoczenia na miejscu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Olej z pestek winogron Tłocznia Książęca to produkt powstający z pestek winogron pochodzących z własnej Winnicy Pałac Mała Wieś, tłoczonych na miejscu w Tłoczni Książęcej. Lekki, o delikatnym, orzechowym posmaku, sprawdza się jako dodatek do sałatek i dań na ciepło. To rzemieślniczy olej łączący dziedzictwo winnicy z tradycją tłoczenia na miejscu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "olej-zioowy-tocznia-ksiazeca-szczypiorkowy"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-olej-z-pestek-winogron",
+      "jak-przechowywac-olej-z-pestek-winogron",
+      "do-czego-wykorzystac-olej-z-pestek-winogron"
+    ]
+  },
+  {
+    "wiersz": 35,
+    "handle": "miod-spadziowy-400-ml",
+    "tytul": "Miód Spadziowy 400 ml",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1,
+      "konsystencja": 1,
+      "gestosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura",
+      "Ograniczona dostępność"
+    ],
+    "faq": [
+      "Czym różni się miód spadziowy od nektarowego?",
+      "Jak przechowywać miód spadziowy?",
+      "Dlaczego miód spadziowy jest rzadszy?"
+    ],
+    "karty_historii": [
+      "Pasieka Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Herbata",
+      "Jogurty",
+      "Owsianka"
+    ],
+    "warianty": [
+      "Miód Wielokwiatowy 400 ml",
+      "Miód Lipowy 400 ml",
+      "Miód Rzepakowy 400 ml"
+    ],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Naturalna krystalizacja nie wpływa na jakość produktu.",
+    "skad_pochodzi": "Miód z Pasieki Książęcej, zbierany przez pszczoły w otoczeniu pól, sadów i ogrodów Winnicy Pałac Mała Wieś.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Rzadki \"miód królewski\" – ciemny, głęboki w smaku, powstający ze spadzi zbieranej w mazowieckich lasach.",
+    "dominujace_nuty": "głęboka, leśna nuta, minerałowość",
+    "tekst_seo": {
+      "plain": "Miód Spadziowy 400 ml z Pasieki Książęcej to jeden z najbardziej cenionych miodów przez koneserów, często nazywany \"miodem królewskim\". Powstaje nie z nektaru kwiatów, lecz ze spadzi zbieranej przez pszczoły w mazowieckich lasach, co czyni go rzadszym i bogatszym w minerały. Doskonały do herbaty, jogurtu i owsianki – wspiera odporność i dodaje energii na cały dzień.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Miód Spadziowy 400 ml z Pasieki Książęcej to jeden z najbardziej cenionych miodów przez koneserów, często nazywany \"miodem królewskim\". Powstaje nie z nektaru kwiatów, lecz ze spadzi zbieranej przez pszczoły w mazowieckich lasach, co czyni go rzadszym i bogatszym w minerały. Doskonały do herbaty, jogurtu i owsianki – wspiera odporność i dodaje energii na cały dzień."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "miod-wielokwiatowy-400-ml",
+      "miod-lipowy-400-ml",
+      "miod-rzepakowy-400-ml"
+    ],
+    "faq_handle": [
+      "czym-rozni-sie-miod-spadziowy-od-nektarowego",
+      "jak-przechowywac-miod-spadziowy",
+      "dlaczego-miod-spadziowy-jest-rzadszy"
+    ]
+  },
+  {
+    "wiersz": 36,
+    "handle": "miod-rzepakowy-400-ml",
+    "tytul": "Miód Rzepakowy 400 ml",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 1,
+      "konsystencja": 1,
+      "gestosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Czym charakteryzuje się miód rzepakowy?",
+      "Jak przechowywać miód rzepakowy?",
+      "Dlaczego miód rzepakowy szybko krystalizuje?"
+    ],
+    "karty_historii": [
+      "Pasieka Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Kawa",
+      "Smoothie",
+      "Domowe wypieki"
+    ],
+    "warianty": [
+      "Miód Wielokwiatowy 400 ml",
+      "Miód Lipowy 400 ml",
+      "Miód Spadziowy 400 ml"
+    ],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Naturalna krystalizacja nie wpływa na jakość produktu.",
+    "skad_pochodzi": "Miód z Pasieki Książęcej, zbierany przez pszczoły w otoczeniu pól, sadów i ogrodów Winnicy Pałac Mała Wieś.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Delikatny, aksamitny miód rzepakowy z Pasieki Książęcej – kwintesencja wiosennego przebudzenia.",
+    "dominujace_nuty": "delikatna kwiatowa słodycz, aksamitna tekstura",
+    "tekst_seo": {
+      "plain": "Miód Rzepakowy 400 ml z Pasieki Książęcej powstaje w okresie wiosennych zbiorów, gdy pola wokół pałacu pokrywają się żółtym kwieciem rzepaku. To delikatny, aksamitny miód o subtelnym, lekko kwiatowym aromacie, bogaty w naturalne enzymy. Świetnie sprawdzi się jako dodatek do kawy, smoothie i domowych wypieków, szybko dodając energii i wspierając regenerację.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Miód Rzepakowy 400 ml z Pasieki Książęcej powstaje w okresie wiosennych zbiorów, gdy pola wokół pałacu pokrywają się żółtym kwieciem rzepaku. To delikatny, aksamitny miód o subtelnym, lekko kwiatowym aromacie, bogaty w naturalne enzymy. Świetnie sprawdzi się jako dodatek do kawy, smoothie i domowych wypieków, szybko dodając energii i wspierając regenerację."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "miod-wielokwiatowy-400-ml",
+      "miod-lipowy-400-ml",
+      "miod-spadziowy-400-ml"
+    ],
+    "faq_handle": [
+      "czym-charakteryzuje-sie-miod-rzepakowy",
+      "jak-przechowywac-miod-rzepakowy",
+      "dlaczego-miod-rzepakowy-szybko-krystalizuje"
+    ]
+  },
+  {
+    "wiersz": 37,
+    "handle": "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+    "tytul": "Sok Jabłkowy Sad Książęcy 750 ml - Boskoop",
+    "skale_sensoryczne": {
+      "slodkosc": 1,
+      "kwasnosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Czym charakteryzuje się jabłko odmiany Boskoop?",
+      "Jak przechowywać sok jabłkowy?",
+      "Czym różni się od wersji Mix?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Pałacowy sad",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Śniadania",
+      "Koktajle",
+      "Desery"
+    ],
+    "warianty": [
+      "Sok Jabłkowy Sad Książęcy 750 ml - Antonówka",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+      "Sok Jabłkowy Sad Książęcy 330 ml"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym i ciemnym miejscu. Po otwarciu przechowywać w lodówce i spożyć w ciągu 3–4 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Sok tłoczony z wyraźnie kwaskowatych jabłek odmiany Boskoop – intensywny, orzeźwiający smak w 750 ml butelce.",
+    "dominujace_nuty": "jabłko Boskoop, wyraźna kwaskowatość, orzeźwienie",
+    "tekst_seo": {
+      "plain": "Sok Jabłkowy Sad Książęcy Boskoop 750 ml to naturalny sok tłoczony z jednej, charakterystycznej odmiany jabłek – Boskoop, znanej z wyraźnej kwaskowatości i intensywnego smaku. To sok dla osób, które cenią autentyczny, niepodkręcony cukrem smak owoców. Powstaje z jabłek z polskich sadów, bez dodatków i konserwantów, zachowując pełnię naturalnych wartości.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok Jabłkowy Sad Książęcy Boskoop 750 ml to naturalny sok tłoczony z jednej, charakterystycznej odmiany jabłek – Boskoop, znanej z wyraźnej kwaskowatości i intensywnego smaku. To sok dla osób, które cenią autentyczny, niepodkręcony cukrem smak owoców. Powstaje z jabłek z polskich sadów, bez dodatków i konserwantów, zachowując pełnię naturalnych wartości."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "sok-jabkowy-sad-ksiazecy-330-ml"
+    ],
+    "faq_handle": [
+      "czym-charakteryzuje-sie-jablko-odmiany-boskoop",
+      "jak-przechowywac-sok-jablkowy",
+      "czym-rozni-sie-od-wersji-mix"
+    ]
+  },
+  {
+    "wiersz": 38,
+    "handle": "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+    "tytul": "Sok Jabłkowy Sad Książęcy 750 ml - Antonówka",
+    "skale_sensoryczne": {
+      "slodkosc": 1,
+      "kwasnosc": 3
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu"
+    ],
+    "faq": [
+      "Czym charakteryzuje się jabłko odmiany Antonówka?",
+      "Jak przechowywać sok jabłkowy?",
+      "Czym różni się od wersji Boskoop?"
+    ],
+    "karty_historii": [
+      "Zbiór owoców",
+      "Pałacowy sad",
+      "Serce Mazowsza"
+    ],
+    "polecamy_do": [
+      "Śniadania",
+      "Koktajle",
+      "Desery"
+    ],
+    "warianty": [
+      "Sok Jabłkowy Sad Książęcy 750 ml - Boskoop",
+      "Sok Jabłkowy Sad Książęcy 750 ml - Mix",
+      "Sok Jabłkowy Sad Książęcy 330 ml"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym i ciemnym miejscu. Po otwarciu przechowywać w lodówce i spożyć w ciągu 3–4 dni.",
+    "skad_pochodzi": "Jabłka z sadów Majątku Mała Wieś, tłoczone",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Sok z kwaskowato-słodkich antonówek – aromat pałacowego sadu zamknięty w 750 ml butelce.",
+    "dominujace_nuty": "jabłko Antonówka, kwaskowa słodycz, aromat sadu",
+    "tekst_seo": {
+      "plain": "Sok Jabłkowy Sad Książęcy Antonówka 750 ml powstaje z tłoczonych antonówek – odmiany o charakterystycznym, kwaskowato-słodkim smaku i intensywnym aromacie. Sok przenosi na stół smak porannego sadu i tradycję polskiego sadownictwa. Naturalny, bez dodatku cukru i konserwantów, zachowuje pełnię wartości odżywczych świeżo zebranych owoców.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Sok Jabłkowy Sad Książęcy Antonówka 750 ml powstaje z tłoczonych antonówek – odmiany o charakterystycznym, kwaskowato-słodkim smaku i intensywnym aromacie. Sok przenosi na stół smak porannego sadu i tradycję polskiego sadownictwa. Naturalny, bez dodatku cukru i konserwantów, zachowuje pełnię wartości odżywczych świeżo zebranych owoców."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "sok-jabkowy-sad-ksiazecy-330-ml"
+    ],
+    "faq_handle": [
+      "czym-charakteryzuje-sie-jablko-odmiany-antonowka",
+      "jak-przechowywac-sok-jablkowy",
+      "czym-rozni-sie-od-wersji-boskoop"
+    ]
+  },
+  {
+    "wiersz": 39,
+    "handle": "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+    "tytul": "Olej Ziołowy Tłocznia Książęca - Szczypiorkowy",
+    "skale_sensoryczne": {
+      "konsystencja": 1,
+      "gestosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Z czego powstaje Olej Ziołowy Szczypiorkowy?",
+      "Jak przechowywać olej ziołowy?",
+      "Do czego wykorzystać olej szczypiorkowy?"
+    ],
+    "karty_historii": [
+      "Tłocznia Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Sałatki",
+      "Jajka i śniadania",
+      "Pieczywo"
+    ],
+    "warianty": [
+      "Olej Ziołowy Tłocznia Książęca - Zioła Prowansalskie",
+      "Olej Ziołowy Tłocznia Książęca - Warzywa Wędzone",
+      "Olej z pestek winogron Tłocznia Książęca"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, z dala od źródeł ciepła. Po otwarciu zużyć w ciągu kilku tygodni dla zachowania pełni aromatu.",
+    "skad_pochodzi": "Olej tłoczony na miejscu w Tłoczni Książęcej, na bazie surowców z regionu.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Olej rzepakowy z dodatkiem świeżego szczypiorku – lekko ziołowy aromat na bazie tradycyjnego tłoczenia.",
+    "dominujace_nuty": "szczypiorek, ziołowa świeżość, delikatna ostrość",
+    "tekst_seo": {
+      "plain": "Olej Ziołowy Tłocznia Książęca – Szczypiorkowy to autorska kompozycja tłoczonego na miejscu oleju rzepakowego z dodatkiem aromatycznego szczypiorku. Świeży, ziołowy charakter idealnie podkreśla smak sałatek, jajek i śniadaniowych kanapek. Produkt tworzony ręcznie, w duchu tradycji Tłoczni Książęcej, dostępny w niewielkich, starannie przygotowanych partiach.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Olej Ziołowy Tłocznia Książęca – Szczypiorkowy to autorska kompozycja tłoczonego na miejscu oleju rzepakowego z dodatkiem aromatycznego szczypiorku. Świeży, ziołowy charakter idealnie podkreśla smak sałatek, jajek i śniadaniowych kanapek. Produkt tworzony ręcznie, w duchu tradycji Tłoczni Książęcej, dostępny w niewielkich, starannie przygotowanych partiach."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "olej-z-pestek-winogron-tocznia-ksiazeca"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-olej-ziolowy-szczypiorkowy",
+      "jak-przechowywac-olej-ziolowy",
+      "do-czego-wykorzystac-olej-szczypiorkowy"
+    ]
+  },
+  {
+    "wiersz": 40,
+    "handle": "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+    "tytul": "Olej Ziołowy Tłocznia Książęca - Warzywa Wędzone",
+    "skale_sensoryczne": {
+      "konsystencja": 1,
+      "gestosc": 1
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Własna produkcja",
+      "Lokalny produkt",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Z czego powstaje Olej Ziołowy Warzywa Wędzone?",
+      "Jak przechowywać olej ziołowy?",
+      "Do czego wykorzystać olej z warzywami wędzonymi?"
+    ],
+    "karty_historii": [
+      "Tłocznia Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Dania z grilla",
+      "Pieczone warzywa",
+      "Pieczywo"
+    ],
+    "warianty": [
+      "Olej Ziołowy Tłocznia Książęca - Zioła Prowansalskie",
+      "Olej Ziołowy Tłocznia Książęca - Szczypiorkowy",
+      "Olej z pestek winogron Tłocznia Książęca"
+    ],
+    "przechowywanie": "Przechowywać w chłodnym, ciemnym miejscu, z dala od źródeł ciepła. Po otwarciu zużyć w ciągu kilku tygodni dla zachowania pełni aromatu.",
+    "skad_pochodzi": "Olej tłoczony na miejscu w Tłoczni Książęcej, na bazie surowców z regionu.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Olej rzepakowy z delikatnie wędzonymi warzywami – głęboki aromat inspirowany tradycyjnym wędzeniem. Pojemność 250 ml.",
+    "dominujace_nuty": "wędzony aromat, głębia smaku, warzywna nuta",
+    "tekst_seo": {
+      "plain": "Olej Ziołowy Tłocznia Książęca – Warzywa Wędzone to wyjątkowa kompozycja starannie dobranych warzyw poddanych delikatnemu wędzeniu, połączonych z tłoczonym na miejscu olejem rzepakowym. Głęboki aromat i naturalna wyrazistość sprawiają, że to doskonały dodatek do dań z grilla, pieczonych warzyw i pieczywa. Tworzony z pasją, inspirowany tradycyjnymi metodami konserwowania.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Olej Ziołowy Tłocznia Książęca – Warzywa Wędzone to wyjątkowa kompozycja starannie dobranych warzyw poddanych delikatnemu wędzeniu, połączonych z tłoczonym na miejscu olejem rzepakowym. Głęboki aromat i naturalna wyrazistość sprawiają, że to doskonały dodatek do dań z grilla, pieczonych warzyw i pieczywa. Tworzony z pasją, inspirowany tradycyjnymi metodami konserwowania."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+      "olej-z-pestek-winogron-tocznia-ksiazeca"
+    ],
+    "faq_handle": [
+      "z-czego-powstaje-olej-ziolowy-warzywa-wedzone",
+      "jak-przechowywac-olej-ziolowy",
+      "do-czego-wykorzystac-olej-z-warzywami-wedzonymi"
+    ]
+  },
+  {
+    "wiersz": 41,
+    "handle": "mini-bezy",
+    "tytul": "Mini bezy",
+    "skale_sensoryczne": {
+      "slodkosc": 2,
+      "kwasnosc": 1,
+      "konsystencja": 1
+    },
+    "cechy": [
+      "Własna produkcja",
+      "Rzemieślnicza receptura",
+      "Lokalny produkt"
+    ],
+    "faq": [
+      "Z czego powstają Mini bezy?",
+      "Jak przechowywać mini bezy?",
+      "Do czego wykorzystać mini bezy?"
+    ],
+    "karty_historii": [
+      "Spiżarnia Książęca",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Desery",
+      "Elegancki stół",
+      "Prezenty"
+    ],
+    "warianty": [
+      "Chipsy jabłkowe",
+      "Orzechy w karmelu"
+    ],
+    "przechowywanie": "Przechowywać w szczelnie zamkniętym opakowaniu, w suchym miejscu, z dala od wilgoci i światła słonecznego.",
+    "skad_pochodzi": "Produkt ze Spiżarni Książęcej, przygotowywany z owoców i surowców z regionu Mazowsza.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Wartości odżywcze mogą się nieznacznie różnić w zależności od partii produkcyjnej. Pełne informacje o składzie i alergenach znajdują się na etykiecie produktu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Delikatne, różowe mini bezy – kruche, lekkie i rozpływające się w ustach. Pojemność 100 g.",
+    "dominujace_nuty": "subtelna słodycz, kruchość, lekkość",
+    "tekst_seo": {
+      "plain": "Mini bezy to delikatne, różowe bezy – kruche, lekkie i subtelnie rozpływające się w ustach. Powstają na bazie starannie ubitych białek i cukru, inspirowane klasyczną francuską tradycją cukierniczą. Idealne jako słodka przekąska, dodatek do deserów lub elegancki element świątecznego czy przyjęciowego stołu.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Mini bezy to delikatne, różowe bezy – kruche, lekkie i subtelnie rozpływające się w ustach. Powstają na bazie starannie ubitych białek i cukru, inspirowane klasyczną francuską tradycją cukierniczą. Idealne jako słodka przekąska, dodatek do deserów lub elegancki element świątecznego czy przyjęciowego stołu."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "chipsy-jabkowe",
+      "orzechy-w-karmelu"
+    ],
+    "faq_handle": [
+      "z-czego-powstaja-mini-bezy",
+      "jak-przechowywac-mini-bezy",
+      "do-czego-wykorzystac-mini-bezy"
+    ]
+  },
+  {
+    "wiersz": 42,
+    "handle": "miod-lipowy-400-ml",
+    "tytul": "Miód Lipowy 400 ml",
+    "skale_sensoryczne": {
+      "slodkosc": 3,
+      "kwasnosc": 2,
+      "konsystencja": 1,
+      "gestosc": 2
+    },
+    "cechy": [
+      "Naturalne składniki",
+      "Lokalny produkt",
+      "Produkt sezonu",
+      "Rzemieślnicza receptura"
+    ],
+    "faq": [
+      "Czym charakteryzuje się miód lipowy?",
+      "Jak przechowywać miód lipowy?",
+      "Dlaczego okres zbioru miodu lipowego jest krótki?"
+    ],
+    "karty_historii": [
+      "Pasieka Książęca",
+      "Serce Mazowsza",
+      "Ludzie Małej Wsi"
+    ],
+    "polecamy_do": [
+      "Herbata",
+      "Napary rozgrzewające",
+      "Domowe wypieki"
+    ],
+    "warianty": [
+      "Miód Wielokwiatowy 400 ml",
+      "Miód Rzepakowy 400 ml",
+      "Miód Spadziowy 400 ml"
+    ],
+    "przechowywanie": "Przechowywać w temperaturze pokojowej, w suchym i ciemnym miejscu, szczelnie zamknięty. Naturalna krystalizacja nie wpływa na jakość produktu.",
+    "skad_pochodzi": "Miód z Pasieki Książęcej, zbierany przez pszczoły w otoczeniu pól, sadów i ogrodów Winnicy Pałac Mała Wieś.",
+    "wartosci_odzywcze_alergeny": {
+      "plain": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Produkt pszczeli – może uczulać osoby z alergią na produkty pszczele i pyłki. Niewskazany dla dzieci poniżej 1. roku życia."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "opis_karty": "Szlachetny miód lipowy z Pasieki Książęcej – intensywny aromat lipowych alej otaczających pałac.",
+    "dominujace_nuty": "lipowy aromat, balsamiczna nuta, orzeźwiające wykończenie",
+    "tekst_seo": {
+      "plain": "Miód Lipowy 400 ml z Pasieki Książęcej powstaje z kwiatów lipy rosnącej w alejach i ogrodach otaczających Pałac Mała Wieś. To jeden z najbardziej szlachetnych i charakterystycznych miodów, zbierany w krótkim, intensywnym okresie kwitnienia lip. Wyróżnia się balsamicznym aromatem i orzeźwiającym posmakiem – doskonały do herbaty i rozgrzewających naparów.",
+      "rich_text": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "value": "Miód Lipowy 400 ml z Pasieki Książęcej powstaje z kwiatów lipy rosnącej w alejach i ogrodach otaczających Pałac Mała Wieś. To jeden z najbardziej szlachetnych i charakterystycznych miodów, zbierany w krótkim, intensywnym okresie kwitnienia lip. Wyróżnia się balsamicznym aromatem i orzeźwiającym posmakiem – doskonały do herbaty i rozgrzewających naparów."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "karta_produktu_plik": null,
+    "warianty_handle": [
+      "miod-wielokwiatowy-400-ml",
+      "miod-rzepakowy-400-ml",
+      "miod-spadziowy-400-ml"
+    ],
+    "faq_handle": [
+      "czym-charakteryzuje-sie-miod-lipowy",
+      "jak-przechowywac-miod-lipowy",
+      "dlaczego-okres-zbioru-miodu-lipowego-jest-krotki"
+    ]
+  }
+]
