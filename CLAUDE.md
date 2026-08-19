@@ -139,6 +139,37 @@ Koszyk dodatków do wydarzeń (Etap 4, `mmw-event-addons`/`mmw-event-cart.js`):
   plik się nie załaduje albo coś w nim rzuci wyjątek wcześniej, przycisk
   nadal działa natywnie (sam bilet, bez dodatków), zamiast być martwy.
 
+## mmw-photo-stack vs mmw-story-stack
+
+`sections/mmw-photo-stack.liquid` (stos zdjęć jako przełącznik tekstu, Figma node
+982:7884) to świadoma DUPLIKACJA mechaniki `blocks/mmw-story-stack.liquid`
+(wachlarz kart na hover, kolejność kart sterowana `data-depth`/z-index, nie
+przestawianiem DOM), a nie jej reużycie ani rozszerzenie. Powody ustalone przed
+implementacją (Krok 1):
+- auto-advance w Stories jest oparty o pasek postępu (CSS `@keyframes` +
+  `animationend`); w photo-stack nie ma paska postępu w Figmie, więc timing
+  musi iść przez zwykły `setTimeout`/`clearTimeout` — inny mechanizm u podstaw,
+  nie da się podpiąć pod istniejący kod bez przebudowy Stories.
+- inny model interakcji: hover nad KONKRETNĄ kartą w stosie promuje ją na
+  wierzch (Stories tego nie ma — tam tylko swipe/drag aktywnej karty).
+- w photo-stack tekst żyje w osobnym, zsynchronizowanym panelu obok stosu
+  (crossfade, `grid-area:1/1` + `[inert]`); w Stories tekst jest wewnątrz
+  każdej karty.
+- photo-stack ma pełny wzorzec ARIA tablist/tab/tabpanel; Stories przełącza
+  `aria-hidden`/`tabindex` bezpośrednio na kartach, bez `tabpanel`.
+
+Nie refaktorować Stories „przy okazji” pod wspólny kod z photo-stack — Stories
+jest na produkcji, niepotrzebna destabilizacja działającego komponentu.
+
+**Dług do odnotowania (nie naprawiony, nie do naprawy w tym zadaniu):**
+`mmw-story-stack` nie pauzuje auto-advance na focus klawiaturowy — pauza działa
+tylko na `:hover`, `[dragging]` i `[out-of-view]` (IntersectionObserver), patrz
+`assets/mmw-story-stack.js`/`blocks/mmw-story-stack.liquid`. To realna luka
+WCAG 2.2.2 (Pause, Stop, Hide) w komponencie na produkcji — `mmw-photo-stack`
+ma pauzę na focus poprawnie zaimplementowaną (multi-reason pause tracker:
+hover/focus/viewport), ale Stories jej nie odziedziczyło, bo to duplikacja,
+nie wspólny kod.
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.

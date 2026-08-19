@@ -1,0 +1,515 @@
+{%- comment -%}
+  mmw-photo-stack — stos zdjęć jako PRZEŁĄCZNIK tekstu, nie dekoracja.
+  Reużywalna: blok wewnątrz strony produktu wydarzenia i powtarzana (na
+  przemian lewo/prawo) na stronie głównej. Figma: node 982:7884.
+
+  Świadoma DUPLIKACJA mechaniki blocks/mmw-story-stack.liquid, nie
+  reużycie/rozszerzenie — ustalone w Kroku 1 (patrz CLAUDE.md, sekcja
+  "mmw-photo-stack vs mmw-story-stack"): inny mechanizm auto-advance (tu bez
+  paska postępu → zwykły timer, nie CSS keyframes + animationend), inny
+  model interakcji (hover na KONKRETNEJ karcie promuje ją na wierzch — Stories
+  tego nie ma), osobny zsynchronizowany panel tekstowy (Stories trzyma tekst
+  w karcie), pełny wzorzec ARIA tablist/tab/tabpanel (Stories go nie ma).
+
+  Rotacje kart przypisane do POZYCJI w stosie (data-depth), nie do tożsamości
+  karty — gdy aktywna karta się zmienia, rotacje zostają na miejscu, karty
+  między nimi "przeskakują" (patrz assets/mmw-photo-stack.js, ten sam wzorzec
+  co w mmw-story-stack.js). Tylko 3 pozycje mają własną rotację (3 wartości
+  z Figmy) — karty głębsze niż pozycja 2 dostają IDENTYCZNY transform co
+  pozycja 2, w pełni przesłonięte, zero ryzyka "spłaszczenia" przy wielu
+  kartach (uzasadnienie liczbowe w podsumowaniu dostawy).
+
+  Wszystkie warianty panelu tekstowego są w jednej komórce grida
+  (grid-area:1/1) i przełączane przez opacity/visibility + [inert] — wysokość
+  panelu = najwyższy wariant, zero skoku layoutu przy zmianie.
+{%- endcomment -%}
+
+<section class="mmw-ps color-{{ section.settings.color_scheme }}">
+  <mmw-photo-stack
+    class="mmw-ps__row{% if section.settings.stack_side == 'right' %} mmw-ps__row--reverse{% endif %}"
+    data-duration="{{ section.settings.autoplay_duration }}"
+    {%- if section.blocks.size > 1 %}
+      on:keydown="/handleKeydown"
+    {%- endif %}
+  >
+    <div class="mmw-ps__col mmw-ps__col--stack">
+      <div
+        class="mmw-ps__stack"
+        role="tablist"
+        aria-label="{{ section.settings.label | strip_html | default: 'Stos zdjęć' }}"
+      >
+        {%- for block in section.blocks -%}
+          <button
+            type="button"
+            ref="cards[]"
+            id="mmw-ps-tab-{{ section.id }}-{{ forloop.index0 }}"
+            class="mmw-ps__card"
+            role="tab"
+            aria-label="{{ 'accessibility.slide_status' | t: index: forloop.index, length: section.blocks.size }}"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-controls="mmw-ps-panel-{{ section.id }}-{{ forloop.index0 }}"
+            tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+            data-depth="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.image != blank -%}
+              <img
+                class="mmw-ps__card-img"
+                src="{{ block.settings.image | image_url: width: 500 }}"
+                srcset="
+                  {{ block.settings.image | image_url: width: 400 }} 400w,
+                  {{ block.settings.image | image_url: width: 500 }} 500w,
+                  {{ block.settings.image | image_url: width: 700 }} 700w,
+                  {{ block.settings.image | image_url: width: 1000 }} 1000w
+                "
+                sizes="(max-width: 749px) calc(100vw - 48px), 554px"
+                loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                width="500"
+                height="500"
+                alt="{{ block.settings.image.alt | escape }}"
+              >
+            {%- else -%}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'mmw-ps__card-img' }}
+            {%- endif -%}
+          </button>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <div class="mmw-ps__col mmw-ps__col--panel">
+      <div class="mmw-ps__panels">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign panel_label = block.settings.label | default: section.settings.label
+          -%}
+          <div
+            ref="panels[]"
+            id="mmw-ps-panel-{{ section.id }}-{{ forloop.index0 }}"
+            class="mmw-ps__panel"
+            role="tabpanel"
+            aria-labelledby="mmw-ps-tab-{{ section.id }}-{{ forloop.index0 }}"
+            {%- unless forloop.first %}
+              inert
+            {%- endunless %}
+          >
+            {%- if panel_label != blank -%}
+              <p class="mmw-ps__label">{{ panel_label }}</p>
+            {%- endif -%}
+            {%- if block.settings.heading != blank -%}
+              <h2 class="mmw-ps__heading">
+                {%- if block.settings.heading_link != blank -%}
+                  <a href="{{ block.settings.heading_link }}">{{ block.settings.heading }}</a>
+                {%- else -%}
+                  {{ block.settings.heading }}
+                {%- endif -%}
+              </h2>
+            {%- endif -%}
+            {%- if block.settings.content != blank -%}
+              <div class="mmw-ps__content">{{ block.settings.content }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.show_arrow -%}
+        <div class="mmw-ps__arrow" ref="arrow" aria-hidden="true">
+          {{- 'mmw-doodle-arrow.svg' | inline_asset_content -}}
+        </div>
+      {%- endif -%}
+    </div>
+  </mmw-photo-stack>
+</section>
+
+{% stylesheet %}
+  .mmw-ps {
+    padding-block: 60px;
+    background: var(--mmw-04);
+  }
+
+  .mmw-ps__row {
+    /* Jedno źródło prawdy dla czasu/łagodzenia — karta i panel tekstowy
+       zmieniają się RÓWNOCZEŚNIE, nie w dwóch różnych tempach. */
+    --mmw-ps-duration: 0.35s;
+    --mmw-ps-easing: ease;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 1166px;
+    margin-inline: auto;
+    padding-inline: var(--page-margin, 24px);
+  }
+
+  .mmw-ps__col {
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Kolejność na mobile zawsze stała (stos nad tekstem) — przełącznik
+     stack_side dotyczy wyłącznie układu desktopowego (patrz media query
+     min-width:750px niżej, gdzie .mmw-ps__row--reverse dopiero zaczyna
+     zmieniać kolejność kolumn). */
+  .mmw-ps__col--stack {
+    order: 1;
+  }
+
+  .mmw-ps__col--panel {
+    order: 2;
+  }
+
+  /* STOS — kwadratowa karta 500×500, promień 20, pozycje z własną rotacją
+     (3 wartości z Figmy: przód/środek/tył). Karty poza 3. pozycją dostają
+     transform identyczny z pozycją 2 (patrz assets/mmw-photo-stack.js
+     --mmw-ps-depth, capped), w pełni przesłonięte. */
+  .mmw-ps__stack {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    margin-inline: auto;
+  }
+
+  .mmw-ps__card {
+    all: unset;
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    touch-action: pan-y;
+    will-change: transform;
+    /* Tło pod placeholderem (brak zdjęcia) i podczas ładowania — --mmw-03,
+       nie --mmw-04, bo sekcja sama ma tło --mmw-04 (karta zlałaby się z nim). */
+    background: var(--mmw-03);
+    transition: transform var(--mmw-ps-duration, 0.35s) var(--mmw-ps-easing, ease);
+  }
+
+  .mmw-ps__card-img,
+  .mmw-ps__card-img svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .mmw-ps__card[data-depth='0'] {
+    transform: translate(0, 0) rotate(10.61deg);
+  }
+
+  .mmw-ps__card[data-depth='1'] {
+    transform: translate(-8px, -4px) rotate(-2.75deg);
+  }
+
+  .mmw-ps__card[data-depth='2'] {
+    transform: translate(-16px, -7px) rotate(3.51deg);
+  }
+
+  /* Podniesienie karty pod kursorem/fokusem — sygnał klikalności, NIE
+     wyróżnienie stanu aktywnego (żadnych obramowań/cieni/przyciemnień, patrz
+     Krok 1: żadnego różnicowania kart poza kolejnością warstw). Lift/scale
+     jako SKRAJNE (lewe) funkcje w transform-list, żeby zawsze czytały się
+     jako "w górę" na ekranie, niezależnie od własnej rotacji karty. */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .mmw-ps__card[data-depth='0']:hover,
+    .mmw-ps__card[data-depth='0']:focus-visible {
+      transform: translateY(-4px) scale(1.02) translate(0, 0) rotate(10.61deg);
+    }
+
+    .mmw-ps__card[data-depth='1']:hover,
+    .mmw-ps__card[data-depth='1']:focus-visible {
+      transform: translateY(-4px) scale(1.02) translate(-8px, -4px) rotate(-2.75deg);
+    }
+
+    .mmw-ps__card[data-depth='2']:hover,
+    .mmw-ps__card[data-depth='2']:focus-visible {
+      transform: translateY(-4px) scale(1.02) translate(-16px, -7px) rotate(3.51deg);
+    }
+
+    /* Rozjazd (fan-out) całego stosu na hover — karty pod wierzchnią stają
+       się indywidualnie klikalne. PIONOWY (góra/dół względem karty
+       aktywnej), nie poziomy — tylko translacja się zmienia, rotacje
+       pozycji zostają te same co w stanie spoczynku (patrz reguły
+       [data-depth] wyżej). Ten sam wzorzec co :hover na .mmw-story-stack w
+       assets/mmw-story-stack.js/blocks/mmw-story-stack.liquid (custom
+       properties per pozycja + media gate), powielony, nie importowany. */
+    .mmw-ps__stack:hover .mmw-ps__card[data-depth='1']:not(:hover):not(:focus-visible) {
+      transform: translate(-8px, -30px) rotate(-2.75deg);
+    }
+
+    .mmw-ps__stack:hover .mmw-ps__card[data-depth='2']:not(:hover):not(:focus-visible) {
+      transform: translate(-16px, 40px) rotate(3.51deg);
+    }
+  }
+
+  .mmw-ps__card:focus-visible {
+    outline: 2px solid var(--mmw-01);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-ps__card {
+      transition: none;
+    }
+  }
+
+  /* PANEL TEKSTOWY — wszystkie warianty w jednej komórce grida, wysokość
+     panelu = najwyższy wariant. [inert] usuwa nieaktywny wariant z drzewa
+     dostępności/fokusu; visibility przełącza się na hidden dopiero PO
+     zakończeniu wygaszania (transition-delay), żeby nie było twardego cięcia
+     w połowie przenikania. */
+  .mmw-ps__panels {
+    display: grid;
+  }
+
+  .mmw-ps__panel {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 14px;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity var(--mmw-ps-duration, 0.35s) var(--mmw-ps-easing, ease);
+  }
+
+  .mmw-ps__panel[inert] {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--mmw-ps-duration, 0.35s) var(--mmw-ps-easing, ease),
+      visibility 0s var(--mmw-ps-duration, 0.35s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-ps__panel,
+    .mmw-ps__panel[inert] {
+      transition: none;
+    }
+  }
+
+  .mmw-ps__label {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+  }
+
+  .mmw-ps__heading {
+    margin: 0;
+    /* 48px z Figmy — w systemie typografii H2 to 60px, tu świadome odejście
+       od tokenu na rzecz projektu (flagowane też w podsumowaniu dostawy). */
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--mmw-01);
+  }
+
+  /* Zmniejszenie na mobile — ten sam próg i ta sama docelowa wartość
+     (36px) co .mmw-ec__title w mmw-event-carousel.liquid i .mmw-pc__title
+     w mmw-product-carousel.liquid, żeby nagłówek zachowywał się spójnie
+     z resztą tytułów sekcji na stronie. */
+  @media (max-width: 749px) {
+    .mmw-ps__heading {
+      font-size: 36px;
+    }
+  }
+
+  .mmw-ps__heading a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mmw-ps__heading a:hover {
+    color: var(--mmw-02);
+  }
+
+  .mmw-ps__content {
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--mmw-01);
+  }
+
+  .mmw-ps__content p {
+    margin: 0;
+  }
+
+  .mmw-ps__content p + p {
+    margin-top: 12px;
+  }
+
+  /* STRZAŁKA-BAZGROŁ — inline SVG (nie <img>, żeby dało się animować path),
+     dekoracyjna, ukryta poniżej 750px (na wąskim ekranie nachodziłaby na
+     tekst). Kolor przez currentColor (patrz assets/mmw-doodle-arrow.svg —
+     stroke podmieniony na currentColor, kolor ustawiony tu w CSS). */
+  .mmw-ps__arrow {
+    display: none;
+    pointer-events: none;
+    color: var(--mmw-02);
+    width: 200px;
+    height: auto;
+  }
+
+  .mmw-ps__arrow svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: rotate(35.25deg);
+  }
+
+  .mmw-ps__arrow svg path {
+    stroke-dasharray: 400;
+    /* Ujemny offset (nie +400) — to jest to, co odwraca kierunek rysowania
+       na koniec→początek zamiast początek→koniec, bez przerysowywania
+       samej ścieżki: przy dodatnim offsecie punkty BLISKO początku ścieżki
+       (p=0) odsłaniają się jako pierwsze w miarę zmniejszania offsetu do 0;
+       przy ujemnym offsecie odsłaniają się jako pierwsze punkty BLISKO
+       końca ścieżki (p=długość), a początek jako ostatni. */
+    stroke-dashoffset: -400;
+  }
+
+  .mmw-ps__arrow.is-visible svg path {
+    animation: mmw-ps-arrow-draw 1.2s ease-out 0.2s forwards;
+  }
+
+  @keyframes mmw-ps-arrow-draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mmw-ps__arrow svg path {
+      stroke-dashoffset: 0;
+      animation: none !important;
+    }
+  }
+
+  @media (min-width: 750px) {
+    .mmw-ps__row {
+      flex-direction: row;
+      align-items: center;
+      gap: 72px;
+    }
+
+    .mmw-ps__col--stack,
+    .mmw-ps__col--panel {
+      flex: 1 1 0;
+      min-width: 0;
+      max-width: 554px;
+    }
+
+    .mmw-ps__row--reverse .mmw-ps__col--stack {
+      order: 2;
+    }
+
+    .mmw-ps__row--reverse .mmw-ps__col--panel {
+      order: 1;
+    }
+
+    .mmw-ps__col--panel {
+      position: relative;
+    }
+  }
+
+  /* Strzałka dostaje WŁASNY, wyższy próg niż reszta layoutu (750px) —
+     policzone, nie zgadnięte: .mmw-ps__row ma max-width:1166px w
+     box-sizing:border-box i padding-inline:24px, więc kolumnom zostaje co
+     najwyżej ok. 1118px na obie razem; po odjęciu 72px odstępu (gap) i
+     podzieleniu na pół, KAŻDA kolumna osiąga w praktyce maks. ok. 523px,
+     nigdy pełne 554px, na które strzałka była pierwotnie policzona — stąd
+     przy niższych szerokościach (mniej niż ok. 1280px) kolumna jest jeszcze
+     węższa i 200px-owa, bezwzględnie pozycjonowana strzałka wystawała poza
+     nią, rozciągając całą stronę w bok (pasek scrolla). Poniżej tego progu
+     strzałka zostaje ukryta (display:none z reguły bazowej) zamiast
+     zawężać jej własną pozycję do węższych szerokości. */
+  @media (min-width: 1280px) {
+    .mmw-ps__arrow {
+      display: block;
+      position: absolute;
+      top: -94px;
+      left: 290px;
+    }
+
+    .mmw-ps__row--reverse .mmw-ps__arrow {
+      left: auto;
+      right: 290px;
+      transform: scaleX(-1);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "MMW Stos zdjęć",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Etykieta domyślna", "default": "Nasi goście o wydarzeniu", "info": "Widoczna nad nagłówkiem w panelu tekstowym. Blok może ją nadpisać własną etykietą." },
+    {
+      "type": "select",
+      "id": "stack_side",
+      "label": "Strona ze stosem zdjęć (desktop)",
+      "options": [
+        { "value": "left", "label": "Lewo" },
+        { "value": "right", "label": "Prawo" }
+      ],
+      "default": "left"
+    },
+    { "type": "checkbox", "id": "show_arrow", "label": "Pokaż strzałkę-bazgroł", "default": true },
+    { "type": "color_scheme", "id": "color_scheme", "label": "t:settings.color_scheme", "default": "scheme-1" }
+  ],
+  "blocks": [
+    {
+      "type": "wpis",
+      "name": "Wpis",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+        { "type": "text", "id": "label", "label": "Etykieta (opcjonalnie, nadpisuje domyślną z ustawień sekcji)" },
+        { "type": "text", "id": "heading", "label": "Nagłówek" },
+        { "type": "richtext", "id": "content", "label": "Treść" },
+        { "type": "url", "id": "heading_link", "label": "Link nagłówka (opcjonalnie)" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "MMW Stos zdjęć",
+      "category": "t:categories.product",
+      "blocks": [
+        {
+          "type": "wpis",
+          "settings": {
+            "heading": "Niezapomniane popołudnie",
+            "content": "<p>Świetna atmosfera, pyszne wino i mnóstwo śmiechu — wrócimy na pewno!</p>"
+          }
+        },
+        {
+          "type": "wpis",
+          "settings": {
+            "heading": "Prawdziwa uczta dla zmysłów",
+            "content": "<p>Degustacja prowadzona z pasją, a widoki z tarasu zapierają dech w piersiach.</p>"
+          }
+        },
+        {
+          "type": "wpis",
+          "settings": {
+            "heading": "Idealne miejsce na wyjątkową okazję",
+            "content": "<p>Organizowaliśmy tu rocznicę i było perfekcyjnie od pierwszej do ostatniej minuty.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -335,7 +335,55 @@
         "heading": "Timeline doświadczenia",
         "subheading": "Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie."
       }
+    },
+    "mmw_photo_stack_1": {
+      "type": "mmw-photo-stack",
+      "name": "MMW Stos zdjęć",
+      "blocks": {
+        "wpis_1": {
+          "type": "wpis",
+          "settings": {
+            "heading": "Niezapomniane popołudnie",
+            "content": "<p>Świetna atmosfera, pyszne wino i mnóstwo śmiechu — wrócimy na pewno!</p>"
+          }
+        },
+        "wpis_2": {
+          "type": "wpis",
+          "settings": {
+            "heading": "Prawdziwa uczta dla zmysłów",
+            "content": "<p>Degustacja prowadzona z pasją, a widoki z tarasu zapierają dech w piersiach.</p>"
+          }
+        },
+        "wpis_3": {
+          "type": "wpis",
+          "settings": {
+            "heading": "Idealne miejsce na wyjątkową okazję",
+            "content": "<p>Organizowaliśmy tu rocznicę i było perfekcyjnie od pierwszej do ostatniej minuty.</p>"
+          }
+        }
+      },
+      "block_order": ["wpis_1", "wpis_2", "wpis_3"],
+      "settings": {}
+    },
+    "mmw_event_carousel_1": {
+      "type": "mmw-event-carousel",
+      "name": "MMW Karuzela wydarzeń — DIAGNOSTYKA",
+      "settings": {
+        "heading": "Inne wydarzenia",
+        "description": "",
+        "collection": "vouchery",
+        "max_products": 8,
+        "hide_current_product": true,
+        "hide_past_events": false,
+        "show_capacity": true,
+        "card_label": "",
+        "cta_text": "Zobacz więcej wydarzeń",
+        "cta_link": "",
+        "cta_color_variant": "coral",
+        "columns": 3,
+        "columns_gap": 24
+      }
     }
   },
-  "order": ["main", "mmw_event_timeline"]
+  "order": ["main", "mmw_event_timeline", "mmw_photo_stack_1", "mmw_event_carousel_1"]
 }
