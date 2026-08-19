@@ -2456,6 +2456,7 @@ deferred-media[class]
 }
 
 .tax-note.tax-note.tax-note {
+  font-family: "Roslindale Text";
   font-size: min(0.85em, var(--font-paragraph--size));
   font-weight: var(--font-paragraph--weight);
   color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
