@@ -139,6 +139,29 @@ Koszyk dodatków do wydarzeń (Etap 4, `mmw-event-addons`/`mmw-event-cart.js`):
   plik się nie załaduje albo coś w nim rzuci wyjątek wcześniej, przycisk
   nadal działa natywnie (sam bilet, bez dodatków), zamiast być martwy.
 
+`assets/base.css`, blok `.page-width-*` (ok. linia 330): nadpisane
+`--page-margin` 24px/60px (commit b045008). ŚWIADOMIE zostawione w pliku
+natywnym, nie przeniesione do `mmw-tokens.liquid`. Powód: token zużywany
+w 15+ miejscach layoutu (grid stron, marquee, natywne sekcje); przy
+aktualizacji Horizona chcemy twardego merge conflictu, nie cichej
+rozbieżności — gdyby upstream zmienił listę klas `.page-width-*` albo
+breakpoint 750px, kopia w mmw-tokens przestałaby pokrywać wszystkie
+przypadki BEZ ostrzeżenia (rozjechany layout bez sygnału, skąd pochodzi),
+podczas gdy zmiana w base.css i tak wymusi ręczny przegląd przy merge.
+Kontrast z `.tax-note.tax-note.tax-note` niżej — tam to sama wizualna
+właściwość liścia (font-family), zero zależnych miejsc, więc przeniesienie
+było bez ryzyka; tu odwrotnie. Przy każdej aktualizacji Horizona: sprawdzić,
+czy upstream nie zmienił listy klas `.page-width-*` ani breakpointu 750px.
+
+`assets/base.css`, `.tax-note.tax-note.tax-note` (natywna reguła Horizona,
+`blocks/price.liquid` — cena+podatek pod ceną): `font-family` PRZENIESIONE
+do `snippets/mmw-tokens.liquid` (commit 61ac849), base.css nietknięty.
+Powód odwrotny niż przy `--page-margin`: to pojedyncza właściwość wizualna
+bez zależnych miejsc, więc kopia w mmw-tokens nie ryzykuje cichej
+rozbieżności — a mmw-tokens renderuje się w `<head>` PO base.css, więc
+przy tej samej specyficzności selektora (0,3,0) wygrywa kaskadą bez
+potrzeby edycji pliku natywnego.
+
 ## mmw-photo-stack vs mmw-story-stack
 
 `sections/mmw-photo-stack.liquid` (stos zdjęć jako przełącznik tekstu, Figma node
