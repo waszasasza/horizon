@@ -18,7 +18,9 @@
 
   Różnice względem /filozofia (świadome, bo inny model danych i inny brief):
   - Źródło: product.metafields.custom.harmonogram (lista referencji do
-    punkt_harmonogramu: godzina, opis, obraz) — NIE bloki edytora. Sekcja
+    punkt_harmonogramu: godzina, tytuł [handle: tytul — zweryfikowany przez
+    Admin API, transliteracja bez rozjazdu tym razem], opis, obraz) — NIE
+    bloki edytora. Sekcja
     stoi na szablonie produktu, każde wydarzenie ma własny harmonogram,
     bloki edytora byłyby wspólne dla wszystkich wydarzeń.
   - Jeden punkt = jedna karta (obraz + godzina + opis), niesiony jednym
@@ -102,11 +104,15 @@
             {%- if point != blank -%}
               {%- liquid
                 assign point_time = point.godzina.value
+                assign point_title = point.tytul.value
                 assign point_desc = point.opis.value
               -%}
               <div class="mmw-timeline__point">
                 {%- if point_time != blank -%}
                   <p class="mmw-timeline__hour">{{ point_time }}</p>
+                {%- endif -%}
+                {%- if point_title != blank -%}
+                  <p class="mmw-timeline__title">{{ point_title }}</p>
                 {%- endif -%}
                 {%- if point_desc != blank -%}
                   <p class="mmw-timeline__desc">{{ point_desc }}</p>
@@ -300,7 +306,6 @@
     flex: 0 0 410px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
     padding-top: 34px;
     position: relative;
     color: var(--mmw-01);
@@ -325,8 +330,24 @@
     line-height: 1.1;
   }
 
+  /* Etykieta pod godziną — czyta się jako jej podpis, nie osobny akapit,
+     stąd margin-top mniejszy niż odstęp title→desc (4px vs 8px) zamiast
+     jednego wspólnego gap na .mmw-timeline__point. Puste pole → element
+     w ogóle się nie renderuje (Liquid), margin-top desc nie zależy od
+     tego, czy title istnieje. */
+  .mmw-timeline__title {
+    margin: 16px 0px 8px 0px;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+    color: var(--mmw-01);
+  }
+
   .mmw-timeline__desc {
-    margin: 0;
+    margin: 8px 0 0;
     font-family: var(--mmw-font-text);
     font-size: 18px;
     line-height: 1.5;
