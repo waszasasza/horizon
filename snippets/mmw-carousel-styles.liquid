@@ -10,20 +10,32 @@
   compiled_assets/styles.css jako subset liczony per strona na podstawie
   tego, które pliki faktycznie się wyrenderowały — skoro żadna nasza
   sekcja nie renderuje resource-list-carousel.liquid literalnie, jego
-  {% stylesheet %} (w tym container-type/container-name na
-  .resource-list__carousel i oba bloki @container liczące --slide-width)
-  nie trafia do subsetu tej strony. Efekt: --slide-width niezdefiniowane,
-  var(--slide-width, 100%) w slideshow-styles.liquid wchodzi na fallback,
-  kafelek karuzeli zajmuje 100% szerokości. Potwierdzone na produkcji
-  (majatekmalawies.myshopify.com), nie teoria — patrz CLAUDE.md,
-  sekcja o reużywaniu klas z nierenderowanych natywnych snippetów.
+  {% stylesheet %} nie trafia do subsetu tej strony — nie tylko
+  container-type/container-name/@container (--slide-width), ale CAŁY
+  blok: gap między kartami (slideshow-slides), padding strzałek
+  (slideshow-arrows), flex/min-width slajdu, eager-load podglądanych
+  slajdów. Efekty widziane osobno na produkcji: najpierw kafelek 100%
+  szerokości (--slide-width niezdefiniowane, fallback w
+  slideshow-styles.liquid), potem gap:0 między kartami (osobny incydent,
+  ta sama przyczyna, inna reguła z tego samego nierenderowanego pliku).
+  Potwierdzone na produkcji (majatekmalawies.myshopify.com), nie teoria —
+  patrz CLAUDE.md, sekcja o reużywaniu klas z nierenderowanych natywnych
+  snippetów.
 
   shopify theme dev NIE odtwarza tego błędu — serwuje pełny,
   niepocięty bundle bez parametru &subset=.
 
   Reguły niżej skopiowane 1:1 z snippets/resource-list-carousel.liquid
-  (bez modyfikacji wartości) — TYLKO część ustawiająca container query
-  i --slide-width, nie cały stylesheet tamtego snippetu.
+  (bez modyfikacji wartości) — CAŁY stylesheet tamtego snippetu, nie
+  tylko część container-query. Świadomie kompletne, nie częściowe:
+  częściowe przeniesienie (jak pierwsza wersja tego pliku — tylko
+  container-type/@container, bez gap/arrows/flex/eager-load) już raz
+  ukryło osobny bug (gap:0, wykryty dopiero jako druga awaria). Część
+  reguł jest redundantna względem tego, co i tak ustawiają
+  slideshow-styles.liquid (width, flex-shrink) albo poszczególne sekcje
+  mmw-* we własnym stylesheet (scroll-snap-align) — zostawione mimo to,
+  bo min-width:0 nie jest pokryte nigdzie indziej, a utrzymanie
+  redundancji jest tańsze niż kolejne dochodzenie za pół roku.
 
   Render literalny w każdej sekcji reużywającej tych klas:
   {% render 'mmw-carousel-styles' %}
@@ -60,6 +72,46 @@
       );
       --fallback-slide-width: clamp(150px, var(--mobile-card-size, 60cqw), var(--slide-width-max));
       --slide-width: var(--section-slide-width, var(--fallback-slide-width));
+    }
+  }
+
+  .resource-list__carousel slideshow-slides {
+    gap: var(--resource-list-column-gap);
+
+    /* Add padding to prevent hover animations from being clipped in slideshow
+     15px accommodates:
+     - Scale effect (9px on each side from 1.03 scale)
+     - Lift effect (4px upward movement)
+     - Shadow (15px spread with -5px offset)
+     Using 16px for better alignment with our spacing scale */
+    margin-block: -16px;
+    padding-block: 16px;
+  }
+
+  .resource-list__carousel slideshow-arrows {
+    padding-inline: var(--util-page-margin-offset);
+  }
+
+  .resource-list__carousel .resource-list__slide {
+    width: var(--slide-width);
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+
+  /*
+   * Resource list carousels have peeking slides on both sides.
+   * We try to kick load them beforehand (they are lazy loaded otherwise).
+   */
+  .resource-list__carousel
+    :is(
+      slideshow-slide:has(+ slideshow-slide[aria-hidden='false']),
+      slideshow-slide[aria-hidden='false'] + slideshow-slide
+    ) {
+    content-visibility: auto;
+
+    slideshow-component[actioned] & {
+      content-visibility: visible;
     }
   }
 {% endstylesheet %}

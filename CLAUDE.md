@@ -262,16 +262,39 @@ na `theme dev`. Albo renderować plik źródłowy literalnie, albo (gdy plik
 do osobnego snippetu zawierającego TYLKO `{% stylesheet %}` i renderować
 ten literalnie wszędzie, gdzie klasy są używane.
 
+**Kopiuj CAŁY `{% stylesheet %}` źródłowego pliku, nie tylko regułę, która
+akurat wywołała widoczny objaw.** Pierwsza wersja `mmw-carousel-styles.liquid`
+przeniosła tylko `container-type`/`container-name`/oba `@container` (bo to
+one odpowiadały za pierwszy zaobserwowany objaw — kafelek 100% szerokości).
+To ukryło DRUGI, osobny bug z tego samego nierenderowanego pliku: reguła
+`.resource-list__carousel slideshow-slides { gap: ... }` też została w
+`resource-list-carousel.liquid`, więc karty straciły odstęp między sobą —
+osobny incydent, wykryty osobno, ta sama przyczyna. Naprawione ostatecznie
+kopiując wszystkie 7 bloków reguł 1:1 (w tym reguły częściowo redundantne
+względem innych źródeł — redundancja jest tańsza niż kolejne dochodzenie).
+
 **Ostrzeżenia `ValidScopedCSSClass` z `theme check` sygnalizowały dokładnie
-ten problem.** Wcześniej w tej sesji te ostrzeżenia (dla
-`resource-list__carousel` w tych samych pięciu sekcjach) zostały błędnie
-sklasyfikowane jako "znany, zaakceptowany wzorzec" (świadome cross-file
-reuse, jak `.details`/`.details__header` w `mmw-product-seo-faq`, które
-faktycznie jest nieszkodliwe). To była pomyłka w klasyfikacji, nie w samym
-mechanizmie checkera — ValidScopedCSSClass miał rację przez cały czas.
-Po naprawie (literalny render `mmw-carousel-styles`) te konkretne 5
-ostrzeżeń zniknęło samo — checker rozpoznaje klasę jako poprawnie
-źródłowaną, skoro plik ją definiujący jest teraz faktycznie renderowany.
+ten problem — ale nie każde ValidScopedCSSClass to ten sam problem.**
+Ostrzeżenia dla `resource-list__carousel` (pięć sekcji mmw-*) były
+zaakceptowanym-błędnie "znanym wzorcem" — to była pomyłka w klasyfikacji,
+ValidScopedCSSClass miał rację. Po naprawie (literalny render
+`mmw-carousel-styles`) te 5 ostrzeżeń zniknęło samo.
+
+Dla kontrastu: `.details`/`.details__header` w `mmw-product-seo-faq`
+(2 ostrzeżenia, wciąż obecne) — SPRAWDZONE na produkcji przez computed
+style i realny klik na akordeon (nie przez tekst CSS): działa poprawnie.
+Różnica od karuzeli: `mmw-product-seo-faq.liquid:84` renderuje
+`accordion-custom-component.liquid` LITERALNIE (`render
+'accordion-custom-component'`), więc jego stylesheet trafia do subsetu
+normalnie. `.details__header` ma dodatkowo natywną regułę w
+`blocks/accordion.liquid` (`.accordion .details__header {...}`), ale ta
+wymaga przodka `.accordion`, którego nasz markup nie ma — więc nawet
+gdyby ta konkretna reguła wypadła z subsetu, nie miałoby to znaczenia,
+bo i tak jej nie używamy (wygląd w całości pokrywa własny
+`.mmw-seo-faq__summary`). Wniosek: samo ostrzeżenie ValidScopedCSSClass
+NIE wystarcza do diagnozy — trzeba sprawdzić, czy plik źródłowy jest
+renderowany literalnie, i czy reguła w ogóle mogłaby dotyczyć naszego
+markupu.
 
 **`shopify theme dev` nie odtwarza per-page subsettingu** — nie ma
 parametru `&subset=` w ogóle, serwuje pełny bundle zawsze. Testy wizualne
@@ -279,6 +302,20 @@ na `127.0.0.1` przed pushem mają ograniczoną wartość dla tej klasy błędów
 (brakujące CSS z powodu subsettingu) — jedyna wiarygodna weryfikacja to
 pobranie `compiled_assets/styles.css?...&subset=...` bezpośrednio z
 produkcji i sprawdzenie, czy potrzebna reguła tam jest.
+
+**Subset przelicza się sam, niezależnie od naszego deploymentu — to
+ważniejsze niż sama naprawa.** Podczas diagnozy hash `v=` i `subset=`
+w URL-u `compiled_assets/styles.css` zmienił się MIĘDZY dwiema kolejnymi
+weryfikacjami na produkcji, mimo że nic nie zostało wypchnięte z naszej
+strony w tym czasie. To tłumaczy, dlaczego karuzele mogły wyglądać
+poprawnie zaraz po pushu, a zepsuć się dopiero kilkadziesiąt minut
+później — **weryfikacja subsetu bezpośrednio po pushu NIE jest
+wystarczająca**, bo stan produkcji może się przeliczyć ponownie później
+(z niejasnego dla nas powodu — edycja w adminie, rutynowa inwalidacja
+cache CDN, coś po stronie Shopify) i akurat wtedy wyrzucić z subsetu
+regułę, która wcześniej się w nim znalazła. Jedyna solidna gwarancja to
+literalny render pliku/snippetu definiującego potrzebne klasy — nie
+poleganie na tym, że subset "akurat" coś złapał przy danym przeliczeniu.
 
 ## Workflow
 
