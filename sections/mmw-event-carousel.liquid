@@ -54,7 +54,80 @@
   assign gaps_and_peek = columns | minus: 1 | times: columns_gap | plus: 48
   assign card_sizes = 'auto, (max-width: 749px) 85vw, min(400px, calc((100vw - ' | append: gaps_and_peek | append: 'px) / ' | append: columns | append: '))'
 -%}
-{%- if coll != blank -%}
+
+{%- comment -%}
+  Karty wydarzeń + kafelek CTA (zawsze ostatni) → tablica HTML. Policzone
+  TU, przed jakimkolwiek HTML-em (style/section) — żeby przy zerowej
+  liczbie wydarzeń (item_index == 0) dało się pominąć CAŁY render sekcji
+  niżej, zamiast zostawiać pusty kontener z paddingiem/tłem --mmw-04.
+  coll.products na blank kolekcji iteruje zero razy (bezpieczne), więc ten
+  przelot jest poprawny nawet gdy w ustawieniach nie wybrano kolekcji.
+{%- endcomment -%}
+{%- capture cards_concat -%}
+  {%- assign item_index = 0 -%}
+  {%- assign no_date_titles = '' -%}
+  {%- for item in coll.products -%}
+    {%- assign skip_item = false -%}
+    {%- if hide_current and product != blank and item.id == product.id -%}
+      {%- assign skip_item = true -%}
+    {%- endif -%}
+    {%- assign item_date = item.metafields.custom.data_wydarzenia.value -%}
+    {%- if item_date == blank -%}
+      {%- assign no_date_titles = no_date_titles | append: item.title | append: '|' -%}
+    {%- endif -%}
+    {%- if skip_item == false and hide_past and item_date != blank -%}
+      {%- assign item_date_ts = item_date | date: '%s' -%}
+      {%- if item_date_ts < today_start -%}
+        {%- assign skip_item = true -%}
+      {%- endif -%}
+    {%- endif -%}
+    {%- unless skip_item -%}
+      {%- if item_index >= max_count -%}
+        {%- break -%}
+      {%- endif -%}
+      {%- if item_index > 0 -%}<!--@mmw-ec/split-->{%- endif -%}
+      {%- assign item_index = item_index | plus: 1 -%}
+      {%- render 'mmw-event-card', product: item, show_capacity: show_capacity, loading: 'lazy', sizes: card_sizes, label: section.settings.card_label -%}
+    {%- endunless -%}
+  {%- endfor -%}
+
+  {%- if item_index > 0 -%}<!--@mmw-ec/split-->{%- endif -%}
+  {%- liquid
+    assign cta_variant_class = 'mmw-ec__end--coral'
+    if section.settings.cta_color_variant == 'brown'
+      assign cta_variant_class = 'mmw-ec__end--brown'
+    endif
+  -%}
+  <a class="mmw-ec__end {{ cta_variant_class }}" href="{{ section.settings.cta_link | default: coll.url }}">
+    <span class="mmw-ec__end-heading">{{ section.settings.cta_text }}</span>
+    <span class="mmw-ec__end-btn" aria-hidden="true">
+      <span class="svg-wrapper icon-arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+    </span>
+  </a>
+{%- endcapture -%}
+{%- assign cards_array = cards_concat | strip | split: '<!--@mmw-ec/split-->' -%}
+
+{%- liquid
+  assign visible_tiles = item_index | plus: 1
+  assign fits_desktop = false
+  if visible_tiles <= columns
+    assign fits_desktop = true
+  endif
+  assign show_arrows = true
+  if fits_desktop
+    assign show_arrows = false
+  endif
+-%}
+
+{%- comment -%}
+  Próg widoczności: co najmniej 1 realne wydarzenie (item_index > 0), nie
+  tylko "kolekcja ustawiona" (coll != blank) — inaczej przy wszystkich
+  wydarzeniach odfiltrowanych (np. same przeszłe) sekcja renderowała
+  nagłówek + samotny kafelek CTA, bez żadnej karty. Przy dokładnie 1
+  wydarzeniu sekcja renderuje się normalnie (karta + CTA) — to sensowny
+  stan, próg to > 0, nie > 1.
+{%- endcomment -%}
+{%- if coll != blank and item_index > 0 -%}
   {%- style -%}
     #shopify-section-{{ section.id }} .mmw-ec { display: flex; flex-direction: column; gap: 40px; padding-block: 60px; background: var(--mmw-04); }
     #shopify-section-{{ section.id }} .mmw-ec__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px)); }
@@ -158,63 +231,6 @@
       }
     }
   {%- endstyle -%}
-
-  {%- comment -%} Karty wydarzeń + kafelek CTA (zawsze ostatni) → tablica HTML. {%- endcomment -%}
-  {%- capture cards_concat -%}
-    {%- assign item_index = 0 -%}
-    {%- assign no_date_titles = '' -%}
-    {%- for item in coll.products -%}
-      {%- assign skip_item = false -%}
-      {%- if hide_current and product != blank and item.id == product.id -%}
-        {%- assign skip_item = true -%}
-      {%- endif -%}
-      {%- assign item_date = item.metafields.custom.data_wydarzenia.value -%}
-      {%- if item_date == blank -%}
-        {%- assign no_date_titles = no_date_titles | append: item.title | append: '|' -%}
-      {%- endif -%}
-      {%- if skip_item == false and hide_past and item_date != blank -%}
-        {%- assign item_date_ts = item_date | date: '%s' -%}
-        {%- if item_date_ts < today_start -%}
-          {%- assign skip_item = true -%}
-        {%- endif -%}
-      {%- endif -%}
-      {%- unless skip_item -%}
-        {%- if item_index >= max_count -%}
-          {%- break -%}
-        {%- endif -%}
-        {%- if item_index > 0 -%}<!--@mmw-ec/split-->{%- endif -%}
-        {%- assign item_index = item_index | plus: 1 -%}
-        {%- render 'mmw-event-card', product: item, show_capacity: show_capacity, loading: 'lazy', sizes: card_sizes, label: section.settings.card_label -%}
-      {%- endunless -%}
-    {%- endfor -%}
-
-    {%- if item_index > 0 -%}<!--@mmw-ec/split-->{%- endif -%}
-    {%- liquid
-      assign cta_variant_class = 'mmw-ec__end--coral'
-      if section.settings.cta_color_variant == 'brown'
-        assign cta_variant_class = 'mmw-ec__end--brown'
-      endif
-    -%}
-    <a class="mmw-ec__end {{ cta_variant_class }}" href="{{ section.settings.cta_link | default: coll.url }}">
-      <span class="mmw-ec__end-heading">{{ section.settings.cta_text }}</span>
-      <span class="mmw-ec__end-btn" aria-hidden="true">
-        <span class="svg-wrapper icon-arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
-      </span>
-    </a>
-  {%- endcapture -%}
-  {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-ec/split-->' -%}
-
-  {%- liquid
-    assign visible_tiles = item_index | plus: 1
-    assign fits_desktop = false
-    if visible_tiles <= columns
-      assign fits_desktop = true
-    endif
-    assign show_arrows = true
-    if fits_desktop
-      assign show_arrows = false
-    endif
-  -%}
 
   {%- capture resource_list_style -%}
     --resource-list-column-gap-desktop: {{ columns_gap }}px;
