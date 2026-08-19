@@ -367,14 +367,13 @@
     },
     "mmw_event_carousel_1": {
       "type": "mmw-event-carousel",
-      "name": "MMW Karuzela wydarzeń — DIAGNOSTYKA",
       "settings": {
         "heading": "Inne wydarzenia",
         "description": "",
         "collection": "vouchery",
         "max_products": 8,
         "hide_current_product": true,
-        "hide_past_events": false,
+        "hide_past_events": true,
         "show_capacity": true,
         "card_label": "",
         "cta_text": "Zobacz więcej wydarzeń",
