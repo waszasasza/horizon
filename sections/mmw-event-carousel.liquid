@@ -1,0 +1,299 @@
+{%- comment -%}
+  mmw-event-carousel — "Inne wydarzenia": karuzela wydarzeń, REUŻYWALNA (karta
+  produktu-wydarzenia i strona główna — ta sama sekcja w obu miejscach, presets
+  bez enabled_on.templates).
+
+  Mechanika karuzeli 1:1 z sections/mmw-product-carousel.liquid: natywny Horizon
+  slideshow (render 'slideshow' + 'slideshow-slide' + 'slideshow-controls'),
+  klasy resource-list/resource-list__carousel (stylesheet reużyty z
+  snippets/resource-list-carousel.liquid przez klasy, snippet NIE renderowany
+  bezpośrednio), gutter przy page-width, --peek-next-slide-size globalne (48px),
+  --slide-width-max: 400px, mobile: --mmw-pc-gutter-mobile-owy odpowiednik (36px)
+  + mnożnik 0.85 + scroll-snap-align: center. Karta: snippets/mmw-event-card.liquid.
+
+  JEDYNA rzecz doklejona spoza wzorca mmw-product-carousel: automatyczne
+  "fits-desktop" (mmw-product-carousel go nie ma — merch tam ręcznie wyłącza
+  strzałki przez icons_style:'none'; tu liczba wydarzeń kurczy się sama, bo
+  minione wypadają z filtra, więc próg musi być liczony, nie ręczny).
+  Wzorowane na sections/mmw-product-pairing.liquid (--fits-desktop class +
+  auto_hide_controls:true RAZEM, nie zamiast — zweryfikowane, że natywny
+  auto-hide-controls sam z siebie (a) dotyczy WYŁĄCZNIE kropek, nie strzałek
+  (ref="slideshowControls" istnieje tylko w slideshow-controls.liquid), i (b)
+  jest niewiarygodny przy pierwszym renderze, patrz komentarz w mmw-pairing).
+  Próg liczony z section.settings.columns (nie hardkodowane 5 jak w mmw-pairing).
+
+  Kolejność wydarzeń: kolejność z kolekcji (ręczna, ustawiana w adminie) —
+  BEZ sortowania. Filtrowane tylko: bieżący produkt (opcjonalnie) i wydarzenia
+  przeszłe (opcjonalnie, porównanie z północą dzisiejszego dnia w strefie
+  sklepu — Europe/Warsaw — nie z bieżącym momentem, żeby wydarzenie zostało
+  widoczne przez CAŁY swój dzień, nie znikało od północy). Produkty bez
+  metapola daty traktowane jako przyszłe (zawsze widoczne).
+
+  Figma: node 982:7853.
+{%- endcomment -%}
+{%- liquid
+  assign coll = section.settings.collection
+  assign max_count = section.settings.max_products | default: 8
+  assign hide_current = section.settings.hide_current_product
+  assign hide_past = section.settings.hide_past_events
+  assign show_capacity = section.settings.show_capacity
+  assign columns = section.settings.columns | default: 3
+  assign columns_gap = section.settings.columns_gap | default: 24
+  # Północ dzisiejszego dnia (strefa sklepu, Europe/Warsaw — zweryfikowane przez
+  # Admin API shop.ianaTimezone), nie bieżący moment: data_wydarzenia to czysta
+  # data (zawsze północ), więc porównanie z 'now' (moment w ciągu dnia) chowałoby
+  # wydarzenie od północy, mimo że jeszcze się nie odbyło. Podwójne date: string
+  # "%Y-%m-%d" wraca przez date: "%s" jako timestamp tej północy.
+  assign today_start = 'now' | date: '%Y-%m-%d' | date: '%s'
+
+  # sizes dla <img> karty — wzorzec 1:1 z mmw-product-carousel.liquid: peek =
+  # --peek-next-slide-size (48px, globalne, theme-styles-variables.liquid),
+  # 100% = 100vw bo sekcja jest full-bleed (bez "class":"section" w schemacie).
+  # Mobile: 85vw, przybliżenie realnego mnożnika 0.85 z calc niżej (dokładne
+  # dopasowanie sizes do co-do-piksela nie jest tu potrzebne).
+  assign gaps_and_peek = columns | minus: 1 | times: columns_gap | plus: 48
+  assign card_sizes = 'auto, (max-width: 749px) 85vw, min(400px, calc((100vw - ' | append: gaps_and_peek | append: 'px) / ' | append: columns | append: '))'
+-%}
+{%- if coll != blank -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .mmw-ec { display: flex; flex-direction: column; gap: 40px; padding-block: 60px; background: var(--mmw-04); }
+    #shopify-section-{{ section.id }} .mmw-ec__head { display: flex; flex-direction: column; gap: 10px; color: var(--mmw-01); padding-inline: var(--util-page-margin-offset, var(--page-margin, 40px)); }
+    #shopify-section-{{ section.id }} .mmw-ec__title { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 60px; line-height: 1; }
+    #shopify-section-{{ section.id }} .mmw-ec__desc { margin: 0; font-family: var(--mmw-font-text); font-size: 16px; line-height: 1.4; max-width: 640px; }
+
+    #shopify-section-{{ section.id }} .mmw-ec__carousel-wrap { width: 100%; }
+    .mmw-ec__carousel-wrap .resource-list__slide { scroll-snap-align: start; }
+
+    #shopify-section-{{ section.id }} slideshow-controls {
+      margin-top: 8px;
+      mix-blend-mode: normal;
+      --color: rgba(95, 49, 47, 0.25);
+      --color-active: var(--mmw-01, #5f312f);
+      --color-hover: rgba(95, 49, 47, 0.4);
+    }
+
+    /* Kafelek CTA — zawsze ostatni slajd, ta sama wysokość/radius co karty.
+       Radius i rozmiar przycisku na lokalnych zmiennych — zejście do innych
+       wartości sklepowych to zmiana jednej linijki.
+
+       Tekst i przycisk NIE są flex-childami wspólnej wyśrodkowanej kolumny —
+       to dwa niezależnie pozycjonowane (position:absolute) elementy, każdy na
+       swojej proporcji wysokości kafelka z Figmy (środek tekstu ~40.3% od góry,
+       góra przycisku ~65.1% od góry — 49px/330px przy referencyjnych 507px,
+       przeliczone na %, nie sztywne piksele, bo kafelek skaluje się z kartą).
+       Powód: tekst ma zmienną wysokość (2-3+ linie zależnie od długości), więc
+       stały gap w jednej kolumnie flex przesuwałby przycisk w pionie razem z
+       długością tekstu — tu przycisk zawsze zaczyna się w tym samym miejscu,
+       niezależnie od tego, ile linii zajmie tekst nad nim. */
+    #shopify-section-{{ section.id }} .mmw-ec__end {
+      --mmw-ec-cta-radius: 20px;
+      --mmw-ec-cta-btn-size: 50px;
+      position: relative; display: block; width: 100%; aspect-ratio: 400 / 507;
+      border: 1px solid rgba(95, 49, 47, 0.25); border-radius: var(--mmw-ec-cta-radius);
+      background: var(--mmw-04); text-decoration: none; overflow: hidden;
+    }
+    #shopify-section-{{ section.id }} .mmw-ec__end-heading {
+      position: absolute; left: 50%; top: 40.3%; translate: -50% -50%;
+      max-width: 60%; margin: 0;
+      font-family: var(--mmw-font-display); font-weight: 400;
+      font-size: 36px; line-height: 1.1; text-align: center;
+    }
+    #shopify-section-{{ section.id }} .mmw-ec__end-btn {
+      position: absolute; left: 50%; top: 65.1%; translate: -50% 0;
+      width: var(--mmw-ec-cta-btn-size); height: var(--mmw-ec-cta-btn-size);
+      border-radius: 50%; display: grid; place-items: center; color: var(--mmw-04);
+    }
+    #shopify-section-{{ section.id }} .mmw-ec__end-btn svg { width: 24px; height: 24px; }
+    #shopify-section-{{ section.id }} .mmw-ec__end--coral .mmw-ec__end-heading { color: var(--mmw-02); }
+    #shopify-section-{{ section.id }} .mmw-ec__end--coral .mmw-ec__end-btn { background: var(--mmw-02); }
+    #shopify-section-{{ section.id }} .mmw-ec__end--brown .mmw-ec__end-heading { color: var(--mmw-01); }
+    #shopify-section-{{ section.id }} .mmw-ec__end--brown .mmw-ec__end-btn { background: var(--mmw-01); }
+
+    .mmw-ec slideshow-slides {
+      padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+      padding-inline-end: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+      scroll-padding-inline-start: var(--util-page-margin-offset, var(--page-margin, 40px)) !important;
+    }
+    .mmw-ec .resource-list__slide,
+    .mmw-ec slideshow-slide {
+      scroll-snap-align: start;
+    }
+
+    /* "Fits-desktop": patrz komentarz na górze pliku — auto_hide_controls:true
+       zostaje (chowa kropki, niewiarygodnie przy pierwszym renderze), ta klasa
+       jest tym, co faktycznie działa na starcie. Próg z section.settings.columns. */
+    @media (min-width: 750px) {
+      #shopify-section-{{ section.id }} .mmw-ec--fits-desktop slideshow-controls {
+        display: none;
+      }
+      #shopify-section-{{ section.id }} .mmw-ec--fits-desktop slideshow-slides {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 989px) {
+      #shopify-section-{{ section.id }} .mmw-ec { padding-block: 40px; gap: 32px; }
+      #shopify-section-{{ section.id }} .mmw-ec__title { font-size: 36px; }
+    }
+    @media (max-width: 749px) {
+      #shopify-section-{{ section.id }} .mmw-ec { --mmw-ec-gutter-mobile: 36px; }
+      #shopify-section-{{ section.id }} .mmw-ec__head { padding-inline: var(--mmw-ec-gutter-mobile); }
+
+      .mmw-ec slideshow-arrows { display: none; }
+
+      .mmw-ec slideshow-slides {
+        padding-inline-start: var(--mmw-ec-gutter-mobile) !important;
+        padding-inline-end: var(--mmw-ec-gutter-mobile) !important;
+        scroll-padding-inline-start: var(--mmw-ec-gutter-mobile) !important;
+        scroll-padding-inline-end: var(--mmw-ec-gutter-mobile) !important;
+      }
+
+      #shopify-section-{{ section.id }} .mmw-ec__carousel-wrap .resource-list__slide {
+        --slide-width: calc((100vw - 2 * var(--mmw-ec-gutter-mobile) + 12px) * 0.85);
+      }
+
+      .mmw-ec .resource-list__slide,
+      .mmw-ec slideshow-slide {
+        scroll-snap-align: center;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- comment -%} Karty wydarzeń + kafelek CTA (zawsze ostatni) → tablica HTML. {%- endcomment -%}
+  {%- capture cards_concat -%}
+    {%- assign item_index = 0 -%}
+    {%- assign no_date_titles = '' -%}
+    {%- for item in coll.products -%}
+      {%- assign skip_item = false -%}
+      {%- if hide_current and product != blank and item.id == product.id -%}
+        {%- assign skip_item = true -%}
+      {%- endif -%}
+      {%- assign item_date = item.metafields.custom.data_wydarzenia.value -%}
+      {%- if item_date == blank -%}
+        {%- assign no_date_titles = no_date_titles | append: item.title | append: '|' -%}
+      {%- endif -%}
+      {%- if skip_item == false and hide_past and item_date != blank -%}
+        {%- assign item_date_ts = item_date | date: '%s' -%}
+        {%- if item_date_ts < today_start -%}
+          {%- assign skip_item = true -%}
+        {%- endif -%}
+      {%- endif -%}
+      {%- unless skip_item -%}
+        {%- if item_index >= max_count -%}
+          {%- break -%}
+        {%- endif -%}
+        {%- if item_index > 0 -%}<!--@mmw-ec/split-->{%- endif -%}
+        {%- assign item_index = item_index | plus: 1 -%}
+        {%- render 'mmw-event-card', product: item, show_capacity: show_capacity, loading: 'lazy', sizes: card_sizes, label: section.settings.card_label -%}
+      {%- endunless -%}
+    {%- endfor -%}
+
+    {%- if item_index > 0 -%}<!--@mmw-ec/split-->{%- endif -%}
+    {%- liquid
+      assign cta_variant_class = 'mmw-ec__end--coral'
+      if section.settings.cta_color_variant == 'brown'
+        assign cta_variant_class = 'mmw-ec__end--brown'
+      endif
+    -%}
+    <a class="mmw-ec__end {{ cta_variant_class }}" href="{{ section.settings.cta_link | default: coll.url }}">
+      <span class="mmw-ec__end-heading">{{ section.settings.cta_text }}</span>
+      <span class="mmw-ec__end-btn" aria-hidden="true">
+        <span class="svg-wrapper icon-arrow">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+      </span>
+    </a>
+  {%- endcapture -%}
+  {%- assign cards_array = cards_concat | strip | split: '<!--@mmw-ec/split-->' -%}
+
+  {%- liquid
+    assign visible_tiles = item_index | plus: 1
+    assign fits_desktop = false
+    if visible_tiles <= columns
+      assign fits_desktop = true
+    endif
+    assign show_arrows = true
+    if fits_desktop
+      assign show_arrows = false
+    endif
+  -%}
+
+  {%- capture resource_list_style -%}
+    --resource-list-column-gap-desktop: {{ columns_gap }}px;
+    --column-count: {{ columns }};
+    --column-count-mobile: 1;
+  {%- endcapture -%}
+
+  {%- liquid
+    assign carousel_ref = 'mmwEc-' | append: section.id
+    assign slideshow_gutters = 'start end'
+    assign gutter_style = '--gutter-slide-width: var(--util-page-margin-offset, var(--page-margin, 40px)); --slide-width-max: 400px;'
+  -%}
+  {%- capture carousel_slides -%}
+    {%- for item in cards_array -%}
+      {%- render 'slideshow-slide', index: forloop.index0, children: item, class: 'resource-list__slide' -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- capture carousel_controls -%}
+    {%- render 'slideshow-controls', style: 'dots', item_count: cards_array.size, show_arrows: false, pagination_position: 'center' -%}
+  {%- endcapture -%}
+
+  <section class="mmw-ec{% if fits_desktop %} mmw-ec--fits-desktop{% endif %}">
+    {%- if section.settings.heading != blank or section.settings.description != blank -%}
+      <div class="mmw-ec__head">
+        {%- if section.settings.heading != blank -%}<h2 class="mmw-ec__title">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.description != blank -%}<div class="mmw-ec__desc">{{ section.settings.description }}</div>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="resource-list resource-list__carousel mmw-ec__carousel-wrap" style="{{ resource_list_style }}">
+      <div style="{{ gutter_style }}">
+        {%- render 'slideshow',
+          ref: carousel_ref,
+          class: 'resource-list__carousel',
+          slides: carousel_slides,
+          show_arrows: show_arrows,
+          icon_style: 'arrow',
+          icon_shape: 'circle',
+          auto_hide_controls: true,
+          infinite: false,
+          initial_slide: 0,
+          slide_count: cards_array.size,
+          slideshow_gutters: slideshow_gutters,
+          controls: carousel_controls
+        -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "MMW Karuzela wydarzeń",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Inne wydarzenia" },
+    { "type": "richtext", "id": "description", "label": "Opis" },
+    { "type": "collection", "id": "collection", "label": "Kolekcja wydarzeń" },
+    { "type": "range", "id": "max_products", "min": 2, "max": 12, "step": 1, "label": "Maksymalna liczba wydarzeń", "default": 8 },
+    { "type": "checkbox", "id": "hide_current_product", "label": "Ukryj bieżący produkt", "default": true },
+    { "type": "checkbox", "id": "hide_past_events", "label": "Ukryj wydarzenia, które już się odbyły", "default": true },
+    { "type": "checkbox", "id": "show_capacity", "label": "Pokaż liczbę wolnych miejsc", "default": true },
+    { "type": "text", "id": "card_label", "label": "Etykieta na proporcu", "default": "Voucher" },
+    { "type": "header", "content": "Kafelek CTA" },
+    { "type": "text", "id": "cta_text", "label": "Tekst CTA", "default": "Zobacz więcej wydarzeń" },
+    { "type": "url", "id": "cta_link", "label": "Link CTA" },
+    {
+      "type": "select", "id": "cta_color_variant", "label": "Wariant koloru CTA", "default": "coral",
+      "options": [
+        { "value": "coral", "label": "Koralowy" },
+        { "value": "brown", "label": "Brązowy" }
+      ]
+    },
+    { "type": "header", "content": "Karuzela" },
+    { "type": "range", "id": "columns", "min": 2, "max": 5, "step": 1, "label": "Kart na widok (desktop)", "default": 3 },
+    { "type": "range", "id": "columns_gap", "min": 0, "max": 60, "step": 2, "unit": "px", "label": "Odstęp między kartami", "default": 24 }
+  ],
+  "presets": [
+    { "name": "MMW Karuzela wydarzeń" }
+  ]
+}
+{% endschema %}
