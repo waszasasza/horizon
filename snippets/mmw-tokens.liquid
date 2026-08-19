@@ -198,6 +198,22 @@
 .product-card__content img {   /* zaokrąglenie zdjęcia */
   border-radius: 14px;
 }
+{%- comment -%}
+  .tax-note (natywna klasa Horizona, blocks/price.liquid — cena+podatek pod
+  ceną na każdej stronie produktu) — font marki zamiast natywnego, żeby nie
+  wpadał na fallback bezszeryfowy. NIE edytować assets/base.css: ta reguła
+  celowo tu, nie tam — base.css jest aktualizowane automatycznie z upstreamu
+  Horizona (branch upstream/horizon-update-*), więc dopisek tam to konflikt
+  przy każdej kolejnej aktualizacji. Selektor .tax-note.tax-note.tax-note
+  dorównuje specyficzności natywnej reguły (0,3,0) — mmw-tokens renderuje się
+  w <head> PO stylesheets (base.css), więc przy równej specyficzności ta
+  reguła i tak wygrywa kaskadą; potrójny selektor tu tylko na wszelki
+  wypadek, gdyby load order się kiedyś zmienił.
+{%- endcomment -%}
+.tax-note.tax-note.tax-note {
+  font-family: var(--mmw-font-text);
+}
+
 /* miniatury produktów zawsze 1:1 */
 .product-card__content .product-media,
 .product-card__content .product-media__image,
