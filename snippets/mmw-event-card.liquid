@@ -74,6 +74,23 @@
         alt=""
       >
     {%- endif -%}
+    {%- if product.media.size > 1 -%}
+      <img
+        class="mmw-event-card__img mmw-event-card__img--hover"
+        src="{{ product.media[1].preview_image | image_url: width: 400 }}"
+        srcset="
+          {{ product.media[1].preview_image | image_url: width: 300 }} 300w,
+          {{ product.media[1].preview_image | image_url: width: 400 }} 400w,
+          {{ product.media[1].preview_image | image_url: width: 600 }} 600w,
+          {{ product.media[1].preview_image | image_url: width: 800 }} 800w
+        "
+        sizes="{{ sizes }}"
+        loading="lazy"
+        width="400"
+        height="507"
+        alt=""
+      >
+    {%- endif -%}
   </div>
   <div class="mmw-event-card__overlay" aria-hidden="true"></div>
   <div class="mmw-event-card__scrim" aria-hidden="true"></div>
@@ -132,6 +149,17 @@
     height: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  /* Drugie zdjęcie na hover — ten sam mechanizm co
+     .mmw-carousel-card__img--hover w snippets/mmw-carousel-card.liquid. */
+  .mmw-event-card__img--hover {
+    opacity: 0;
+    transition: opacity var(--hover-transition-duration, 0.3s) var(--hover-transition-timing, ease);
+  }
+
+  .mmw-event-card:hover .mmw-event-card__img--hover {
+    opacity: 1;
   }
 
   .mmw-event-card__overlay {
