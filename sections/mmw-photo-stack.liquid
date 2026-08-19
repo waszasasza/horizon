@@ -22,7 +22,20 @@
   Wszystkie warianty panelu tekstowego są w jednej komórce grida
   (grid-area:1/1) i przełączane przez opacity/visibility + [inert] — wysokość
   panelu = najwyższy wariant, zero skoku layoutu przy zmianie.
+
+  Skrypt ładowany TU (nie globalnie z snippets/scripts.liquid) — sekcja stoi
+  tylko na wybranych szablonach, nie na każdej stronie. Wzorzec 1:1 z natywnej
+  sections/product-recommendations.liquid (i naszej mmw-product-recommendations.
+  liquid) — <script type="module" src="..."> w wielu instancjach tej samej
+  sekcji na jednej stronie jest bezpieczny: przeglądarka dedupe'uje moduł ES
+  po URL, pobiera i wykonuje go raz niezależnie od liczby tagów (potwierdzone
+  na realnym renderze przez CDP, nie z dokumentacji). Importmap z
+  snippets/scripts.liquid renderuje się w <head> (layout/theme.liquid),
+  zawsze przed <body> — więc @theme/component i @theme/utilities niżej
+  rozwiążą się poprawnie niezależnie od tego, gdzie w body sekcja wyląduje.
 {%- endcomment -%}
+
+<script src="{{ 'mmw-photo-stack.js' | asset_url }}" type="module" fetchpriority="low"></script>
 
 <section class="mmw-ps color-{{ section.settings.color_scheme }}">
   <mmw-photo-stack

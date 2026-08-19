@@ -13,6 +13,12 @@
   Umieszczenie: statyczny blok w lewej kolumnie sections/mmw-product-story.liquid
   (wpięty przez content_for 'block', id "story-stack"), obok mmw-sensory-scales
   w prawej kolumnie. Mobile: pełna szerokość, nad skalami.
+
+  Skrypt ładowany TU, wewnątrz warunku "renderuje TYLKO gdy lista niepusta"
+  (nie globalnie z snippets/scripts.liquid) — ten sam wzorzec co
+  blocks/buy-buttons.liquid ładujący local-pickup.js warunkowo. Bezpieczne przy
+  wielu instancjach na stronie: przeglądarka dedupe'uje moduł ES po URL,
+  pobiera/wykonuje raz (potwierdzone na realnym renderze przez CDP).
 {%- enddoc -%}
 {%- liquid
   assign stories = product.metafields.custom.karty_historii.value
@@ -20,6 +26,7 @@
   assign duration = block.settings.card_duration | default: 15
 -%}
 {%- if stories != blank and story_count > 0 -%}
+  <script src="{{ 'mmw-story-stack.js' | asset_url }}" type="module" fetchpriority="low"></script>
   <mmw-story-stack
     class="mmw-story-stack spacing-style"
     style="--mmw-story-duration: {{ duration }}s; {% render 'spacing-style', settings: block.settings %}"
