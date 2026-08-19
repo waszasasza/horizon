@@ -1,0 +1,296 @@
+{%- doc -%}
+  mmw-event-card — karta wydarzenia, współdzielona przez sections/mmw-event-carousel.liquid
+  (karta produktu „Inne wydarzenia" i strona główna — ta sama sekcja w obu miejscach).
+  Figma: node 982:7853 (karuzela), karta-instancja 982:7859 (400×507).
+
+  Cała karta to jeden <a href="{{ product.url }}"> — bez zagnieżdżonych linków/quick-add
+  (inaczej niż mmw-carousel-card, tu nie ma potrzeby drugiego interaktywnego elementu).
+
+  @param {object} product - produkt-wydarzenie do wyrenderowania
+  @param {boolean} [show_capacity] - czy pokazać licznik wolnych miejsc
+  @param {string} [loading] - atrybut loading dla <img>, domyślnie "lazy"
+  @param {string} [sizes] - atrybut HTML sizes dla <img>, liczony przez wołającą sekcję
+    z jej realnej szerokości slajdu (patrz komentarz przy card_sizes w mmw-event-carousel.liquid)
+  @param {string} [label] - krótka etykieta na proporcu (np. "Voucher"), NIE ma domyślnej
+    wartości tutaj celowo — ta sama karta idzie do wariantu wydarzeń i voucherów, więc
+    tekst/domyślna wartość żyje wyłącznie w ustawieniach sekcji wołającej. Puste → wiersz
+    etykiety na proporcu nie renderuje się.
+
+  @example
+  {% render 'mmw-event-card', product: product, show_capacity: true, sizes: card_sizes %}
+{%- enddoc -%}
+{%- liquid
+  assign event_date = product.metafields.custom.data_wydarzenia.value
+
+  if product.price_varies
+    assign price_text = product.price_min | money | prepend: 'od '
+  else
+    assign price_text = product.price | money
+  endif
+
+  assign capacity_row = false
+  if show_capacity
+    assign event_variant = product.selected_or_first_available_variant
+    if event_variant.inventory_management == 'shopify'
+      assign capacity_row = true
+      assign free_spots = event_variant.inventory_quantity
+
+      assign mod10 = free_spots | modulo: 10
+      assign mod100 = free_spots | modulo: 100
+      assign is_2_to_4 = false
+      if mod10 >= 2 and mod10 <= 4
+        assign is_2_to_4 = true
+      endif
+      assign is_12_to_14 = false
+      if mod100 >= 12 and mod100 <= 14
+        assign is_12_to_14 = true
+      endif
+
+      assign capacity_noun = 'wolnych miejsc'
+      if mod10 == 1 and mod100 != 11
+        assign capacity_noun = 'wolne miejsce'
+      elsif is_2_to_4 and is_12_to_14 == false
+        assign capacity_noun = 'wolne miejsca'
+      endif
+    endif
+  endif
+-%}
+<a href="{{ product.url }}" class="mmw-event-card">
+  <div class="mmw-event-card__media">
+    {%- if product.featured_image != blank -%}
+      <img
+        class="mmw-event-card__img"
+        src="{{ product.featured_image | image_url: width: 400 }}"
+        srcset="
+          {{ product.featured_image | image_url: width: 300 }} 300w,
+          {{ product.featured_image | image_url: width: 400 }} 400w,
+          {{ product.featured_image | image_url: width: 600 }} 600w,
+          {{ product.featured_image | image_url: width: 800 }} 800w
+        "
+        sizes="{{ sizes }}"
+        loading="{{ loading | default: 'lazy' }}"
+        width="400"
+        height="507"
+        alt=""
+      >
+    {%- endif -%}
+  </div>
+  <div class="mmw-event-card__overlay" aria-hidden="true"></div>
+  <div class="mmw-event-card__scrim" aria-hidden="true"></div>
+  <div class="mmw-event-card__banner" style="background-image: url('{{ 'mmw-event-banner.svg' | asset_url }}');" aria-hidden="true"></div>
+
+  <div class="mmw-event-card__body">
+    {%- if event_date != blank -%}
+      <p class="mmw-event-card__date">{{ event_date | date: '%d.%m.%Y' }}</p>
+    {%- endif -%}
+    {%- if label != blank -%}
+      <p class="mmw-event-card__label">{{ label }}</p>
+    {%- endif -%}
+    <p class="mmw-event-card__price">{{ price_text }}</p>
+  </div>
+
+  <div class="mmw-event-card__footer">
+    <p class="mmw-event-card__title">{{ product.title }}</p>
+    {%- if capacity_row -%}
+      <div class="mmw-event-card__capacity">
+        <span class="mmw-event-card__capacity-icon" aria-hidden="true">{{ 'mmw-event-people.svg' | inline_asset_content }}</span>
+        <span class="mmw-event-card__capacity-text">
+          {%- if free_spots <= 0 -%}
+            Wyprzedane
+          {%- else -%}
+            {{ free_spots }} {{ capacity_noun }}
+          {%- endif -%}
+        </span>
+      </div>
+    {%- endif -%}
+  </div>
+</a>
+
+{% stylesheet %}
+  .mmw-event-card {
+    --mmw-event-card-radius: 20px;
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 400 / 507;
+    border-radius: var(--mmw-event-card-radius);
+    overflow: hidden;
+    text-decoration: none;
+    background: var(--mmw-01);
+  }
+
+  .mmw-event-card__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .mmw-event-card__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .mmw-event-card__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.26);
+  }
+
+  /* Scrim dolny — czytelność tytułu/licznika w stopce, NIE text-shadow (celowo,
+     wg briefu). Gradient tylko na dolnych ~45% wysokości karty, ponad równomiernym
+     overlayem (który zostaje bez zmian), pod tekstem stopki. */
+  .mmw-event-card__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 45%);
+  }
+
+  /* Proporzec: czysto dekoracyjne tło, bez treści w środku — etykieta ("Voucher"
+     itp.) mieszka teraz w .mmw-event-card__body, między datą a ceną, nie tutaj
+     (przeniesiona stamtąd, patrz historia zmian). background-size:100% 100%
+     rozciąga SVG na width:clamp(...)/aspect-ratio:153/282 tego elementu — stałe,
+     niezależne od treści, więc ząbkowana krawędź zawsze ma tę samą proporcję co
+     w Figmie. margin-top:-97px + padding-top:97px = ta sama geometria co w Figmie
+     (wektor 153×282 zaczyna się na y=-97 względem karty). */
+  .mmw-event-card__banner {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    translate: -50% 0;
+    z-index: 3;
+    width: clamp(128px, 38%, 153px);
+    aspect-ratio: 153 / 282;
+    margin-top: -97px;
+    padding-top: 97px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+  }
+
+  .mmw-event-card__label {
+    margin: 0;
+    /* width:100% — bez tego element jest flex-childem .mmw-event-card__body
+       (align-items:center), więc dostaje szerokość "hug" dopasowaną do treści
+       i -webkit-line-clamp nie ma na czym zadziałać. Dokładnie ten sam bug co
+       przy starym tytule w proporcu, teraz przeniesiony tu razem z elementem —
+       naprawiony tym samym sposobem (jawna szerokość). */
+    width: 100%;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.2;
+    color: var(--mmw-02);
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Blok data/cena — zakotwiczony od góry karty (Figma: data zaczyna się 20px od
+     góry). Tytuł już tu nie mieszka (patrz __footer niżej) — gdy data pusta, cena
+     naturalnie przesuwa się w górę (flex column, brak pustego elementu). */
+  .mmw-event-card__body {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding-inline: 24px;
+    text-align: center;
+  }
+
+  .mmw-event-card__date {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--mmw-03);
+  }
+
+  .mmw-event-card__price {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    color: var(--mmw-03);
+  }
+
+  /* Stopka: tytuł + licznik miejsc, zakotwiczona od dołu karty, wyśrodkowana
+     w poziomie. width:100% na .mmw-event-card__title (NIE align-items:center bez
+     width) to sedno poprawki — dawny tytuł był flex-childem kolumny z
+     align-items:center, więc dostawał szerokość "hug" (dopasowaną do treści w
+     jednej linii), przez co -webkit-line-clamp nie miał na czym zadziałać i długi
+     tytuł wylewał się poza kartę. */
+  .mmw-event-card__footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-inline: 24px;
+    padding-bottom: 32px;
+  }
+
+  .mmw-event-card__title {
+    margin: 0;
+    width: 100%;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+    color: white;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Licznik miejsc: kolor/tracking/ikona bez zmian, ale już nie pozycjonowany
+     absolutnie 60px od dołu — jest normalnym drugim elementem w kolumnie stopki. */
+  .mmw-event-card__capacity {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mmw-event-card__capacity-icon {
+    display: flex;
+    width: 20px;
+    height: 20px;
+  }
+
+  .mmw-event-card__capacity-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .mmw-event-card__capacity-text {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mmw-03);
+  }
+{% endstylesheet %}
