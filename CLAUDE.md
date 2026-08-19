@@ -193,6 +193,38 @@ ma pauzę na focus poprawnie zaimplementowaną (multi-reason pause tracker:
 hover/focus/viewport), ale Stories jej nie odziedziczyło, bo to duplikacja,
 nie wspólny kod.
 
+## Ładowanie JS komponentów mmw-*
+
+Skrypt komponentu (`<script src="{{ 'x.js' | asset_url }}" type="module">`)
+ładuje się Z WNĘTRZA sekcji/bloku, który go używa — NIE przez
+`snippets/scripts.liquid` (tam idą tylko skrypty faktycznie globalne, potrzebne
+na każdej stronie). Powód: samoutrzymujące się — komponent się renderuje, więc
+skrypt się ładuje; nie renderuje się nigdzie na stronie, więc nie ładuje się
+wcale. Bez listy szablonów do ręcznego aktualizowania przy każdym nowym
+umiejscowieniu komponentu (ta pułapka realnie zadziałała: `mmw-photo-stack.js`
+i `mmw-story-stack.js` ładowały się globalnie mimo że stoją tylko na wybranych
+szablonach produktowych — przeniesione, patrz commit `perf: warunkowe
+ładowanie mmw-photo-stack.js i mmw-story-stack.js`).
+
+Gdy komponent ma własny warunek renderowania (np. `mmw-story-stack`:
+`{% if stories != blank and story_count > 0 %}`), tag `<script>` idzie
+DO ŚRODKA tego warunku, nie przed niego — sam wzorzec co natywne
+`blocks/buy-buttons.liquid` (ładuje `local-pickup.js` warunkowo). Gdy
+komponent nie ma warunku renderowania (renderuje się zawsze, gdy sekcja/blok
+istnieje na stronie), skrypt idzie bezwarunkowo na początku pliku — wzorzec
+z natywnej `sections/product-recommendations.liquid` i naszej
+`sections/mmw-product-recommendations.liquid`.
+
+Zweryfikowane na żywym renderze (headless Chrome + CDP, nie z dokumentacji):
+przeglądarka dedupe'uje moduły ES po URL — kilka instancji tej samej
+sekcji/bloku na jednej stronie nie kosztuje dodatkowego requestu ani
+ponownego wykonania modułu.
+
+Już zgodne z tą konwencją (nic do przeniesienia): `mmw-event-addons.js` i
+`mmw-event-cart.js` (oba z `blocks/mmw-event-addons.liquid`),
+`mmw-cart-addon-grouping.js` (`blocks/mmw-cart-addon-grouping.liquid`) —
+żaden z nich nigdy nie był w `scripts.liquid`.
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.
