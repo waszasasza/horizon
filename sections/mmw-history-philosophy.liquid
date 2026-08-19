@@ -26,20 +26,20 @@
   {%- if section.blocks.size > 0 -%}
     <div class="mmw-phil__imgs">
       {%- for block in section.blocks -%}
-        <div class="mmw-phil__img" {{ block.shopify_attributes }}>{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 750 }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+        <div class="mmw-phil__img" {{ block.shopify_attributes }}>{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 750 }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
       {%- endfor -%}
     </div>
   {%- endif -%}
 </section>
 {% schema %}
 {
-  "name": "MMW Filozofia",
+  "name": "MMW Filozofia (Historia)",
   "tag": "section",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Nasza filozofia" },
     { "type": "textarea", "id": "quote", "label": "Cytat (duży tekst)", "default": "W samym centrum Pałacu Mała Wieś od pokoleń pielęgnujemy tradycyjne receptury, które dziś z dumą podajemy na Twój stół." }
   ],
   "blocks": [ { "type": "photo", "name": "Zdjęcie", "settings": [ { "type": "image_picker", "id": "image", "label": "Zdjęcie" } ] } ],
-  "presets": [{ "name": "MMW Filozofia", "blocks": [ {"type":"photo"},{"type":"photo"},{"type":"photo"} ] }]
+  "presets": [{ "name": "MMW Filozofia (Historia)", "blocks": [ {"type":"photo"},{"type":"photo"},{"type":"photo"} ] }]
 }
 {% endschema %}

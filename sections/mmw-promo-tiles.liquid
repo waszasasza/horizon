@@ -21,7 +21,7 @@
     {%- for block in section.blocks -%}
       <div class="mmw-promo__tile" style="background: {{ block.settings.bg_color }}; color: {{ block.settings.text_color }};" {{ block.shopify_attributes }}>
         {%- if block.settings.logo != blank -%}
-          <div class="mmw-promo__logo"><img src="{{ block.settings.logo | image_url: width: 580 }}" alt="{{ block.settings.heading | escape }}"></div>
+          <div class="mmw-promo__logo"><img src="{{ block.settings.logo | image_url: width: 580 }}" width="{{ block.settings.logo.width }}" height="{{ block.settings.logo.height }}" alt="{{ block.settings.heading | escape }}"></div>
         {%- endif -%}
         {%- if block.settings.heading != blank -%}<p class="mmw-promo__heading">{{ block.settings.heading }}</p>{%- endif -%}
         {%- if block.settings.button_label != blank -%}

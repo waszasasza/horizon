@@ -33,8 +33,11 @@
   </div>
   {%- if zdj != blank -%}
     <div class="mmw-crt__media">
-      {%- if zdj.value.url -%}<img src="{{ zdj | image_url: width: 1080 }}" alt="{{ imie | escape }}" loading="lazy">
-      {%- else -%}<img src="{{ zdj | file_url }}" alt="{{ imie | escape }}" loading="lazy">{%- endif -%}
+      {%- if zdj.value.url -%}<img src="{{ zdj | image_url: width: 1080 }}" width="{{ zdj.width }}" height="{{ zdj.height }}" alt="{{ imie | escape }}" loading="lazy">
+      {%- else -%}
+        {%- comment -%} Gałąź dla pliku (nie obrazu) — realnych wymiarów nie ma skąd wziąć; wpisanie przybliżenia zarezerwowałoby miejsce pod złe proporcje, czyli dokładnie ten skok layoutu, któremu width/height mają zapobiegać. {%- endcomment -%}
+        <img src="{{ zdj | file_url }}" alt="{{ imie | escape }}" loading="lazy">
+      {%- endif -%}
     </div>
   {%- endif -%}
 </section>

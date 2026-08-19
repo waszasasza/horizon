@@ -26,7 +26,7 @@
 {%- endstyle -%}
 <section class="mmw-cat">
   <div class="mmw-cat__box">
-    <div class="mmw-cat__media">{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 1200 }}" alt="{{ section.settings.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+    <div class="mmw-cat__media">{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 1200 }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
     <div class="mmw-cat__content">
       <div>
         {%- if section.settings.title != blank -%}<p class="mmw-cat__title">{{ section.settings.title }}</p>{%- endif -%}

@@ -62,7 +62,7 @@
       {%- if photos.size > 0 -%}
         <div class="mmw-tl__row mmw-tl__photos">
           {%- for block in photos -%}
-            <div class="mmw-tl__photo" {{ block.shopify_attributes }}>{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 900 }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+            <div class="mmw-tl__photo" {{ block.shopify_attributes }}>{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 900 }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
           {%- endfor -%}
         </div>
       {%- endif -%}

@@ -61,15 +61,14 @@
         </div>
       </div>
       <div class="mmw-chr__media">
-        {%- assign imgs = '' -%}
         <div class="mmw-chr__img is-active" data-img="1">
-          {%- if img1 != blank -%}<img src="{{ img1 | image_url: width: 1080 }}" alt="{{ collection.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
+          {%- if img1 != blank -%}<img src="{{ img1 | image_url: width: 1080 }}" width="{{ img1.width }}" height="{{ img1.height }}" alt="{{ collection.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
         </div>
         <div class="mmw-chr__img" data-img="2">
-          {%- if img2 != blank -%}<img src="{{ img2 | image_url: width: 1080 }}" alt="{{ collection.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
+          {%- if img2 != blank -%}<img src="{{ img2 | image_url: width: 1080 }}" width="{{ img2.width }}" height="{{ img2.height }}" alt="{{ collection.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
         </div>
         <div class="mmw-chr__img" data-img="3">
-          {%- if img3 != blank -%}<img src="{{ img3 | image_url: width: 1080 }}" alt="{{ collection.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
+          {%- if img3 != blank -%}<img src="{{ img3 | image_url: width: 1080 }}" width="{{ img3.width }}" height="{{ img3.height }}" alt="{{ collection.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
         </div>
       </div>
     </div>

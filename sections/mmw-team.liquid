@@ -23,7 +23,7 @@
       {%- for block in section.blocks -%}
         <div class="mmw-team__card" {{ block.shopify_attributes }}>
           <div class="mmw-team__img">
-            {%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 720 }}" alt="{{ block.settings.name | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
+            {%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 720 }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.name | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
           </div>
           <div class="mmw-team__id">
             <p class="mmw-team__name">{{ block.settings.name }}</p>

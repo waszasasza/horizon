@@ -43,7 +43,7 @@
         {%- endif -%}
       </div>
     </div>
-    <div class="mmw-brand__media">{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 1080 }}" alt="{{ block.settings.name | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+    <div class="mmw-brand__media">{%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 1080 }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.name | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
   </section>
 {%- endfor -%}
 {% schema %}

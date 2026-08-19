@@ -12,9 +12,9 @@
   @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-hhero, #shopify-section-{{ section.id }} .mmw-hhero__inner { gap:28px; } }
 {%- endstyle -%}
 <section class="mmw-hhero">
-  <div class="mmw-hhero__bg">{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.heading | escape }}" loading="eager" fetchpriority="high">{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}</div>
+  <div class="mmw-hhero__bg">{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 2400 }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.heading | escape }}" loading="eager" fetchpriority="high">{%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}</div>
   <div class="mmw-hhero__inner">
-    {%- if section.settings.logo != blank -%}<div class="mmw-hhero__logo"><img src="{{ section.settings.logo | image_url: width: 540 }}" alt="{{ shop.name | escape }}"></div>{%- endif -%}
+    {%- if section.settings.logo != blank -%}<div class="mmw-hhero__logo"><img src="{{ section.settings.logo | image_url: width: 540 }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" alt="{{ shop.name | escape }}"></div>{%- endif -%}
     <h1 class="mmw-hhero__title">{{ section.settings.heading }}</h1>
     {%- if section.settings.subtitle != blank -%}<p class="mmw-hhero__sub">{{ section.settings.subtitle }}</p>{%- endif -%}
   </div>

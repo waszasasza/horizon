@@ -43,12 +43,12 @@
           {%- if block.settings.video != blank -%}
             {% render 'video', video: block.settings.video, video_autoplay: block.settings.autoplay, video_loop: true, disable_controls: true %}
           {%- elsif block.settings.image -%}
-            <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ post.title | default: prod.title | default: 'Story' | escape }}" loading="lazy">
+            <img src="{{ block.settings.image | image_url: width: 800 }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ post.title | default: prod.title | default: 'Story' | escape }}" loading="lazy">
           {%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
         </div>
         {%- if prod != blank -%}
           <a class="mmw-bst__chip" href="{{ prod.url }}">
-            <div class="mmw-bst__chip-img">{%- if prod.featured_image -%}<img src="{{ prod.featured_image | image_url: width: 160 }}" alt="{{ prod.title | escape }}">{%- endif -%}</div>
+            <div class="mmw-bst__chip-img">{%- if prod.featured_image -%}<img src="{{ prod.featured_image | image_url: width: 160 }}" width="{{ prod.featured_image.width }}" height="{{ prod.featured_image.height }}" alt="{{ prod.title | escape }}">{%- endif -%}</div>
             <div class="mmw-bst__chip-info">
               <span class="mmw-bst__chip-name">{{ prod.title }}</span>
               <span class="mmw-bst__chip-price">{{ prod.price | money }}</span>
