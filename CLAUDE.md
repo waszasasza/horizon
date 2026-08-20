@@ -90,6 +90,11 @@ Nowe:
   konsolidacji karty posta bloga (`snippets/mmw-post-card.liquid`, patrz sekcja niżej) —
   zamiana własnego inline markupu karty na wspólny snippet, reszta sekcji (nagłówek,
   layout listy, przycisk) bez zmian.
+- WYJĄTEK: mmw-blog-hero, mmw-firms-hero, mmw-history-hero zdjęte z listy
+  i scalone z mmw-hero w mmw-page-hero. Powód: różniły się wyłącznie
+  prefiksem klas i jedną wartością max-width — utrzymywanie czterech
+  kopii tego samego kodu to koszt bez korzyści, a scalanie po dodaniu
+  wideo oznaczałoby migrację dwa razy.
 
 ## Zmiany w plikach natywnych Horizona
 
@@ -355,6 +360,67 @@ jako `label` checkboxa — checkbox dostaje statyczny, niezmienny tekst
 zwykły akapit obok, poza `<label>`. Jeśli kolejna sekcja będzie chciała
 wpuścić HTML do `render 'checkbox'`, ta pułapka dotyczy też jej — nie tylko
 `checkbox__label-text` trzeba rozważyć, ale i `data-label`.
+
+## Wideo w tle — wzorzec `<source media="...">`, nie CSS display:none
+
+Ustalone przy `mmw-page-hero` (mechanika autoplay wideo w tle + fallback
+do obrazu na mobile). Problem: sekcja ma checkbox „na mobile pokaż obraz
+zamiast wideo" — pytanie, jak to wymusić bez JS i bez ryzyka, że mobile
+i tak pobierze bajty wideo w tle.
+
+**NIE `display: none` w CSS na `<video autoplay>`.** To niepewne —
+zachowanie przeglądarek przy pobieraniu/odtwarzaniu ukrytego elementu
+`autoplay` nie jest jednoznacznie wyspecyfikowane, w praktyce bywa
+niespójne między silnikami.
+
+**Zamiast tego: `<source media="(min-width: 750px)">` na każdym źródle
+wideo**, budowane ręcznie z `video.sources` (nie przez filtr `video_tag`,
+który nie daje kontroli nad atrybutem `media` per source). To natywny,
+udokumentowany mechanizm HTML5 (`media` na `<source>` działa dla
+`<video>`/`<audio>` tak samo jak dla `<picture>`) — gdy żadne `<source>`
+nie pasuje do bieżącej szerokości viewportu, przeglądarka NIE POBIERA
+żadnych bajtów wideo, nie tylko go nie odtwarza. Realna gwarancja
+oszczędności transferu, nie heurystyka. Poster (osobny `<img>`, nie
+atrybut `poster` na `<video>` — patrz sekcja `## mmw-page-hero` niżej)
+zostaje jedyną widoczną warstwą, bez dodatkowej klasy/JS do przełączania.
+
+Wzorzec do skopiowania przy kolejnych sekcjach z wideo w tle:
+```liquid
+{%- assign source_media = '' -%}
+{%- if section.settings.video_mobile_image_fallback -%}
+  {%- assign source_media = ' media="(min-width: 750px)"' -%}
+{%- endif -%}
+<video autoplay muted loop playsinline aria-hidden="true">
+  {%- for source in section.settings.video.sources -%}
+    <source src="{{ source.url }}" type="{{ source.mime_type }}"{{ source_media }}>
+  {%- endfor -%}
+</video>
+```
+`prefers-reduced-motion: reduce` nadal trzeba chować osobno, czystym CSS
+(`video { display: none }`) — to inny problem (odtwarzanie, nie transfer
+danych) i nie ma dla niego wzorca natywnego w Horizonie (sprawdzone:
+`sections/hero.liquid` go nie obsługuje).
+
+## mmw-page-hero
+
+Scalenie `mmw-hero` + `mmw-blog-hero` + `mmw-firms-hero` +
+`mmw-history-hero` w jedną sekcję (patrz WYJĄTEK w „Czego NIE ruszać"
+wyżej). Pole obrazu ujednolicone na `image` (w `mmw-hero` było
+`background_image` — przy migracji `index.json` trzeba przemianować
+klucz w `settings`, sama podmiana `"type"` nie wystarczy). `heading_size`
+i `heading_line_height` wyprowadzone na ustawienia (były hardkodowane/
+różne mechanizmy: `mmw-hero` miał dyskretny suwak px, trio miało płynny
+`clamp()`) — przy migracji trio dostaje `heading_line_height: 0.97`
+explicité w JSON-ie szablonu, mimo że suwak w schemacie chodzi krokami
+0.1 (Shopify: wartość `range` musi być podzielna przez 0.1, więc krok
+`0.01` odrzucony przez `theme check`/API — ValidSchema). Liquid i tak
+renderuje dosłowną wartość z JSON-a niezależnie od kroku suwaka w
+edytorze, więc wartość „między krokami" działa poprawnie, po prostu
+suwak w edytorze nie trafi na nią dokładnie przy ręcznej regulacji.
+
+**Otwarta kwestia (nie do naprawy teraz):** `heading_line_height` ma
+dwie wartości odziedziczone po scalanych sekcjach (1.1 / 0.97). Do
+ujednolicenia po weryfikacji z Figmą.
 
 ## Workflow
 
