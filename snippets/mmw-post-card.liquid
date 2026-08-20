@@ -92,7 +92,13 @@
   <span class="mmw-post-card__body">
     <h3 class="mmw-post-card__title">{{ article.title }}</h3>
     <span class="mmw-post-card__meta">
-      <span class="mmw-post-card__date">{{ article.published_at | time_tag: format: 'date' }}</span>
+      <span class="mmw-post-card__date-row">
+        <span class="mmw-post-card__date">{{ article.published_at | time_tag: format: 'date' }}</span>
+        {%- if article.author != blank -%}
+          <span class="mmw-post-card__separator" aria-hidden="true">•</span>
+          <span class="mmw-post-card__author">{{ article.author }}</span>
+        {%- endif -%}
+      </span>
       <span class="mmw-post-card__cta" aria-hidden="true">{{ button_label }}</span>
     </span>
   </span>
@@ -203,13 +209,40 @@
     gap: 12px;
   }
 
-  .mmw-post-card__date {
+  .mmw-post-card__date-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .mmw-post-card__date,
+  .mmw-post-card__author {
     font-family: var(--mmw-font-label);
     font-weight: 700;
     font-size: 14px;
     text-transform: uppercase;
     color: var(--mmw-04);
     white-space: nowrap;
+  }
+
+  .mmw-post-card__date {
+    flex: 0 0 auto;
+  }
+
+  .mmw-post-card__author {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mmw-post-card__separator {
+    flex: 0 0 auto;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--mmw-04);
+    opacity: 0.6;
   }
 
   .mmw-post-card__cta {
@@ -248,7 +281,9 @@
     }
   }
   @media (max-width: 1024px) {
-      .mmw-post-card__date {
+      .mmw-post-card__date,
+      .mmw-post-card__author,
+      .mmw-post-card__separator {
     font-size: 12px;
   }
    .mmw-post-card__title {
