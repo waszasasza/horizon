@@ -32,7 +32,9 @@ Nowe:
    Obsługuje: bestsellery ×2, vouchery, produkty marki. NIE robić osobnych wariantów.
 2. `mmw-brand-feature` — split: nagłówek + opis + button + obraz marki.
 3. `mmw-split-content` — sekcja obraz + tekst (label, nagłówek, treść).
-4. `mmw-klub-newsletter` — form zapisu + checkbox zgody + grafika rabatowa.
+4. `mmw-newsletter-discount` (robocza nazwa w budżecie: `mmw-klub-newsletter`,
+   zmieniona przy realizacji) — form zapisu + checkbox zgody + grafika rabatowa,
+   zapis bezpośrednio do Klaviyo. Patrz sekcja `## mmw-newsletter-discount` niżej.
 5. `mmw-palac-split` — sekcja Pałacu (label, nagłówek, opis, lista ofert, button, obraz).
 6. `mmw-stats` — liczby Majątku (bloki: wartość, sufiks/ikona, opis).
 7. `mmw-reviews` — opinie klientów (na start: bloki wpisywane ręcznie; integracja
@@ -316,6 +318,43 @@ cache CDN, coś po stronie Shopify) i akurat wtedy wyrzucić z subsetu
 regułę, która wcześniej się w nim znalazła. Jedyna solidna gwarancja to
 literalny render pliku/snippetu definiującego potrzebne klasy — nie
 poleganie na tym, że subset "akurat" coś złapał przy danym przeliczeniu.
+
+**Dla nowych sekcji mmw-\*: domyślnie `{% style %}` (inline, per-instancja,
+nigdy nie trafia do subsetowanego `compiled_assets/styles.css`), nie
+`{% stylesheet %}`.** Cała ta klasa błędów znika, jeśli style w ogóle nie
+przechodzą przez subsetting. `{% stylesheet %}` ma sens tylko gdy jest
+konkretny powód do bundlowania — np. redukcja duplikacji między wieloma
+sekcjami reużywającymi tych samych reguł, jak `mmw-carousel-styles.liquid`
+wyżej. Wzorzec `{% style %}` już używany w `mmw-firms-catalog.liquid`,
+`mmw-footer.liquid`, `mmw-newsletter-discount.liquid`.
+
+## mmw-newsletter-discount
+
+Zapis do newslettera z rabatem — POST bezpośrednio do Klaviyo (client-side
+subscribe endpoint), nie przez natywny `{% form 'customer' %}`: flow
+powitalny Klaviyo wyzwala się na zapisie do listy Klaviyo, nie na
+utworzeniu klienta w Shopify. Pełne uzasadnienie w komentarzu na górze
+`sections/mmw-newsletter-discount.liquid`.
+
+Rewizja Klaviyo API (`KLAVIYO_API_REVISION` w `assets/mmw-newsletter.js`) —
+Klaviyo wersjonuje po dacie, nie semver; stała ustawiona ręcznie na
+`2026-07-15`, bez auto-update. Przy problemach z endpointem (400/415/
+nieoczekiwany kształt odpowiedzi) sprawdzić najpierw, czy ta rewizja nadal
+żyje: https://developers.klaviyo.com/en/docs/api_versioning_and_deprecation_policy
+
+**Odkryte przy pisaniu tej sekcji, warte zapamiętania przy innych
+sekcjach**: `snippets/checkbox.liquid` wypisuje parametr `label` DWA razy
+bez escapowania — raz w treści `<span class="checkbox__label-text">`
+(bezpieczne dla surowego HTML), ale też w atrybucie
+`data-label="{{ label }}"` na samym inpucie (NIEbezpieczne — cudzysłów
+z dowolnego `href="..."` w środku przedwcześnie zamyka atrybut i psuje
+resztę znacznika `<input>`). Dlatego `mmw-newsletter-discount` NIE
+przekazuje richtextowego `consent_text` (z linkiem do polityki prywatności)
+jako `label` checkboxa — checkbox dostaje statyczny, niezmienny tekst
+"Zgadzam się", a pełna treść zgody (z linkiem) renderuje się osobno, jako
+zwykły akapit obok, poza `<label>`. Jeśli kolejna sekcja będzie chciała
+wpuścić HTML do `render 'checkbox'`, ta pułapka dotyczy też jej — nie tylko
+`checkbox__label-text` trzeba rozważyć, ale i `data-label`.
 
 ## Workflow
 

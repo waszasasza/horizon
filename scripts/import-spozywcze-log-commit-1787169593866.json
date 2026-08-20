@@ -1,0 +1,930 @@
+{
+  "zapisano": "2026-08-19T19:59:53.867Z",
+  "tryb": "commit",
+  "utworzone": [],
+  "zaktualizowane": [
+    {
+      "handle": "cydr-pomarium-750ml-powytrawny",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-750ml-wytrawny",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-330ml-powytrawny",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-330ml-wytrawny",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "miod-wielokwiatowy-400-ml",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-330-ml",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-3-l",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-5-l",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "polini-aperitivo",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "polini-spritz",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "herbata-jabkowa",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "herbata-swiateczna",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "chipsy-jabkowe",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "syrop-lawendowy",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "syrop-z-kwiatow-bzu",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "syrop-rozany",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "konfitura-rozana",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "wodka-walicki",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq"
+      ]
+    },
+    {
+      "handle": "konfitura-z-pigwy",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "chutney-jabkowy",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "konfitura-jabkowo-rozana",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "konfitura-malinowa",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "konfitura-morelowa",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "konfitura-wisniowa",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "marmolada-jabkowa",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "piwo-viva-pale-ale",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "piwo-viva-weissbier",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "orzechy-w-karmelu",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "gruszki-w-winie",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "olej-z-pestek-winogron-tocznia-ksiazeca",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "miod-spadziowy-400-ml",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "miod-rzepakowy-400-ml",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "mini-bezy",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    },
+    {
+      "handle": "miod-lipowy-400-ml",
+      "pola": [
+        "przechowywanie",
+        "skad_pochodzi",
+        "opis_karty",
+        "dominujace_nuty",
+        "wartosci_odzywcze_i_alergeny",
+        "tekst_seo",
+        "skale",
+        "cechy",
+        "karty_historii",
+        "faq",
+        "warianty"
+      ]
+    }
+  ],
+  "pominiete": [
+    {
+      "handle": "cydr-pomarium-750ml-powytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 4 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-750ml-wytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 5 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-330ml-powytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 4 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-330ml-wytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 4 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-wielokwiatowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-330-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-3-l",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-5-l",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "polini-aperitivo",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "polini-spritz",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "herbata-jabkowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "herbata-swiateczna",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "chipsy-jabkowe",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "syrop-lawendowy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "syrop-z-kwiatow-bzu",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "syrop-rozany",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-rozana",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "wodka-walicki",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.warianty — puste w pliku, brak zmiany",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-z-pigwy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "chutney-jabkowy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-jabkowo-rozana",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-malinowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-morelowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-wisniowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "marmolada-jabkowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "piwo-viva-pale-ale",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "piwo-viva-weissbier",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "orzechy-w-karmelu",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "gruszki-w-winie",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-z-pestek-winogron-tocznia-ksiazeca",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-spadziowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-rzepakowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "mini-bezy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-lipowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    }
+  ],
+  "bledy": []
+}

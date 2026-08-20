@@ -1,0 +1,222 @@
+{%- comment -%}
+  mmw-newsletter-discount — zapis na newsletter z rabatem 10%, przez Klaviyo
+  (client-side subscribe endpoint, nie natywny {% form 'customer' %} — flow
+  powitalny Klaviyo wyzwala się na zapisie do listy Klaviyo, nie na
+  utworzeniu klienta w Shopify). Layout/proporcje/typografia 1:1 ze
+  sections/mmw-firms-catalog.liquid, pole zamiast pobrania PDF-a.
+
+  Klucz publiczny + ID listy: ustawienia sekcji, jawne (klucz publiczny
+  Klaviyo NIE jest sekretem — jest widoczny w każdym żądaniu z przeglądarki
+  z założenia). Klient wkleja własne w edytorze, bez zmian w kodzie.
+
+  BRAK KONFIGURACJI (pusty klucz LUB puste ID listy): sekcja nie renderuje
+  się w ogóle na froncie — żaden kontener, żaden padding (ten sam wzorzec
+  co mmw-event-carousel przy zerowej liczbie wydarzeń, patrz CLAUDE.md).
+  W edytorze motywu (request.design_mode) merchant widzi komunikat zamiast
+  formularza wysyłającego dane donikąd.
+
+  Styl przez {% style %} (inline, per-instancja sekcji), NIE
+  {% stylesheet %} — {% style %} nigdy nie trafia do subsetowanego
+  compiled_assets/styles.css, jest bezpieczny z definicji niezależnie od
+  tego, co inne sekcje na stronie renderują. Ten sam wzorzec co
+  mmw-firms-catalog.liquid / mmw-footer.liquid. Patrz CLAUDE.md, sekcja
+  o reużywaniu klas CSS z nierenderowanych snippetów.
+
+  Checkbox zgody: render 'checkbox' (natywny snippet) — jego CSS jest
+  w assets/base.css (statyczny, zawsze ładowany, poza subsettingiem),
+  bezpieczny do literalnego renderu. ALE: label przekazywany jest tu
+  CELOWO jako zwykły tekst ("Zgadzam się"), NIE jako HTML z linkiem do
+  polityki prywatności — pełny tekst zgody (z linkiem, ustawienie
+  consent_text) renderuje się osobno, jako zwykły akapit obok checkboxa,
+  poza <label>. Powód: snippets/checkbox.liquid wypisuje ten sam parametr
+  "label" DWA razy bez escapowania — raz w treści <span class="checkbox__
+  label-text"> (tam surowe HTML byłoby bezpieczne, to wykorzystywały
+  wcześniejsze wersje tego pliku), ale też w atrybucie inputu
+  `data-label="{{ label }}"`. Link z ustawienia richtext zawsze zawiera
+  `href="..."` — cudzysłów w atrybucie href PRZEDWCZEŚNIE zamyka atrybut
+  data-label i psuje resztę znacznika <input> (nie da się tego naprawić
+  z poziomu wywołania, bo oba miejsca czytają tę samą zmienną). Odkryte
+  przy pisaniu tej sekcji, niezwiązane z resztą motywu (inne wywołania
+  render 'checkbox' w Horizonie przekazują zwykły tekst, nie HTML — ich to
+  nie dotyczy). Patrz też CLAUDE.md, lista rzeczy do sprawdzenia przy
+  aktualizacji Horizona.
+
+  Skrypt: assets/mmw-newsletter.js, ładowany <script> wewnątrz tej sekcji
+  (nie przez snippets/scripts.liquid) — konwencja z CLAUDE.md, sekcja
+  "Ładowanie JS komponentów mmw-*".
+
+  Figma: brak węzła — sekcja zamówiona bez referencji wizualnej, wzorzec to
+  explicite mmw-firms-catalog.liquid, nie osobny projekt w Figmie.
+{%- endcomment -%}
+{%- liquid
+  assign klaviyo_key = section.settings.klaviyo_public_key | strip
+  assign klaviyo_list = section.settings.klaviyo_list_id | strip
+  assign configured = false
+  if klaviyo_key != blank and klaviyo_list != blank
+    assign configured = true
+  endif
+  assign consent_checkbox_id = 'mmw-nl-consent-' | append: section.id
+-%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-nl { display:flex; justify-content:center; padding-block:50px; padding-inline: var(--page-margin, 40px); }
+  #shopify-section-{{ section.id }} .mmw-nl__box { display:flex; gap:49px; align-items:center; width:100%; border:2px solid var(--mmw-01); border-radius:20px; padding:40px; }
+  #shopify-section-{{ section.id }} .mmw-nl--reverse .mmw-nl__box { flex-direction:row-reverse; }
+  #shopify-section-{{ section.id }} .mmw-nl__media { flex:1 1 50%; min-width:0; aspect-ratio:585 / 429; border-radius:20px; overflow:hidden; }
+  #shopify-section-{{ section.id }} .mmw-nl__media img, #shopify-section-{{ section.id }} .mmw-nl__media svg { width:100%; height:100%; object-fit:cover; display:block; }
+  #shopify-section-{{ section.id }} .mmw-nl__content { flex:1 1 50%; min-width:0; display:flex; flex-direction:column; gap:40px; }
+  #shopify-section-{{ section.id }} .mmw-nl__title { font-family: var(--mmw-font-display); font-weight:400; font-size: clamp(36px,4vw,64px); line-height:1.1; color: var(--mmw-01); margin:0; }
+  #shopify-section-{{ section.id }} .mmw-nl__desc { font-family: var(--mmw-font-text); font-size:18px; line-height:1.5; color: var(--mmw-01); margin:8px 0 0; }
+  #shopify-section-{{ section.id }} .mmw-nl__desc p { margin:0; }
+  #shopify-section-{{ section.id }} .mmw-nl__desc p + p { margin-top:12px; }
+  #shopify-section-{{ section.id }} .mmw-nl__label { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0 0 7px; display:block; }
+  #shopify-section-{{ section.id }} .mmw-nl__form { display:flex; flex-direction:column; gap:18px; }
+  #shopify-section-{{ section.id }} .mmw-nl__field-row { display:flex; gap:18px; align-items:center; flex-wrap:wrap; }
+  #shopify-section-{{ section.id }} .mmw-nl__input { flex:1 1 0; min-width:160px; border:1px solid var(--mmw-01); border-radius:50px; padding:18px 24px; background:transparent; color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; }
+  #shopify-section-{{ section.id }} .mmw-nl__input::placeholder { color: var(--mmw-01); opacity:.7; }
+  #shopify-section-{{ section.id }} .mmw-nl__input:invalid { box-shadow:none; }
+  #shopify-section-{{ section.id }} .mmw-nl__btn { border:none; cursor:pointer; background: var(--mmw-02); color: var(--mmw-01); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; }
+  #shopify-section-{{ section.id }} .mmw-nl__btn:disabled { opacity:.6; cursor:not-allowed; }
+  #shopify-section-{{ section.id }} .mmw-nl__consent { font-family: var(--mmw-font-text); font-size:14px; line-height:1.4; color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-nl__consent .checkbox { align-items:flex-start; gap:10px; }
+  #shopify-section-{{ section.id }} .mmw-nl__consent-text { margin:6px 0 0 30px; }
+  #shopify-section-{{ section.id }} .mmw-nl__consent-text p { margin:0; }
+  #shopify-section-{{ section.id }} .mmw-nl__consent-text a { color: var(--mmw-01); text-decoration:underline; }
+  #shopify-section-{{ section.id }} .mmw-nl__message { font-family: var(--mmw-font-text); font-size:15px; line-height:1.4; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-nl__message[hidden] { display:none; }
+  #shopify-section-{{ section.id }} .mmw-nl__message--error { color: var(--mmw-02); }
+  #shopify-section-{{ section.id }} .mmw-nl__message--success { color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-nl__message--success p { margin:0; }
+  #shopify-section-{{ section.id }} .mmw-nl__form[hidden] { display:none; }
+  #shopify-section-{{ section.id }} .mmw-nl__unconfigured { border:2px dashed var(--mmw-02); border-radius:20px; padding:24px; color: var(--mmw-01); font-family: var(--mmw-font-text); font-size:15px; }
+  @media (max-width:989px){
+    #shopify-section-{{ section.id }} .mmw-nl__box { flex-direction:column; gap:28px; padding:24px; }
+    #shopify-section-{{ section.id }} .mmw-nl--reverse .mmw-nl__box { flex-direction:column; }
+    #shopify-section-{{ section.id }} .mmw-nl__media { flex-basis:auto; max-width:100%; width:100%; height:280px; }
+  }
+{%- endstyle -%}
+{%- if configured -%}
+  <section class="mmw-nl{% if section.settings.image_side == 'right' %} mmw-nl--reverse{% endif %}">
+    <div class="mmw-nl__box">
+      <div class="mmw-nl__media">
+        {%- if section.settings.image -%}
+          <img src="{{ section.settings.image | image_url: width: 1200 }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.heading | escape }}" loading="lazy">
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag }}
+        {%- endif -%}
+      </div>
+      <div class="mmw-nl__content">
+        <div>
+          {%- if section.settings.heading != blank -%}<p class="mmw-nl__title">{{ section.settings.heading }}</p>{%- endif -%}
+          {%- if section.settings.description != blank -%}<div class="mmw-nl__desc">{{ section.settings.description }}</div>{%- endif -%}
+        </div>
+
+        <mmw-newsletter-form
+          class="mmw-nl__form-wrap"
+          data-public-key="{{ klaviyo_key | escape }}"
+          data-list-id="{{ klaviyo_list | escape }}"
+          data-invalid-email-message="{{ section.settings.invalid_email_message | escape }}"
+          data-network-error-message="{{ section.settings.network_error_message | escape }}"
+        >
+          <form class="mmw-nl__form" novalidate ref="form" on:submit="/handleSubmit">
+            {%- if section.settings.email_label != blank -%}
+              <label class="mmw-nl__label" for="mmw-nl-email-{{ section.id }}">{{ section.settings.email_label }}</label>
+            {%- endif -%}
+            <div class="mmw-nl__field-row">
+              <input
+                class="mmw-nl__input"
+                type="email"
+                id="mmw-nl-email-{{ section.id }}"
+                name="email"
+                placeholder="{{ section.settings.email_placeholder | escape }}"
+                autocomplete="email"
+                required
+                ref="emailInput"
+                aria-describedby="mmw-nl-error-{{ section.id }}"
+              >
+              <button class="mmw-nl__btn" type="submit" ref="submitButton">{{ section.settings.button_label }}</button>
+            </div>
+            <div class="mmw-nl__consent">
+              {%- render 'checkbox',
+                id: consent_checkbox_id,
+                name: 'consent',
+                value: 'yes',
+                label: 'Zgadzam się',
+                checked: false,
+                required: true,
+                disabled: false,
+                events: '',
+                inputRef: 'consentInput'
+              -%}
+              {%- if section.settings.consent_text != blank -%}
+                <div class="mmw-nl__consent-text">{{ section.settings.consent_text }}</div>
+              {%- endif -%}
+            </div>
+            <p
+              class="mmw-nl__message mmw-nl__message--error"
+              id="mmw-nl-error-{{ section.id }}"
+              ref="errorMessage"
+              tabindex="-1"
+              hidden
+            ></p>
+          </form>
+          <div
+            class="mmw-nl__message mmw-nl__message--success"
+            role="status"
+            ref="successMessage"
+            tabindex="-1"
+            hidden
+          >
+            {{ section.settings.success_message }}
+          </div>
+        </mmw-newsletter-form>
+      </div>
+    </div>
+  </section>
+  <script src="{{ 'mmw-newsletter.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{%- elsif request.design_mode -%}
+  <section class="mmw-nl">
+    <div class="mmw-nl__unconfigured">
+      Uzupełnij <strong>publiczny klucz Klaviyo</strong> i <strong>ID listy Klaviyo</strong> w ustawieniach tej sekcji — bez nich formularz nie renderuje się na sklepie (żeby nie wysyłać zapisów donikąd).
+    </div>
+  </section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "MMW Newsletter — rabat",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Klaviyo" },
+    { "type": "text", "id": "klaviyo_public_key", "label": "Publiczny klucz Klaviyo (Site ID)", "info": "Klucz publiczny — nie jest sekretem, jest widoczny w przeglądarce. Ustawienia Klaviyo → Account → Settings → API Keys." },
+    { "type": "text", "id": "klaviyo_list_id", "label": "ID listy Klaviyo", "info": "Klaviyo → Lists & Segments → wybrana lista → ID w adresie URL." },
+
+    { "type": "header", "content": "Treść" },
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
+    {
+      "type": "select",
+      "id": "image_side",
+      "label": "Strona ze zdjęciem",
+      "options": [
+        { "value": "left", "label": "Lewa" },
+        { "value": "right", "label": "Prawa" }
+      ],
+      "default": "left"
+    },
+    { "type": "text", "id": "heading", "label": "Nagłówek", "default": "Zapisz się i odbierz 10% rabatu" },
+    { "type": "richtext", "id": "description", "label": "Opis", "default": "<p>Dołącz do naszego newslettera, a otrzymasz kod na 10% zniżki na pierwsze zakupy oraz informacje o nowościach i wydarzeniach w Majątku.</p>" },
+
+    { "type": "header", "content": "Formularz" },
+    { "type": "text", "id": "email_label", "label": "Etykieta nad polem e-mail", "default": "Wpisz swój adres e-mail" },
+    { "type": "text", "id": "email_placeholder", "label": "Placeholder pola e-mail", "default": "Adres e-mail" },
+    { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Zapisz się" },
+    { "type": "richtext", "id": "consent_text", "label": "Tekst zgody RODO (checkbox)", "default": "<p>Wyrażam zgodę na otrzymywanie newslettera marketingowego zgodnie z <a href=\"/policies/privacy-policy\">polityką prywatności</a>.</p>" },
+
+    { "type": "header", "content": "Komunikaty" },
+    { "type": "richtext", "id": "success_message", "label": "Komunikat sukcesu", "info": "Widoczny dopiero po zapisaniu adresu. Możesz tu wspomnieć kod rabatowy — pokazuje się tylko po realnym sukcesie.", "default": "<p>Dziękujemy za zapis! Kod rabatowy wyślemy na podany adres e-mail.</p>" },
+    { "type": "text", "id": "network_error_message", "label": "Komunikat błędu sieci / odrzucenia", "default": "Nie udało się zapisać — spróbuj ponownie za chwilę." },
+    { "type": "text", "id": "invalid_email_message", "label": "Komunikat nieprawidłowego adresu e-mail", "default": "Podaj prawidłowy adres e-mail." }
+  ],
+  "presets": [
+    { "name": "MMW Newsletter — rabat" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,1055 @@
+{
+  "zapisano": "2026-08-19T19:37:37.305Z",
+  "tryb": "commit",
+  "utworzone": [
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-sok-jablkowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-cydry-pomarium"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-olej-ziolowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-jest-ta-pojemnosc"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-podawac-cydr-pomarium-polwytrawny"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-podawac-cydr-pomarium-wytrawny"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-korzystac-z-opakowania-z-kranem"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "kto-warzy-piwo-viva"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "co-wyroznia-polini-aperitivo"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czy-chutney-jablkowy-jest-pikantny"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czy-konfitura-rozana-zawiera-cale-platki-rozy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czy-miod-wielokwiatowy-krystalizuje-sie"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czy-syrop-lawendowy-jest-intensywnie-slodki"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-charakteryzuje-sie-jablko-odmiany-antonowka"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-charakteryzuje-sie-jablko-odmiany-boskoop"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-charakteryzuje-sie-miod-lipowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-charakteryzuje-sie-miod-rzepakowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-charakteryzuje-sie-miod-wielokwiatowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-rozni-sie-miod-spadziowy-od-nektarowego"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-rozni-sie-od-wersji-boskoop"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-rozni-sie-od-wersji-mix"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-rozni-sie-wersja-mix-od-jednoodmianowej"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "czym-rozni-sie-wersja-wytrawna-od-polwytrawnej"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-jest-cydr-pomarium-polwytrawny-330ml"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-jest-cydr-pomarium-polwytrawny"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-jest-cydr-pomarium-wytrawny-330ml"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-jest-cydr-pomarium-wytrawny"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-sa-chipsy-jablkowe"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dla-kogo-sa-orzechy-w-karmelu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dlaczego-miod-rzepakowy-szybko-krystalizuje"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dlaczego-miod-spadziowy-jest-rzadszy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "dlaczego-okres-zbioru-miodu-lipowego-jest-krotki"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-chutney-jablkowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-konfiture-jablkowo-rozana"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-konfiture-malinowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-konfiture-morelowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-konfiture-rozana"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-konfiture-wisniowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-konfiture-z-pigwy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-marmolade-jablkowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-mini-bezy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-olej-szczypiorkowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-olej-z-pestek-winogron"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-olej-z-warzywami-wedzonymi"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-olej-z-ziolami-prowansalskimi"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-syrop-lawendowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-syrop-rozany"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "do-czego-wykorzystac-syrop-z-kwiatow-bzu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "ile-jablek-zawiera-3-litry-soku"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-dlugo-zachowuje-swiezosc-po-otwarciu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-podawac-piwo-viva-pale-ale"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-podawac-piwo-viva-weissbier"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-podawac-polini-aperitivo"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-podawac-polini-spritz"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-podawac-wodke-walicki"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-podawac-gruszki-w-winie"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-herbate-swiateczna"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-polini-aperitivo"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-wodke-walicki"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-chipsy-jablkowe"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-chutney-jablkowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-gruszki-w-winie"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-herbate-jablkowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-konfiture-jablkowo-rozana"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-konfiture-malinowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-konfiture-morelowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-konfiture-rozana"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-konfiture-wisniowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-konfiture-z-pigwy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-marmolade-jablkowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-mini-bezy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-miod-lipowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-miod-rzepakowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-miod-spadziowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-miod"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-olej-z-pestek-winogron"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-orzechy-w-karmelu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-sok-po-otwarciu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-syrop-lawendowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-syrop-rozany"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jak-przechowywac-syrop-z-kwiatow-bzu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaka-jest-historia-wodki-walicki"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaka-jest-zawartosc-alkoholu-w-piwie-viva-pale-ale"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaka-jest-zawartosc-alkoholu-w-piwie-viva-weissbier"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-konfitury-malinowej"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-konfitury-morelowej"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-konfitury-wisniowej"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-konfitury-z-pigwy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-syropu-rozanego"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-syropu-z-bzu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jaki-jest-smak-tej-konfitury"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "jakie-przyprawy-zawiera-marmolada-jablkowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "kiedy-najlepiej-pic-herbate-jablkowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "na-jakie-okazje-pasuje-herbata-swiateczna"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-olej-ziolowy-szczypiorkowy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-olej-ziolowy-tlocznia-ksiazeca"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-olej-ziolowy-warzywa-wedzone"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-polini-spritz"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-sok-jablkowy-sad-ksiazecy-330-ml"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-sok-jablkowy-sad-ksiazecy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaje-olej-z-pestek-winogron"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaja-chipsy-jablkowe"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-powstaja-mini-bezy"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-sklada-sie-herbata-jablkowa"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-sklada-sie-herbata-swiateczna"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czego-skladaja-sie-orzechy-w-karmelu"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-czym-najlepiej-laczyc-polini-spritz"
+    },
+    {
+      "typ": "pytanie_faq",
+      "handle": "z-jakim-winem-powstaja-gruszki-w-winie"
+    },
+    {
+      "typ": "cecha_produktu",
+      "handle": "rzemieslnicza-receptura"
+    },
+    {
+      "typ": "cecha_produktu",
+      "handle": "ograniczona-dostepnosc"
+    },
+    {
+      "typ": "cecha_produktu",
+      "handle": "bez-konserwantow"
+    },
+    {
+      "typ": "karta_historii",
+      "handle": "palacowy-sad"
+    },
+    {
+      "typ": "karta_historii",
+      "handle": "pasieka-ksiazeca"
+    },
+    {
+      "typ": "karta_historii",
+      "handle": "tlocznia-ksiazeca"
+    },
+    {
+      "typ": "karta_historii",
+      "handle": "dziedzictwo-winnicy"
+    },
+    {
+      "typ": "karta_historii",
+      "handle": "spizarnia-ksiazeca"
+    }
+  ],
+  "zaktualizowane": [],
+  "pominiete": [
+    {
+      "handle": "cydr-pomarium-750ml-powytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 4 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-750ml-wytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 5 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-330ml-powytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 4 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "cydr-pomarium-330ml-wytrawny",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 4 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-wielokwiatowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-330-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-3-l",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-5-l",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "polini-aperitivo",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "polini-spritz",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "herbata-jabkowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "herbata-swiateczna",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "chipsy-jabkowe",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "syrop-lawendowy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "syrop-z-kwiatow-bzu",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "syrop-rozany",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-rozana",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "wodka-walicki",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.warianty — puste w pliku, brak zmiany",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-z-pigwy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "chutney-jabkowy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-jabkowo-rozana",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-malinowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-morelowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "konfitura-wisniowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "marmolada-jabkowa",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "piwo-viva-pale-ale",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "piwo-viva-weissbier",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "orzechy-w-karmelu",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "gruszki-w-winie",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-z-pestek-winogron-tocznia-ksiazeca",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-spadziowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-rzepakowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "mini-bezy",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    },
+    {
+      "handle": "miod-lipowy-400-ml",
+      "powody": [
+        "custom.polecamy_do — POMINIĘTE (poza zakresem: sekcja \"Polecamy do\" tylko na winie; 3 wartości w pliku zignorowane)",
+        "custom.karta_produktu — puste w pliku (plik), brak zmiany"
+      ]
+    }
+  ],
+  "bledy": [
+    {
+      "typ": "produkt-metafields",
+      "handle": "cydr-pomarium-750ml-powytrawny",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "cydr-pomarium-750ml-wytrawny",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "cydr-pomarium-330ml-powytrawny",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "cydr-pomarium-330ml-wytrawny",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-mix",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "miod-wielokwiatowy-400-ml",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "sok-jabkowy-sad-ksiazecy-330-ml",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "sok-jabkowy-sad-ksiazecy-3-l",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "sok-jabkowy-sad-ksiazecy-5-l",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "olej-zioowy-tocznia-ksiazeca-zioa-prowansalskie",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "polini-aperitivo",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "polini-spritz",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "herbata-jabkowa",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "herbata-swiateczna",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "chipsy-jabkowe",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "syrop-lawendowy",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "syrop-z-kwiatow-bzu",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "syrop-rozany",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "konfitura-rozana",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "wodka-walicki",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "konfitura-z-pigwy",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "chutney-jabkowy",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "konfitura-jabkowo-rozana",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "konfitura-malinowa",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "konfitura-morelowa",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "konfitura-wisniowa",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "marmolada-jabkowa",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "piwo-viva-pale-ale",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "piwo-viva-weissbier",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "orzechy-w-karmelu",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "gruszki-w-winie",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "olej-z-pestek-winogron-tocznia-ksiazeca",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "miod-spadziowy-400-ml",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "miod-rzepakowy-400-ml",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-boskoop",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "sok-jabkowy-sad-ksiazecy-750-ml-antonowka",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints.",
+        "metafields,6 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "olej-zioowy-tocznia-ksiazeca-szczypiorkowy",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "olej-zioowy-tocznia-ksiazeca-warzywa-wedzone",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "mini-bezy",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    },
+    {
+      "typ": "produkt-metafields",
+      "handle": "miod-lipowy-400-ml",
+      "errors": [
+        "metafields,3 Owner subtype does not match the metafield definition's constraints."
+      ]
+    }
+  ]
+}
