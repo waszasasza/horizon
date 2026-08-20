@@ -10,7 +10,7 @@
 {
   "sections": {
     "mmw_hero": {
-      "type": "mmw-hero",
+      "type": "mmw-page-hero",
       "blocks": {
         "btn_sklep": {
           "type": "button",
@@ -34,12 +34,15 @@
         "btn_bestsellery"
       ],
       "settings": {
-        "background_image": "shopify://shop_images/MMW_pejzaz.png",
+        "background_type": "image",
+        "image": "shopify://shop_images/MMW_pejzaz.png",
         "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
         "heading": "Natura. Tradycja. Mała Wieś.",
         "heading_size": 80,
-        "height": 820
+        "heading_line_height": 1.1,
+        "height": 820,
+        "padding_block": 60
       }
     },
     "mmw_product_carousel_7jphBY": {

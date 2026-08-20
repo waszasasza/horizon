@@ -10,14 +10,18 @@
 {
   "sections": {
     "hero": {
-      "type": "mmw-history-hero",
+      "type": "mmw-page-hero",
       "settings": {
+        "background_type": "image",
         "heading": "Marka z własną filozofią",
         "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
         "image": "shopify://shop_images/Filozofia_2.webp",
         "logo": "shopify://shop_images/MMW_logo.svg",
         "height": 720,
-        "overlay_opacity": 30
+        "overlay_opacity": 30,
+        "heading_size": 80,
+        "heading_line_height": 0.97,
+        "padding_block": 80
       }
     },
     "timeline": {

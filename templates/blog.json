@@ -10,14 +10,18 @@
 {
   "sections": {
     "hero": {
-      "type": "mmw-blog-hero",
+      "type": "mmw-page-hero",
       "settings": {
+        "background_type": "image",
         "heading": "Blog",
         "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
         "image": "shopify://shop_images/Blog.webp",
         "logo": "shopify://shop_images/MMW_logo.svg",
         "height": 720,
-        "overlay_opacity": 30
+        "overlay_opacity": 30,
+        "heading_size": 80,
+        "heading_line_height": 0.97,
+        "padding_block": 80
       }
     },
     "mmw_blog_tags_q79pnh": {
