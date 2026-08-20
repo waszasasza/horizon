@@ -116,7 +116,7 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "h3",
+                    "type_preset": "h2",
                     "font": "var(--font-body--family)",
                     "font_size": "1rem",
                     "line_height": "normal",
@@ -140,7 +140,7 @@
                     "show_sale_price_first": true,
                     "show_installments": true,
                     "show_tax_info": true,
-                    "type_preset": "paragraph",
+                    "type_preset": "h3",
                     "width": "100%",
                     "alignment": "left",
                     "font": "var(--font-body--family)",
@@ -224,6 +224,7 @@
                 },
                 "accelerated-checkout": {
                   "type": "accelerated-checkout",
+                  "disabled": true,
                   "static": true,
                   "settings": {},
                   "blocks": {}
@@ -250,22 +251,43 @@
               "blocks": {
                 "assurance-1": {
                   "type": "_mmw-assurance",
-                  "settings": { "icon": "truck", "text": "Dostawa 24h" }
+                  "settings": {
+                    "icon": "truck",
+                    "text": "Dostawa 24h"
+                  },
+                  "blocks": {}
                 },
                 "assurance-2": {
                   "type": "_mmw-assurance",
-                  "settings": { "icon": "box", "text": "Pakowanie na prezent" }
+                  "settings": {
+                    "icon": "box",
+                    "text": "Pakowanie na prezent"
+                  },
+                  "blocks": {}
                 },
                 "assurance-3": {
                   "type": "_mmw-assurance",
-                  "settings": { "icon": "price_tag", "text": "Darmowa dostawa od 100 zł" }
+                  "settings": {
+                    "icon": "price_tag",
+                    "text": "Darmowa dostawa od 100 zł"
+                  },
+                  "blocks": {}
                 },
                 "assurance-4": {
                   "type": "_mmw-assurance",
-                  "settings": { "icon": "lightning_bolt", "text": "Szybkie płatności i BLIK" }
+                  "settings": {
+                    "icon": "lightning_bolt",
+                    "text": "Szybkie płatności i BLIK"
+                  },
+                  "blocks": {}
                 }
               },
-              "block_order": ["assurance-1", "assurance-2", "assurance-3", "assurance-4"]
+              "block_order": [
+                "assurance-1",
+                "assurance-2",
+                "assurance-3",
+                "assurance-4"
+              ]
             },
             "text_aEtTtq": {
               "type": "text",
@@ -427,8 +449,8 @@
       "blocks": {
         "story-stack": {
           "type": "mmw-story-stack",
-          "static": true,
           "name": "MMW Stos historii",
+          "static": true,
           "settings": {
             "heading": "Jak powstaje?",
             "card_duration": 15,
@@ -439,16 +461,16 @@
         },
         "sensory-scales": {
           "type": "mmw-sensory-scales",
-          "static": true,
           "name": "MMW Skale sensoryczne",
+          "static": true,
           "settings": {
+            "pdf_button_label": "Pobierz PDF",
             "padding-block-start": 0,
             "padding-block-end": 0
           },
           "blocks": {}
         }
       },
-      "block_order": [],
       "settings": {
         "color_scheme": "",
         "gap": 64
@@ -457,7 +479,16 @@
     "mmw_product_video_hero_1": {
       "type": "mmw-product-video-hero",
       "name": "MMW Wideo — Skąd to pochodzi",
-      "settings": {}
+      "settings": {
+        "video_source": "uploaded",
+        "video_url": "",
+        "eyebrow": "",
+        "heading": "Skąd to pochodzi?",
+        "description": "Poznaj historię i pochodzenie tego produktu — od pierwszego pomysłu aż po dzisiejszą recepturę.",
+        "overlay_opacity": 30,
+        "section_height": "full-screen",
+        "color_scheme": ""
+      }
     },
     "mmw_product_pairing_1": {
       "type": "mmw-product-pairing",
@@ -486,7 +517,15 @@
     "mmw_palac_split_1": {
       "type": "mmw-palac-split",
       "name": "MMW Pałac — split",
-      "settings": {}
+      "settings": {
+        "label": "PAŁAC MAŁA WIEŚ",
+        "heading": "Zarezerwuj wizytę w Pałacu",
+        "description": "„Czy w malowniczej scenerii południowego Mazowsza można stworzyć magiczną przestrzeń, która emanuje luksusem, dobrym smakiem i wyrafinowaniem? Jak najbardziej! Jesteśmy tego doskonałym przykładem. Naszą bazą jest dawny majątek ziemski o fascynującej historii. Przez dekady Pałac Mała Wieś zachwycał przepychem, gustem i finezją. Nie dziwi, że ulegliśmy temu czarowi, który dziś jest w Twoim zasięgu.",
+        "offer_line": "HOTEL | RESTAURACJA | SPA | WESELA",
+        "button_label": "Zarezerwuj teraz",
+        "button_link": "",
+        "color_scheme": ""
+      }
     },
     "mmw_product_seo_faq_1": {
       "type": "mmw-product-seo-faq",
