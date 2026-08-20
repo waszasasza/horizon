@@ -20,11 +20,17 @@
   font motywu), kolory nadpisane przez --button-background-color/--button-color
   w scope .mmw-sensory-scales .button (wyższa specyficzność niż baza, żeby
   przebić natywny :hover).
+
+  Napis nad przyciskiem (Figma: plik xcPKtMDRiMGgk7b9PikCyv, node 1357:3688) —
+  ustawienie pdf_caption, renderuje się TYLKO w środku bloku z przyciskiem
+  (czyli tylko gdy karta_produktu wypełniona), i tylko gdy samo ustawienie
+  niepuste — pusty napis nie zostawia pustego odstępu nad przyciskiem.
 {%- enddoc -%}
 {%- liquid
   assign levels = product.metafields.custom.skale.value
   assign pdf_file = product.metafields.custom.karta_produktu.value
   assign pdf_label = block.settings.pdf_button_label | default: 'Pobierz PDF'
+  assign pdf_caption = block.settings.pdf_caption
 -%}
 {%- if levels != blank and levels.size > 0 -%}
   <div class="mmw-sensory-scales spacing-style" style="{% render 'spacing-style', settings: block.settings %}" {{ block.shopify_attributes }}>
@@ -93,6 +99,9 @@
     {%- endfor -%}
     {%- if pdf_file != blank -%}
       <div class="mmw-sensory-scales__pdf-wrap">
+        {%- if pdf_caption != blank -%}
+          <p class="mmw-sensory-scales__pdf-caption">{{ pdf_caption }}</p>
+        {%- endif -%}
         <a
           class="button mmw-sensory-scales__pdf"
           href="{{ pdf_file.url }}"
@@ -182,9 +191,22 @@
 
   .mmw-sensory-scales__pdf-wrap {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
     width: 100%;
     align-self: center;
+  }
+
+  .mmw-sensory-scales__pdf-caption {
+    margin: 0;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.95px;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--mmw-01);
   }
 
   /* Reużywamy natywnej klasy .button (pigułka, wersaliki, tracking, font motywu) —
@@ -213,6 +235,13 @@
       "label": "Etykieta przycisku pobrania PDF",
       "default": "Pobierz PDF",
       "info": "Widoczny tylko gdy uzupełnione metapole product.metafields.custom.karta_produktu"
+    },
+    {
+      "type": "text",
+      "id": "pdf_caption",
+      "label": "Napis nad przyciskiem PDF",
+      "default": "Pobierz specyfikację w formie PDF",
+      "info": "Widoczny tylko razem z przyciskiem (uzupełnione custom.karta_produktu) i tylko gdy to pole niepuste."
     },
     { "type": "header", "content": "t:content.padding" },
     { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
