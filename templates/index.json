@@ -9,10 +9,10 @@
  */
 {
   "sections": {
-    "mmw_hero": {
+    "mmw_page_hero_UUYkxQ": {
       "type": "mmw-page-hero",
       "blocks": {
-        "btn_sklep": {
+        "button_6KLDBN": {
           "type": "button",
           "settings": {
             "label": "SKLEP",
@@ -20,29 +20,33 @@
             "style": "dark"
           }
         },
-        "btn_bestsellery": {
+        "button_Y9zkMP": {
           "type": "button",
           "settings": {
-            "label": "BESTSELLERY",
-            "link": "",
-            "style": "light"
+            "label": "ZAMÓW NASZE WINA",
+            "link": "shopify://collections/winnica-palac-mala-wies",
+            "style": "accent"
           }
         }
       },
       "block_order": [
-        "btn_sklep",
-        "btn_bestsellery"
+        "button_6KLDBN",
+        "button_Y9zkMP"
       ],
+      "name": "MMW Hero strony",
       "settings": {
-        "background_type": "image",
+        "background_type": "video",
         "image": "shopify://shop_images/MMW_pejzaz.png",
+        "video": "shopify://files/videos/Piękno kolorów, śpiew ptaków i chwila tylko dla siebie… 🌹✨ Czas zwalnia, a natura otula spokoje.mp4",
+        "video_mobile_image_fallback": false,
         "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
-        "heading": "Natura. Tradycja. Mała Wieś.",
+        "heading": "Natura, tradycja, wino & ludzie. Mała Wieś.",
         "heading_size": 80,
         "heading_line_height": 1.1,
+        "subtitle": "",
         "height": 820,
-        "padding_block": 60
+        "padding_block": 80
       }
     },
     "mmw_product_carousel_7jphBY": {
@@ -468,6 +472,32 @@
     "marquee_DVPjxW": {
       "type": "marquee",
       "blocks": {
+        "text_UAmTjQ": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Napisali o nas:</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h4",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground-heading)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "icon_p7NpYr": {
           "type": "icon",
           "name": "t:names.icon",
@@ -506,6 +536,7 @@
         }
       },
       "block_order": [
+        "text_UAmTjQ",
         "icon_p7NpYr",
         "icon_K9eCj3",
         "icon_hRqVrp"
@@ -748,7 +779,7 @@
       "name": "t:names.blog_posts_grid",
       "settings": {
         "blog": "news",
-        "layout_type": "grid",
+        "layout_type": "carousel",
         "carousel_on_mobile": false,
         "post_limit": 3,
         "columns": 3,
@@ -767,7 +798,7 @@
     }
   },
   "order": [
-    "mmw_hero",
+    "mmw_page_hero_UUYkxQ",
     "mmw_product_carousel_7jphBY",
     "section_T3edAU",
     "mmw_photo_stack_UcUchR",
