@@ -3,6 +3,18 @@
   opcjonalna dekoracja obok liczby). Reużywalna na głównej i podstronach "o nas".
 
   Figma: plik STRONA-WWW, node 982:7897.
+
+  Animacja odliczania (assets/mmw-stats.js, <mmw-stats-counter>): wartość
+  bloku "number" to TEKST, nie liczba ("200K+", "5000+") — JS parsuje
+  wyłącznie wiodący ciąg cyfr (^\d+) z tekstu już wyrenderowanego przez
+  Liquid (bez osobnego atrybutu data-*, jedno źródło prawdy), animuje
+  tylko tę część, sufiks dokleja z powrotem statycznie. Wartości bez
+  wiodącej cyfry nie są animowane w ogóle. Wyzwalane wejściem CAŁEGO
+  rzędu (.mmw-stats__row = <mmw-stats-counter>) w viewport, nie
+  pojedynczych liczb — stąd jeden custom element na cały rząd, nie po
+  jednym na item. aria-label na .mmw-stats__number = wartość końcowa
+  (czytnik czyta ją od razu, niezależnie od stanu animacji); wewnętrzny
+  <span> z animowaną treścią ma aria-hidden.
 {%- endcomment -%}
 
 <section class="mmw-stats">
@@ -12,7 +24,7 @@
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="mmw-stats__row">
+      <mmw-stats-counter class="mmw-stats__row">
         {%- for block in section.blocks -%}
           {%- liquid
             assign decoration_asset = blank
@@ -26,7 +38,9 @@
           <div class="mmw-stats__item" {{ block.shopify_attributes }}>
             <div class="mmw-stats__number-row">
               {%- if block.settings.number != blank -%}
-                <p class="mmw-stats__number">{{ block.settings.number }}</p>
+                <p class="mmw-stats__number" aria-label="{{ block.settings.number | escape }}">
+                  <span class="mmw-stats__number-value" aria-hidden="true" ref="numbers[]">{{ block.settings.number }}</span>
+                </p>
               {%- endif -%}
               {%- if decoration_asset != blank -%}
                 <span class="mmw-stats__decoration mmw-stats__decoration--{{ block.settings.decoration }}" aria-hidden="true">
@@ -39,7 +53,8 @@
             {%- endif -%}
           </div>
         {%- endfor -%}
-      </div>
+      </mmw-stats-counter>
+      <script src="{{ 'mmw-stats.js' | asset_url }}" type="module"></script>
     {%- endif -%}
   </div>
 </section>
@@ -98,6 +113,7 @@
     line-height: 1.1;
     color: var(--mmw-01);
     white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 
   .mmw-stats__decoration {
