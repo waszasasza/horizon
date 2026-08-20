@@ -419,6 +419,7 @@
         "wpis_1": {
           "type": "wpis",
           "settings": {
+            "image": "shopify://shop_images/winebar.webp",
             "label": "",
             "heading": "Niezapomniane popołudnie",
             "content": "<p>Świetna atmosfera, pyszne wino i mnóstwo śmiechu — wrócimy na pewno!</p>",
@@ -428,6 +429,7 @@
         "wpis_2": {
           "type": "wpis",
           "settings": {
+            "image": "shopify://shop_images/ania_karbowiak.webp",
             "label": "",
             "heading": "Prawdziwa uczta dla zmysłów",
             "content": "<p>Degustacja prowadzona z pasją, a widoki z tarasu zapierają dech w piersiach.</p>",
@@ -437,6 +439,7 @@
         "wpis_3": {
           "type": "wpis",
           "settings": {
+            "image": "shopify://shop_images/Maa_wies_42.jpg",
             "label": "",
             "heading": "Idealne miejsce na wyjątkową okazję",
             "content": "<p>Organizowaliśmy tu rocznicę i było perfekcyjnie od pierwszej do ostatniej minuty.</p>",
@@ -600,7 +603,7 @@
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h3",
+            "type_preset": "paragraph",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "tight",
@@ -633,6 +636,15 @@
         "padding-block-end": 24,
         "gap_between_elements": 60
       }
+    },
+    "mmw_product_seo_faq_HqhJiM": {
+      "type": "mmw-product-seo-faq",
+      "name": "MMW SEO + FAQ",
+      "settings": {
+        "seo_heading": "O tym wydarzeniu",
+        "faq_heading": "Najczęstsze pytania",
+        "color_scheme": ""
+      }
     }
   },
   "order": [
@@ -643,6 +655,7 @@
     "mmw_photo_stack_1",
     "section_pMeEJ9",
     "mmw_stats_xxfdbX",
-    "marquee_4teYkU"
+    "marquee_4teYkU",
+    "mmw_product_seo_faq_HqhJiM"
   ]
 }

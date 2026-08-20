@@ -422,6 +422,13 @@ suwak w edytorze nie trafi na nią dokładnie przy ręcznej regulacji.
 dwie wartości odziedziczone po scalanych sekcjach (1.1 / 0.97). Do
 ujednolicenia po weryfikacji z Figmą.
 
+## mmw-stats
+
+Animacja odliczania (`assets/mmw-stats.js`) renderuje liczby bez separatora
+tysięcy, tak samo jak Liquid dziś ("5000+", nie "5 000+") — gdyby kiedyś
+doszło polskie formatowanie tysięcy, trzeba je dodać JEDNOCZEŚNIE w Liquidzie
+i w JS, inaczej liczba „skoczy" szerokością na starcie i końcu animacji.
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.
