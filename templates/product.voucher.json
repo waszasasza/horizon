@@ -1,0 +1,488 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product-information",
+      "blocks": {
+        "media-gallery": {
+          "type": "_product-media-gallery",
+          "static": true,
+          "settings": {
+            "media_presentation": "grid",
+            "media_columns": "one",
+            "image_gap": 4,
+            "large_first_image": false,
+            "icons_style": "arrow",
+            "slideshow_controls_style": "counter",
+            "slideshow_mobile_controls_style": "dots",
+            "thumbnail_position": "right",
+            "thumbnail_width": 44,
+            "thumbnail_radius": 0,
+            "aspect_ratio": "adapt",
+            "constrain_to_viewport": true,
+            "media_fit": "contain",
+            "media_radius": 0,
+            "extend_media": false,
+            "zoom": true,
+            "video_loop": false,
+            "hide_variants": true,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "product-details": {
+          "type": "_product-details",
+          "static": true,
+          "settings": {
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "details_position": "flex-start",
+            "gap": 28,
+            "sticky_details_desktop": true,
+            "inherit_color_scheme": true,
+            "color_scheme": "scheme-1",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 24,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "group_icgrde": {
+              "type": "group",
+              "name": "Header",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 12,
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "text_xpVMaM": {
+                  "type": "text",
+                  "name": "t:names.title",
+                  "settings": {
+                    "text": "<h1>{{ closest.product.title }}</h1>",
+                    "width": "fit-content",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "h2",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "price_tVjtKg": {
+                  "type": "price",
+                  "settings": {
+                    "show_sale_price_first": true,
+                    "show_installments": true,
+                    "show_tax_info": true,
+                    "type_preset": "h3",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
+                    "padding-block-start": 4,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_xpVMaM",
+                "price_tVjtKg"
+              ]
+            },
+            "text_ecicqy": {
+              "type": "text",
+              "name": "Product description",
+              "settings": {
+                "text": "<p>{{ closest.product.description }}</p>",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-primary--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "divider_VJhene": {
+              "type": "_divider",
+              "name": "t:names.divider",
+              "settings": {
+                "thickness": 1,
+                "corner_radius": "square",
+                "width_percent": 100,
+                "padding-block-start": 0,
+                "padding-block-end": 0
+              },
+              "blocks": {}
+            },
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
+              "settings": {
+                "variant_style": "buttons",
+                "show_swatches": false,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "buy_buttons_eYQEYi": {
+              "type": "buy-buttons",
+              "settings": {
+                "stacking": true,
+                "show_pickup_availability": false,
+                "gift_card_form": true,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
+                "add-to-cart": {
+                  "type": "add-to-cart",
+                  "static": true,
+                  "settings": {
+                    "style_class": "button"
+                  },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "disabled": true,
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                }
+              },
+              "block_order": []
+            }
+          },
+          "block_order": [
+            "group_icgrde",
+            "text_ecicqy",
+            "divider_VJhene",
+            "variant_picker_R3rGDr",
+            "buy_buttons_eYQEYi"
+          ]
+        }
+      },
+      "settings": {
+        "content_width": "content-center-aligned",
+        "desktop_media_position": "left",
+        "equal_columns": true,
+        "limit_details_width": false,
+        "gap": 48,
+        "enable_sticky_add_to_cart": true,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "mmw_event_timeline_7xeBTf": {
+      "type": "mmw-event-timeline",
+      "name": "MMW – Timeline wydarzenia",
+      "settings": {
+        "heading": "Timeline doświadczenia",
+        "subheading": ""
+      }
+    },
+    "mmw_event_carousel_cRj9EG": {
+      "type": "mmw-event-carousel",
+      "name": "MMW Karuzela wydarzeń",
+      "settings": {
+        "heading": "Inne wydarzenia",
+        "description": "",
+        "collection": "vouchery",
+        "max_products": 8,
+        "hide_current_product": true,
+        "hide_past_events": true,
+        "show_capacity": true,
+        "card_label": "Voucher",
+        "cta_text": "Zobacz więcej wydarzeń",
+        "cta_link": "",
+        "cta_color_variant": "coral",
+        "columns": 3,
+        "columns_gap": 24
+      }
+    },
+    "mmw_heritage_note_w8Qqnf": {
+      "type": "mmw-heritage-note",
+      "name": "MMW Szacunek",
+      "settings": {}
+    },
+    "mmw_photo_stack_m7Mmbe": {
+      "type": "mmw-photo-stack",
+      "blocks": {
+        "wpis_d8zMkw": {
+          "type": "wpis",
+          "settings": {
+            "image": "shopify://shop_images/winebar.webp",
+            "label": "",
+            "heading": "Niezapomniane popołudnie",
+            "content": "<p>Świetna atmosfera, pyszne wino i mnóstwo śmiechu — wrócimy na pewno!</p>",
+            "heading_link": ""
+          }
+        },
+        "wpis_Ew4Kgw": {
+          "type": "wpis",
+          "settings": {
+            "image": "shopify://shop_images/286_png.webp",
+            "label": "",
+            "heading": "Prawdziwa uczta dla zmysłów",
+            "content": "<p>Degustacja prowadzona z pasją, a widoki z tarasu zapierają dech w piersiach.</p>",
+            "heading_link": ""
+          }
+        },
+        "wpis_QYdJTg": {
+          "type": "wpis",
+          "settings": {
+            "image": "shopify://shop_images/287.png",
+            "label": "",
+            "heading": "Idealne miejsce na wyjątkową okazję",
+            "content": "<p>Organizowaliśmy tu rocznicę i było perfekcyjnie od pierwszej do ostatniej minuty.</p>",
+            "heading_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "wpis_d8zMkw",
+        "wpis_Ew4Kgw",
+        "wpis_QYdJTg"
+      ],
+      "name": "MMW Stos zdjęć",
+      "settings": {
+        "label": "Nasi goście o wydarzeniu",
+        "stack_side": "left",
+        "show_arrow": true,
+        "color_scheme": ""
+      }
+    },
+    "mmw_stats_C7deh9": {
+      "type": "mmw-stats",
+      "blocks": {
+        "stat_grpDCL": {
+          "type": "stat",
+          "settings": {
+            "number": "18",
+            "decoration": "shape-1",
+            "description": "Tyle nagród dostały nasze produkty na przestrzeni ostatnich 5 lat!"
+          }
+        },
+        "stat_9rtfWV": {
+          "type": "stat",
+          "settings": {
+            "number": "200K+",
+            "decoration": "none",
+            "description": "Zrealizowanych zamówień dla Was. Czekamy na następne tyle!"
+          }
+        },
+        "stat_4deefy": {
+          "type": "stat",
+          "settings": {
+            "number": "5000+",
+            "decoration": "shape-2",
+            "description": "5000 zrealizowanych eventów! To czyni nas doświadczonymi."
+          }
+        },
+        "stat_cxETC6": {
+          "type": "stat",
+          "settings": {
+            "number": "78",
+            "decoration": "none",
+            "description": "Tyle liczy nasz zespół, który na co dzień opiekuje się naszymi gośćmi!"
+          }
+        }
+      },
+      "block_order": [
+        "stat_grpDCL",
+        "stat_9rtfWV",
+        "stat_4deefy",
+        "stat_cxETC6"
+      ],
+      "name": "MMW Statystyki",
+      "settings": {
+        "heading": "Chcesz poznać nas lepiej? Oto Majątek w liczbach!"
+      }
+    },
+    "marquee_aCijzF": {
+      "type": "marquee",
+      "blocks": {
+        "text_PVR8q8": {
+          "type": "text",
+          "name": "t:names.heading",
+          "settings": {
+            "text": "<h4>Napisali o nas:</h4>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h3",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "icon_nJVbxz": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/wirtualne_media_ae5564ca-92ac-416c-96ee-e50667794f95.svg",
+            "width": 144,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_damM7C": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/rzeczpospolita_e90fc69f-3a1a-4883-bc79-082fcfda942d.svg",
+            "width": 150,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_PVR8q8",
+        "icon_nJVbxz",
+        "icon_damM7C"
+      ],
+      "name": "t:names.marquee_section",
+      "settings": {
+        "movement_direction": "normal",
+        "color_scheme": "scheme-3",
+        "padding-block-start": 24,
+        "padding-block-end": 24,
+        "gap_between_elements": 60
+      }
+    },
+    "mmw_product_seo_faq_xaYewK": {
+      "type": "mmw-product-seo-faq",
+      "name": "MMW SEO + FAQ",
+      "settings": {
+        "seo_heading": "O tym wydarzeniu",
+        "faq_heading": "Najczęstsze pytania",
+        "color_scheme": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "mmw_event_timeline_7xeBTf",
+    "mmw_event_carousel_cRj9EG",
+    "mmw_heritage_note_w8Qqnf",
+    "mmw_photo_stack_m7Mmbe",
+    "mmw_stats_C7deh9",
+    "marquee_aCijzF",
+    "mmw_product_seo_faq_xaYewK"
+  ]
+}
