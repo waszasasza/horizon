@@ -168,7 +168,7 @@
           {%- if url != blank and is_last == false -%}
             <a class="mmw-breadcrumbs__link" href="{{ url }}">{{ title }}</a>
           {%- else -%}
-            <span class="mmw-breadcrumbs__current"{% if is_last %} aria-current="page"{% endif %}>{{ title }}</span>
+            <span class="mmw-breadcrumbs__current"{% if is_last %} aria-current="page" title="{{ title | escape }}"{% endif %}>{{ title }}</span>
           {%- endif -%}
           {%- unless is_last -%}
             <span class="mmw-breadcrumbs__separator" aria-hidden="true">/</span>
@@ -217,6 +217,22 @@
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Wyjątek od --page-margin na mobile — 24px zajmuje za dużo miejsca
+     w wąskim, przewijalnym pasku breadcrumbs; 16px to świadome odejście
+     od tokenu strony, nie pomyłka (reszta strony nadal używa 24px/60px
+     bez zmian). Zawijanie na 2 linie ZAMIAST przewijania poziomego —
+     zmiana względem pierwotnej specyfikacji ("jedna linia z
+     przewijaniem"), świadomie odwrócona na mobile. Desktop nietknięty:
+     nadal jedna linia, bez zawijania. */
+  @media (max-width: 749px) {
+    .mmw-breadcrumbs__list {
+      padding-inline: 16px;
+      flex-wrap: wrap;
+      overflow-x: visible;
+      white-space: normal;
+    }
+  }
+
   .mmw-breadcrumbs__item {
     display: flex;
     align-items: center;
@@ -241,6 +257,18 @@
   .mmw-breadcrumbs__current[aria-current='page'] {
     font-weight: 700;
     color: var(--mmw-01);
+    /* Skracanie WYŁĄCZNIE ostatniego ogniwa — 320px to sensowna górna
+       granica na desktopie (przy naszej etykiecie 12px daje ok. 40-45
+       znaków, czyli widoczny sensowny fragment nawet najdłuższych
+       tytułów produktów, bez pozwalania jednemu tytułowi zdominować cały
+       pasek). Na wąskich ekranach 320px byłoby za szerokie względem
+       samego viewportu (zjadłoby niemal całą szerokość 375px), więc
+       50vw skaluje się w dół proporcjonalnie; dolny próg 140px chroni
+       przed urwaniem tytułu do 2-3 znaków na bardzo wąskich telefonach. */
+    max-width: clamp(140px, 50vw, 320px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .mmw-breadcrumbs__separator {
