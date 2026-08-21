@@ -2284,5 +2284,23 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "MMW — Breadcrumbs",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "mmw_breadcrumbs_vendor_map",
+        "label": "Mapowanie marka → kolekcja (ręczne)",
+        "info": "Jedna para na linię, format: Nazwa marki=handle-kolekcji. Ma pierwszeństwo przed automatycznym dopasowaniem po nazwie marki."
+      },
+      {
+        "type": "text",
+        "id": "mmw_breadcrumbs_skip_vendors",
+        "label": "Marki pomijane w ścieżce nawigacji",
+        "info": "Lista po przecinku, dokładne dopasowanie do nazwy marki produktu. Dla tych marek ogniwo marki nie renderuje się w ogóle.",
+        "default": "majatekmalawies, marki partnerskie"
+      }
+    ]
   }
 ]

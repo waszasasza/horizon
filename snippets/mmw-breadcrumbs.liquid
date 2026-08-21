@@ -1,0 +1,251 @@
+{%- doc -%}
+  mmw-breadcrumbs — stała hierarchia katalogu (nie ścieżka użytkownika): ten sam
+  produkt/kolekcja/artykuł ma zawsze tę samą ścieżkę, niezależnie skąd klient
+  przyszedł. Dlatego NIE czyta collection z URL-a (/collections/x/products/y) —
+  wyłącznie z request.page_type + product.vendor.
+
+  Ścieżki:
+    produkt:  Strona główna → Sklep → [vendor] → [tytuł produktu]
+    kolekcja: Strona główna → Sklep → [tytuł kolekcji]
+    artykuł:  Strona główna → Blog → [tytuł artykułu]
+    blog:     Strona główna → Blog
+    strona:   Strona główna → [tytuł strony]
+  Nie renderuje się na stronie głównej ani na typach stron spoza tej listy
+  (search/cart/404/list-collections/konto klienta...) — świadomie pominięte,
+  specyfikacja ich nie obejmowała.
+
+  Ogniwo marki (tylko produkt), kolejność ustalania linku:
+    1. ręczna mapa z ustawienia globalnego (settings.mmw_breadcrumbs_vendor_map,
+       "vendor=handle" jedna para na linię) — pierwszeństwo przed automatem
+    2. product.vendor | handleize (transliteruje polskie znaki poprawnie —
+       zweryfikowane na żywo, nie założone) + collections[handle] != blank
+    3. brak dopasowania → ogniwo samego tekstu, bez linku (NIE
+       /collections/vendors?q=...)
+  Vendory z settings.mmw_breadcrumbs_skip_vendors (dokładne dopasowanie do
+  product.vendor) pomijają ogniwo marki całkowicie — ścieżka skraca się do
+  Strona główna → Sklep → [tytuł produktu]. Pusty product.vendor traktowany
+  tak samo (nie ma czego wyświetlić).
+
+  UWAGA — collections['handle'] dla nieistniejącego handle: porównuje się
+  jako == blank (bezpieczne), ALE jest "prawdziwe" w zwykłym {% if %} bez
+  porównania — zweryfikowane bezpośrednio na theme dev, nie założone.
+  Dlatego wszędzie niżej: `!= blank` / `== blank`, nigdy goły {% if
+  collection %}.
+
+  Tytuły/URL-e budowane jako dwie równoległe tablice (crumb_titles,
+  crumb_urls, ten sam indeks = ta sama pozycja) — jedno źródło prawdy
+  renderowane DWA RAZY (widoczna <ol> i JSON-LD), żeby nie dało się ich
+  przypadkiem rozjechać. Puste crumb_urls[i] = brak linku na tej pozycji
+  (ostatnie ogniwo zawsze, ewentualnie marka bez dopasowania).
+
+  CSS przez {% style %} (inline, per-instancja), NIE {% stylesheet %} —
+  snippet renderuje własne klasy w tym samym wywołaniu co swój styl, więc
+  nie ma tu ryzyka z per-page subsettingiem opisanego w CLAUDE.md (ten
+  problem dotyczy sytuacji, gdy INNY plik reużywa klas z niewyrenderowanego
+  snippetu — tu takiej sytuacji nie ma, cały komponent jest samodzielny).
+
+  Wymaga globalnych ustawień motywu (config/settings_schema.json, grupa
+  "MMW — Breadcrumbs"): mmw_breadcrumbs_vendor_map, mmw_breadcrumbs_skip_vendors.
+
+  @example
+  {% render 'mmw-breadcrumbs' %}
+{%- enddoc -%}
+{%- liquid
+  assign crumb_titles = '' | split: ','
+  assign crumb_urls = '' | split: ','
+
+  assign crumb_t = 'Strona główna' | split: '|mmw|'
+  assign crumb_titles = crumb_titles | concat: crumb_t
+  assign crumb_u = routes.root_url | split: '|mmw|'
+  assign crumb_urls = crumb_urls | concat: crumb_u
+
+  case request.page_type
+    when 'product'
+      assign crumb_t = 'Sklep' | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = routes.all_products_collection_url | split: '|mmw|'
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+      assign vendor = product.vendor | strip
+      assign vendor_skipped = false
+      assign skip_list = settings.mmw_breadcrumbs_skip_vendors | default: '' | split: ','
+      for v in skip_list
+        assign v_trim = v | strip
+        if v_trim == vendor
+          assign vendor_skipped = true
+        endif
+      endfor
+
+      if vendor != blank and vendor_skipped == false
+        assign vendor_url = blank
+
+        assign map_lines = settings.mmw_breadcrumbs_vendor_map | default: '' | newline_to_br | split: '<br />'
+        for line in map_lines
+          assign line_trim = line | strip
+          if line_trim != blank
+            assign parts = line_trim | split: '='
+            if parts.size >= 2
+              assign map_vendor = parts[0] | strip
+              if map_vendor == vendor and vendor_url == blank
+                assign map_handle = parts[1] | strip
+                assign manual_collection = collections[map_handle]
+                if manual_collection != blank
+                  assign vendor_url = manual_collection.url
+                endif
+              endif
+            endif
+          endif
+        endfor
+
+        if vendor_url == blank
+          assign auto_handle = vendor | handleize
+          assign auto_collection = collections[auto_handle]
+          if auto_collection != blank
+            assign vendor_url = auto_collection.url
+          endif
+        endif
+
+        assign crumb_t = vendor | split: '|mmw|'
+        assign crumb_titles = crumb_titles | concat: crumb_t
+        assign crumb_u = vendor_url | default: '' | split: '|mmw|'
+        assign crumb_urls = crumb_urls | concat: crumb_u
+      endif
+
+      assign crumb_t = product.title | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = '' | split: ','
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+    when 'collection'
+      assign crumb_t = 'Sklep' | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = routes.all_products_collection_url | split: '|mmw|'
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+      assign crumb_t = collection.title | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = '' | split: ','
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+    when 'article'
+      assign crumb_t = 'Blog' | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = blog.url | split: '|mmw|'
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+      assign crumb_t = article.title | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = '' | split: ','
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+    when 'blog'
+      assign crumb_t = blog.title | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = '' | split: ','
+      assign crumb_urls = crumb_urls | concat: crumb_u
+
+    when 'page'
+      assign crumb_t = page.title | split: '|mmw|'
+      assign crumb_titles = crumb_titles | concat: crumb_t
+      assign crumb_u = '' | split: ','
+      assign crumb_urls = crumb_urls | concat: crumb_u
+  endcase
+
+  assign last_index = crumb_titles.size | minus: 1
+-%}
+{%- if crumb_titles.size > 1 -%}
+  <nav class="mmw-breadcrumbs" aria-label="Ścieżka nawigacji">
+    <ol class="mmw-breadcrumbs__list">
+      {%- for title in crumb_titles -%}
+        {%- liquid
+          assign url = crumb_urls[forloop.index0]
+          assign is_last = false
+          if forloop.index0 == last_index
+            assign is_last = true
+          endif
+        -%}
+        <li class="mmw-breadcrumbs__item">
+          {%- if url != blank and is_last == false -%}
+            <a class="mmw-breadcrumbs__link" href="{{ url }}">{{ title }}</a>
+          {%- else -%}
+            <span class="mmw-breadcrumbs__current"{% if is_last %} aria-current="page"{% endif %}>{{ title }}</span>
+          {%- endif -%}
+          {%- unless is_last -%}
+            <span class="mmw-breadcrumbs__separator" aria-hidden="true">/</span>
+          {%- endunless -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+  </nav>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {%- for title in crumb_titles -%}
+          {%- liquid
+            assign url = crumb_urls[forloop.index0]
+          -%}
+          {
+            "@type": "ListItem",
+            "position": {{ forloop.index }},
+            "name": {{ title | json }}
+            {%- if url != blank -%},
+            "item": {{ shop.url | append: url | json }}
+            {%- endif -%}
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }
+  </script>
+{%- endif -%}
+
+{%- style -%}
+  .mmw-breadcrumbs {
+    margin-bottom: 24px;
+  }
+
+  .mmw-breadcrumbs__list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding-inline: var(--page-margin, 24px);
+    list-style: none;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .mmw-breadcrumbs__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+
+  .mmw-breadcrumbs__link,
+  .mmw-breadcrumbs__current {
+    font-family: var(--mmw-font-label);
+    font-weight: 400;
+    font-size: 12px;
+    letter-spacing: normal;
+    color: color-mix(in srgb, var(--mmw-01) 50%, var(--mmw-04) 50%);
+    text-decoration: none;
+  }
+
+  .mmw-breadcrumbs__link:hover {
+    text-decoration: underline;
+  }
+
+  .mmw-breadcrumbs__current[aria-current='page'] {
+    font-weight: 700;
+    color: var(--mmw-01);
+  }
+
+  .mmw-breadcrumbs__separator {
+    font-size: 12px;
+    color: var(--mmw-01);
+    opacity: 0.5;
+  }
+{%- endstyle -%}

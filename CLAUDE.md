@@ -169,6 +169,16 @@ rozbieżności — a mmw-tokens renderuje się w `<head>` PO base.css, więc
 przy tej samej specyficzności selektora (0,3,0) wygrywa kaskadą bez
 potrzeby edycji pliku natywnego.
 
+`config/settings_schema.json` (globalne ustawienia motywu) — dodana nowa
+grupa „MMW — Breadcrumbs" na końcu pliku (dwa ustawienia: mapowanie
+marka→kolekcja i lista pomijanych marek, patrz `snippets/mmw-breadcrumbs.liquid`).
+Zmiana WYŁĄCZNIE addytywna — żadna istniejąca grupa/ustawienie natywne
+nie zostało tknięte, tylko dopisany nowy obiekt na końcu tablicy najwyższego
+poziomu. Przy aktualizacji Horizona: sprawdzić, czy upstream nie dodał
+własnej grupy na samym końcu pliku w tym samym miejscu (konflikt scalania
+przy dopisywaniu na końcu tablicy) — jeśli tak, przenieść naszą grupę,
+nie nadpisywać jego.
+
 ## mmw-photo-stack vs mmw-story-stack
 
 `sections/mmw-photo-stack.liquid` (stos zdjęć jako przełącznik tekstu, Figma node
