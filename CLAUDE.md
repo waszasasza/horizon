@@ -179,6 +179,159 @@ własnej grupy na samym końcu pliku w tym samym miejscu (konflikt scalania
 przy dopisywaniu na końcu tablicy) — jeśli tak, przenieść naszą grupę,
 nie nadpisywać jego.
 
+Linia Omnibusowa (najniższa cena z 30 dni) na bloku ceny strony produktu —
+`blocks/price.liquid` i `snippets/price.liquid`, patrz `## mmw-omnibus`
+niżej po pełne uzasadnienie:
+
+- `blocks/price.liquid` — jedna dodana linia w istniejącym `render 'price'`
+  (`show_omnibus: true`). Nic więcej w pliku nie tknięte, w tym `.tax-note`
+  (linia z natywnym `content.taxes_included`) zostaje na swoim miejscu,
+  nieprzeniesiona.
+- `snippets/price.liquid` — nowy opcjonalny param `show_omnibus` (domyślnie
+  false, więc karty produktu/quick-add/hotspot/featured-product, które wołają
+  `render 'price'` bez tego parametru, renderują się bez zmian), warunkowe
+  `data-mmw-omnibus` na `[ref="priceContainer"]`, markup linii Omnibusowej,
+  i scopowany `{% style %}` na dole pliku.
+
+## mmw-omnibus
+
+Najniższa cena z 30 dni (Omnibus) w bloku ceny strony produktu — Figma node
+`982-6959`. Zakres tego zadania to WYŁĄCZNIE metapole + render; skąd bierze
+się wartość `custom.omnibus` (ręcznie/Flow/cron) to osobna, jeszcze niepodjęta
+decyzja.
+
+Metapole: `custom.omnibus`, poziom **PRODUKT** (nie wariant — świadoma
+decyzja: żaden produkt w katalogu nie ma dziś wariantów o różnych cenach,
+a Omnibus wypełnia się tylko dla produktów aktualnie na promocji, to nie są
+dane katalogowe), typ `money`, bez ograniczeń kategorii, Storefront API
+access PUBLIC_READ. `.value` zwraca surową liczbę w groszach (jak natywne
+`variant.price`) — wymaga `| money`/`| money_with_currency`, nie jest
+obiektem z `.amount`/`.currency_code` — zweryfikowane bezpośrednio (tymczasowy
+zapis testowy + debug-echo na `theme dev`, oba usunięte zaraz po teście).
+
+Linia renderuje się TYLKO gdy `compare_at_price > price` I metapole
+niepuste — bez fallbacku na `compare_at_price`, żadnego „—" przy pustym
+polu.
+
+**Dlaczego `blocks/price.liquid` (w tym `.tax-note`) zostaje nietknięty, a mimo
+to linia 1 (natywny tekst o podatkach) i linia 2 (Omnibus) renderują się we
+właściwej kolejności:** `assets/product-price.js` przy zmianie wariantu
+podmienia WYŁĄCZNIE `[ref="priceContainer"]` (Section Rendering API) —
+wszystko poza tym `ref`-em zostaje ze starego wariantu. Linia Omnibusowa
+musi więc być potomkiem `priceContainer`, czyli fizycznie w
+`snippets/price.liquid` — ale to plasuje ją w DOM PRZED `.tax-note` (który
+jest sąsiadem `priceContainer`, nie jego potomkiem, renderowanym kawałek
+niżej w `blocks/price.liquid`), a spec chce kolejności odwrotnej. Rozwiązanie
+bez przenoszenia `.tax-note`:
+
+```css
+[data-mmw-omnibus] { display: contents; } /* unwrapuje priceContainer —
+  jego dzieci stają się bezpośrednimi flex-itemami <product-price>, obok
+  .tax-note, mimo że .tax-note fizycznie zostaje w blocks/price.liquid */
+product-price:has([data-mmw-omnibus]) { display: flex; flex-direction: column; }
+product-price:has([data-mmw-omnibus]) .tax-note.tax-note.tax-note { order: 1; }
+.mmw-omnibus-line.mmw-omnibus-line { order: 2; }
+```
+
+`display: contents` na `priceContainer` nie zmienia drzewa DOM (JS-owy
+`replaceWith` na tym elemencie działa identycznie), tylko jego udział w
+layoutcie — więc `order` „widzi" linię Omnibusową jako flex-item
+`<product-price>` na równi z `.tax-note`, mimo że w DOM jest jej wnukiem, nie
+dzieckiem.
+
+**Pułapka nr 1 — kombinator rodzeństwa (`~`) NIE działa przez granicę
+`display: contents`.** `.mmw-omnibus-line:has(~ .tax-note)` nigdy nie trafia:
+selektory (`~`, `+`, `:has()` z nimi) liczą się po prawdziwym drzewie DOM, nie
+po layoutowym — a rodzicem `.tax-note` jest `<product-price>`, rodzicem
+`.mmw-omnibus-line` jest `priceContainer`. Różni rodzice = nie sąsiedzi,
+niezależnie od `display: contents`. Do warunkowego marginesu (10px nad
+„blokiem pod spodem" jako całością, 0px między jego dwiema liniami) trzeba
+kotwiczyć `:has()` na prawdziwym wspólnym przodku: `product-price:has(.tax-note
+:not(:empty))` / `product-price:not(:has(...))`, nie na rodzeństwie.
+Zweryfikowane bezpośrednio (CDP, nie teoria) — pierwsza wersja z `~` po prostu
+nigdy się nie odpaliła.
+
+**Pułapka nr 2 — dwie ciche natywne reguły z wystarczającą specyficznością,
+żeby wygrać z pozornie oczywistym `margin: 0`:** `.tax-note` ma natywny
+`margin-top` z base.css (dawał 14px zamiast 10px odstępu od wiersza cen, zanim
+złapane przez pomiar `getComputedStyle`, nie zgadywanie); każdy `<p>` wewnątrz
+`.text-block` (czyli wewnątrz `<product-price>`) dostaje `margin-block: var(
+--font-paragraph--spacing)` z reguły `.text-block p` (specyficzność 0,1,1) —
+`.mmw-omnibus-line { margin: 0 }` (0,1,0) przegrywał z nią, trzeba było
+`.mmw-omnibus-line.mmw-omnibus-line` (0,2,0). Ten sam wzorzec podwajania
+klasy co `.tax-note.tax-note.tax-note` gdzie indziej w tym pliku — **przy
+każdej nowej regule nadpisującej natywny element w Horizonie: zmierzyć
+`getComputedStyle` po fakcie, nie zakładać, że `margin: 0`/dowolna wartość
+„oczywiście" wygra.**
+
+Odstępy w `product-price` idą przez jawny `margin-top` na `.tax-note`/
+`.mmw-omnibus-line` (warunkowo, zależnie od tego, czy `.tax-note` renderuje
+realną treść), NIE przez `gap` na kontenerze flex — jeden wspólny `gap:10px`
+dawałby 10px między KAŻDĄ parą sąsiednich elementów, w tym między linią 1 i 2,
+które mają stać ciasno złożone.
+
+`.price`/`.compare-at-price` (36px/24px, `--mmw-font-display`) i wiersz cen
+(`flex; align-items: flex-end; gap: 14px`) restylowane WYŁĄCZNIE pod
+`[data-mmw-omnibus]`. Kolor (`--mmw-02` na przecenie) jest CELOWO poza tym
+zawężeniem — patrz „Regresja i poprawka" niżej po pełne uzasadnienie.
+
+**Regresja i poprawka — `blocks/price.liquid` to nie jest plik strony
+produktu, to reużywalny TYP BLOKU.** Pierwsza wersja zakładała (błędnie,
+niesprawdzone w Etapie 0), że `blocks/price.liquid` renderuje się wyłącznie
+przez `sections/product-information.liquid`, więc bezwarunkowe
+`show_omnibus: true` w jego `render 'price'` wydawało się bezpieczne. W
+rzeczywistości `blocks/price.liquid` to natywny typ bloku Horizona
+(`"type": "price"`), osadzony TAKŻE jako sub-blok `blocks/_product-card.liquid`
+— czyli renderuje się na każdej karcie siatki (`templates/collection.json`,
+`collection.grid.json`, `search.json`). Efekt: 36px/`--mmw-font-display` i
+kolor `--mmw-02` (wtedy jeszcze wpisany w tę samą regułę co typografia)
+wyciekły na WSZYSTKIE karty we wszystkich siatkach, a markup linii
+Omnibusowej realnie pojawił się na karcie prawdziwego produktu, który akurat
+miał wypełnione `custom.omnibus` — potwierdzone na żywo
+(`getComputedStyle`/tekst na `/collections/all`), nie tylko w teorii.
+
+Poprawka, dwie oddzielne rzeczy (bo to dwie niezależne osie, mimo wspólnej
+przyczyny wycieku):
+
+1. **Zawężenie `show_omnibus`** (`blocks/price.liquid`): zamiast `true` na
+   sztywno, `product_resource != blank and product.handle ==
+   product_resource.handle` — ten sam wzorzec porównania, jakiego
+   `snippets/price.liquid` już używa do `use_currency`. `product` (globalny
+   obiekt, aktualnie oglądana strona) różni się od `product_resource`
+   (produkt renderowanej karty) na każdej siatce/karuzeli, więc `show_omnibus`
+   wychodzi `false` tam, i `true` tylko na faktycznym bloku ceny strony
+   produktu. Zero nowych ustawień schematu, zero edycji plików
+   `templates/product.*.json`.
+2. **Kolor odłączony od `show_omnibus` całkowicie** (`snippets/price.liquid`):
+   `color: var(--mmw-02)` usunięty z reguły `[data-mmw-omnibus] .price`
+   (typografia), przeniesiony do osobnego, BEZWARUNKOWEGO `{% style %}` na
+   samej natywnej klasie `.price-item--sale` (Horizon renderuje ją w DOM
+   wyłącznie w gałęzi `show_compare_price` — to już jest istniejący sposób
+   sygnalizowania przeceny, żaden nowy warunek Liquid). Powód rozdzielenia:
+   kolor ma się pojawiać WSZĘDZIE w stanie przeceny (siatki też), typografia
+   TYLKO na faktycznym bloku ceny strony produktu — to dwie różne, niezależne
+   decyzje projektowe, nie jedna reguła z dwoma efektami. Świadomie
+   zaakceptowana duplikacja: ten mały, zawsze-aktywny blok stylu (1 reguła)
+   duplikuje się przy każdym renderze `snippets/price.liquid` (kilkanaście
+   miejsc) — nieproporcjonalnie mniejszy koszt niż budowanie osobnego
+   mechanizmu współdzielenia dla jednej linii CSS.
+
+Zweryfikowane na żywo po poprawce, nie tylko w teorii: dwa robocze produkty
+(status ACTIVE, opublikowane na Online Store wyłącznie na czas testu, potem
+usunięte przez `productDelete` — **nie testować cenowych zmian na produktach
+z żywego katalogu**, `compare_at_price`/`custom.omnibus` na prawdziwym
+produkcie pokazuje nieprawdziwą promocję realnym klientom) — siatka
+(kolekcja + wyszukiwarka): produkt bez przeceny w 100% natywny (kolor, 14px,
+`DM Sans`), produkt w przecenie: kolor `--mmw-02`, ale WCIĄŻ natywna
+typografia siatki (bez 36px, bez `--mmw-font-display`, bez linii Omnibusowej).
+Strona produktu: typografia z Figmy zostaje, kolor tylko przy realnej
+przecenie (wcześniej: pomarańczowy nawet bez przeceny — to był drugi,
+niezależny efekt tej samej pierwotnej pomyłki, złapany dopiero przy
+`getComputedStyle` w teście „bez obniżki", nie przy pierwszym wdrożeniu).
+Przełączanie wariantów (2-wariantowy roboczy produkt): potwierdzone realne
+zastąpienie węzła DOM (`sameNode === false`), linia Omnibusowa i kolor
+przetrwały re-render.
+
 ## mmw-photo-stack vs mmw-story-stack
 
 `sections/mmw-photo-stack.liquid` (stos zdjęć jako przełącznik tekstu, Figma node

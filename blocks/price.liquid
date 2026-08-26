@@ -2,6 +2,13 @@
   assign block_settings = block.settings
   assign product_resource = closest.product
   assign selected_variant = product_resource.selected_or_first_available_variant
+
+  # show_omnibus: true TYLKO gdy ten render to faktyczny główny blok ceny
+  # aktualnie oglądanej strony produktu — patrz komentarz przy render 'price' niżej
+  assign is_omnibus_price_block = false
+  if product_resource != blank and product.handle == product_resource.handle
+    assign is_omnibus_price_block = true
+  endif
 -%}
 
 {% liquid
@@ -45,10 +52,20 @@
   "
   {{ block.shopify_attributes }}
 >
+  {%- comment -%}
+    is_omnibus_price_block (patrz góra pliku): true TYLKO gdy ten render to
+    faktyczny główny blok ceny AKTUALNIE OGLĄDANEJ strony produktu — nie gdy ten
+    sam typ bloku ("price") renderuje się jako sub-blok karty siatki
+    (blocks/_product-card.liquid, patrz templates/collection.json/
+    collection.grid.json/search.json). Ten sam wzorzec porównania co
+    use_currency w snippets/price.liquid. Regresja z poprzedniej wersji
+    (bezwarunkowe show_omnibus: true) opisana w CLAUDE.md.
+  {%- endcomment -%}
   {% render 'price',
     show_unit_price: true,
     product_resource: product_resource,
-    show_sale_price_first: block_settings.show_sale_price_first
+    show_sale_price_first: block_settings.show_sale_price_first,
+    show_omnibus: is_omnibus_price_block
   %}
 
   {% if block_settings.show_tax_info %}

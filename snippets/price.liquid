@@ -5,11 +5,17 @@
   @param {product} product_resource - The product to render
   @param {boolean} [show_unit_price] - Whether to show the unit price
   @param {boolean} [show_sale_price_first] - Whether to show the sale price first
+  @param {boolean} [show_omnibus] - Główny blok ceny strony produktu (blocks/price.liquid)
+    WYŁĄCZNIE. Włącza layout + typografię Figma node 982-6959 (wiersz cen 36px/24px,
+    linia Omnibusowa) — scopowane przez [data-mmw-omnibus] i product-price:has(...), więc
+    nie wpływa na inne miejsca renderujące ten snippet (karty produktu, quick-add,
+    hotspot, featured-product), które wołają render bez tego parametru.
 {%- enddoc -%}
 
 {%- liquid
   assign show_unit_price = show_unit_price | default: false
   assign show_sale_price_first = show_sale_price_first | default: false
+  assign show_omnibus = show_omnibus | default: false
   assign selected_variant = product_resource.selected_or_first_available_variant
   assign price = selected_variant.price
   assign compare_at_price = selected_variant.compare_at_price
@@ -17,6 +23,15 @@
   assign show_compare_price = false
   if compare_at_price > price
     assign show_compare_price = true
+  endif
+
+  # custom.omnibus — metapole POZIOMU PRODUKTU (nie wariantu, patrz CLAUDE.md).
+  # Renderuje się WYŁĄCZNIE gdy ogłaszana jest obniżka (show_compare_price) I metapole
+  # wypełnione — bez fallbacku na compare_at_price, bez tekstu przy pustym metapolu.
+  assign omnibus_raw = product_resource.metafields.custom.omnibus.value
+  assign show_omnibus_line = false
+  if show_omnibus and show_compare_price and omnibus_raw != blank
+    assign show_omnibus_line = true
   endif
 
   if product_resource == blank
@@ -64,15 +79,21 @@
     assign compare_at_price = compare_at_price | money_with_currency
     assign price_min = price_min | money_with_currency
     assign price_max = price_max | money_with_currency
+    if show_omnibus_line
+      assign omnibus_formatted = omnibus_raw | money_with_currency
+    endif
   else
     assign price = price | money
     assign compare_at_price = compare_at_price | money
     assign price_min = price_min | money
     assign price_max = price_max | money
+    if show_omnibus_line
+      assign omnibus_formatted = omnibus_raw | money
+    endif
   endif
 -%}
 
-<div ref="priceContainer">
+<div ref="priceContainer"{% if show_omnibus %} data-mmw-omnibus{% endif %}>
   {% if has_volume_pricing %}
     {% comment %} Volume pricing display {% endcomment %}
     {% if show_compare_price %}
@@ -136,6 +157,9 @@
     -%}
     {% render 'unit-price', price: unit_price, measurement: selected_variant.unit_price_measurement %}
   {%- endif -%}
+  {%- if show_omnibus_line -%}
+    <p class="mmw-omnibus-line">Najniższa cena z ostatnich 30 dni: {{ omnibus_formatted }}.</p>
+  {%- endif -%}
 </div>
 {%- if has_volume_pricing -%}
   <small
@@ -144,4 +168,136 @@
   >
     {{- 'content.volume_pricing_available' | t -}}
   </small>
+{%- endif -%}
+
+{%- comment -%}
+  Kolor przeceny — CELOWO bezwarunkowy (nie za show_omnibus), bo ma się
+  pojawiać wszędzie, gdzie cena występuje w stanie promocyjnym: siatki,
+  quick-add, hotspot, karta produktu, wszystko. Podpięty pod natywną klasę
+  Horizona .price-item--sale, która w DOM istnieje tylko w gałęzi
+  show_compare_price (patrz znacznik wyżej w tym pliku) — to jest istniejący
+  sposób, w jaki Horizon już sygnalizuje stan przeceny, żaden nowy warunek
+  Liquid nie jest tu potrzebny. TAK, to duplikuje się przy każdym render tego
+  snippetu (kilkanaście miejsc) — świadomy kompromis: reguła jest jedna linia,
+  duplikacja to kilkadziesiąt bajtów na kartę, więc nieproporcjonalnie mniejszy
+  koszt niż wydzielanie osobnego mechanizmu ładowania współdzielonego CSS dla
+  tak małej reguły.
+{%- endcomment -%}
+{%- style -%}
+  .price-item--sale {
+    color: var(--mmw-02);
+  }
+{%- endstyle -%}
+
+{%- comment -%}
+  Blok stylu niżej (typografia karty produktu, Figma 982-6959) renderuje się
+  TYLKO gdy show_omnibus jest true (dziś wyłącznie blocks/price.liquid, i to
+  tylko gdy renderowany produkt to faktycznie oglądana strona — nie karta
+  siatki, patrz komentarz w blocks/price.liquid) — inaczej ten sam CSS
+  duplikowałby się przy każdym render tego snippetu (karty produktu, quick-add,
+  hotspot, featured-product, karuzele rekomendacji — wszystkie wołają render
+  bez tego parametru). UWAGA przy edycji: żaden komentarz w tym bloku (Liquid
+  ani CSS) nie może zawierać literalnej sekwencji znaków klamra-procent —
+  Liquid próbuje ją stokenizować nawet wewnątrz komentarzy/CSS, co psuje
+  parsowanie tagu stylu (zweryfikowane bezpośrednio, theme dev rzucał 500).
+{%- endcomment -%}
+{%- if show_omnibus -%}
+{%- style -%}
+    /* Figma node 982-6959. Reguły dotyczą wyłącznie instancji renderowanych z
+       parametrem show_omnibus, dzięki selektorom data-mmw-omnibus / :has(...) —
+       inne miejsca renderujące ten snippet renderują się bez zmian.
+       .tax-note (linia 1, natywny tekst o podatkach) NIE jest przenoszony
+       w bloku ceny strony produktu — kolejność linia1/linia2 osiągnięta
+       wyłącznie przez CSS order na już istniejących elementach, patrz
+       CLAUDE.md. */
+
+    [data-mmw-omnibus] {
+      /* unwrapuje priceContainer, żeby jego dzieci (wiersz cen + linia Omnibusowa)
+         stały się bezpośrednimi flex-itemami <product-price> — obok .tax-note,
+         który zostaje na swoim miejscu w blocks/price.liquid, nieruszany */
+      display: contents;
+    }
+
+    product-price:has([data-mmw-omnibus]) {
+      display: flex;
+      flex-direction: column;
+      /* Odstępy NIE idą przez gap: linia 1 (.tax-note) i linia 2 (.mmw-omnibus-line)
+         mają być ciasno złożone (0px), a 10px ma być tylko nad "blokiem pod
+         spodem" jako całością — zależnie od tego, czy .tax-note w ogóle
+         renderuje treść. Jeden wspólny gap dawałby 10px między KAŻDĄ parą
+         sąsiednich elementów, w tym między linią 1 i 2, więc zamiast tego
+         margin-top jest przypięty jawnie do konkretnego elementu niżej. */
+    }
+
+    product-price:has([data-mmw-omnibus]) .price__regular:not(.price__hidden),
+    product-price:has([data-mmw-omnibus]) .price__sale:not(.price__hidden) {
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+    }
+
+    /* Kolor CELOWO nie jest tu ustawiany — patrz osobny, zawsze aktywny blok
+       stylu niżej (.price-item--sale), niezawężony pod show_omnibus. Kolor
+       przeceny to inna oś niż typografia karty produktu: ma się pojawiać
+       wszędzie, gdzie cena jest w stanie promocyjnym (siatki też), nie tylko
+       tutaj. Wcześniejsza wersja miała color: var(--mmw-02) w TEJ regule —
+       stąd produkt bez żadnej promocji na stronie produktu też wychodził
+       pomarańczowy (potwierdzone: getComputedStyle nie było sprawdzane
+       w teście "bez obniżki" za pierwszym razem). */
+    product-price:has([data-mmw-omnibus]) .price {
+      font-family: var(--mmw-font-display);
+      font-size: 36px;
+      line-height: 1.1;
+    }
+
+    product-price:has([data-mmw-omnibus]) .compare-at-price {
+      font-size: 24px;
+      color: var(--mmw-01);
+      text-decoration: line-through;
+    }
+
+    /* .tax-note.tax-note.tax-note — specyficzność (0,3,0) jak w base.css (patrz
+       CLAUDE.md, ten sam wzorzec co font-family tax-note w mmw-tokens.liquid),
+       żeby wygrać niezależnie od kolejności ładowania tego bloku stylu vs base.css. */
+    product-price:has([data-mmw-omnibus]) .tax-note.tax-note.tax-note {
+      order: 1;
+      /* zeruje natywny margin (base.css: ~4px top) i ustawia jawnie 10px —
+         odstęp wiersz-cen→blok-tekstowy idzie TU (linia 1, gdy istnieje),
+         zweryfikowane bezpośrednio (getComputedStyle), nie założone */
+      margin: 0;
+      margin-top: 10px;
+      font-family: var(--mmw-font-text);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--mmw-05);
+    }
+
+    /* .mmw-omnibus-line.mmw-omnibus-line — specyficzność (0,2,0), żeby wygrać
+       z natywnym ".text-block p" (0,1,1, base.css: margin-block:
+       var(--font-paragraph--spacing)) — zweryfikowane bezpośrednio przez
+       CSS.getMatchedStylesForNode, nie założone: bez podwojenia klasy natywna
+       reguła wygrywała i <p> dostawał ~8px marginesu zamiast 0. */
+    .mmw-omnibus-line.mmw-omnibus-line {
+      order: 2;
+      margin: 0;
+      font-family: var(--mmw-font-text);
+      font-size: 16px;
+      line-height: 1.4;
+      color: var(--mmw-05);
+    }
+
+    /* mmw-omnibus-line jest "pierwszą linią bloku pod spodem" TYLKO gdy
+       .tax-note nie istnieje w DOM (show_tax_info wyłączone) albo jest puste
+       (:empty) — wtedy to ONA dostaje 10px od wiersza cen. Gdy .tax-note
+       renderuje realną treść, zostaje ciasno złożona pod nią (margin-top: 0,
+       ustawiony wyżej). Kotwiczone na product-price (prawdziwy wspólny
+       przodek obu linii), NIE na kombinatorze rodzeństwa (~) — .tax-note
+       i .mmw-omnibus-line mają RÓŻNYCH rodziców w DOM (priceContainer ma
+       display:contents tylko dla layoutu, nie dla drzewa DOM), więc :has(~
+       .tax-note) nigdy by nie trafił — zweryfikowane bezpośrednio, nie
+       założone. */
+    product-price:not(:has(.tax-note:not(:empty))) .mmw-omnibus-line.mmw-omnibus-line {
+      margin-top: 10px;
+    }
+{%- endstyle -%}
 {%- endif -%}
