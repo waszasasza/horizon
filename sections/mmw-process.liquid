@@ -1,21 +1,91 @@
-{%- comment -%} mmw-process — "Proces produkcyjny": eyebrow + rich text (style sklepu). {%- endcomment -%}
+{%- comment -%}
+  mmw-process — "MMW Proces": nagłówek + dwie kolumny tekstu (Figma node 993-3972).
+  Nazwa sekcji ("MMW Proces") celowo NIE zmieniona mimo przebudowy układu —
+  patrz CLAUDE.md, WYJĄTEK w „Czego NIE ruszać".
+
+  Obie kolumny to zwykłe richtext — redaktor wstawia dowolną liczbę akapitów,
+  brak osobnych pól per akapit (w Figmie lewa ma 2 akapity, prawa 1 — to różnica
+  w treści, nie w strukturze).
+{%- endcomment -%}
 {%- style -%}
-  #shopify-section-{{ section.id }} .mmw-proc { display:flex; flex-direction:column; gap:30px; align-items:center; text-align:center; padding-block:40px; padding-inline: var(--page-margin, 40px); color: var(--mmw-01); }
-  #shopify-section-{{ section.id }} .mmw-proc__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
-  #shopify-section-{{ section.id }} .mmw-proc__text { font-family: var(--mmw-font-text); font-size:18px; line-height:1.6; max-width:750px; }
-  #shopify-section-{{ section.id }} .mmw-proc__text p { margin:0 0 1em; }
+  .mmw-proc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px var(--page-margin, 60px);
+    color: var(--mmw-01);
+  }
+
+  .mmw-proc__eyebrow {
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.4;
+    letter-spacing: var(--mmw-label-tracking);
+    text-transform: uppercase;
+    margin: 0 0 30px;
+  }
+
+  .mmw-proc__columns {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+    width: 100%;
+    max-width: 1110px;
+  }
+
+  .mmw-proc__col {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--mmw-font-text);
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .mmw-proc__col p {
+    margin: 0 0 28px;
+  }
+
+  .mmw-proc__col p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 749px) {
+    .mmw-proc {
+      padding-inline: var(--page-margin, 24px);
+    }
+
+    .mmw-proc__columns {
+      flex-direction: column;
+      gap: 28px;
+    }
+  }
 {%- endstyle -%}
 <section class="mmw-proc">
-  {%- if section.settings.eyebrow != blank -%}<p class="mmw-proc__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-  {%- if section.settings.text != blank -%}<div class="mmw-proc__text rte">{{ section.settings.text }}</div>{%- endif -%}
+  {%- if section.settings.eyebrow != blank -%}
+    <p class="mmw-proc__eyebrow">{{ section.settings.eyebrow }}</p>
+  {%- endif -%}
+  {%- if section.settings.column_left != blank or section.settings.column_right != blank -%}
+    <div class="mmw-proc__columns">
+      {%- if section.settings.column_left != blank -%}
+        <div class="mmw-proc__col rte">{{ section.settings.column_left }}</div>
+      {%- endif -%}
+      {%- if section.settings.column_right != blank -%}
+        <div class="mmw-proc__col rte">{{ section.settings.column_right }}</div>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
 </section>
 {% schema %}
 {
   "name": "MMW Proces",
   "tag": "section",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Etykieta", "default": "Proces produkcyjny" },
-    { "type": "richtext", "id": "text", "label": "Tekst", "default": "<p>Opisz proces produkcyjny…</p>" }
+    { "type": "text", "id": "eyebrow", "label": "Nagłówek", "default": "Proces produkcyjny" },
+    { "type": "richtext", "id": "column_left", "label": "Kolumna lewa", "default": "<p>Opisz proces produkcyjny…</p>" },
+    { "type": "richtext", "id": "column_right", "label": "Kolumna prawa" }
   ],
   "presets": [{ "name": "MMW Proces" }]
 }

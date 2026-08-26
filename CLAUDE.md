@@ -81,7 +81,7 @@ Nowe:
 
 - Sekcje podstron: `mmw-article-*`, `mmw-blog-hero/posts/tags`,
   `mmw-firms-*`, `mmw-collection-*`, `mmw-history-*`, `mmw-chronicle`, `mmw-heritage-note`,
-  `mmw-process`, `mmw-team`, `mmw-promo-tiles`, `mmw-map`, `mmw-brands`.
+  `mmw-team`, `mmw-promo-tiles`, `mmw-map`, `mmw-brands`.
 - NIE kasować starych sekcji (`mmw-philosophy`, `mmw-stories`, `mmw-video-product`,
   `mmw-how-its-made`, `mmw-instagram`, `mmw-featured-collection`) — sprzątanie to osobne
   zadanie na koniec, po akceptacji nowej strony głównej.
@@ -95,6 +95,22 @@ Nowe:
   prefiksem klas i jedną wartością max-width — utrzymywanie czterech
   kopii tego samego kodu to koszt bez korzyści, a scalanie po dodaniu
   wideo oznaczałoby migrację dwa razy.
+- WYJĄTEK: `mmw-process` zdjęta z listy — świadomie przebudowana z jednej
+  kolumny richtext na dwie kolumny (Figma node 993-3972), decyzja podjęta
+  wprost mimo listy. Stoi wyłącznie na `templates/page.historia.json`
+  (przypisanym dziś jako alternatywny szablon strony `/pages/filozofia` —
+  handle strony ≠ nazwa pliku szablonu, nie zakładać jednego na podstawie
+  drugiego). Nazwa sekcji w edytorze („MMW Proces") celowo NIE zmieniona.
+  Ustawienie `text` (jedno richtext pole) zastąpione przez `column_left` +
+  `column_right` (też richtext, po prostu dwa zamiast jednego — bez osobnych
+  pól na akapity, redaktor wstawia ich dowolną liczbę). Istniejąca treść
+  (jeden akapit, ok. 1050 znaków) zmigrowana 1:1 do `column_left` w
+  `templates/page.historia.json` (zmiana klucza `text`→`column_left`, treść
+  bez zmian) — bez tego strona straciłaby jedyny opublikowany akapit o
+  procesie produkcyjnym. `column_right` zostaje puste do wypełnienia przez
+  redaktora. Pole `eyebrow` (etykieta nad kolumnami) zostało — id bez zmian,
+  tylko label zmieniony na „Nagłówek", więc wartość na stronie przetrwała
+  migrację automatycznie.
 
 ## Zmiany w plikach natywnych Horizona
 
