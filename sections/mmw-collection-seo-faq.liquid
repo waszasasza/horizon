@@ -1,0 +1,303 @@
+{%- comment -%}
+  mmw-collection-seo-faq — SEO + FAQ na stronie kolekcji. Odpowiednik
+  sections/mmw-product-seo-faq.liquid, ale czerpiący z metapól KOLEKCJI:
+  collection.metafields.custom.seo_tekst (rich text) i
+  collection.metafields.custom.faq (lista referencji do metaobjektu
+  pytanie_faq — ten sam typ co na produktach, MetaobjectDefinition
+  zweryfikowana jako identyczna przez Admin API, wspólna pula pytań).
+
+  UWAGA — klucz metapola SEO ma odwrotną kolejność członów względem produktu:
+  produkt = custom.tekst_seo, kolekcja = custom.seo_tekst. Zweryfikowane przez
+  Admin API, nie skopiowane z komponentu produktowego.
+
+  ŚWIADOMA DUPLIKACJA, nie współdzielony snippet — markup pojedynczego
+  pytania (accordion-custom-component + klasy .mmw-seo-faq__*) jest
+  skopiowany 1:1 z mmw-product-seo-faq.liquid, CSS też. Decyzja: snippet
+  współdzielony przez jeden plik dawałby fałszywe wrażenie wspólnego źródła
+  prawdy, skoro plik produktowy i tak trzyma własną kopię CSS
+  ({% stylesheet %} tam, {% style %} tu — różne mechanizmy renderowania,
+  nie da się bezpiecznie połączyć bez refaktoru pliku produktowego, na co
+  nie ma dziś zgody). Patrz CLAUDE.md — zmiana wyglądu/zachowania pytania
+  FAQ w JEDNYM z tych plików wymaga ręcznego powielenia w drugim.
+
+  Różnica zachowania względem komponentu produktowego (świadoma, na wyraźne
+  polecenie): pytanie z PUSTĄ odpowiedzią jest tu całkowicie pomijane (nie
+  renderuje się wcale), podczas gdy produktowy komponent renderuje pytanie
+  z pustym, ale wciąż klikalnym akordeonem. Nie ujednolicone celowo — to nie
+  jest niedopatrzenie.
+{%- endcomment -%}
+{%- liquid
+  assign seo_metafield = collection.metafields.custom.seo_tekst
+  assign faqs = collection.metafields.custom.faq.value
+
+  assign has_seo = false
+  if seo_metafield.value != blank
+    assign has_seo = true
+  endif
+
+  assign has_faq = false
+  if faqs != blank and faqs.size > 0
+    assign has_faq = true
+  endif
+-%}
+{%- if has_seo or has_faq -%}
+  {%- comment -%}
+    ValidScopedCSSClass wyciszony celowo dla tego bloku — fałszywy alarm,
+    zweryfikowany, nie zignorowany na wyczucie: klasy poniżej są zdefiniowane
+    w bloku stylu na dole TEGO SAMEGO pliku, który renderuje się bezwarunkowo
+    inline przy każdym renderze sekcji, więc nie podlega subsettingowi
+    opisanemu w CLAUDE.md. Pełne uzasadnienie tam, w sekcji
+    „mmw-collection-seo-faq vs mmw-product-seo-faq".
+  {%- endcomment -%}
+  {% # theme-check-disable ValidScopedCSSClass %}
+  <section class="mmw-seo-faq section">
+    {%- if has_seo -%}
+      <div class="mmw-seo-faq__col mmw-seo-faq__col--seo">
+        {%- if section.settings.seo_heading != blank -%}
+          <h2 class="mmw-seo-faq__heading">{{ section.settings.seo_heading }}</h2>
+        {%- endif -%}
+        <div class="mmw-seo-faq__seo-body">
+          {{ seo_metafield | metafield_tag }}
+        </div>
+      </div>
+    {%- endif -%}
+
+    {%- if has_faq -%}
+      <div class="mmw-seo-faq__col mmw-seo-faq__col--faq">
+        {%- if section.settings.faq_heading != blank -%}
+          <h2 class="mmw-seo-faq__heading">{{ section.settings.faq_heading }}</h2>
+        {%- endif -%}
+        <div class="mmw-seo-faq__accordions">
+          {%- for faq in faqs -%}
+            {%- if faq != blank -%}
+              {%- liquid
+                assign question = faq.pytanie.value
+                assign answer = faq.odpowiedz.value
+                assign is_first = false
+                if forloop.index0 == 0
+                  assign is_first = true
+                endif
+              -%}
+              {%- if question != blank and answer != blank -%}
+                {%- capture faq_details -%}
+                  <details class="details mmw-seo-faq__accordion" {% if is_first %}open{% endif %}>
+                    <summary class="details__header mmw-seo-faq__summary">
+                      <span class="mmw-seo-faq__question">{{ question }}</span>
+                      <span class="svg-wrapper icon-caret icon-animated mmw-seo-faq__chevron">
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </span>
+                    </summary>
+                    <div class="details-content mmw-seo-faq__answer">
+                      {{ answer }}
+                    </div>
+                  </details>
+                {%- endcapture -%}
+                {%- render 'accordion-custom-component',
+                  children: faq_details,
+                  open_by_default_on_desktop: is_first,
+                  open_by_default_on_mobile: is_first
+                -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </section>
+  {% # theme-check-enable ValidScopedCSSClass %}
+{%- endif -%}
+
+{%- style -%}
+  .mmw-seo-faq.section {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  .mmw-seo-faq__col {
+    width: 100%;
+    min-width: 0;
+    color: var(--mmw-01);
+  }
+
+  .mmw-seo-faq__col--seo {
+    text-align: center;
+  }
+
+  .mmw-seo-faq__heading {
+    margin: 0 0 40px;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 60px;
+    line-height: 1;
+  }
+
+  .mmw-seo-faq__col--faq .mmw-seo-faq__heading {
+    text-align: center;
+  }
+
+  .mmw-seo-faq__seo-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mmw-seo-faq__seo-body h2,
+  .mmw-seo-faq__seo-body h3 {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+  }
+
+  .mmw-seo-faq__seo-body p,
+  .mmw-seo-faq__seo-body li {
+    margin: 0;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .mmw-seo-faq__accordions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mmw-seo-faq__accordion {
+    width: 100%;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--MMW-400-stroke, rgba(95, 49, 47, 0.25));
+  }
+
+  .mmw-seo-faq__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .mmw-seo-faq__question {
+    flex: 1 1 0;
+    min-width: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 1.2;
+    text-align: left;
+  }
+
+  .mmw-seo-faq__chevron {
+    flex: 0 0 auto;
+    width: 24px;
+    height: 24px;
+    color: var(--mmw-01);
+  }
+
+  .mmw-seo-faq__chevron svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .mmw-seo-faq__answer {
+    margin-top: 24px;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .mmw-seo-faq__answer > :first-child {
+    margin-top: 0;
+  }
+
+  .mmw-seo-faq__answer > :last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 750px) {
+    .mmw-seo-faq.section {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 48px;
+      padding-inline: var(--page-margin, 60px);
+    }
+
+    .mmw-seo-faq__col {
+      flex: 1 1 0;
+    }
+
+    .mmw-seo-faq__col:only-child {
+      flex: 0 1 720px;
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .mmw-seo-faq.section {
+      padding-inline: var(--page-margin, 24px);
+    }
+
+    .mmw-seo-faq__heading {
+      font-size: 44px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .mmw-seo-faq__question {
+      font-size: 22px;
+    }
+
+    .mmw-seo-faq__seo-body {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      text-align: left;
+      padding-top: 14px;
+    }
+
+    .mmw-seo-faq__col--faq .mmw-seo-faq__heading {
+      text-align: left;
+    }
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+  "name": "MMW SEO + FAQ (kolekcja)",
+  "tag": "section",
+  "class": "section",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "seo_heading",
+      "label": "Nagłówek nad tekstem SEO"
+    },
+    {
+      "type": "text",
+      "id": "faq_heading",
+      "label": "Nagłówek nad listą pytań"
+    },
+    {
+      "type": "range",
+      "id": "padding_block",
+      "min": 20,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Odstęp góra/dół",
+      "default": 60
+    }
+  ],
+  "presets": [
+    { "name": "MMW SEO + FAQ (kolekcja)" }
+  ]
+}
+{% endschema %}

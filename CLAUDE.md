@@ -608,6 +608,75 @@ tysięcy, tak samo jak Liquid dziś ("5000+", nie "5 000+") — gdyby kiedyś
 doszło polskie formatowanie tysięcy, trzeba je dodać JEDNOCZEŚNIE w Liquidzie
 i w JS, inaczej liczba „skoczy" szerokością na starcie i końcu animacji.
 
+## mmw-collection-seo-faq vs mmw-product-seo-faq — ŚWIADOMA duplikacja markupu
+
+`sections/mmw-collection-seo-faq.liquid` (SEO + FAQ na stronach kolekcji,
+`enabled_on: collection`) czerpie z `collection.metafields.custom.seo_tekst`
+(rich text) i `collection.metafields.custom.faq` (lista referencji do
+metaobjektu `pytanie_faq` — **ten sam typ co na produktach**, zweryfikowane
+przez Admin API: identyczny `MetaobjectDefinition` po obu stronach, wspólna
+pula pytań). Klucz metapola SEO ma odwrotną kolejność członów względem
+produktu: `custom.seo_tekst` (kolekcja) vs `custom.tekst_seo` (produkt) —
+łatwo pomylić przy kopiowaniu.
+
+**Markup pojedynczego pytania FAQ (accordion-custom-component + klasy
+`.mmw-seo-faq__*`/`.details`/`.details__header`) i cały CSS istnieją w DWÓCH
+NIEZALEŻNYCH plikach — `mmw-collection-seo-faq.liquid` i
+`mmw-product-seo-faq.liquid` — skopiowane 1:1, celowo NIE wydzielone do
+wspólnego snippetu.** Decyzja: wspólny snippet, z którego korzystałby tylko
+jeden z tych dwóch plików (bo plik produktowy trzyma własny `{% stylesheet %}`
+i nie ma dziś zgody na jego refaktor), dawałby fałszywe poczucie wspólnego
+źródła prawdy — ktoś poprawiłby snippet, zobaczył efekt na kolekcji i uznał
+sprawę za załatwioną na produkcie też. **Zmiana wyglądu lub zachowania
+akordeonu pytania w jednym z tych plików wymaga ręcznego powielenia zmiany
+w drugim** — nic tego nie wymusi automatycznie. Prawdziwa konsolidacja
+(np. wspólny snippet renderowany literalnie przez oba pliki, z refaktorem
+`mmw-product-seo-faq.liquid`) to osobne zadanie, wymaga osobnej zgody.
+
+Różnica zachowania między plikami, świadoma: pytanie z pustą odpowiedzią —
+produktowy komponent renderuje pusty, klikalny akordeon; kolekcyjny **pomija
+całe pytanie**. Nie ujednolicone celowo, nie przeoczone — ALE to oznacza,
+że komponent produktowy ma tu drobny, realny błąd (pusty akordeon nie
+powinien się renderować), teraz opisany, jeszcze nie naprawiony.
+
+**Dług do naprawy w `mmw-product-seo-faq.liquid` (jedno zadanie, osobna
+zgoda, dwie rzeczy naraz — świadomie trzymane razem, nie osobno):**
+1. Pomiń pytanie z pustą odpowiedzią (`answer != blank`) zamiast renderować
+   pusty akordeon — dokładnie warunek już użyty w
+   `mmw-collection-seo-faq.liquid`.
+2. `{{ answer }}` wypisuje `odpowiedz.value` (metaobjekt `pytanie_faq`, pole
+   `multi_line_text_field`) bez `| newline_to_br` — wieloakapitowe/wielolinijkowe
+   odpowiedzi renderują się jako jeden zlepiony blok tekstu (`white-space:
+   normal`, brak `<br>`/`<p>` w źródle). **Nie teoria — zweryfikowane na
+   żywo**: 2 z 115 odpowiedzi w banku FAQ zawierają `\n`
+   (`jak-wyglada-zwiedzanie-winnicy`, `dla-kogo-jest-to-doswiadczenie`), i
+   pierwsza z nich jest DZIŚ używana na 3 realnych produktach
+   (`zwiedzanie-winnicy`, `zwiedzanie-winnicy-copy`, `degustacje-wina-copy`)
+   — błąd jest aktualnie widoczny na produkcji/theme dev, nie hipotetyczny.
+   Potwierdzone przez `innerText` w headless Chrome (nie przez czytanie
+   źródła HTML), na `mmw-collection-seo-faq.liquid`, które ma ten sam
+   problem (skopiowany 1:1) — naprawa musi objąć oba pliki.
+
+`shopify theme check` raportował ~16 ostrzeżeń `ValidScopedCSSClass` na
+`mmw-collection-seo-faq.liquid` dla klas współdzielonych nazewniczo z plikiem
+produktowym (`.mmw-seo-faq__*`) i natywnych (`.details`/`.details__header`).
+Fałszywy alarm z innego powodu niż zwykle w tym projekcie: te klasy są
+zdefiniowane w tym samym pliku, w `{% style %}` — a `{% style %}` (w
+odróżnieniu od `{% stylesheet %}`) renderuje się jako inline `<style
+data-shopify>` bezwarunkowo przy każdym renderze sekcji, nigdy nie wchodzi
+do subsetowanego `compiled_assets/styles.css`, więc problem z „Reużywanie
+klas CSS z nierenderowanych natywnych snippetów" opisany wyżej w tym pliku
+strukturalnie nie może tu wystąpić. **Wyciszone** przez `{% #
+theme-check-disable ValidScopedCSSClass %}` / `{% # theme-check-enable
+ValidScopedCSSClass %}` wokół bloku markupu (wzorzec już używany w natywnych
+plikach Horizona, np. `blocks/_heading.liquid`, `blocks/_product-media-
+gallery.liquid` — nie wymyślony na potrzeby tego pliku) — świadomie NIE przez
+nowy `.theme-check.yml` (rozważane, odrzucone: reguła per-plik przez YAML
+zmieniałaby zachowanie checkera dla całego repo, podczas gdy dyrektywa inline
+jest zawężona dokładnie do tego jednego bloku i widoczna w tym samym miejscu,
+co jej uzasadnienie). Po wyciszeniu: `theme check` z powrotem na baseline
+32/2/30, potwierdzone przed i po.
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.
