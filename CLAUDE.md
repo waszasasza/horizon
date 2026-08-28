@@ -677,6 +677,58 @@ jest zawężona dokładnie do tego jednego bloku i widoczna w tym samym miejscu,
 co jej uzasadnienie). Po wyciszeniu: `theme check` z powrotem na baseline
 32/2/30, potwierdzone przed i po.
 
+## sizes/srcset przy object-fit: cover — dwie pułapki (mmw-blog-grid)
+
+Ustalone przy diagnozie rozmazanych obrazów w `mmw-blog-grid.liquid` (karta
+`snippets/mmw-post-card.liquid`, współdzielona też z `mmw-blog-posts` i
+`mmw-related-posts`) — pierwsza tura diagnozy dała fałszywy wniosek („1 z 8
+obrazów za mały"), poprawiony dopiero w drugiej turze na „6 z 8" po
+uwzględnieniu poniższej pułapki nr 2. Kosztowało to całą turę błędnej
+diagnozy — warto to sprawdzać od razu przy każdym kolejnym `object-fit: cover`.
+
+**Pułapka 1 — `img.naturalWidth`/`naturalHeight` są NIEWIARYGODNE przy
+`srcset` z deskryptorami `w`.** Dla obrazu z `srcset="...400w, ...900w"` te
+właściwości NIE zwracają surowych wymiarów pobranego pliku — przeglądarka
+koryguje je względem gęstości: `naturalWidth = realny_szerokość_pliku /
+(wybrany_deskryptor_w / efektywna_wartość_sizes)`. Zweryfikowane bezpośrednio
+(izolowany plik HTML, identyczny URL z i bez `srcset` — różne `naturalWidth`
+dla dokładnie tych samych bajtów). Do pomiaru realnej rozdzielczości
+dostarczonego pliku: `fetch(img.currentSrc)` → `blob` →
+`createImageBitmap(blob)` → `.width`/`.height` — to jedyny sposób, który nie
+kłamie. Samo `curl` na URL też nie wystarcza do porównania z tym, co widzi
+przeglądarka — CDN Shopify negocjuje format przez `Accept` (`curl` bez
+nagłówka dostaje JPEG, Chrome dostaje WebP na tym samym URL-u); wymiary są
+identyczne w obu formatach, ale warto pamiętać przy debugowaniu przez `curl`,
+że trzeba dodać `-H "Accept: image/webp,..."`, żeby zobaczyć to, co faktycznie
+widzi przeglądarka.
+
+**Pułapka 2 — przy `object-fit: cover` zapotrzebowanie na piksele liczy się
+od wymiaru WIĄŻĄCEGO kadru, nie od szerokości kontenera.** Jeśli karta jest
+pionowa (tu: 331/507) a źródłowy obraz poziomy, `cover` skaluje obraz tak, by
+pokrył WYSOKOŚĆ karty — widoczna jest tylko środkowa część, ale renderowana
+(i pobierana) szerokość jest znacznie większa niż szerokość kolumny w
+layoucie. Wzór na potrzebną szerokość źródła:
+`karta_wysokość_css × DPR × (źródło_szerokość / źródło_wysokość)`, NIE
+`kolumna_szerokość_css × DPR`. Naiwne liczenie `sizes` od szerokości
+kontenera (tak jak przy zwykłym, niekadrowanym obrazie) systematycznie
+zaniża zapotrzebowanie dla każdego źródła szerszego niż proporcja karty —
+im bardziej poziomy obraz, tym większy błąd (przy 331:507 i źródle 16:9 to
+prawie 3× różnicy, nie kilka procent).
+
+**Konsekwencja implementacyjna, osobno zweryfikowana**: `sizes="auto, ..."`
+(Chrome, `loading="lazy"`) liczy się z realnego pudełka CSS elementu
+`<img>` (u nas 100%/100% karty), NIE z efektywnie większego rozmiaru
+wynikającego z `cover` przy niepasującej proporcji źródła — więc "auto"
+całkowicie IGNORUJE każdy mnożnik dopisany w dalszej części `sizes`.
+Zweryfikowane bezpośrednio: z `"auto, ..." ` na początku przeglądarka mimo
+poprawnego mnożnika w formule dalej wybierała ten sam (za mały) kandydat
+`srcset`, jakby mnożnika nie było. Żeby korekta pod `cover` faktycznie
+zadziałała w Chrome, `sizes` przekazywany do karty w takim kontekście MUSI
+pomijać prefiks `"auto,"` — dokładnie ten sam wyjątek co przy
+`loading="eager"`, opisany już w doc-commencie `mmw-post-card.liquid`, tylko
+z innego powodu (tam: spec wymaga braku "auto" przy eager; tu: "auto" i tak
+zignorowałby świadomy mnożnik pod cover).
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.

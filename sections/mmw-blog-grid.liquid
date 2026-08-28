@@ -1,0 +1,114 @@
+{%- comment -%}
+  mmw-blog-grid — siatka wpisów bloga z natywną paginacją Shopify ({% paginate %} +
+  render 'pagination-controls', ten sam wzorzec co main-collection.liquid). Bierze
+  artykuły z KONTEKSTOWEGO `blog` (nie z ustawienia sekcji jak mmw-blog-posts) —
+  dlatego respektuje /blogs/<handle>/tagged/<tag> i current_tags automatycznie, bez
+  żadnego JS. Poza szablonem blog.json kontekstowy `blog` bywa nil (stąd historyczny
+  błąd "Array 'blog.articles' is not paginateable" opisany w mmw-blog-posts.liquid) —
+  tu ograniczone przez schema.enabled_on zamiast rezygnacji z paginacji, bo ta sekcja
+  ma być siatką z prawdziwą paginacją, nie karuzelą (ta rola zostaje przy
+  mmw-blog-posts, nietkniętej, do ew. reużycia gdzie indziej).
+
+  `sizes` przekazywany niżej do mmw-post-card jest CELOWO większy niż realna szerokość
+  kolumny — karta ma object-fit:cover i jest pionowa (331/507), więc dla źródła poziomego
+  wymiarem wiążącym jest wysokość karty, nie szerokość kontenera; przeliczone rozmiary
+  renderowane byłyby wtedy szersze niż kolumna. `sizes` opisuje samą liczbę CSS px
+  (przeglądarka mnoży przez DPR sama), więc mnożnik ×3.06 = (507/331) × 2 zakłada
+  najbardziej poziome źródło, jakie ma się realnie pojawić (2:1), pomnożone przez
+  odwrotność proporcji karty. Patrz CLAUDE.md, pułapka „sizes/srcset a object-fit: cover".
+
+  BRAK "auto," na początku — CELOWO, inaczej niż domyślne `sizes` w mmw-post-card.liquid.
+  `sizes="auto"` (Chrome, loading="lazy") liczy się z realnego CSS-owego pudełka elementu
+  `<img>` (100%/100% karty), NIE z efektywnie większego rozmiaru wynikającego z cover przy
+  niepasującej proporcji źródła — więc całkowicie ignorowałoby mnożnik ×3.06 wyżej. Zweryfikowane
+  bezpośrednio: z "auto," w sizes przeglądarka nadal wybierała candidate=900 mimo mnożnika.
+{%- endcomment -%}
+{%- style -%}
+  #shopify-section-{{ section.id }} .mmw-bgrid {
+    padding-block: 30px 80px;
+    padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2));
+  }
+  #shopify-section-{{ section.id }} .mmw-bgrid__heading {
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: clamp(28px, 4vw, 40px);
+    color: var(--mmw-01);
+    margin: 0 0 32px;
+  }
+  #shopify-section-{{ section.id }} .mmw-bgrid__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  #shopify-section-{{ section.id }} .mmw-bgrid__empty {
+    font-family: var(--mmw-font-text);
+    color: var(--mmw-01);
+    text-align: center;
+    padding-block: 60px;
+  }
+  #shopify-section-{{ section.id }} .mmw-bgrid nav.pagination {
+    margin-top: 48px;
+  }
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} .mmw-bgrid__list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .mmw-bgrid__list {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+{%- endstyle -%}
+<div class="mmw-bgrid">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="mmw-bgrid__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  {%- if blog.articles.size > 0 -%}
+    {%- paginate blog.articles by section.settings.posts_count -%}
+      <ul class="mmw-bgrid__list" role="list">
+        {%- for article in blog.articles -%}
+          <li class="mmw-bgrid__item">
+            {%- render 'mmw-post-card',
+              article: article,
+              section_id: section.id,
+              sizes: '(max-width: 749px) calc((100vw - 48px) * 3.06), (max-width: 1024px) calc(((min(100vw - 120px, 1240px) - 24px) / 2) * 3.06), calc(((min(100vw - 120px, 1240px) - 48px) / 3) * 3.06)'
+            -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- render 'pagination-controls', paginate: paginate -%}
+    {%- endpaginate -%}
+  {%- else -%}
+    <p class="mmw-bgrid__empty">{{ section.settings.empty_text }}</p>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "MMW Siatka bloga",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Nagłówek" },
+    {
+      "type": "range",
+      "id": "posts_count",
+      "label": "Liczba wpisów na stronę",
+      "min": 6,
+      "max": 24,
+      "step": 3,
+      "default": 12
+    },
+    { "type": "text", "id": "empty_text", "label": "Tekst przy braku wpisów", "default": "Brak wpisów do wyświetlenia." }
+  ],
+  "enabled_on": {
+    "templates": ["blog"]
+  },
+  "presets": [{ "name": "MMW Siatka bloga" }]
+}
+{% endschema %}

@@ -83,11 +83,11 @@
       }
     },
     "posts": {
-      "type": "mmw-blog-posts",
+      "type": "mmw-blog-grid",
       "settings": {
         "heading": "",
-        "per_page": 6,
-        "button_label": "Załaduj więcej"
+        "posts_count": 12,
+        "empty_text": "Brak wpisów do wyświetlenia."
       }
     }
   },

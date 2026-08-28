@@ -74,7 +74,7 @@
         width="640"
         height="980"
         src="{{ article.image | image_url: width: 640 }}"
-        srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 640 }} 640w, {{ article.image | image_url: width: 900 }} 900w"
+        srcset="{{ article.image | image_url: width: 400 }} 400w, {{ article.image | image_url: width: 640 }} 640w, {{ article.image | image_url: width: 900 }} 900w, {{ article.image | image_url: width: 1200 }} 1200w, {{ article.image | image_url: width: 1600 }} 1600w, {{ article.image | image_url: width: 2200 }} 2200w"
         sizes="{{ card_sizes }}"
         alt=""
       >
