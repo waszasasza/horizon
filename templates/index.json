@@ -37,8 +37,8 @@
       "settings": {
         "background_type": "video",
         "image": "shopify://shop_images/MMW_pejzaz.png",
-        "video": "shopify://files/videos/Piękno kolorów, śpiew ptaków i chwila tylko dla siebie… 🌹✨ Czas zwalnia, a natura otula spokoje.mp4",
-        "video_mobile_image_fallback": false,
+        "video_desktop": "shopify://files/videos/Piękno kolorów, śpiew ptaków i chwila tylko dla siebie… 🌹✨ Czas zwalnia, a natura otula spokoje.mp4",
+        "show_video_mobile": true,
         "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
         "heading": "Natura, tradycja, wino & ludzie. Mała Wieś.",

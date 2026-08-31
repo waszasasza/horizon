@@ -15,7 +15,6 @@
       "settings": {
         "background_type": "image",
         "image": "shopify://shop_images/palac_25819722-e812-4c1d-8fbe-08e2ed69c7d3.webp",
-        "video_mobile_image_fallback": true,
         "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
         "heading": "Marka z własną filozofią",

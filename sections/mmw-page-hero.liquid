@@ -15,37 +15,69 @@
   bez pośredniego pliku/snippetu, więc nie ma tu ryzyka z per-page
   subsettingiem (nie ma czego nie wyrenderować, patrz CLAUDE.md, sekcja
   o awarii karuzel). Poster NIE jest atrybutem video (video_tag: poster:
-  nil w natywnym hero.liquid) — jest osobnym <img>, żeby to on był
-  elementem LCP z własnym srcset, a nie atrybut poster (słabiej wspierany
-  jako kandydat LCP, bez srcset).
+  nil w natywnym hero.liquid) — jest osobnym elementem obrazu, żeby to on
+  był kandydatem LCP z własnym srcset/art-direction, a nie atrybut poster
+  (słabiej wspierany jako LCP, bez srcset).
 
-  Mobile → obraz zamiast wideo: NIE przez JS/CSS display:none (video
-  z autoplay bywa i tak pobierane w tle zależnie od przeglądarki) — przez
-  <source media="(min-width: 750px)"> na KAŻDYM źródle wideo. Gdy żadne
-  <source> nie pasuje do bieżącej szerokości viewportu, przeglądarka nie
-  pobiera żadnych bajtów wideo, więc poster pod spodem zostaje jedyną
-  widoczną warstwą — czysty HTML, zero JS, gwarancja braku pobrania
-  (nie heurystyka).
+  PRZEBUDOWA (poster+wideo, leniwe ładowanie) — patrz CLAUDE.md, sekcja
+  „mmw-page-hero — leniwe wideo w tle" po pełne uzasadnienie i zmierzone
+  liczby. Skrót decyzji:
 
-  prefers-reduced-motion: brak wzorca natywnego do przejęcia (sprawdzone:
-  sections/hero.liquid go nie obsługuje) — czysty CSS niżej, video
-  chowane, poster zostaje.
-
-  Gdy background_type = video, ale pole video puste: has_video poniżej
-  wychodzi false, więc <video> w ogóle się nie renderuje (bez pustego
-  kontenera) — zachowanie identyczne jak przy background_type = image.
+  - Cztery pliki zamiast jednego: video_desktop/video_mobile,
+    poster_desktop/poster_mobile. Puste video_mobile/poster_mobile →
+    fallback na wersję desktop (Krok 3 zadania). poster_desktop puste →
+    fallback na stare pole `image` (zachowane, używane też przez
+    background_type: image bez zmian).
+  - Wybór desktop/mobile dla WIDEO jest w JS (matchMedia), NIE przez
+    `<source media="...">` — mimo że to drugie zweryfikowane DZIAŁA
+    poprawnie (Chromium/Firefox/WebKit, zero requestów gdy media nie
+    pasuje) — bo i tak potrzebny jest JS do odłożenia STARTU pobierania
+    (requestIdleCallback), więc dublowanie logiki wyboru pliku w dwóch
+    miejscach (HTML `media` + JS) nie ma sensu.
+  - `<video>` NIE istnieje w wyrenderowanym HTML-u w ogóle — tworzy go
+    dopiero JS, po idle. Bez JS nie ma więc czego chować: poster zostaje
+    jedyną warstwą, zero elementu do wyłączenia, zero szans na pobranie.
+    Zweryfikowane bezpośrednio: `preload="none"` razem z `autoplay` NIE
+    działa (przeglądarka i tak ciągnie pełne dane) — jedyny pewny sposób
+    to nie dawać `autoplay`/źródeł w znaczniku wcale.
+  - Art direction plakatu przez `<picture><source media>`, NIE `srcset` —
+    to dwa różne kadry (różna kompozycja mobile/desktop), nie ta sama
+    grafika w innej rozdzielczości, więc to nie jest przypadek dla
+    `srcset`/`sizes` per spec.
+  - Podmiana plakat→wideo na zdarzenie `playing` (gwarancja realnego
+    odtwarzania), nie `loadstart`/`canplay`. Crossfade przez opacity,
+    oba elementy leżą absolutnie w tym samym stałym kontenerze
+    (`min-height` z ustawienia sekcji) — zero skoku layoutu z definicji
+    architektury, nie tylko przez przypadek.
 {%- endcomment -%}
 {%- liquid
   assign bg_type = section.settings.background_type | default: 'image'
+  assign video_desktop = section.settings.video_desktop
+  assign video_mobile = section.settings.video_mobile | default: video_desktop
+  assign poster_desktop = section.settings.poster_desktop | default: section.settings.image
+  assign poster_mobile = section.settings.poster_mobile | default: poster_desktop
   assign has_video = false
-  if bg_type == 'video' and section.settings.video != blank
+  if bg_type == 'video' and video_desktop != blank
     assign has_video = true
   endif
-  assign source_media = ''
-  if section.settings.video_mobile_image_fallback
-    assign source_media = ' media="(min-width: 750px)"'
-  endif
 -%}
+{%- comment -%}
+  `| json` na całym `video.sources` (VideoSource drop) rzuca "json not
+  allowed for this object" — zweryfikowane bezpośrednio, nie teoria. Budowa
+  ręczna, pole po polu (proste stringi, `| json` na nich działa poprawnie).
+{%- endcomment -%}
+{%- capture desktop_video_json -%}
+  [{%- for source in video_desktop.sources -%}
+    {%- unless forloop.first -%},{%- endunless -%}
+    {"url": {{ source.url | json }}, "mime_type": {{ source.mime_type | json }}}
+  {%- endfor -%}]
+{%- endcapture -%}
+{%- capture mobile_video_json -%}
+  [{%- for source in video_mobile.sources -%}
+    {%- unless forloop.first -%},{%- endunless -%}
+    {"url": {{ source.url | json }}, "mime_type": {{ source.mime_type | json }}}
+  {%- endfor -%}]
+{%- endcapture -%}
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-page-hero {
     position: relative;
@@ -64,6 +96,24 @@
     width: 100%; height: 100%;
     object-fit: cover;
     z-index: 0;
+  }
+  /* Crossfade plakat -> wideo. Oba leżą absolutnie w tym samym stałym
+     kontenerze (min-height wyżej) — podmiana opacity, zero skoku layoutu.
+     Wideo nie istnieje w HTML-u dopóki JS go nie utworzy po zdarzeniu
+     "playing" — patrz assets/mmw-page-hero-video.js. */
+  #shopify-section-{{ section.id }} .mmw-page-hero__bg {
+    opacity: 1;
+    transition: opacity .6s ease;
+  }
+  #shopify-section-{{ section.id }} .mmw-page-hero__bg-video {
+    opacity: 0;
+    transition: opacity .6s ease;
+  }
+  #shopify-section-{{ section.id }} .mmw-page-hero.mmw-page-hero--video-ready .mmw-page-hero__bg {
+    opacity: 0;
+  }
+  #shopify-section-{{ section.id }} .mmw-page-hero.mmw-page-hero--video-ready .mmw-page-hero__bg-video {
+    opacity: 1;
   }
   #shopify-section-{{ section.id }} .mmw-page-hero__overlay {
     position: absolute; inset: 0; z-index: 1;
@@ -125,7 +175,48 @@
 {%- endstyle -%}
 
 <section class="mmw-page-hero">
-  {%- if section.settings.image -%}
+  {%- if has_video -%}
+    {%- comment -%}
+      Plakat = LCP tej sekcji: eager + fetchpriority high, bez lazy.
+      Art direction (dwa różne kadry, nie ta sama grafika w innej
+      rozdzielczości) przez <picture><source media>, nie srcset.
+    {%- endcomment -%}
+    <picture>
+      {%- if poster_mobile != blank -%}
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ poster_mobile | image_url: width: 750 }} 750w,
+                  {{ poster_mobile | image_url: width: 1100 }} 1100w"
+          sizes="100vw"
+        >
+      {%- endif -%}
+      {%- if poster_desktop != blank -%}
+        <img
+          class="mmw-page-hero__bg"
+          src="{{ poster_desktop | image_url: width: 2400 }}"
+          srcset="{{ poster_desktop | image_url: width: 1200 }} 1200w,
+                  {{ poster_desktop | image_url: width: 2400 }} 2400w"
+          sizes="100vw"
+          alt=""
+          loading="eager"
+          fetchpriority="high"
+          width="{{ poster_desktop.width }}"
+          height="{{ poster_desktop.height }}"
+        >
+      {%- else -%}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'mmw-page-hero__bg' }}
+      {%- endif -%}
+    </picture>
+
+    <script type="application/json" data-hero-video-config>
+      {
+        "desktopVideo": {{ desktop_video_json }},
+        "mobileVideo": {{ mobile_video_json }},
+        "showVideoMobile": {{ section.settings.show_video_mobile | json }}
+      }
+    </script>
+    <script src="{{ 'mmw-page-hero-video.js' | asset_url }}" type="module"></script>
+  {%- elsif section.settings.image -%}
     <img
       class="mmw-page-hero__bg"
       src="{{ section.settings.image | image_url: width: 2400 }}"
@@ -140,14 +231,6 @@
     >
   {%- else -%}
     {{ 'lifestyle-1' | placeholder_svg_tag: 'mmw-page-hero__bg' }}
-  {%- endif -%}
-
-  {%- if has_video -%}
-    <video class="mmw-page-hero__bg-video" autoplay muted loop playsinline aria-hidden="true">
-      {%- for source in section.settings.video.sources -%}
-        <source src="{{ source.url }}" type="{{ source.mime_type }}"{{ source_media }}>
-      {%- endfor -%}
-    </video>
   {%- endif -%}
 
   <div class="mmw-page-hero__overlay"></div>
@@ -199,9 +282,12 @@
         { "value": "video", "label": "Wideo" }
       ]
     },
-    { "type": "image_picker", "id": "image", "label": "Zdjęcie tła", "info": "Używane jako tło przy typie „Obraz” oraz jako plakat i zapasowe tło na mobile przy typie „Wideo”." },
-    { "type": "video", "id": "video", "label": "Wideo (hostowane w Shopify)", "visible_if": "{{ section.settings.background_type == 'video' }}" },
-    { "type": "checkbox", "id": "video_mobile_image_fallback", "label": "Na mobile pokaż obraz zamiast wideo", "info": "Zalecane — wideo w tle na łączu komórkowym to realny koszt transferu.", "default": true, "visible_if": "{{ section.settings.background_type == 'video' }}" },
+    { "type": "image_picker", "id": "image", "label": "Zdjęcie tła", "info": "Używane jako tło przy typie „Obraz”. Przy typie „Wideo” — tylko jako zapasowy plakat, gdy „Plakat wideo — desktop” niżej jest puste.", "visible_if": "{{ section.settings.background_type == 'image' }}" },
+    { "type": "image_picker", "id": "poster_desktop", "label": "Plakat wideo — desktop", "info": "Widoczny natychmiast przy wejściu, wideo dogrywa się dopiero w tle. Puste = użyje pola „Zdjęcie tła” wyżej.", "visible_if": "{{ section.settings.background_type == 'video' }}" },
+    { "type": "image_picker", "id": "poster_mobile", "label": "Plakat wideo — mobile", "info": "Puste = użyje plakatu desktop.", "visible_if": "{{ section.settings.background_type == 'video' }}" },
+    { "type": "video", "id": "video_desktop", "label": "Wideo — desktop", "visible_if": "{{ section.settings.background_type == 'video' }}" },
+    { "type": "video", "id": "video_mobile", "label": "Wideo — mobile", "info": "Puste = użyje wideo desktop.", "visible_if": "{{ section.settings.background_type == 'video' }}" },
+    { "type": "checkbox", "id": "show_video_mobile", "label": "Pokaż wideo na mobile", "info": "Wyłącz, żeby na mobile zawsze zostawał sam plakat, bez pobierania wideo.", "default": true, "visible_if": "{{ section.settings.background_type == 'video' }}" },
     { "type": "range", "id": "overlay_opacity", "min": 0, "max": 80, "step": 5, "unit": "%", "label": "Przyciemnienie tła", "default": 30 },
 
     { "type": "header", "content": "Treść" },

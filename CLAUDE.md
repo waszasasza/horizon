@@ -601,6 +601,156 @@ suwak w edytorze nie trafi na nią dokładnie przy ręcznej regulacji.
 dwie wartości odziedziczone po scalanych sekcjach (1.1 / 0.97). Do
 ujednolicenia po weryfikacji z Figmą.
 
+### mmw-page-hero — leniwe wideo w tle
+
+Wideo w tle blokowało wejście na stronę — pełny stream HLS (manifest +
+segmenty, ~12MB dla przykładowego pliku) pobierał się natychmiast przy
+`autoplay`, identycznie na desktopie i mobile, bez względu na `preload`.
+Przebudowa: cztery pliki (`video_desktop`/`video_mobile`/`poster_desktop`/
+`poster_mobile`) zamiast jednego `video`, leniwe ładowanie przez JS.
+
+**Dwa pomiary, które ustaliły architekturę, zweryfikowane bezpośrednio
+(Playwright + realny plik HLS z biblioteki Shopify, nie teoria):**
+
+1. **`preload="none"` z `autoplay` NIE działa w ogóle — ale to nie jedyny
+   sposób, żeby dostać pełne pobranie.** Zmierzone na izolowanej stronie
+   testowej (goły `<video><source src=".m3u8"></video>`, poza sekcją, żeby
+   wykluczyć resztę strony jako zmienną) w czterech wariantach naraz —
+   `autoplay`+brak `preload`, `autoplay`+`preload="none"`, brak `autoplay`+
+   `preload="none"`, brak `autoplay`+brak `preload` (czyli domyślne
+   `"metadata"`): pełne ~11,9MB (manifest + segmenty do HD-1080p) pobiera
+   się w WARIANTACH 1, 2 I 4 — jedyny wariant z zerowym transferem to
+   `preload="none"` BEZ `autoplay` (wariant 3). Innymi słowy: to nie tylko
+   `autoplay` „nadpisuje" `preload="none"` (spec to przewiduje) — dla tego
+   konkretnego strumienia HLS nawet domyślne `preload="metadata"` BEZ
+   żadnego autoplay ściąga pełne segmenty, nie samą zapowiedź/duration jak
+   przy zwykłym pojedynczym pliku mp4. Sam atrybut `preload` na statycznym
+   znaczniku `<video>` nie daje więc żadnej bezpiecznej kombinacji poza
+   „`preload="none"` i zero autoplay" — a nasza sekcja i tak chce
+   autoplay. **Jedyny pewny sposób na odłożenie pobierania zostaje ten
+   sam: nie dawać `autoplay`/źródeł w znaczniku wcale** — `<video>` w tej
+   sekcji teraz nie istnieje w wyrenderowanym HTML-u, tworzy go dopiero
+   `assets/mmw-page-hero-video.js` po `requestIdleCallback`.
+2. **Dobór bitrate w HLS jest sterowany przepustowością, nie szerokością
+   viewportu.** Przy 375px na szybkim łączu (lokalny dev) przeglądarka
+   krótko próbkuje wariant SD-480p, po czym eskaluje do HD-1080p —
+   dokładnie ten sam plik co na desktopie, mimo małego ekranu. Stąd
+   twarda potrzeba osobnego pliku `video_mobile` (nie polegania na tym,
+   że HLS „sam się dostosuje” do mobile) — sam plik trzeba wyeksportować
+   mniejszy, kod tego nie naprawi.
+
+**Ile faktycznie odracza `requestIdleCallback` — zmierzone pod dławieniem
+sieci i zajętym wątkiem głównym, nie na cichym tabie.** Pierwszy pomiar tej
+architektury (Playwright, zero throttlingu, pusta karta bez konkurencji o
+wątek główny) pokazał `requestIdleCallback` odpalający się ~45ms po
+zarejestrowaniu, `didTimeout: false` (prawdziwa bezczynność) — czyli PRZED
+zdarzeniem `load`, praktycznie natychmiast. To najlepszy możliwy scenariusz
+i nie pokazuje żadnej realnej różnicy względem starego kodu. Powtórzone pod
+`Emulation.setCPUThrottlingRate: 4` + wstrzykniętą pracą wątku głównego co
+30ms (symulacja trackerów/hydration na prawdziwej stronie) + throttling
+sieci (`Network.emulateNetworkConditions`, dwa profile: Fast 3G — 1,6Mbps↓/
+750Kbps↑/150ms RTT, i Slow 4G — 4Mbps↓/3Mbps↑/170ms RTT), mobile 375px:
+
+| Profil | STARY kod — start pobierania wideo | NOWY kod — start pobierania wideo | `load` |
+|---|---|---|---|
+| Slow 4G + zajęty wątek | **4,06s** (przed `DOMContentLoaded`@6,75s) | **10,50s** (po `load`) | stary: 8,07s / nowy: 7,64s |
+| Fast 3G + zajęty wątek | **9,04s** (przed `DOMContentLoaded`@16,46s) | **17,71s** (po `load`) | stary: 16,97s / nowy: 16,29s |
+
+Stary kod (`<video autoplay>` literalnie w HTML-u) zaczyna ściągać wideo
+ZANIM przeglądarka skończy parsować własny DOM strony — konkuruje o
+przepustowość z krytycznymi zasobami strony przez kilka-kilkanaście sekund.
+Nowy kod w obu profilach czeka do PO `load`. W obu profilach
+`requestIdleCallback` odpalił się przez fallback timeoutu
+(`didTimeout: true, timeRemaining: 0`), nie przez prawdziwą bezczynność —
+przy stale zajętym wątku głównym (pętla 25ms pracy / 30ms przerwy, ~45%
+obciążenia) przeglądarka nigdy nie znalazła realnej szczeliny bezczynności
+w ciągu 4s, więc callback odpalił się dokładnie ~4000ms po wywołaniu
+`requestIdleCallback`, nie wcześniej i nie później. Wniosek: to NIE jest
+nieograniczone odroczenie do „prawdziwej" bezczynności — to twardy odstęp
+~4s od momentu wykonania skryptu, niezależnie od realnej bezczynności wątku,
+gdy wątek jest stale zajęty. Pod dławieniem sam skrypt modułowy wykonuje się
+też później niż na cichym tabie (6,3s przy Slow 4G, 13,6s przy Fast 3G —
+tyle trwa ściągnięcie i sparsowanie reszty strony), więc całkowite
+opóźnienie startu wideo to suma: (czas do wykonania skryptu) + (do 4s
+timeoutu `requestIdleCallback`) — w obu zmierzonych profilach to
+wystarczyło, żeby wylądować PO `load`, ale przy szybszym połączeniu
+(pierwszy pomiar, bez throttlingu) skrypt wykonuje się na tyle szybko, że
+nawet pełne 4s nie byłyby potrzebne — bezczynność znajduje się naturalnie w
+ułamku sekundy, i wtedy przewaga nad starym kodem jest minimalna albo
+żadna. Innymi słowy: **to odroczenie ma sens dokładnie na wolnych/zatłoczonych
+urządzeniach, które są tu głównym celem** — na szybkim, cichym urządzeniu
+deweloperskim korzyść w praktyce znika, bo stronie i tak nie ma na co czekać.
+
+**`<source media="...">` wewnątrz `<video>` DZIAŁA poprawnie** — wbrew
+częstemu przekonaniu (i wbrew treści promptu, który zlecił tę przebudowę).
+Zweryfikowane bezpośrednio w trzech silnikach (Chromium, Firefox, WebKit —
+zainstalowane specjalnie do tego testu), viewport dopasowany i niedopasowany
+do `media`: zero requestów wideo/HLS gdy `media` nie pasuje, we wszystkich
+trzech. Mechanizm wyboru pliku w tej sekcji i tak przeniesiony do JS
+(`matchMedia`), ale NIE dlatego że `<source media>` nie działa — dlatego że
+i tak potrzebny jest JS do odłożenia startu pobierania (`requestIdleCallback`),
+więc dublowanie logiki wyboru pliku w HTML i JS nie miałoby sensu. Gdyby
+kiedyś ktoś inny w motywie chciał czystego HTML-owego przełącznika źródła
+wideo bez JS (np. dla accessibility/no-JS budżetu) — `<source media>` jest
+opcją, nie ślepym zaułkiem.
+
+Kolejność: `preload="none"` też sprawdzony jako nieskuteczny osobno (patrz
+wyżej) — architektura nie polega na atrybucie `preload` w ogóle, tylko na
+nieobecności `<video>` w znaczniku do czasu, aż JS go utworzy.
+
+**`playing`, nie `loadstart`/`canplay`, jako sygnał podmiany plakat→wideo**
+— gwarancja realnego odtwarzania, nie tylko że dane zaczęły napływać.
+Crossfade przez `opacity` + `transition`, klasa `.mmw-page-hero--video-ready`
+dodawana na `<section class="mmw-page-hero">` — **UWAGA na selektor CSS przy
+kolejnych zmianach w tym pliku**: `#shopify-section-{{ section.id }}` to
+zewnętrzny wrapper generowany przez Shopify, NIE ten sam element co
+`.mmw-page-hero` (klasa jest na elemencie `<section>` W ŚRODKU wrappera).
+Pierwsza wersja selektora `#shopify-section-{{ id }}.mmw-page-hero--video-ready
+{ ... }` (złożony, bez spacji) nigdy się nie odpalała — złapane dopiero przy
+bezpośrednim sprawdzeniu `getComputedStyle` (wideo grało, `currentTime` rosło,
+klasa była obecna, ale opacity zostawało na 0). Poprawny selektor to
+potomkowy: `#shopify-section-{{ id }} .mmw-page-hero.mmw-page-hero--video-ready
+.mmw-page-hero__bg-video`.
+
+`| json` na `video.sources` (cały obiekt VideoSource drop) rzuca **"json not
+allowed for this object"** — zweryfikowane bezpośrednio, nie teoria. Dane do
+JS (dwie listy źródeł wideo) budowane ręcznie przez `capture` + `for`, pole
+po polu (`source.url`/`source.mime_type` to zwykłe stringi, `| json` na nich
+działa poprawnie) — nie przez zrzucenie całego `.sources` na raz.
+
+Poster: `<picture><source media="(max-width: 749px)">` dla mobile, nie
+`srcset`/`sizes` — to dwa różne kadry (inna kompozycja mobile/desktop), nie
+ta sama grafika w innej rozdzielczości, więc semantycznie to przypadek dla
+art-direction (`picture`+`media`), nie resolution-switching (`srcset`).
+WebP potwierdzone jako automatyczne po stronie CDN Shopify (bez żadnej
+konwersji z naszej strony) — zmierzone bezpośrednio: PNG (`MMW_pejzaz.png`)
+wraca z nagłówkiem `content-type: image/webp` bez żadnej zmiany po naszej
+stronie.
+
+**Waga postera zależy od konkretnego pliku, nie tylko od kodu.** Cel z
+zadania to ~150KB; zmierzony realnie plakat desktopowy (`MMW_pejzaz.png`,
+szerokość 2400px) waży 321,5KB — krajobrazowe zdjęcie o dużej złożoności,
+nie dobrane pod limit wagowy. Kod dostarcza WebP automatycznie i dwa
+kandydaty szerokości (1200w/2400w), ale nie wymusi wagi poniżej progu, gdy
+samo źródło jest ciężkie do skompresowania — to decyzja o konkretnym pliku,
+nie coś do naprawienia w Liquid/CSS.
+
+Rename ustawień przy tej przebudowie (Shopify: `visible_if` to tylko UI
+edytora, nie chroni przechowanej wartości — stare klucze w istniejących
+instancjach trzeba było ręcznie przepisać w JSON-ach szablonów, sama zmiana
+schematu by tego nie zrobiła):
+- `video` → `video_desktop` (ten sam typ `video`, ta sama wartość).
+- `video_mobile_image_fallback` (domyślnie `true` = **chowaj** wideo na
+  mobile) → `show_video_mobile` (domyślnie `true` = **pokazuj** wideo na
+  mobile) — odwrócona semantyka domyślnej wartości, nie tylko nazwa.
+  `templates/index.json` (jedyna instancja z realnie aktywnym wideo w
+  momencie przebudowy) miało `video_mobile_image_fallback: false` (wideo
+  pokazywane na mobile) → zmigrowane na `show_video_mobile: true` (to samo
+  zachowanie, odwrócona wartość logiczna zgodnie z odwróconą semantyką).
+  Orphaned klucz `video_mobile_image_fallback: true` w `page.historia.json`
+  (bez aktywnego wideo, `background_type: image`) usunięty przy migracji —
+  nie miał żadnego efektu, ale zaśmiecał JSON martwym ustawieniem.
+
 ## mmw-stats
 
 Animacja odliczania (`assets/mmw-stats.js`) renderuje liczby bez separatora

@@ -10,7 +10,7 @@
 {
   "sections": {
     "hero": {
-      "type": "mmw-firms-hero",
+      "type": "mmw-page-hero",
       "settings": {
         "heading": "Z Małej Wsi do Twojego biznesu",
         "subtitle": "Tworzymy produkty inspirowane naturą, historią i rzemiosłem, które trafiają do firm, restauracji, hoteli i partnerów handlowych.",
