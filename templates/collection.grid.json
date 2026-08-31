@@ -154,7 +154,7 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
-        "enable_infinite_scroll": true,
+        "enable_infinite_scroll": false,
         "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": false,
@@ -171,13 +171,14 @@
       "type": "mmw-chronicle",
       "settings": {}
     },
-    "mmw_heritage": {
-      "type": "mmw-heritage-note",
-      "settings": {}
-    },
-    "mmw_collection_seo_faq": {
+    "mmw_collection_seo_faq_JihRW7": {
       "type": "mmw-collection-seo-faq",
-      "settings": {}
+      "name": "MMW SEO + FAQ (kolekcja)",
+      "settings": {
+        "seo_heading": "O kolekcji",
+        "faq_heading": "FAQ",
+        "padding_block": 60
+      }
     }
   },
   "order": [
@@ -185,7 +186,6 @@
     "mmw_intro",
     "main",
     "mmw_chronicle",
-    "mmw_heritage",
-    "mmw_collection_seo_faq"
+    "mmw_collection_seo_faq_JihRW7"
   ]
 }

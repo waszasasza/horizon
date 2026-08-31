@@ -9,18 +9,20 @@
  */
 {
   "sections": {
-    "hero": {
+    "mmw_page_hero_tq7KxU": {
       "type": "mmw-page-hero",
+      "name": "MMW Hero strony",
       "settings": {
         "background_type": "image",
-        "heading": "Marka z własną filozofią",
-        "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
-        "image": "shopify://shop_images/Filozofia_2.webp",
-        "logo": "shopify://shop_images/MMW_logo.svg",
-        "height": 720,
+        "image": "shopify://shop_images/palac_25819722-e812-4c1d-8fbe-08e2ed69c7d3.webp",
+        "video_mobile_image_fallback": true,
         "overlay_opacity": 30,
+        "logo": "shopify://shop_images/MMW_logo.svg",
+        "heading": "Marka z własną filozofią",
         "heading_size": 80,
-        "heading_line_height": 0.97,
+        "heading_line_height": 1.1,
+        "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są\nreceptury, które dziś możemy podać na Twój stół.",
+        "height": 720,
         "padding_block": 80
       }
     },
@@ -160,7 +162,69 @@
       "type": "mmw-process",
       "settings": {
         "eyebrow": "Proces produkcyjny",
-        "column_left": "<p>Wszystko zaczyna się od ziemi. To ona od pokoleń wyznacza rytm życia w Małej Wsi. W sadach rodziny Barańskich dojrzewają owoce, które stają się podstawą wielu produktów tworzonych pod marką Majątek Mała Wieś. W pałacowych ogrodach i na okolicznych terenach natura każdego roku pisze nową historię. Nie przyspieszamy jej biegu i nie ingerujemy w to, co tworzą kolejne pory roku. Każdy zbiór jest inny, dlatego każdy sezon przynosi nowe smaki, aromaty i inspiracje. Owoce trafiają następnie do tłoczni, spiżarni i winiarni, gdzie rozpoczyna się kolejny etap ich drogi. To właśnie tutaj tradycyjne receptury spotykają się ze współczesnym rzemiosłem. Powstają soki, przetwory, cydry, oleje i wina inspirowane charakterem tego miejsca. Szczególne miejsce zajmuje Winnica Pałac Mała Wieś, która dziś obejmuje 40 hektarów upraw winorośli. Każdy rocznik powstaje w rytmie natury i zachowuje charakter sezonu, z którego się narodził. Nad jakością produktów czuwają ludzie, którzy doskonale znają tę ziemię i jej możliwości. Dzięki temu w każdym słoiku, butelce i kieliszku można odnaleźć autentyczny smak Małej Wsi. To historia miejsca, którą każdego dnia zamykamy w naszych produktach.</p>"
+        "column_left": "<p>Winnica Pałac Mała Wieś to miejsce, gdzie przeszłość spotyka się z pasją tworzenia wina. Każdy kieliszek to hołd dla ziemi, z której pochodzą właściciele. Założona w 2023 roku, jest największą winnicą na Mazowszu, zajmując aż 22 hektary. Dzięki wyjątkowemu klimatowi, żyznej glebie i pasji do winiarstwa, tworzymy wina i doświadczenia enoturystyczne, które oddają charakter historycznej ziemi Grójecczyzny. Każda wizyta zabiera Was w świat elegancji, luksusu i wykwintności. Każdy rok w winiarstwie to nowe wyzwania.</p><p></p><p>Mazowsze w 2024 roku obdarzyło nas doskonałymi warunkami pogodowymi. Ciepłe lato i brak wiosennych przymrozków pozwoliły uzyskać wino o złożonym charakterze, głębokich nutach owocowych i subtelnym, mineralnym finiszu. Rocznik ten zaspokoi gusta zarówno miłośników białego wina, jak i czerwonego czy różowego.</p>",
+        "column_right": "<p>Winnica Pałac Mała Wieś to miejsce, gdzie przeszłość spotyka się z pasją tworzenia wina. Każdy kieliszek to hołd dla ziemi, z której pochodzą właściciele. Założona w 2023 roku, jest największą winnicą na Mazowszu, zajmując aż 22 hektary. Dzięki wyjątkowemu klimatowi, żyznej glebie i pasji do winiarstwa, tworzymy wina i doświadczenia enoturystyczne, które oddają charakter historycznej ziemi Grójecczyzny. Każda wizyta zabiera Was w świat elegancji, luksusu i wykwintności. Winnica Pałac Mała Wieś to miejsce, gdzie przeszłość spotyka się z pasją tworzenia wina. Każdy kieliszek to hołd dla ziemi, z której pochodzą właściciele. Założona w 2023 roku, jest największą winnicą na Mazowszu, zajmując aż 22 hektary. Dzięki wyjątkowemu klimatowi, żyznej glebie i pasji do winiarstwa, tworzymy wina i doświadczenia enoturystyczne, które oddają charakter historycznej ziemi Grójecczyzny. Każda wizyta zabiera Was w świat elegancji, luksusu i wykwintności.</p>"
+      }
+    },
+    "mmw_team_yHxPMe": {
+      "type": "mmw-team",
+      "blocks": {
+        "person_4j3zUH": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Tomasz.webp",
+            "name": "Tomasz Barański",
+            "role": "Współwłaściciel i dyrektor zarządzający",
+            "email": "współwłaściciel i dyrektor zarządzający Pałacu Mała Wieś, Winnicy Pałacu Mała Wieś i pre-opening manager Viculus Palace Hotel (otwarcie 2027), z zamiłowania hotelarz i miłośnik winiarstwa"
+          }
+        },
+        "person_ATfYdY": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Paulina.webp",
+            "name": "Paulina Lewandowska",
+            "role": "Kierownik Winiarni",
+            "email": "Mikrobiolog z wykształcenia, pasjonat wina z zamiłowania. Łączy naukę z tradycją, dbając o każdy etap produkcji i wyjątkowy charakter naszych win"
+          }
+        },
+        "person_7qgLQJ": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Dominik_png.webp",
+            "name": "Dominik Źelazek",
+            "role": "Dyrektor Sprzedaży",
+            "email": "Prawdziwy pasjonat win z ponad 20-letnim doświadczeniem w sprzedaży win oraz alkoholi mocnych. Odbył szkolenia i warsztaty winiarskie w Bordeaux, Toskanii czy Katalonii. Jako Dyrektor Sprzedaży, z sukcesem wprowadzał na rynek i rozwijał wiele marek win i alkoholi. W Winnicy Pałac Mała Wieś może w pełni połączyć swoją pasję do wina z doświadczeniem rynkowym, wspierając rozwój naszych wyjątkowych produktów."
+          }
+        },
+        "person_iwjq8p": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Michal.webp",
+            "name": "Michał Trąbicki",
+            "role": "Manager Sprzedaży",
+            "email": "Całe życie zawodowe związany z gastronomią, gdzie zaczynał jako barman, zdobywając doświadczenie w pracy z ludźmi i budowaniu relacji. Od 8 lat rozwija się w sprzedaży w sektorze HORECA, gdzie skutecznie łączy wiedzę produktową z umiejętnościami handlowymi. Specjalizuje się w budowaniu długofalowych relacji, negocjacjach oraz identyfikowaniu potrzeb klientów."
+          }
+        },
+        "person_fwrC3R": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Projekt-bez-nazwy-17_png.webp",
+            "name": "Adam Śmieżewski",
+            "role": "Manager / Sommelier",
+            "email": "Manager sprzedaży, sommelier, od blisko 20 lat zajmuje się zarządzaniem sprzedażą wina do sektora b2b, horeca, klienta indywidualnego i inwestycyjnego. Pierwsze szlify odebrał w L'Ecole du Vin de Bordeaux. Dalszą wiedzę zdobywał podczas podróży winiarskich do Niemiec, Austrii, Francji, Włoch, Hiszpanii, Portugalii, Izraela i USA."
+          }
+        }
+      },
+      "block_order": [
+        "person_4j3zUH",
+        "person_ATfYdY",
+        "person_7qgLQJ",
+        "person_iwjq8p",
+        "person_fwrC3R"
+      ],
+      "name": "MMW Zespół",
+      "settings": {
+        "eyebrow": "NASZ ZESPÓŁ"
       }
     },
     "brands": {
@@ -253,10 +317,11 @@
     }
   },
   "order": [
-    "hero",
+    "mmw_page_hero_tq7KxU",
     "timeline",
     "philosophy",
     "process",
+    "mmw_team_yHxPMe",
     "brands"
   ]
 }

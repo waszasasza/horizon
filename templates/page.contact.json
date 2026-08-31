@@ -121,22 +121,40 @@
     "mmw_team_eR3KnY": {
       "type": "mmw-team",
       "blocks": {
+        "person_7hCRJD": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Tomasz.webp",
+            "name": "Tomasz Barański",
+            "role": "Współwłaściciel i dyrektor zarządzający",
+            "email": "współwłaściciel i dyrektor zarządzający Pałacu Mała Wieś, Winnicy Pałacu Mała Wieś i pre-opening manager Viculus Palace Hotel (otwarcie 2027), z zamiłowania hotelarz i miłośnik winiarstwa"
+          }
+        },
+        "person_bF3AtQ": {
+          "type": "person",
+          "settings": {
+            "image": "shopify://shop_images/Paulina.webp",
+            "name": "Paulina Lewandowska",
+            "role": "Kierownik Winiarni",
+            "email": "Mikrobiolog z wykształcenia, pasjonat wina z zamiłowania. Łączy naukę z tradycją, dbając o każdy etap produkcji i wyjątkowy charakter naszych win"
+          }
+        },
         "person_Nhf37p": {
           "type": "person",
           "settings": {
             "image": "shopify://shop_images/Dominik_png.webp",
             "name": "Dominik Źelazek",
             "role": "Dyrektor Sprzedaży",
-            "email": "dominik.zelazek@palacmalawies.pl"
+            "email": "Prawdziwy pasjonat win z ponad 20-letnim doświadczeniem w sprzedaży win oraz alkoholi mocnych. Odbył szkolenia i warsztaty winiarskie w Bordeaux, Toskanii czy Katalonii. Jako Dyrektor Sprzedaży, z sukcesem wprowadzał na rynek i rozwijał wiele marek win i alkoholi. W Winnicy Pałac Mała Wieś może w pełni połączyć swoją pasję do wina z doświadczeniem rynkowym, wspierając rozwój naszych wyjątkowych produktów."
           }
         },
         "person_PTLpKL": {
           "type": "person",
           "settings": {
-            "image": "shopify://shop_images/eugienia.png",
-            "name": "Eugenia Havryk",
-            "role": "Dyrektor Sprzedaży",
-            "email": "e.havryk@majatekmalawies.pl"
+            "image": "shopify://shop_images/Michal.webp",
+            "name": "Michał Trąbicki",
+            "role": "Manager Sprzedaży",
+            "email": "Całe życie zawodowe związany z gastronomią, gdzie zaczynał jako barman, zdobywając doświadczenie w pracy z ludźmi i budowaniu relacji. Od 8 lat rozwija się w sprzedaży w sektorze HORECA, gdzie skutecznie łączy wiedzę produktową z umiejętnościami handlowymi. Specjalizuje się w budowaniu długofalowych relacji, negocjacjach oraz identyfikowaniu potrzeb klientów."
           }
         },
         "person_4AXx4p": {
@@ -145,18 +163,20 @@
             "image": "shopify://shop_images/Projekt-bez-nazwy-17_png.webp",
             "name": "Adam Śmieżewski",
             "role": "Manager / Sommelier",
-            "email": "e.havryk@majatekmalawies.pl"
+            "email": "Manager sprzedaży, sommelier, od blisko 20 lat zajmuje się zarządzaniem sprzedażą wina do sektora b2b, horeca, klienta indywidualnego i inwestycyjnego. Pierwsze szlify odebrał w L'Ecole du Vin de Bordeaux. Dalszą wiedzę zdobywał podczas podróży winiarskich do Niemiec, Austrii, Francji, Włoch, Hiszpanii, Portugalii, Izraela i USA."
           }
         }
       },
       "block_order": [
+        "person_7hCRJD",
+        "person_bF3AtQ",
         "person_Nhf37p",
         "person_PTLpKL",
         "person_4AXx4p"
       ],
       "name": "MMW Zespół",
       "settings": {
-        "eyebrow": "Team handlowy"
+        "eyebrow": "NASZ ZESPÓŁ"
       }
     },
     "mmw_promo_tiles_E9m3hr": {

@@ -498,14 +498,110 @@
           },
           "blocks": {}
         },
-        "icon_p7NpYr": {
+        "icon_FPpkPc": {
           "type": "icon",
           "name": "t:names.icon",
           "settings": {
             "icon": "price_tag",
-            "image_upload": "shopify://shop_images/wirtualne_media_ae5564ca-92ac-416c-96ee-e50667794f95.svg",
+            "image_upload": "shopify://shop_images/WWA_nasze_miasto_1.svg",
+            "width": 30,
+            "link": "https://warszawa.naszemiasto.pl/pod-warszawa-zbuduja-luksusowy-hotel-tak-bedzie-wygladac/ar/c1p2-26743589",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_PUH3iM": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/WBJ_1.svg",
+            "width": 144,
+            "link": "https://wbj.pl/multifunctional-hotel-complex-with-176-rooms-to-be-built-in-warsaw/post/150483",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_bJzrLH": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/ED_1.svg",
+            "width": 90,
+            "link": "https://echodnia.eu/radomskie/najlepszy-hotel-w-polsce-w-2025-roku-to-palac-mala-wies-hotel-spa-to-najwyzszy-poziom-luksusu-zobacz-jak-sie-prezentuje/ar/c3p2-28229759",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_UntzAf": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/twojstyl_1.svg",
+            "width": 102,
+            "link": "https://twojstyl.pl/artykul/palac-mala-wies-miejsce-ktore-opowiada-historie-ten-adres-wpisujemy-na-mape-luksusowego-wypoczynku,aid,9884",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_cJVYFL": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/magazynvip_1.svg",
             "width": 148,
-            "link": "",
+            "link": "https://magazynvip.pl/palac-mala-wies/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_yzpR74": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/PG_1.svg",
+            "width": 80,
+            "link": "https://przeglad-gastronomiczny.pl/najlepszy-hotel-w-polsce-w-2025-palac-mala-wies-hotel-spa/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_QUYGKp": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/besthotels_1.svg",
+            "width": 28,
+            "link": "https://www.poland100besthotels.pl/post/najlepszy-hotel-w-polsce-w-2025-pałac-mała-wieś-hotel-spa",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_xQbKgz": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/OOH_1.svg",
+            "width": 62,
+            "link": "https://oohmagazine.pl/2018/09/19/palac-mala-wies-niezwykle-miejsce-niedaleko-warszawy-czlonkiem-sbe/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_EQyPBX": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/dziennikzachodni_1.svg",
+            "width": 90,
+            "link": "https://dziennikzachodni.pl/hotele-z-wojewodztwa-slaskiego-wsrod-najlepszych-w-kraju-tak-wygladaja-w-srodku-oto-ranking-poland-100-best-hotels-awards-2025/ar/c7p2-28212821",
             "open_in_new_tab": false
           },
           "blocks": {}
@@ -529,7 +625,7 @@
             "icon": "price_tag",
             "image_upload": "shopify://shop_images/vogue.svg",
             "width": 90,
-            "link": "",
+            "link": "https://www.vogue.pl/a/piekarnia-chleboteka-w-modernistycznym-okraglaku-we-wroclawiu-tak-wyglada-nowe-wnetrze",
             "open_in_new_tab": false
           },
           "blocks": {}
@@ -537,7 +633,15 @@
       },
       "block_order": [
         "text_UAmTjQ",
-        "icon_p7NpYr",
+        "icon_FPpkPc",
+        "icon_PUH3iM",
+        "icon_bJzrLH",
+        "icon_UntzAf",
+        "icon_cJVYFL",
+        "icon_yzpR74",
+        "icon_QUYGKp",
+        "icon_xQbKgz",
+        "icon_EQyPBX",
         "icon_K9eCj3",
         "icon_hRqVrp"
       ],
@@ -548,6 +652,95 @@
         "padding-block-start": 24,
         "padding-block-end": 24,
         "gap_between_elements": 75
+      }
+    },
+    "1787748366540f2f7f": {
+      "type": "_blocks",
+      "blocks": {
+        "group_YrC8iP": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "row",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "solid",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 20,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 40,
+            "padding-block-end": 40,
+            "padding-inline-start": 40,
+            "padding-inline-end": 40
+          },
+          "blocks": {
+            "custom_liquid_DLawDK": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<div class=\"klaviyo-form-Vrzzhm\"></div>"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "custom_liquid_DLawDK"
+          ]
+        }
+      },
+      "block_order": [
+        "group_YrC8iP"
+      ],
+      "name": "Klavyio form",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 60,
+        "padding-block-end": 60
       }
     },
     "mmw_product_carousel_BWj8nj": {
@@ -611,44 +804,44 @@
     "mmw_stats_KByKTL": {
       "type": "mmw-stats",
       "blocks": {
-        "stat_UP6xUi": {
-          "type": "stat",
-          "settings": {
-            "number": "18",
-            "decoration": "shape-1",
-            "description": "Tyle nagród dostały nasze produkty na przestrzeni ostatnich 5 lat!"
-          }
-        },
-        "stat_E3rErt": {
-          "type": "stat",
-          "settings": {
-            "number": "200K+",
-            "decoration": "none",
-            "description": "Zrealizowanych zamówień dla Was. Czekamy na następne tyle!"
-          }
-        },
         "stat_qzFLz9": {
           "type": "stat",
           "settings": {
-            "number": "5000+",
+            "number": "4000+",
             "decoration": "shape-2",
-            "description": "5000 zrealizowanych eventów! To czyni nas doświadczonymi."
+            "description": " Ponad 4000 zrealizowanych zamówień"
           }
         },
         "stat_8cDg6T": {
           "type": "stat",
           "settings": {
-            "number": "78",
+            "number": "40.5 ha",
             "decoration": "none",
-            "description": "Tyle liczy nasz zespół, który na co dzień opiekuje się naszymi gośćmi!"
+            "description": "Powierzchnia Winnicy Pałac Mała Wieś"
+          }
+        },
+        "stat_UP6xUi": {
+          "type": "stat",
+          "settings": {
+            "number": "5",
+            "decoration": "shape-1",
+            "description": "To ilość nagród, które zdobyliśmy w ostatnim roku"
+          }
+        },
+        "stat_E3rErt": {
+          "type": "stat",
+          "settings": {
+            "number": "160K",
+            "decoration": "none",
+            "description": " Ilość litrów wina produkowanych rocznie "
           }
         }
       },
       "block_order": [
-        "stat_UP6xUi",
-        "stat_E3rErt",
         "stat_qzFLz9",
-        "stat_8cDg6T"
+        "stat_8cDg6T",
+        "stat_UP6xUi",
+        "stat_E3rErt"
       ],
       "name": "MMW Statystyki",
       "settings": {
@@ -680,7 +873,7 @@
             "show_product_name": true,
             "hide_arrows_mobile": true,
             "arrows_position": "sides",
-            "max_width": 1100,
+            "max_width": 1300,
             "corner_styling": "soft",
             "header_text_color": "#5f312f",
             "text_color": "#faf2e8",
@@ -698,15 +891,15 @@
         "judge_me_reviews_cards_carousel_A7VdqM"
       ],
       "settings": {
-        "content_direction": "column",
+        "content_direction": "row",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
+        "horizontal_alignment": "center",
         "vertical_alignment": "center",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 12,
-        "section_width": "page-width",
+        "section_width": "full-width",
         "section_height": "",
         "section_height_custom": 50,
         "color_scheme": "",
@@ -725,75 +918,22 @@
         "padding-block-end": 0
       }
     },
-    "featured_blog_posts_RxhP9w": {
-      "type": "featured-blog-posts",
-      "blocks": {
-        "static-blog-title": {
-          "type": "_featured-blog-posts-title",
-          "name": "t:names.title",
-          "static": true,
-          "settings": {
-            "text": "<h2>Opowieści z Majątku</h2>",
-            "width": "100%",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "custom",
-            "font": "var(--font-heading--family)",
-            "font_size": "3.5rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 32,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "static-blog-post-card": {
-          "type": "_featured-blog-posts-card",
-          "name": "t:names.blog_card",
-          "static": true,
-          "settings": {
-            "alignment": "left",
-            "gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        }
-      },
-      "name": "t:names.blog_posts_grid",
+    "mmw_blog_posts_nfQXyF": {
+      "type": "mmw-blog-posts",
+      "name": "MMW Blog wpisy",
       "settings": {
+        "heading": "Opowieści z Majątku",
+        "description": "",
         "blog": "news",
-        "layout_type": "carousel",
-        "carousel_on_mobile": false,
-        "post_limit": 3,
-        "columns": 3,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 24,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "gap": 12,
+        "posts_count": 8,
         "color_scheme": "",
-        "padding-block-start": 60,
-        "padding-block-end": 60
+        "columns": 3,
+        "columns_gap": 24,
+        "mobile_card_size": "60cqw",
+        "icons_style": "arrow",
+        "icons_shape": "circle",
+        "end_card_heading": "Zobacz więcej\nartykułów",
+        "end_card_link": ""
       }
     }
   },
@@ -807,11 +947,12 @@
     "section_4jbBEV",
     "mmw_product_carousel_eXXW4e",
     "marquee_DVPjxW",
+    "1787748366540f2f7f",
     "mmw_product_carousel_BWj8nj",
     "mmw_product_carousel_Nnd6jf",
     "mmw_palac_split_rCbPN8",
     "mmw_stats_KByKTL",
     "1787163296ba31334f",
-    "featured_blog_posts_RxhP9w"
+    "mmw_blog_posts_nfQXyF"
   ]
 }

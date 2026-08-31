@@ -10,18 +10,14 @@
 {
   "sections": {
     "hero": {
-      "type": "mmw-page-hero",
+      "type": "mmw-firms-hero",
       "settings": {
-        "background_type": "image",
         "heading": "Z Małej Wsi do Twojego biznesu",
         "subtitle": "Tworzymy produkty inspirowane naturą, historią i rzemiosłem, które trafiają do firm, restauracji, hoteli i partnerów handlowych.",
         "image": "shopify://shop_images/Dla_Firm.webp",
         "logo": "shopify://shop_images/MMW_logo.svg",
         "height": 720,
-        "overlay_opacity": 30,
-        "heading_size": 80,
-        "heading_line_height": 0.97,
-        "padding_block": 80
+        "overlay_opacity": 30
       }
     },
     "intro": {

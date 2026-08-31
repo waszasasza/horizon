@@ -16,19 +16,19 @@
           "type": "_product-media-gallery",
           "static": true,
           "settings": {
-            "media_presentation": "grid",
+            "media_presentation": "carousel",
             "media_columns": "one",
             "image_gap": 4,
             "large_first_image": false,
             "icons_style": "arrow",
-            "slideshow_controls_style": "counter",
+            "slideshow_controls_style": "dots",
             "slideshow_mobile_controls_style": "dots",
             "thumbnail_position": "right",
             "thumbnail_width": 44,
             "thumbnail_radius": 0,
-            "aspect_ratio": "adapt",
+            "aspect_ratio": "1/1.25",
             "constrain_to_viewport": true,
-            "media_fit": "contain",
+            "media_fit": "cover",
             "media_radius": 0,
             "extend_media": false,
             "zoom": true,
@@ -62,12 +62,16 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 24,
+            "padding-block-start": 0,
             "padding-block-end": 24,
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
+            "judge_me_reviews_preview_badge_XEggQn": {
+              "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+              "settings": {}
+            },
             "group_icgrde": {
               "type": "group",
               "name": "Header",
@@ -251,6 +255,7 @@
             }
           },
           "block_order": [
+            "judge_me_reviews_preview_badge_XEggQn",
             "group_icgrde",
             "text_ecicqy",
             "divider_VJhene",
@@ -397,25 +402,25 @@
         "heading": "Chcesz poznać nas lepiej? Oto Majątek w liczbach!"
       }
     },
-    "marquee_aCijzF": {
+    "marquee_GdJX4z": {
       "type": "marquee",
       "blocks": {
-        "text_PVR8q8": {
+        "text_3zAmy7": {
           "type": "text",
-          "name": "t:names.heading",
+          "name": "t:names.text",
           "settings": {
-            "text": "<h4>Napisali o nas:</h4>",
+            "text": "<p>Napisali o nas:</p>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
-            "type_preset": "h3",
+            "type_preset": "h4",
             "font": "var(--font-body--family)",
             "font_size": "1rem",
             "line_height": "normal",
             "letter_spacing": "normal",
             "case": "none",
             "wrap": "pretty",
-            "color": "var(--color-foreground)",
+            "color": "var(--color-foreground-heading)",
             "background": false,
             "background_color": "#00000026",
             "corner_radius": 0,
@@ -426,35 +431,152 @@
           },
           "blocks": {}
         },
-        "icon_nJVbxz": {
+        "icon_tTeFVb": {
           "type": "icon",
           "name": "t:names.icon",
           "settings": {
             "icon": "price_tag",
-            "image_upload": "shopify://shop_images/wirtualne_media_ae5564ca-92ac-416c-96ee-e50667794f95.svg",
-            "width": 144,
-            "link": "",
+            "image_upload": "shopify://shop_images/WWA_nasze_miasto_1.svg",
+            "width": 30,
+            "link": "https://warszawa.naszemiasto.pl/pod-warszawa-zbuduja-luksusowy-hotel-tak-bedzie-wygladac/ar/c1p2-26743589",
             "open_in_new_tab": false
           },
           "blocks": {}
         },
-        "icon_damM7C": {
+        "icon_wbRpRB": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/WBJ_1.svg",
+            "width": 144,
+            "link": "https://wbj.pl/multifunctional-hotel-complex-with-176-rooms-to-be-built-in-warsaw/post/150483",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_ACJLnA": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/ED_1.svg",
+            "width": 90,
+            "link": "https://echodnia.eu/radomskie/najlepszy-hotel-w-polsce-w-2025-roku-to-palac-mala-wies-hotel-spa-to-najwyzszy-poziom-luksusu-zobacz-jak-sie-prezentuje/ar/c3p2-28229759",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_EnBCKK": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/twojstyl_1.svg",
+            "width": 102,
+            "link": "https://twojstyl.pl/artykul/palac-mala-wies-miejsce-ktore-opowiada-historie-ten-adres-wpisujemy-na-mape-luksusowego-wypoczynku,aid,9884",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_jJxN9t": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/magazynvip_1.svg",
+            "width": 148,
+            "link": "https://magazynvip.pl/palac-mala-wies/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_YfHYAz": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/PG_1.svg",
+            "width": 80,
+            "link": "https://przeglad-gastronomiczny.pl/najlepszy-hotel-w-polsce-w-2025-palac-mala-wies-hotel-spa/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_by4LVQ": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/besthotels_1.svg",
+            "width": 28,
+            "link": "https://www.poland100besthotels.pl/post/najlepszy-hotel-w-polsce-w-2025-pałac-mała-wieś-hotel-spa",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_YzdPLR": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/OOH_1.svg",
+            "width": 62,
+            "link": "https://oohmagazine.pl/2018/09/19/palac-mala-wies-niezwykle-miejsce-niedaleko-warszawy-czlonkiem-sbe/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_qNgfp8": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/dziennikzachodni_1.svg",
+            "width": 90,
+            "link": "https://dziennikzachodni.pl/hotele-z-wojewodztwa-slaskiego-wsrod-najlepszych-w-kraju-tak-wygladaja-w-srodku-oto-ranking-poland-100-best-hotels-awards-2025/ar/c7p2-28212821",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_DdDHWj": {
           "type": "icon",
           "name": "t:names.icon",
           "settings": {
             "icon": "price_tag",
             "image_upload": "shopify://shop_images/rzeczpospolita_e90fc69f-3a1a-4883-bc79-082fcfda942d.svg",
-            "width": 150,
+            "width": 160,
             "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_N4F9rz": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/vogue.svg",
+            "width": 90,
+            "link": "https://www.vogue.pl/a/piekarnia-chleboteka-w-modernistycznym-okraglaku-we-wroclawiu-tak-wyglada-nowe-wnetrze",
             "open_in_new_tab": false
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "text_PVR8q8",
-        "icon_nJVbxz",
-        "icon_damM7C"
+        "text_3zAmy7",
+        "icon_tTeFVb",
+        "icon_wbRpRB",
+        "icon_ACJLnA",
+        "icon_EnBCKK",
+        "icon_jJxN9t",
+        "icon_YfHYAz",
+        "icon_by4LVQ",
+        "icon_YzdPLR",
+        "icon_qNgfp8",
+        "icon_DdDHWj",
+        "icon_N4F9rz"
       ],
       "name": "t:names.marquee_section",
       "settings": {
@@ -462,7 +584,51 @@
         "color_scheme": "scheme-3",
         "padding-block-start": 24,
         "padding-block-end": 24,
-        "gap_between_elements": 60
+        "gap_between_elements": 75
+      }
+    },
+    "1787805749d010659e": {
+      "type": "_blocks",
+      "blocks": {
+        "judge_me_reviews_review_widget_nC3GTY": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "other_products_reviews"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_nC3GTY"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "mmw_product_seo_faq_xaYewK": {
@@ -482,7 +648,8 @@
     "mmw_heritage_note_w8Qqnf",
     "mmw_photo_stack_m7Mmbe",
     "mmw_stats_C7deh9",
-    "marquee_aCijzF",
+    "marquee_GdJX4z",
+    "1787805749d010659e",
     "mmw_product_seo_faq_xaYewK"
   ]
 }
