@@ -5,3 +5,4 @@ scripts/eksport/
 scripts/inspect-produkty-raw.json
 scripts/inspect-metaobjekty-referencje.json
 .claude/
+scripts/karty/
