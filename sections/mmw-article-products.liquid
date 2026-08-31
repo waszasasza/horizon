@@ -7,6 +7,8 @@
   assign produkty = article.metafields.custom.powiazane_produkty.value
 -%}
 {%- if produkty != blank and produkty.size > 0 -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-aprod { display:flex; flex-direction:column; align-items:center; gap:42px; padding-block:50px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-aprod__head {
@@ -21,14 +23,14 @@
   }
 {%- endstyle -%}
 <section class="mmw-aprod">
-  <p class="mmw-aprod__head">{{ section.settings.heading }}</p>
+  <p class="mmw-aprod__head" data-mmw-reveal>{{ section.settings.heading }}</p>
   <div class="mmw-aprod__grid">
     {%- for product in produkty -%}
       {% render 'mmw-product-card', product: product %}
     {%- endfor -%}
   </div>
   {%- if section.settings.button_label != blank -%}
-    <a class="mmw-aprod__btn" href="{{ section.settings.button_url | default: '/collections/all' }}">{{ section.settings.button_label }}</a>
+    <a class="mmw-aprod__btn" data-mmw-reveal href="{{ section.settings.button_url | default: '/collections/all' }}">{{ section.settings.button_label }}</a>
   {%- endif -%}
 </section>
 {%- endif -%}

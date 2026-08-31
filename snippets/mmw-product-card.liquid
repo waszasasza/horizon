@@ -2,6 +2,10 @@
   mmw-product-card — reużywalna karta produktu w stylu MMW.
   Użycie: {% render 'mmw-product-card', product: product %}
   Badge "NOWOŚĆ" pokazuje się, gdy produkt ma tag: nowość / nowosc.
+
+  `data-mmw-reveal` na korzeniu (<a>) — animacja scroll-reveal
+  (assets/mmw-scroll-reveal.js). Używana wyłącznie przez mmw-article-body.liquid
+  i mmw-article-products.liquid, obie renderują też mmw-scroll-reveal-styles + skrypt.
 {%- endcomment -%}
 {%- liquid
   assign is_new = false
@@ -9,7 +13,7 @@
     assign is_new = true
   endif
 -%}
-<a class="mmw-pcard" href="{{ product.url }}">
+<a class="mmw-pcard" data-mmw-reveal href="{{ product.url }}">
   <div class="mmw-pcard__media">
     {%- if product.featured_image -%}
       <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.featured_image.alt | default: product.title | escape }}" loading="lazy" width="271" height="290">

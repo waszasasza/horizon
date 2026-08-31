@@ -2,6 +2,8 @@
   mmw-firms-contact — działy kontaktowe (bloki: tytuł + linie) + formularz {% form 'contact' %}.
   Formularz wysyła wiadomość na adres e-mail sklepu (Shopify natywnie).
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-fc { display:flex; gap:240px; align-items:flex-start; justify-content:center; padding-block: 50px;
 padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); flex-wrap:wrap; }
@@ -35,7 +37,7 @@ padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-wid
   {%- if section.blocks.size > 0 -%}
     <div class="mmw-fc__depts">
       {%- for block in section.blocks -%}
-        <div class="mmw-fc__dept" {{ block.shopify_attributes }}>
+        <div class="mmw-fc__dept" data-mmw-reveal {{ block.shopify_attributes }}>
           {%- if block.settings.name != blank -%}<p class="mmw-fc__dept-name">{{ block.settings.name }}</p>{%- endif -%}
           <div class="mmw-fc__dept-lines">
             {%- if block.settings.line1 != blank -%}<p>{{ block.settings.line1 }}</p>{%- endif -%}
@@ -46,7 +48,7 @@ padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-wid
     </div>
   {%- endif -%}
 
-  <div class="mmw-fc__form-wrap">
+  <div class="mmw-fc__form-wrap" data-mmw-reveal>
     <div class="mmw-fc__form-inner">
       {%- if section.settings.form_title != blank -%}<h2 class="mmw-fc__form-title">{{ section.settings.form_title }}</h2>{%- endif -%}
       {% form 'contact' %}

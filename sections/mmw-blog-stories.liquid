@@ -3,6 +3,8 @@
   Każdy kafel = blok: media (zdjęcie lub plik wideo MP4) + produkt (naklejka KUP TERAZ).
   Reuse koncepcji kart wideo+produkt, układ jak na stronie bloga (4 pionowe kafle).
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-bst { display:flex; flex-direction:column; align-items:center; gap:50px; padding:50px 20px; }
   #shopify-section-{{ section.id }} .mmw-bst__head { display:flex; flex-direction:column; align-items:center; gap:14px; text-align:center; max-width:500px; color: var(--mmw-01); }
@@ -29,15 +31,15 @@
 {%- endstyle -%}
 <section class="mmw-bst">
   <div class="mmw-bst__head">
-    {%- if section.settings.eyebrow != blank -%}<p class="mmw-bst__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-    {%- if section.settings.heading != blank -%}<p class="mmw-bst__title">{{ section.settings.heading }}</p>{%- endif -%}
-    {%- if section.settings.description != blank -%}<p class="mmw-bst__desc">{{ section.settings.description }}</p>{%- endif -%}
+    {%- if section.settings.eyebrow != blank -%}<p class="mmw-bst__eyebrow" data-mmw-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}<p class="mmw-bst__title" data-mmw-reveal>{{ section.settings.heading }}</p>{%- endif -%}
+    {%- if section.settings.description != blank -%}<p class="mmw-bst__desc" data-mmw-reveal>{{ section.settings.description }}</p>{%- endif -%}
   </div>
   <div class="mmw-bst__grid">
     {%- for block in section.blocks -%}
       {%- assign prod = block.settings.product -%}
       {%- assign post = block.settings.article -%}
-      <div class="mmw-bst__card" {{ block.shopify_attributes }}>
+      <div class="mmw-bst__card" data-mmw-reveal {{ block.shopify_attributes }}>
         {%- if post != blank -%}<a class="mmw-bst__link" href="{{ post.url }}" aria-label="{{ post.title | escape }}"></a>{%- endif -%}
         <div class="mmw-bst__media">
           {%- if block.settings.video != blank -%}

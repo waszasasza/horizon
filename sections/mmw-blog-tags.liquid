@@ -2,8 +2,15 @@
   mmw-blog-tags — wszystkie tagi bloga jako klikalne filtry (klastry tematyczne).
   Pokazuje blog.all_tags; aktywny tag (gdy jesteś na /tagged/...) jest podświetlony.
   "Wszystkie" czyści filtr (wraca do bloga). Wstaw na blog.json (nad listą wpisów).
+
+  `data-mmw-reveal` na CAŁEJ sekcji — animacja scroll-reveal
+  (assets/mmw-scroll-reveal.js). To pasek filtrów, nie lista postów/kart —
+  stagger per-tag nie miałby sensu wizualnego, cała sekcja wchodzi jako jeden
+  blok, tak jak marquee/mmw-photo-stack.
 {%- endcomment -%}
 {%- if blog.all_tags.size > 0 -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-btags { display:flex; flex-direction:column; gap:20px; align-items:center; padding-block:30px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
   #shopify-section-{{ section.id }} .mmw-btags__label { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); margin:0; text-align:center; }
@@ -17,7 +24,7 @@
   #shopify-section-{{ section.id }} .mmw-btags__tag:hover { background: var(--mmw-03); }
   #shopify-section-{{ section.id }} .mmw-btags__tag.is-active { background: var(--mmw-01); color: var(--mmw-04); }
 {%- endstyle -%}
-<section class="mmw-btags">
+<section class="mmw-btags" data-mmw-reveal>
   {%- if section.settings.label != blank -%}<p class="mmw-btags__label">{{ section.settings.label }}</p>{%- endif -%}
   <div class="mmw-btags__list">
     {%- if section.settings.show_all -%}

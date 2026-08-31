@@ -4,11 +4,19 @@
   treść z ustawień edytora, bez metapól.
 
   Figma: plik STRONA-WWW, node 982:13783.
+
+  `data-mmw-reveal` na dwóch podblokach (media, content) — animacja
+  scroll-reveal (assets/mmw-scroll-reveal.js). Sekcja nie ma section.blocks,
+  więc "blokiem" w sensie animacji są tu dwie naturalne połówki splitu, nie
+  coś dodatkowo wymyślonego.
 {%- endcomment -%}
+
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 
 <section class="mmw-palac-split section color-{{ section.settings.color_scheme }}">
   <div class="mmw-palac-split__inner">
-    <div class="mmw-palac-split__media">
+    <div class="mmw-palac-split__media" data-mmw-reveal>
       {%- if section.settings.image != blank -%}
         <img
           class="mmw-palac-split__img"
@@ -26,7 +34,7 @@
       {%- endif -%}
     </div>
 
-    <div class="mmw-palac-split__content">
+    <div class="mmw-palac-split__content" data-mmw-reveal>
       {%- if section.settings.label != blank or section.settings.heading != blank or section.settings.description != blank -%}
         <div class="mmw-palac-split__copy">
           {%- if section.settings.label != blank -%}

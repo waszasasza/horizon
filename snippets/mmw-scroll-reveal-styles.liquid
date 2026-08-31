@@ -1,0 +1,77 @@
+{%- doc -%}
+  mmw-scroll-reveal-styles — CSS dla globalnej animacji "podjazd + wygaszenie"
+  bloków wchodzących w viewport (assets/mmw-scroll-reveal.js). Renderowany
+  literalnie z każdej sekcji, która oznacza swoje bloki atrybutem
+  `data-mmw-reveal` (ten sam wzorzec co snippets/mmw-carousel-styles.liquid —
+  duplikacja tego samego `{% style %}` w kilku sekcjach jest tańsza niż
+  budowanie mechanizmu współdzielenia dla kilku reguł CSS, patrz CLAUDE.md).
+
+  `{% style %}`, nie `{% stylesheet %}` — renderuje się inline przy każdym
+  wystąpieniu, nigdy nie wchodzi do subsetowanego compiled_assets/styles.css,
+  więc nie ma tu ryzyka z per-page subsettingiem (patrz CLAUDE.md, sekcja o
+  awarii karuzel).
+
+  POPRAWKA FOUC (patrz CLAUDE.md, `## mmw-scroll-reveal`, sekcja o błysku
+  treści): stan początkowy (opacity: 0) siedzi teraz pod `.mmw-reveal-ready
+  [data-mmw-reveal]` — `.mmw-reveal-ready` dodaje BLOKUJĄCY inline `<script>`
+  w `<head>` (snippets/mmw-tokens.liquid), nie ten moduł. `data-mmw-reveal`
+  jest atrybutem statycznym z Liquid (obecnym od razu w wyrenderowanym HTML-u),
+  więc ta reguła aktywuje się PRZED pierwszym malowaniem, niezależnie od tego,
+  kiedy zdąży wykonać się `assets/mmw-scroll-reveal.js` (moduł, deferred,
+  zmierzone opóźnienie względem malowania: ~2.1s na rzuconej sieci). Bez JS w
+  ogóle (JS wyłączony) — blokujący skrypt też się nie wykona, klasa
+  `.mmw-reveal-ready` nigdy nie trafia na `<html>`, więc ta reguła nigdy nie
+  dopasowuje i cała treść zostaje w naturalnej, w pełni widocznej postaci.
+
+  Elementy klasyfikowane przez moduł jako "już widoczne przy starcie" (nad
+  zgięciem) dostają teraz `data-mmw-reveal-shown` — bez tego zostałyby
+  ukryte przez regułę wyżej na stałe (moduł by ich nigdy nie odkrył ponownie,
+  bo nie są obserwowane). `[data-mmw-reveal-shown]` przywraca opacity:1 BEZ
+  `animation` (natychmiast, bez podjazdu) — zgodnie ze specyfikacją "widoczne
+  od razu, bez animacji" dla treści nad zgięciem.
+
+  @example
+  {% render 'mmw-scroll-reveal-styles' %}
+{%- enddoc -%}
+{%- style -%}
+  .mmw-reveal-ready [data-mmw-reveal] {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .mmw-reveal-ready [data-mmw-reveal][data-mmw-reveal-shown] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .mmw-reveal-ready [data-mmw-reveal][data-mmw-reveal-in] {
+    animation: mmw-reveal-in 450ms ease-out forwards;
+    animation-delay: var(--mmw-reveal-delay, 0ms);
+  }
+
+  @keyframes mmw-reveal-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  {%- comment -%}
+    `!important` świadomie: to jedyna gwarancja widoczności niezależna od
+    tego, czy assets/mmw-scroll-reveal.js w ogóle zdąży się wykonać. Pod
+    reduced-motion moduł od razu przerywa init() bez oznaczania czegokolwiek
+    (patrz JS) — bez tego override'u i bez modułu (błąd sieci, blokada) treść
+    zostałaby ukryta przez regułę wyżej na stałe mimo reduced-motion.
+  {%- endcomment -%}
+  @media (prefers-reduced-motion: reduce) {
+    [data-mmw-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+    }
+  }
+{%- endstyle -%}

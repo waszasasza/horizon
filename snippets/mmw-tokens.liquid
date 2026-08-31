@@ -7,6 +7,25 @@
       {% render 'mmw-tokens' %}
 {%- endcomment -%}
 
+{%- comment -%}
+  Poprawka FOUC dla mmw-scroll-reveal (patrz CLAUDE.md, `## mmw-scroll-reveal`,
+  sekcja o błysku treści) — CELOWO tutaj, nie w nowym pliku renderowanym z
+  layout/theme.liquid: `{% render 'mmw-tokens' %}` już tam istnieje (sprzed tej
+  zmiany), więc dopisanie linii W ŚRODKU tego snippetu nie wymaga w ogóle
+  dotykania pliku natywnego.
+
+  Krótki, BLOKUJĄCY inline <script> (bez type="module", bez defer/async) —
+  wykonuje się synchronicznie podczas parsowania <head>, więc PRZED pierwszym
+  malowaniem, niezależnie od tego, kiedy zdąży wykonać się deferred
+  assets/mmw-scroll-reveal.js. Jedna linia, zero logiki/zapytań o DOM poza
+  samym dodaniem klasy — LCP-świadomie minimalny koszt blokowania.
+
+  Bez JS w ogóle: ten skrypt też się nie wykona, klasa nigdy nie trafia na
+  <html>, więc CSS pod `.mmw-reveal-ready` (mmw-scroll-reveal-styles.liquid)
+  nigdy nie dopasowuje — cała treść zostaje w naturalnej, widocznej postaci.
+{%- endcomment -%}
+<script>document.documentElement.classList.add('mmw-reveal-ready');</script>
+
 <style>
   /* === DM Sans: self-hosted (.woff2 w assets/), zastępuje Bicyclette (Adobe Fonts/Typekit,
      kit bov0riq — embed usunięty, żeby nie ładować dwóch fontów). Google Fonts, licencja OFL.

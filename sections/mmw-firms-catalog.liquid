@@ -3,6 +3,8 @@
   Pole e-mail przez natywny {% form 'customer' %} (mail trafia do listy marketingowej Shopify).
   Po zapisie pokazuje link do pobrania PDF. PDF wgrywasz w ustawieniach sekcji (Content → Files).
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-cat { display:flex; justify-content:center; padding-block:50px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-cat__box { display:flex; gap:49px; align-items:center; width:100%; border:2px solid var(--mmw-01); border-radius:20px; padding:40px; }
@@ -26,8 +28,8 @@
 {%- endstyle -%}
 <section class="mmw-cat">
   <div class="mmw-cat__box">
-    <div class="mmw-cat__media">{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 1200 }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
-    <div class="mmw-cat__content">
+    <div class="mmw-cat__media" data-mmw-reveal>{%- if section.settings.image -%}<img src="{{ section.settings.image | image_url: width: 1200 }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" alt="{{ section.settings.title | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}</div>
+    <div class="mmw-cat__content" data-mmw-reveal>
       <div>
         {%- if section.settings.title != blank -%}<p class="mmw-cat__title">{{ section.settings.title }}</p>{%- endif -%}
         {%- if section.settings.desc != blank -%}<p class="mmw-cat__desc">{{ section.settings.desc }}</p>{%- endif -%}

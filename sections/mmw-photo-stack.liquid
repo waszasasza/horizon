@@ -33,11 +33,21 @@
   snippets/scripts.liquid renderuje się w <head> (layout/theme.liquid),
   zawsze przed <body> — więc @theme/component i @theme/utilities niżej
   rozwiążą się poprawnie niezależnie od tego, gdzie w body sekcja wyląduje.
+
+  `data-mmw-reveal` na CAŁEJ sekcji (nie na poszczególnych blokach/kartach
+  stosu) — animacja scroll-reveal (assets/mmw-scroll-reveal.js). Świadoma
+  decyzja: 4 bloki tej sekcji to karty stosu leżące fizycznie w TYM SAMYM
+  miejscu na ekranie (przełącznik hover/auto-advance, nie lista przewijana
+  pionowo) — stopniowanie opóźnienia między nimi nie ma sensu wizualnego, bo
+  wszystkie wchodzą w viewport w tym samym momencie scrolla. Cała sekcja
+  (stos + zsynchronizowany panel tekstowy) animuje się jako jeden blok.
 {%- endcomment -%}
 
 <script src="{{ 'mmw-photo-stack.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 
-<section class="mmw-ps color-{{ section.settings.color_scheme }}">
+<section class="mmw-ps color-{{ section.settings.color_scheme }}" data-mmw-reveal>
   <mmw-photo-stack
     class="mmw-ps__row{% if section.settings.stack_side == 'right' %} mmw-ps__row--reverse{% endif %}"
     data-duration="{{ section.settings.autoplay_duration }}"

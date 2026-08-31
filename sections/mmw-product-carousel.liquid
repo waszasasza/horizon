@@ -164,7 +164,7 @@
     {%- endfor -%}
     {%- if show_end_card -%}
       {%- if item_index > 0 -%}<!--@mmw-pc/split-->{%- endif -%}
-      <a class="mmw-pc__end" href="{{ section.settings.end_card_link | default: coll.url }}">
+      <a class="mmw-pc__end" data-mmw-reveal href="{{ section.settings.end_card_link | default: coll.url }}">
         {%- if section.settings.end_card_image != blank -%}
           <img class="mmw-pc__end-img" src="{{ section.settings.end_card_image | image_url: width: 640 }}" width="640" height="980" alt="" loading="lazy">
         {%- endif -%}
@@ -223,8 +223,8 @@
 
   <section class="mmw-pc section color-{{ section.settings.color_scheme }}">
     <div class="mmw-pc__head">
-      {%- if section.settings.heading != blank -%}<h2 class="mmw-pc__title">{{ section.settings.heading }}</h2>{%- endif -%}
-      {%- if section.settings.description != blank -%}<p class="mmw-pc__desc">{{ section.settings.description }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="mmw-pc__title" data-mmw-reveal>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.description != blank -%}<p class="mmw-pc__desc" data-mmw-reveal>{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
     <div class="resource-list resource-list__carousel mmw-pc__carousel-wrap" style="{{ resource_list_style }}">
@@ -246,6 +246,8 @@
       </div>
     </div>
   </section>
+  {%- render 'mmw-scroll-reveal-styles' -%}
+  <script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- endif -%}
 {% schema %}
 {

@@ -3,12 +3,23 @@
   type="module"
   fetchpriority="low"
 ></script>
+{%- comment -%}
+  data-mmw-reveal na <marquee-component> (nie na .marquee__wrapper) — animacja
+  scroll-reveal (assets/mmw-scroll-reveal.js), cały pasek jako JEDEN blok, bez
+  stopniowania per logo (przewijają się w nieskończoność, stagger nie miałby
+  tu wizualnego sensu). Świadomie na innym elemencie niż .marquee__wrapper,
+  który ma własną, ciągłą animację translate3d (marquee-motion) — dwie
+  niezależne animacje transform na tym samym elemencie by się gryzły.
+{%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 
 {% assign gap_between_elements = section.settings.gap_between_elements %}
 
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 <marquee-component
   class="section spacing-style gap-style color-{{ section.settings.color_scheme }}"
+  data-mmw-reveal
   style="
     {%- render 'spacing-style', settings: section.settings %};
     {% render 'gap-style', value: gap_between_elements, name: 'marquee-gap' %}

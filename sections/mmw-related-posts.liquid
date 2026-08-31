@@ -4,6 +4,8 @@
 {%- liquid
   assign limit = section.settings.count
 -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-rel { display:flex; flex-direction:column; align-items:center; gap:71px; padding-block:50px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-rel__container { display:flex; flex-direction:column; gap:38px; width:100%; max-width: var(--mmw-article-width, 1240px); }
@@ -19,7 +21,7 @@
 {%- endstyle -%}
 <section class="mmw-rel">
   <div class="mmw-rel__container">
-    <p class="mmw-rel__head">{{ section.settings.heading }}</p>
+    <p class="mmw-rel__head" data-mmw-reveal>{{ section.settings.heading }}</p>
     <div class="mmw-rel__list">
       {%- assign shown = 0 -%}
       {%- for post in blog.articles -%}
@@ -33,7 +35,7 @@
     </div>
   </div>
   {%- if section.settings.button_label != blank -%}
-    <a class="mmw-rel__btn" href="{{ blog.url | default: '/blogs/news' }}">{{ section.settings.button_label }}</a>
+    <a class="mmw-rel__btn" data-mmw-reveal href="{{ blog.url | default: '/blogs/news' }}">{{ section.settings.button_label }}</a>
   {%- endif -%}
 </section>
 {% schema %}

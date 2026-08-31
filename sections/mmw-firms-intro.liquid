@@ -1,4 +1,6 @@
 {%- comment -%} mmw-firms-intro — eyebrow + duży tekst (jak intro kolekcji), treść z ustawień. {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-fintro { display:flex; flex-direction:column; align-items:center; gap:30px; padding:100px 20px; text-align:center; color: var(--mmw-01); }
   #shopify-section-{{ section.id }} .mmw-fintro__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; margin:0; }
@@ -6,8 +8,8 @@
   @media (max-width:749px){ #shopify-section-{{ section.id }} .mmw-fintro { padding:56px 20px; } }
 {%- endstyle -%}
 <section class="mmw-fintro">
-  {%- if section.settings.eyebrow != blank -%}<p class="mmw-fintro__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-  {%- if section.settings.text != blank -%}<p class="mmw-fintro__text">{{ section.settings.text }}</p>{%- endif -%}
+  {%- if section.settings.eyebrow != blank -%}<p class="mmw-fintro__eyebrow" data-mmw-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.text != blank -%}<p class="mmw-fintro__text" data-mmw-reveal>{{ section.settings.text }}</p>{%- endif -%}
 </section>
 {% schema %}
 {

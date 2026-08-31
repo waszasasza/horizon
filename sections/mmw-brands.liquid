@@ -1,7 +1,16 @@
 {%- comment -%}
   mmw-brands — "Nasze marki". Każdy blok = marka: eyebrow + nazwa + opis + przycisk + zdjęcie.
   Układ naprzemienny (zdjęcie raz z prawej, raz z lewej). Tło i kolory ustawiane per blok.
+
+  `data-mmw-reveal` na KAŻDYM bloku (marce), nie na sub-elementach wewnątrz —
+  animacja scroll-reveal (assets/mmw-scroll-reveal.js). Każdy blok renderuje
+  się jako osobny pełnoszerokościowy <section>, ale wszystkie i tak lądują
+  wewnątrz jednego `.shopify-section` (Shopify opakowuje całą instancję
+  sekcji niezależnie od tego, ile top-level elementów wypisze template), więc
+  licznik stagger w JS liczy je poprawnie jako kolejne bloki jednej sekcji.
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-brand { display:flex; gap:120px; align-items:center; justify-content:center; padding-block:60px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); }
   #shopify-section-{{ section.id }} .mmw-brand--rev { flex-direction:row-reverse; }
@@ -30,7 +39,7 @@
     assign btn_bg = block.settings.button_bg
     assign btn_fg = block.settings.button_color
   -%}
-  <section class="mmw-brand {% if is_odd == 1 %}mmw-brand--rev{% endif %}" style="background: {{ bg }}; color: {{ fg }};" {{ block.shopify_attributes }}>
+  <section class="mmw-brand {% if is_odd == 1 %}mmw-brand--rev{% endif %}" style="background: {{ bg }}; color: {{ fg }};" data-mmw-reveal {{ block.shopify_attributes }}>
     <div class="mmw-brand__text">
       <div class="mmw-brand__inner">
         <div class="mmw-brand__group">

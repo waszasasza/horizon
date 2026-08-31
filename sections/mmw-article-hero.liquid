@@ -1,6 +1,14 @@
 {%- comment -%}
   mmw-article-hero — banner wpisu. Wspólny dla obu szablonów.
   Tło = article.image, tytuł = article.title, data = article.published_at, logo = ustawienie.
+
+  `data-mmw-reveal` + `data-mmw-reveal-onload` na logo/tytule/dacie
+  (assets/mmw-scroll-reveal.js) — ten sam wzorzec co mmw-page-hero: hero jest
+  z definicji zawsze na pierwszym ekranie, więc zwykły scroll-reveal by się tu
+  nie odpalił. Tło (obraz, kandydat LCP — `loading="eager" fetchpriority="high"`)
+  świadomie BEZ tego atrybutu. render/script CELOWO po markupie tła w
+  dokumencie, nie przed nim — patrz CLAUDE.md, `## mmw-scroll-reveal`, sekcja
+  o kolejności tagów i LCP (mmw-page-hero: zmierzony regres, gdy było odwrotnie).
 {%- endcomment -%}
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-ahero {
@@ -27,12 +35,16 @@
       <img src="{{ article.image | image_url: width: 2400 }}" width="{{ article.image.width }}" height="{{ article.image.height }}" alt="{{ article.title | escape }}" loading="eager" fetchpriority="high">
     {%- else -%}{{ 'lifestyle-1' | placeholder_svg_tag }}{%- endif -%}
   </div>
+
+  {%- render 'mmw-scroll-reveal-styles' -%}
+  <script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
+
   <div class="mmw-ahero__inner">
     {%- if section.settings.logo != blank -%}
-      <div class="mmw-ahero__logo"><img src="{{ section.settings.logo | image_url: width: 540 }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" alt="{{ shop.name | escape }}"></div>
+      <div class="mmw-ahero__logo" data-mmw-reveal data-mmw-reveal-onload><img src="{{ section.settings.logo | image_url: width: 540 }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" alt="{{ shop.name | escape }}"></div>
     {%- endif -%}
-    <h1 class="mmw-ahero__title">{{ article.title }}</h1>
-    <p class="mmw-ahero__date">{{ article.published_at | date: '%d/%m/%Y' }}</p>
+    <h1 class="mmw-ahero__title" data-mmw-reveal data-mmw-reveal-onload>{{ article.title }}</h1>
+    <p class="mmw-ahero__date" data-mmw-reveal data-mmw-reveal-onload>{{ article.published_at | date: '%d/%m/%Y' }}</p>
   </div>
 </section>
 {% schema %}

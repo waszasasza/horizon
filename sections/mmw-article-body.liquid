@@ -3,7 +3,13 @@
   Sekcja boczna (gdy wypełnione metafields) renderuje się OBOK treści (2 kolumny):
     custom.sidebar_tytul (tekst), custom.sidebar_produkt (produkt), custom.sidebar_tekst (rich text)
   Bez sekcji bocznej: treść w jednej, wyśrodkowanej kolumnie.
+
+  `data-mmw-reveal` na linku powrotu, treści i (jeśli jest) sekcji bocznej —
+  animacja scroll-reveal (assets/mmw-scroll-reveal.js), sekwencyjnie w tej
+  kolejności.
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- liquid
   assign s_title = article.metafields.custom.sidebar_tytul
   assign s_prod = article.metafields.custom.sidebar_produkt.value
@@ -53,12 +59,12 @@
 {%- endstyle -%}
 <section class="mmw-abody {% if has_sidebar %}mmw-abody--cols{% endif %}">
   {%- if section.settings.show_back_link -%}
-    <a class="mmw-abody__back" href="{{ blog.url | default: '/blogs/news' }}">&lt; Wróć do artykułów</a>
+    <a class="mmw-abody__back" data-mmw-reveal href="{{ blog.url | default: '/blogs/news' }}">&lt; Wróć do artykułów</a>
   {%- endif -%}
   <div class="mmw-abody__wrap">
-    <div class="mmw-abody__rte rte">{{ article.content }}</div>
+    <div class="mmw-abody__rte rte" data-mmw-reveal>{{ article.content }}</div>
     {%- if has_sidebar -%}
-      <aside class="mmw-abody__side">
+      <aside class="mmw-abody__side" data-mmw-reveal>
         {%- if s_title != blank -%}<p class="mmw-abody__side-title">{{ s_title }}</p>{%- endif -%}
         {%- if s_prod != blank -%}{% render 'mmw-product-card', product: s_prod %}{%- endif -%}
         {%- if s_text != blank -%}<div class="mmw-abody__side-text rte">{{ s_text | metafield_tag }}</div>{%- endif -%}

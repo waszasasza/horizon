@@ -16,6 +16,11 @@
   (Tab/lista linków), link ma jawne aria-label = sam tytuł — nadpisuje to nazwę linku, ale
   NIE ukrywa zagnieżdżonych tagów jako osobnej, czytelnej treści w drzewie dostępności.
 
+  `data-mmw-reveal` na korzeniu (<a>) — animacja scroll-reveal
+  (assets/mmw-scroll-reveal.js). Aktywna wszędzie, gdzie ta karta jest
+  renderowana (mmw-blog-grid, mmw-blog-posts, mmw-related-posts) — wszystkie
+  trzy sekcje renderują też mmw-scroll-reveal-styles + skrypt.
+
   @param {object} article - artykuł do wyrenderowania
   @param {string} section_id - id sekcji wołającej (unikalny id linku, ten sam wzorzec co w mmw-carousel-card)
   @param {string} [sizes] - atrybut HTML sizes dla obrazu, liczony przez wołającą sekcję
@@ -58,6 +63,7 @@
 -%}
 <a
   class="mmw-post-card"
+  data-mmw-reveal
   href="{{ article.url }}"
   id="mmw-post-card-link-{{ section_id }}-{{ article.id }}"
   aria-label="{{ article.title | escape }}"

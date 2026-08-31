@@ -7,6 +7,8 @@
   brak osobnych pól per akapit (w Figmie lewa ma 2 akapity, prawa 1 — to różnica
   w treści, nie w strukturze).
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   .mmw-proc {
     display: flex;
@@ -65,15 +67,15 @@
 {%- endstyle -%}
 <section class="mmw-proc">
   {%- if section.settings.eyebrow != blank -%}
-    <p class="mmw-proc__eyebrow">{{ section.settings.eyebrow }}</p>
+    <p class="mmw-proc__eyebrow" data-mmw-reveal>{{ section.settings.eyebrow }}</p>
   {%- endif -%}
   {%- if section.settings.column_left != blank or section.settings.column_right != blank -%}
     <div class="mmw-proc__columns">
       {%- if section.settings.column_left != blank -%}
-        <div class="mmw-proc__col rte">{{ section.settings.column_left }}</div>
+        <div class="mmw-proc__col rte" data-mmw-reveal>{{ section.settings.column_left }}</div>
       {%- endif -%}
       {%- if section.settings.column_right != blank -%}
-        <div class="mmw-proc__col rte">{{ section.settings.column_right }}</div>
+        <div class="mmw-proc__col rte" data-mmw-reveal>{{ section.settings.column_right }}</div>
       {%- endif -%}
     </div>
   {%- endif -%}

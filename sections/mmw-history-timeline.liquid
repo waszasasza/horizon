@@ -4,7 +4,20 @@
   - Kontener przewijany w bok (scrollBy z animacją); strzałki wyłączają się na końcach.
   - Mobile: dodatkowo natywny swipe.
   Bloki: "photo" (górny rząd zdjęć), "year" (rok + opis; niebieska linia + kropki).
+
+  `data-mmw-reveal` na CAŁEJ sekcji — animacja scroll-reveal
+  (assets/mmw-scroll-reveal.js). Bloki są konsumowane poziomym scrollem
+  (strzałki prev/next), nie naturalnym scrollem pionowym strony — większość
+  jest schowana poza prawą krawędzią viewportu przy starcie, ale
+  IntersectionObserver liczy przecięcie tylko względem pionowej pozycji, więc
+  ta różnica by się zgubiła (część "kart" dostałaby stagger, część (schowana
+  za prawą krawędzią) zostałaby błędnie zaklasyfikowana jako "już widoczna" i
+  ominięta). Zamiast rozwiązywać tę krzyżową interakcję scroll
+  poziomy/obserwator pionowy — cała sekcja wchodzi jako jeden blok, tak jak
+  mmw-photo-stack/marquee.
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-tl { padding-block:50px; }
   #shopify-section-{{ section.id }} .mmw-tl__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking); text-transform:uppercase; color: var(--mmw-01); text-align:center; margin:0 0 20px; padding-inline: var(--page-margin, 40px); }
@@ -44,7 +57,7 @@
     #shopify-section-{{ section.id }} .mmw-tl__year-num { font-size:48px; }
   }
 {%- endstyle -%}
-<section class="mmw-tl" data-tl>
+<section class="mmw-tl" data-tl data-mmw-reveal>
   {%- if section.settings.eyebrow != blank -%}<p class="mmw-tl__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
 
   <div class="mmw-tl__nav" data-tl-nav>

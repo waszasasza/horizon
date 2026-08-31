@@ -23,6 +23,8 @@
   niepasującej proporcji źródła — więc całkowicie ignorowałoby mnożnik ×3.06 wyżej. Zweryfikowane
   bezpośrednio: z "auto," w sizes przeglądarka nadal wybierała candidate=900 mimo mnożnika.
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-bgrid {
     padding-block: 30px 80px;
@@ -66,7 +68,7 @@
 {%- endstyle -%}
 <div class="mmw-bgrid">
   {%- if section.settings.heading != blank -%}
-    <h2 class="mmw-bgrid__heading">{{ section.settings.heading }}</h2>
+    <h2 class="mmw-bgrid__heading" data-mmw-reveal>{{ section.settings.heading }}</h2>
   {%- endif -%}
 
   {%- if blog.articles.size > 0 -%}

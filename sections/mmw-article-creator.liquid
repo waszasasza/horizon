@@ -1,7 +1,12 @@
 {%- comment -%}
   mmw-article-creator — "O twórcy". Z metafields artykułu:
   custom.tworca_imie (tekst), custom.tworca_bio (rich text), custom.tworca_tag (tekst), custom.tworca_zdjecie (plik/obraz).
+
+  `data-mmw-reveal` na dwóch naturalnych połówkach splitu (tekst, media) —
+  animacja scroll-reveal (assets/mmw-scroll-reveal.js).
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- liquid
   assign imie = article.metafields.custom.tworca_imie
   assign bio = article.metafields.custom.tworca_bio
@@ -25,14 +30,14 @@
   }
 {%- endstyle -%}
 <section class="mmw-crt">
-  <div class="mmw-crt__text">
+  <div class="mmw-crt__text" data-mmw-reveal>
     {%- if section.settings.label != blank -%}<p class="mmw-crt__label">{{ section.settings.label }}</p>{%- endif -%}
     {%- if imie != blank -%}<p class="mmw-crt__name">{{ imie }}</p>{%- endif -%}
     {%- if bio != blank -%}<div class="mmw-crt__bio rte">{{ bio | metafield_tag }}</div>{%- endif -%}
     {%- if tag != blank -%}<p class="mmw-crt__tag">{{ tag }}</p>{%- endif -%}
   </div>
   {%- if zdj != blank -%}
-    <div class="mmw-crt__media">
+    <div class="mmw-crt__media" data-mmw-reveal>
       {%- if zdj.value.url -%}<img src="{{ zdj | image_url: width: 1080 }}" width="{{ zdj.width }}" height="{{ zdj.height }}" alt="{{ imie | escape }}" loading="lazy">
       {%- else -%}
         {%- comment -%} Gałąź dla pliku (nie obrazu) — realnych wymiarów nie ma skąd wziąć; wpisanie przybliżenia zarezerwowałoby miejsce pod złe proporcje, czyli dokładnie ten skok layoutu, któremu width/height mają zapobiegać. {%- endcomment -%}

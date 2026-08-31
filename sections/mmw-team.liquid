@@ -2,6 +2,8 @@
   mmw-team — "Team handlowy". Eyebrow + karty osób (blok = osoba: zdjęcie, imię, stanowisko, e-mail).
   Edytowalne w theme editorze. Reuse stylu kart (zdjęcie rounded-13, Roslindale).
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-team { display:flex; flex-direction:column; gap:35px; padding-block:40px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-team__eyebrow { font-family: var(--mmw-font-label); font-weight:700; font-size:18px; letter-spacing: var(--mmw-label-tracking, 2.7px); text-transform:uppercase; color: var(--mmw-01); margin:0; }
@@ -17,11 +19,11 @@
   @media (max-width:649px){ #shopify-section-{{ section.id }} .mmw-team__grid { grid-template-columns: 1fr; } }
 {%- endstyle -%}
 <section class="mmw-team">
-  {%- if section.settings.eyebrow != blank -%}<p class="mmw-team__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  {%- if section.settings.eyebrow != blank -%}<p class="mmw-team__eyebrow" data-mmw-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
   {%- if section.blocks.size > 0 -%}
     <div class="mmw-team__grid">
       {%- for block in section.blocks -%}
-        <div class="mmw-team__card" {{ block.shopify_attributes }}>
+        <div class="mmw-team__card" data-mmw-reveal {{ block.shopify_attributes }}>
           <div class="mmw-team__img">
             {%- if block.settings.image -%}<img src="{{ block.settings.image | image_url: width: 720 }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" alt="{{ block.settings.name | escape }}" loading="lazy">{%- else -%}{{ 'image' | placeholder_svg_tag }}{%- endif -%}
           </div>

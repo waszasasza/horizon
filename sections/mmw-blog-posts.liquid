@@ -140,7 +140,7 @@
       {%- render 'mmw-post-card', article: post, section_id: section.id, sizes: card_sizes -%}
     {%- endfor -%}
     {%- if item_index > 0 -%}<!--@mmw-bp/split-->{%- endif -%}
-    <a class="mmw-bp__end" href="{{ section.settings.end_card_link | default: blog_ref.url }}">
+    <a class="mmw-bp__end" data-mmw-reveal href="{{ section.settings.end_card_link | default: blog_ref.url }}">
       {%- if section.settings.end_card_image != blank -%}
         <img class="mmw-bp__end-img" src="{{ section.settings.end_card_image | image_url: width: 640 }}" width="640" height="980" alt="" loading="lazy">
       {%- endif -%}
@@ -181,8 +181,8 @@
 
   <section class="mmw-bp section color-{{ section.settings.color_scheme }}{% if cards_array.size <= columns %} mmw-bp--fits-desktop{% endif %}">
     <div class="mmw-bp__head">
-      {%- if section.settings.heading != blank -%}<h2 class="mmw-bp__title">{{ section.settings.heading }}</h2>{%- endif -%}
-      {%- if section.settings.description != blank -%}<p class="mmw-bp__desc">{{ section.settings.description }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2 class="mmw-bp__title" data-mmw-reveal>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.description != blank -%}<p class="mmw-bp__desc" data-mmw-reveal>{{ section.settings.description }}</p>{%- endif -%}
     </div>
 
     <div class="resource-list resource-list__carousel mmw-bp__carousel-wrap" style="{{ resource_list_style }}">
@@ -204,6 +204,8 @@
       </div>
     </div>
   </section>
+  {%- render 'mmw-scroll-reveal-styles' -%}
+  <script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- endif -%}
 {% schema %}
 {

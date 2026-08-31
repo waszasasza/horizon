@@ -111,6 +111,29 @@ Nowe:
   redaktora. Pole `eyebrow` (etykieta nad kolumnami) zostało — id bez zmian,
   tylko label zmieniony na „Nagłówek", więc wartość na stronie przetrwała
   migrację automatycznie.
+- WYJĄTEK: `mmw-firms-intro`, `mmw-firms-catalog`, `mmw-firms-contact`,
+  `mmw-brands`, `mmw-history-timeline`, `mmw-history-philosophy`, `mmw-team`
+  zdjęte z listy WYŁĄCZNIE dla animacji scroll-reveal (patrz
+  `## mmw-scroll-reveal`) — decyzja podjęta wprost, żeby `/pages/dla-firm` i
+  `/pages/filozofia` nie zostały jedynymi stronami sprintu bez efektu. Zakres
+  wyjątku jest wąski: dodany tylko atrybut `data-mmw-reveal` (+ ewentualny
+  render wspólnego snippetu stylów/tag skryptu) na już istniejącym markupie —
+  ŻADNA inna zmiana wyglądu/treści/logiki tych sekcji. Wszystko poza tym z
+  listy „Czego NIE ruszać" nadal obowiązuje bez zmian.
+- WYJĄTEK: `mmw-blog-posts`, `mmw-blog-tags`, cały `mmw-article-*`
+  (hero/body/products/tags/video/creator) zdjęte z listy WYŁĄCZNIE dla
+  animacji scroll-reveal, na wprost polecenie — ten sam wąski zakres jak
+  wyjątek wyżej (tylko `data-mmw-reveal`/render/skrypt na istniejącym
+  markupie). `mmw-article-hero` dostał ten sam wzorzec `-onload` co
+  `mmw-page-hero` (hero zawsze nad zgięciem, tło bez atrybutu, render/script
+  PO markupie tła — patrz lekcja o LCP w `## mmw-scroll-reveal`).
+  `mmw-blog-grid` i `mmw-blog-stories` NIE były na liście „Czego NIE ruszać"
+  (dokładny zapis to `mmw-blog-hero/posts/tags`, nie „grid”/„stories”), więc
+  ich dotknięcie nie jest wyjątkiem — zwykła praca w budżecie. Wspólne karty
+  (`snippets/mmw-post-card.liquid`, `snippets/mmw-product-card.liquid`)
+  dostały atrybut raz, na korzeniu — obejmuje automatycznie wszystkie miejsca
+  renderu (odpowiednio: mmw-blog-grid/mmw-blog-posts/mmw-related-posts;
+  mmw-article-body/mmw-article-products).
 
 ## Zmiany w plikach natywnych Horizona
 
@@ -208,6 +231,15 @@ niżej po pełne uzasadnienie:
   `render 'price'` bez tego parametru, renderują się bez zmian), warunkowe
   `data-mmw-omnibus` na `[ref="priceContainer"]`, markup linii Omnibusowej,
   i scopowany `{% style %}` na dole pliku.
+
+Animacja scroll-reveal (patrz `## mmw-scroll-reveal` niżej) — `sections/marquee.liquid`
+to plik NATYWNY Horizona (nie ma prefiksu `mmw-`), zmodyfikowany żeby dodać
+`data-mmw-reveal` na `<marquee-component>` + render wspólnego snippetu stylów
++ tag skryptu. Edycja świadomie w zakresie tego sprintu — `marquee` jest na
+liście „Przebudowa" w budżecie sekcji wyżej (redesign paska logo), więc dotyk
+tego pliku nie jest wyjątkiem wymagającym osobnej zgody, tylko częścią
+zaplanowanej pracy. Reszta pliku (mechanika przewijania, `content_for 'blocks'`,
+`marquee.js`) nietknięta.
 
 ## mmw-omnibus
 
@@ -750,6 +782,137 @@ schematu by tego nie zrobiła):
   Orphaned klucz `video_mobile_image_fallback: true` w `page.historia.json`
   (bez aktywnego wideo, `background_type: image`) usunięty przy migracji —
   nie miał żadnego efektu, ale zaśmiecał JSON martwym ustawieniem.
+
+## mmw-scroll-reveal
+
+Globalna animacja "podjazd + wygaszenie" dla bloków wchodzących w viewport
+przy scrollu (`translateY(24px)→0` + `opacity 0→1`, 450ms ease-out, stagger
+~80ms/blok w obrębie sekcji, sufit po 5. bloku). Mechanika:
+`assets/mmw-scroll-reveal.js` (jeden globalny `IntersectionObserver`, nie
+jeden na sekcję/blok — dedupe modułu ES po URL jak przy innych mmw-*.js) +
+`snippets/mmw-scroll-reveal-styles.liquid` (`{% style %}`, renderowany
+literalnie z każdej uczestniczącej sekcji, wzorzec 1:1 z
+`mmw-carousel-styles.liquid`). Stan początkowy (`opacity:0`) nadaje WYŁĄCZNIE
+JS (atrybut `data-mmw-reveal-pending`) — bez wykonania skryptu żaden element
+nigdy go nie dostaje, strona wygląda normalnie.
+
+**Pułapka IntersectionObserver przy szybkim/skokowym scrollu — zweryfikowana
+bezpośrednio (Playwright, `window.scrollTo` z `behavior: 'auto'` na sam dół
+strony), nie teoria.** Element, który w JEDNEJ klatce przeskakuje z „jeszcze
+przed viewportem" na „już za viewportem" (bo scroll skoczył bezpośrednio na
+nową pozycję, bez renderowania pozycji pośrednich), nigdy nie przecina progu
+przecięcia (ratio idzie 0%→0%) — obserwator w ogóle NIE dostaje wywołania dla
+tego targetu, więc żaden warunek wewnątrz jego callbacku (np. sprawdzenie
+`boundingClientRect.top < 0` przy `isIntersecting: false`) nigdy się nie
+wykona. Pierwsza wersja tej ochrony (wewnątrz callbacku obserwatora) nie
+działała z dokładnie tego powodu — potwierdzone: 15 bloków zostawało trwale
+`opacity:0` po `window.scrollTo` na dół. **Rozwiązanie musi żyć POZA
+callbackiem obserwatora**: dodatkowy `scroll` listener (passive, throttled
+przez `requestAnimationFrame`) sam sprawdza pozycje pozostałych elementów w
+`pendingSet` — te same kryteria co przy klasyfikacji startowej („już nie jest
+poniżej fold-a" obejmuje zarówno „widoczny", jak i „już minięty"). Po
+poprawce: 0 zawieszonych elementów, zweryfikowane tym samym testem aż do
+faktycznego dołu strony.
+
+**`data-mmw-reveal-onload`** — druga, dopisana gałąź w `init()` dla treści
+zawsze na pierwszym ekranie (dziś: tylko `mmw-page-hero` — logo/nagłówek/
+podtytuł/przyciski), która MA się animować mimo że nigdy nie "wchodzi" przez
+scroll (zwykły `data-mmw-reveal` klasyfikowałby ją jako "już widoczna" i
+pomijał animację, patrz klasyfikacja startowa wyżej). Animuje się natychmiast
+przy starcie strony, przez ten sam stagger per `.shopify-section` i tę samą
+`animateIn()` — reszta mechaniki (IntersectionObserver, scroll-sweep) nie
+tknięta. Tło hero (obraz/wideo/plakat, kandydat LCP) świadomie NIGDY nie
+dostaje tego atrybutu.
+
+**Kolejność tagów w dokumencie ma znaczenie dla LCP, nawet przy
+`type="module"`.** Pierwsza wersja umieszczała `{% render
+'mmw-scroll-reveal-styles' %}` + `<script src="mmw-scroll-reveal.js">` NA
+GÓRZE `mmw-page-hero.liquid`, przed `<section>` (czyli przed obrazem tła z
+`fetchpriority="high"`). Zmierzone: LCP desktop ~530ms (mean z kilku
+pomiarów) vs ~431ms na kodzie sprzed tej zmiany — realny, choć skromny,
+regres. Skaner preloadera przegląda zasoby w kolejności ODKRYCIA w dokumencie,
+nie w kolejności `fetchpriority` same w sobie — wcześniej odkryty `<script
+type="module">` (mimo że deferred, nie blokuje renderu) i tak konkuruje o
+wczesne pasmo/kolejkę pobierania z high-priority obrazem tła odkrytym po nim.
+Poprawka: przeniesienie render+script ZA markup tła (przed
+`.mmw-page-hero__overlay`) — LCP wróciło bliżej baseline (mean ~490-526ms w
+kolejnych seriach pomiarów, mobile bez różnicy: ~426ms po vs ~449ms przed).
+Niewielka rozbieżność między seriami pomiarów na desktopie mieści się w
+naturalnym szumie tego środowiska (pojedyncze pomiary wahały się nawet o
+~140ms między identycznymi powtórzeniami tego samego kodu) — nie
+wyeliminowana całkowicie, ale nieproporcjonalna do dalszej inżynierii bez
+twardszego środowiska pomiarowego. **Reguła na przyszłość**: nowy `<script>`/
+`{% render %}` w sekcji z kandydatem LCP idzie PO markupie tego kandydata w
+dokumencie, nie przed nim, nawet jeśli logicznie "powinien" być na górze pliku.
+
+**Błysk treści (FOUC) — "widoczne → znika → wjeżdża od nowa".** Przyczyna
+zmierzona wprost (MutationObserver z zewnątrz, obserwujący moment nadania
+atrybutów `data-mmw-reveal-pending`/`-in`, zestawiony z `performance.getEntriesByType('paint')`,
+na rzuconej sieci Slow 4G + pusty cache): pierwsze malowanie w ~4048ms
+(desktop) / ~3592ms (mobile), ale `assets/mmw-scroll-reveal.js` (moduł,
+deferred) dostawał szansę oznaczyć elementy dopiero w ~6174ms / ~5714ms —
+**treść była w pełni widoczna przez ~2.1s**, zanim skrypt ją schował
+(elementy poniżej zgięcia) albo wrzucił w środek animacji wejścia (hero,
+`-onload`, zawsze nad zgięciem) — dotyczyło OBU kategorii, różnym wariantem
+tego samego błędu (dopiero co potwierdzone, nie hipoteza). Bardzo prawdopodobnie
+to był też realny mechanizm za nieodtworzonym "przeskakiwaniem obrazów w
+kaflach karuzeli" opisanym wcześniej — szybki cykl widoczne→schowane→animacja
+na normalnej (nierzuconej) sieci mógł wyglądać jak jednorazowy skok, nie jak
+osobny błąd geometrii (pomiar pikselowy z poprzedniej tury nie znalazł żadnego
+przesunięcia obrazu względem kafla — to przemawia za tą hipotezą, nie
+przeciw niej).
+
+Poprawka — wzorzec klasy `no-js`, ten sam od lat używany w motywach:
+- **Krótki, BLOKUJĄCY inline `<script>`** (bez `type="module"`, bez
+  `defer`/`async`) w `snippets/mmw-tokens.liquid` — CELOWO tam, nie w nowym
+  pliku renderowanym z `layout/theme.liquid`: `{% render 'mmw-tokens' %}` już
+  tam istnieje sprzed tej zmiany, więc dopisanie linii W ŚRODKU tego snippetu
+  nie wymagało w ogóle dotykania pliku natywnego. Jedna linia kodu:
+  `document.documentElement.classList.add('mmw-reveal-ready');` — wykonuje
+  się synchronicznie podczas parsowania `<head>`, więc przed pierwszym
+  malowaniem, niezależnie od tego, kiedy zdąży wykonać się deferred moduł.
+- CSS w `mmw-scroll-reveal-styles.liquid` przepisany na
+  `.mmw-reveal-ready [data-mmw-reveal] { opacity: 0; ... }` — `data-mmw-reveal`
+  jest atrybutem STATYCZNYM z Liquid (obecnym od razu w wyrenderowanym
+  HTML-u, nie dodawanym przez JS), więc ta reguła aktywuje się od pierwszego
+  malowania, zamiast czekać, aż moduł doda `-pending`. Bez JS w ogóle: klasa
+  `.mmw-reveal-ready` nigdy nie trafia na `<html>`, reguła nigdy nie
+  dopasowuje, cała treść normalnie widoczna — warunek z poprzedniej tury
+  nienaruszony.
+- Konsekwencja w `assets/mmw-scroll-reveal.js`: gałąź "już widoczne przy
+  starcie, pomiń animację" MUSIAŁA dostać jawne oznaczenie
+  (`data-mmw-reveal-shown`, przywraca `opacity:1` bez `animation`) — pod
+  nową, domyślnie-schowaną architekturą samo `continue` (jak wcześniej)
+  zostawiłoby te elementy niewidoczne na stałe, bo nic by ich nigdy ponownie
+  nie odkryło (nie są obserwowane). To jedyna zmiana w logice modułu;
+  obserwator, stagger i scroll-sweep fallback nietknięte.
+- `@media (prefers-reduced-motion: reduce)` z `!important` na gołym
+  `[data-mmw-reveal]` (bez wymogu `.mmw-reveal-ready`) — celowo bezwarunkowy:
+  moduł pod reduced-motion przerywa `init()` na starcie bez oznaczania
+  czegokolwiek, więc bez tego override'u i bez modułu (błąd sieci, blokada)
+  treść zostałaby ukryta na stałe mimo reduced-motion.
+
+Zweryfikowane po poprawce (polling `getComputedStyle(...).opacity` co 200ms,
+niezależnie od czasu wykonania modułu): `.mmw-reveal-ready` na `<html>` już w
+~1.6s (długo przed pierwszym malowaniem ~4s), elementy `data-mmw-reveal`
+nigdy nie pokazują się w stanie widocznym przed zamierzoną animacją —
+`opacity` idzie `null` (jeszcze nie sparsowany) → `0` (poprawnie schowany) →
+rośnie płynnie do `1` przez keyframe. Zero błysku, potwierdzone na obu
+viewportach i na `/pages/dla-firm`/`/pages/filozofia`.
+
+**LCP po poprawce FOUC — realny, ale asymetryczny koszt.** Desktop bez
+zmian: ~628-643ms (mean, z i bez blokującego skryptu — różnica w granicach
+szumu). Mobile: ~451ms bez skryptu → ~552ms z skryptem (8 próbek), różnica
+rzędu 100ms, powtarzalna w większej próbie, ale bez wskazywalnego mechanizmu
+przyczynowego — sam dodany kod to jedna linia inline, zero zasobów
+zewnętrznych, Liquid `{% comment %}` (opis nad skryptem) nie trafia do
+wyrenderowanego HTML-a w ogóle. Zgłaszane wprost, nie ukrywane: hipoteza to
+mniejsza waga strony mobile (plakat 750w ściąga się szybko), więc ten sam
+stały narzut widać tam proporcjonalnie mocniej niż na cięższym, wolniejszym
+renderze desktopowym — nieprzetestowana dalej, bo wymagałaby twardszego
+środowiska pomiarowego niż lokalny `theme dev` w headless Chromium. Względem
+ZUPEŁNIE oryginalnego baseline sprzed całej funkcji scroll-reveal
+(431ms/449ms): skumulowany koszt to +~200ms desktop, +~100ms mobile.
 
 ## mmw-stats
 

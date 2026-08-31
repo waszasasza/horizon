@@ -20,7 +20,7 @@
 <section class="mmw-stats">
   <div class="mmw-stats__inner">
     {%- if section.settings.heading != blank -%}
-      <h2 class="mmw-stats__heading">{{ section.settings.heading }}</h2>
+      <h2 class="mmw-stats__heading" data-mmw-reveal>{{ section.settings.heading }}</h2>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
@@ -35,7 +35,7 @@
                 assign decoration_asset = 'mmw-stat-doodle-2.svg'
             endcase
           -%}
-          <div class="mmw-stats__item" {{ block.shopify_attributes }}>
+          <div class="mmw-stats__item" data-mmw-reveal {{ block.shopify_attributes }}>
             <div class="mmw-stats__number-row">
               {%- if block.settings.number != blank -%}
                 <p class="mmw-stats__number" aria-label="{{ block.settings.number | escape }}">
@@ -55,6 +55,8 @@
         {%- endfor -%}
       </mmw-stats-counter>
       <script src="{{ 'mmw-stats.js' | asset_url }}" type="module"></script>
+      {%- render 'mmw-scroll-reveal-styles' -%}
+      <script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
     {%- endif -%}
   </div>
 </section>

@@ -2,8 +2,13 @@
   mmw-article-tags — klikalne tagi pojedynczego wpisu.
   Każdy tag linkuje do /blogs/{handle}/tagged/{tag} (lista wpisów z tym tagiem = klaster tematyczny).
   Wstaw w szablonie article.json / article.video.json (np. między body a related).
+
+  `data-mmw-reveal` na CAŁEJ sekcji — pasek tagów, nie lista kart, tak jak
+  mmw-blog-tags.
 {%- endcomment -%}
 {%- if article.tags.size > 0 -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-atags { display:flex; flex-direction:column; gap:18px; align-items:center; padding-block:30px; padding-inline: max(var(--page-margin, 40px), calc((100% - var(--mmw-article-width, 1240px)) / 2)); border-top:1px solid rgba(95,49,47,.15); border-bottom:1px solid rgba(95,49,47,.15); }
   #shopify-section-{{ section.id }} .mmw-atags__label { font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; color: var(--mmw-01); margin:0; }
@@ -16,7 +21,7 @@
   }
   #shopify-section-{{ section.id }} .mmw-atags__tag:hover { background: var(--mmw-01); color: var(--mmw-04); }
 {%- endstyle -%}
-<section class="mmw-atags">
+<section class="mmw-atags" data-mmw-reveal>
   {%- if section.settings.label != blank -%}<p class="mmw-atags__label">{{ section.settings.label }}</p>{%- endif -%}
   <div class="mmw-atags__list">
     {%- for tag in article.tags -%}

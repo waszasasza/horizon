@@ -233,25 +233,45 @@
     {{ 'lifestyle-1' | placeholder_svg_tag: 'mmw-page-hero__bg' }}
   {%- endif -%}
 
+  {%- comment -%}
+    data-mmw-reveal + data-mmw-reveal-onload na logo/nagłówku/podtytule/
+    przyciskach niżej (assets/mmw-scroll-reveal.js) — hero jest z definicji
+    zawsze na pierwszym ekranie, więc zwykły scroll-reveal (czeka na wejście
+    w viewport) nigdy by się tu nie odpalił. `-onload` to osobna, dopisana
+    gałąź w JS: animuje się natychmiast przy starcie strony, ze staggerem jak
+    reszta. Tło (obraz/wideo/plakat) WYŻEJ świadomie BEZ tego atrybutu — to
+    kandydat LCP, nie może startować z opacity:0.
+
+    Render/script CELOWO tutaj, PO markupie tła, nie przed <section> — LCP
+    zmierzone: umieszczenie tego przed sekcją (pierwsza wersja) dawało ~530ms
+    (desktop, 3 pomiary), po przesunięciu za obraz tła z powrotem do ~430ms,
+    czyli baseline sprzed tej zmiany. Skaner preloadera przegląda tagi w
+    kolejności dokumentu — wcześniej ta karta/skrypt konkurowały o wczesne
+    pobranie z `fetchpriority="high"` obrazem tła, mimo że `type="module"` nie
+    blokuje renderu.
+  {%- endcomment -%}
+  {%- render 'mmw-scroll-reveal-styles' -%}
+  <script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
+
   <div class="mmw-page-hero__overlay"></div>
 
   <div class="mmw-page-hero__inner">
     {%- if section.settings.logo -%}
-      <img class="mmw-page-hero__logo"
+      <img class="mmw-page-hero__logo" data-mmw-reveal data-mmw-reveal-onload
            src="{{ section.settings.logo | image_url: width: 540 }}"
            alt="{{ shop.name | escape }}" width="270" height="auto" loading="eager">
     {%- endif -%}
 
     {%- if section.settings.heading != blank -%}
-      <h1 class="mmw-page-hero__heading">{{ section.settings.heading }}</h1>
+      <h1 class="mmw-page-hero__heading" data-mmw-reveal data-mmw-reveal-onload>{{ section.settings.heading }}</h1>
     {%- endif -%}
 
     {%- if section.settings.subtitle != blank -%}
-      <p class="mmw-page-hero__sub">{{ section.settings.subtitle }}</p>
+      <p class="mmw-page-hero__sub" data-mmw-reveal data-mmw-reveal-onload>{{ section.settings.subtitle }}</p>
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="mmw-page-hero__buttons">
+      <div class="mmw-page-hero__buttons" data-mmw-reveal data-mmw-reveal-onload>
         {%- for block in section.blocks -%}
           {%- if block.type == 'button' and block.settings.label != blank -%}
             <a href="{{ block.settings.link | default: '#' }}"

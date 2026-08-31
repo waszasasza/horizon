@@ -1,7 +1,13 @@
 {%- comment -%}
   mmw-article-video — sekcja vloga: intro (article.excerpt) + wideo.
   Wideo z metafielda custom.wideo (URL): YouTube/Vimeo → iframe; inny URL → <video> (np. plik z Content→Files).
+
+  `data-mmw-reveal` na dwóch naturalnych połówkach splitu (tekst, media) —
+  animacja scroll-reveal (assets/mmw-scroll-reveal.js), ten sam wzorzec co
+  mmw-palac-split/mmw-firms-catalog.
 {%- endcomment -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 {%- liquid
   assign url = article.metafields.custom.wideo
   assign url_s = url | downcase
@@ -40,12 +46,12 @@
   }
 {%- endstyle -%}
 <section class="mmw-avid">
-  <div class="mmw-avid__text">
+  <div class="mmw-avid__text" data-mmw-reveal>
     {%- if section.settings.show_back_link -%}<a class="mmw-avid__back" href="{{ blog.url | default: '/blogs/news' }}">&lt; Wróć do artykułów</a>{%- endif -%}
     {%- if article.excerpt != blank -%}<div class="mmw-avid__intro rte">{{ article.excerpt }}</div>{%- endif -%}
   </div>
   {%- if url != blank -%}
-    <div class="mmw-avid__media">
+    <div class="mmw-avid__media" data-mmw-reveal>
       {%- if is_youtube -%}
         <iframe src="https://www.youtube.com/embed/{{ yt_id }}" title="{{ article.title | escape }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
       {%- elsif is_vimeo -%}
