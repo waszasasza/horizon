@@ -6,6 +6,27 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+    {%- comment -%}
+      Bramka wiekowa 18+ (snippets/mmw-age-gate.liquid) — blokujący inline
+      <script>, celowo na samej górze <head>, PRZED arkuszami stylów: stan
+      początkowy (pokazać/schować bramkę) musi być ustawiony zanim
+      przeglądarka cokolwiek namaluje, inaczej treść strony mignęłaby, zanim
+      bramka zdążyłaby się pojawić. Sprawdza ciasteczko `mmw_age_ok` (BEZ
+      max-age — zgoda per sesja przeglądarki, patrz mmw-age-gate.liquid po
+      pełne uzasadnienie). Bez JS w ogóle: atrybut nigdy nie trafia na
+      <html>, CSS w mmw-age-gate.liquid domyślnie chowa bramkę — sklep
+      działa normalnie.
+    {%- endcomment -%}
+    <script>
+      (function () {
+        var cookies = document.cookie.split('; ');
+        for (var i = 0; i < cookies.length; i++) {
+          if (cookies[i] === 'mmw_age_ok=1') return;
+        }
+        document.documentElement.setAttribute('data-mmw-agegate', 'pending');
+      })();
+    </script>
+
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -47,6 +68,7 @@
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
+    {%- render 'mmw-age-gate' -%}
     {% render 'skip-to-content-link', href: '#MainContent', text: 'accessibility.skip_to_text' %}
     <div id="header-group">
       {% sections 'header-group' %}

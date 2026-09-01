@@ -1,0 +1,289 @@
+{%- doc -%}
+  mmw-age-gate — bramka wiekowa 18+. Renderowana RAZ, tuż po otwarciu <body>
+  w layout/theme.liquid.
+
+  Widoczność sterowana WYŁĄCZNIE atrybutem `data-mmw-agegate="pending"` na
+  <html> — ustawianym przez osobny, BLOKUJĄCY inline <script> wysoko w
+  <head> (patrz layout/theme.liquid), na podstawie ciasteczka `mmw_age_ok`.
+  NIE przez czas wykonania skryptu w TYM pliku (ten renderuje się dopiero w
+  <body>, więc gdyby to on decydował o widoczności, treść strony zdążyłaby
+  się namalować, zanim bramka by się pojawiła — dokładnie błąd błysku
+  opisany przy mmw-scroll-reveal w CLAUDE.md, tu odwrócony: zamiast "widoczne
+  → znika → wjeżdża", byłoby "strona widoczna → bramka wskakuje po fakcie").
+
+  Bez JS w ogóle: atrybut nigdy nie trafia na <html>, CSS niżej domyślnie
+  chowa bramkę (`display: none`) — sklep działa normalnie, bez usuwania
+  treści z DOM i bez przekierowań (Googlebot i tak widzi pełną stronę).
+
+  Ciasteczko `mmw_age_ok=1` BEZ max-age — zgoda per sesja przeglądarki
+  (znika przy zamknięciu przeglądarki), nie per karta (celowo NIE
+  sessionStorage — otwarcie produktu w nowej karcie pokazałoby bramkę
+  drugi raz).
+
+  "NIE" nie przekierowuje: karta ma DWA warianty treści już w DOM
+  (`.mmw-age-gate__prompt` / `.mmw-age-gate__denied`), JS tylko przełącza,
+  który jest widoczny — bramka i tak zostaje, strona pozostaje zablokowana.
+
+  Logo: `{{ 'logo_full.svg' | file_url }}` — plik sklepowy (Content → Files),
+  stąd `file_url`, nie `asset_url`; `MMW_logo.svg` (referencjonowany gdzie
+  indziej w motywie jako `shopify://shop_images/MMW_logo.svg`) NIE istnieje
+  w assets/ ANI nie pasuje tutaj kolorystycznie — ma fill na sztywno
+  `#FAF2E8`, dokładnie ten sam kolor co tło tej karty (zmierzone
+  bezpośrednio z pobranego SVG, nie z opisu) — byłby całkowicie niewidoczny,
+  nie tylko słabo kontrastujący. `logo_full.svg` to ciemny wariant (fill
+  `#5F312F`, zmierzone bezpośrednio), potwierdzony przez Olę, faktycznie
+  widoczny na kremowym tle. Ma inny natywny aspect ratio niż `MMW_logo.svg`
+  (191×25, nie 270×34) — `width`/`height` niżej poprawione na 270×35, żeby
+  zgadzały się proporcją z rzeczywistym plikiem (CSS `height: auto` i tak
+  by to naprawił wizualnie, ale błędne atrybuty dawałyby ~1px skoku
+  layoutu przy doładowaniu obrazu).
+
+  Figma: STRONA-WWW, node 1609-3509 (desktop) / 1609-3545 (mobile).
+  Kolory/fonty z tego node'a zmapowane na ISTNIEJĄCE tokeny z
+  snippets/mmw-tokens.liquid (nie nowe wartości): tło karty var(--mmw-04),
+  tekst/nagłówek var(--mmw-01), tło TAK/tekst NIE var(--mmw-02), nagłówek
+  var(--mmw-font-display), treść var(--mmw-font-text), przyciski
+  var(--mmw-font-label). UWAGA: kolory przycisków w Figmie (potwierdzone
+  bezpośrednio przez get_design_context, nie z opisu zadania) to NIE
+  "tekst i tło NIE oba #5F312F" — to dałoby niewidoczny tekst. Realnie:
+  NIE = tło #5F312F (--mmw-01) / tekst #FC7753 (--mmw-02); TAK = tło
+  #FC7753 (--mmw-02) / tekst #5F312F (--mmw-01) — odwrotne pary,
+  zweryfikowane też na screenshocie z Figmy.
+
+  Letter-spacing przycisków: 2px wprost z Figmy (`tracking-[2px]`), NIE
+  istniejący token `--mmw-label-tracking` (0.15em ≈ 2.1px przy 14px —
+  bliskie, ale inna, mniej precyzyjna wartość niż ta z designu).
+
+  min-height 44px na przyciskach jest ŚWIADOMYM odejściem od zmierzonej
+  wysokości w Figmie (~36px, `h-[36.2px]`) — wymóg dostępności (docelowy
+  rozmiar dotykowy) z briefu nadpisuje literalny piksel z designu.
+{%- enddoc -%}
+<div class="mmw-age-gate" data-mmw-age-gate>
+  <div
+    class="mmw-age-gate__card"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="mmw-age-gate-heading"
+    tabindex="-1"
+    data-mmw-age-gate-card
+  >
+    <div class="mmw-age-gate__prompt" data-mmw-age-gate-prompt>
+      <img
+        class="mmw-age-gate__logo"
+        src="{{ 'logo_full.svg' | file_url }}"
+        width="270"
+        height="35"
+        alt="{{ shop.name | escape }}"
+        fetchpriority="high"
+      >
+      <div class="mmw-age-gate__copy">
+        <h2 class="mmw-age-gate__heading" id="mmw-age-gate-heading">Weryfikacja wieku</h2>
+        <p class="mmw-age-gate__text">Ta strona zawiera treści przeznaczone dla osób powyżej 18 roku życia. Czy masz ukończone 18 lat?</p>
+      </div>
+      <div class="mmw-age-gate__actions">
+        <button type="button" class="mmw-age-gate__btn mmw-age-gate__btn--no" data-mmw-age-gate-no>Nie</button>
+        <button type="button" class="mmw-age-gate__btn mmw-age-gate__btn--yes" data-mmw-age-gate-yes>Tak</button>
+      </div>
+    </div>
+    <div class="mmw-age-gate__denied" data-mmw-age-gate-denied hidden>
+      <div class="mmw-age-gate__copy">
+        <h2 class="mmw-age-gate__heading" id="mmw-age-gate-denied-heading">Przykro nam</h2>
+        <p class="mmw-age-gate__text">Ta strona jest dostępna wyłącznie dla osób pełnoletnich.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- style -%}
+  .mmw-age-gate {
+    display: none;
+    position: fixed;
+    inset: 0;
+    /* 2100000: nad natywnym banerem zgody na cookies Shopify
+       (#shopify-pc__banner, z-index:2000000, wstrzykiwany przez platformę,
+       nie przez ten motyw — zmierzone bezpośrednio, nie z dokumentacji).
+       Bez tego baner cookies zasłania przyciski TAK/NIE na mobile,
+       zweryfikowane na 375px. Weryfikacja wieku ma blokować WSZYSTKO,
+       w tym zgodę na cookies, do czasu potwierdzenia. */
+    z-index: 2100000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    /* 0.6, nie 0.3 z Figmy (node 1609-3509/1609-3545) — na wprost Twoją
+       prośbę o mocniejsze przyciemnienie, świadome odejście od designu. */
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  html[data-mmw-agegate="pending"] .mmw-age-gate {
+    display: flex;
+  }
+
+  html[data-mmw-agegate="pending"] body {
+    overflow: hidden;
+  }
+
+  .mmw-age-gate__card {
+    width: 100%;
+    padding: 32px;
+    border-radius: 20px;
+    background: var(--mmw-04);
+    text-align: center;
+    outline: none;
+  }
+
+  {%- comment -%}
+    `.mmw-age-gate__prompt`/`.mmw-age-gate__denied` (nie `.card`) dostają
+    display:flex — to ONE, nie karta, są rzeczywistymi kontenerami
+    logo/treści/przycisków. Pierwsza wersja miała `align-items:center` +
+    `gap:53px` na `.card`, ale logo/copy/actions siedzą w środku `.prompt`,
+    nie bezpośrednio w `.card` — flex na złym poziomie nie miał żadnego
+    efektu na te elementy (stąd logo wizualnie "uciekające" w lewo, bo
+    <img> jako zwykły blok bez wycentrowania domyślnie przykleja się do
+    lewej krawędzi swojego rodzica). Zweryfikowane bezpośrednio pomiarem
+    getBoundingClientRect (offset 75px od środka), nie okiem.
+  {%- endcomment -%}
+  .mmw-age-gate__prompt,
+  .mmw-age-gate__denied {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 53px;
+  }
+
+  @media (min-width: 750px) {
+    .mmw-age-gate__card {
+      width: auto;
+      min-width: 500px;
+      /* Bez max-width karta rosła do szerokości NIEZAWINIĘTEGO zdania
+         w .mmw-age-gate__text (zmierzone: 749px w jednej linii) — flex
+         column bez ograniczenia szerokości sizuje się na najszerszego
+         dziecka, więc logo (stałe 270px) wizualnie "uciekało" w lewo od
+         środka dużo szerszej niż zamierzona karty. Naprawa niżej
+         (max-width na .mmw-age-gate__copy) wymusza zawijanie tekstu —
+         ten max-width to dodatkowy, redundantny sufit na samej karcie,
+         niezależny od tego, czy inny element kiedyś przepełni layout. */
+      max-width: 580px;
+      padding: 48px;
+    }
+  }
+
+  .mmw-age-gate__logo {
+    display: block;
+    width: 270px;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .mmw-age-gate__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* Realna przyczyna błędu "logo nie wyśrodkowane" — bez tego zdanie
+       w .mmw-age-gate__text renderowało się w jednej linii (749px),
+       rozciągając całą kartę; logo (stałe 270px) siedziało poprawnie
+       wyśrodkowane WZGLĘDEM SIEBIE, ale karta była nienaturalnie szeroka,
+       więc logo wizualnie wyglądało jak przyklejone do lewej krawędzi.
+       420px = szerokość zbliżona do naturalnej szerokości nagłówka
+       "Weryfikacja wieku" przy 50px, żeby karta nie skakała między
+       "wąska bo nagłówek" a "szeroka bo akapit". */
+    max-width: 420px;
+  }
+
+  .mmw-age-gate__heading {
+    margin: 0;
+    font-family: var(--mmw-font-display);
+    font-weight: 400;
+    font-size: 50px;
+    line-height: 1;
+    color: var(--mmw-01);
+  }
+
+  .mmw-age-gate__text {
+    margin: 0;
+    font-family: var(--mmw-font-text);
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--mmw-01);
+  }
+
+  .mmw-age-gate__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .mmw-age-gate__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 48px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: var(--mmw-font-label);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .mmw-age-gate__btn--no {
+    background: var(--mmw-01);
+    color: var(--mmw-02);
+  }
+
+  .mmw-age-gate__btn--yes {
+    background: var(--mmw-02);
+    color: var(--mmw-01);
+  }
+
+  .mmw-age-gate__denied[hidden] {
+    display: none;
+  }
+{%- endstyle -%}
+
+<script>
+  (function () {
+    var html = document.documentElement;
+    if (html.getAttribute('data-mmw-agegate') !== 'pending') return;
+
+    var card = document.querySelector('[data-mmw-age-gate-card]');
+    var prompt = document.querySelector('[data-mmw-age-gate-prompt]');
+    var denied = document.querySelector('[data-mmw-age-gate-denied]');
+    var noBtn = document.querySelector('[data-mmw-age-gate-no]');
+    var yesBtn = document.querySelector('[data-mmw-age-gate-yes]');
+    if (!card || !prompt || !denied || !noBtn || !yesBtn) return;
+
+    yesBtn.focus();
+
+    // Pułapka focusu: dokładnie 2 elementy w stanie "prompt" (Tab/Shift+Tab
+    // to ten sam toggle), zero elementów w stanie "denied" (focus zostaje
+    // przypięty do samej karty, dlatego tabindex="-1" w markupie wyżej).
+    card.addEventListener('keydown', function (event) {
+      if (event.key !== 'Tab') return;
+      event.preventDefault();
+      if (!denied.hidden) {
+        card.focus();
+        return;
+      }
+      if (document.activeElement === noBtn) {
+        yesBtn.focus();
+      } else {
+        noBtn.focus();
+      }
+    });
+
+    yesBtn.addEventListener('click', function () {
+      document.cookie = 'mmw_age_ok=1;path=/;samesite=lax';
+      html.removeAttribute('data-mmw-agegate');
+    });
+
+    noBtn.addEventListener('click', function () {
+      prompt.hidden = true;
+      denied.hidden = false;
+      card.setAttribute('aria-labelledby', 'mmw-age-gate-denied-heading');
+      card.focus();
+    });
+  })();
+</script>
