@@ -18,13 +18,33 @@
   Ten sam zestaw ustawień (product/recommendation_type/max_products) skopiowany
   1:1 ze schematu natywnej sekcji, plus własny "heading" (u natywnej to blok, tu
   ustawienie sekcji, żeby nie duplikować systemu bloków dla jednego tekstu).
+
+  `data-mmw-reveal` na kartach (przez współdzielony snippets/mmw-carousel-card.liquid)
+  jest teraz AKTYWNIE podpięty tu — render + skrypt niżej. Wcześniej ta sekcja
+  świadomie tego nie robiła (dokumentowane jako "atrybut nieaktywny"), ale to
+  założenie okazało się błędne w praktyce: CSS z mmw-scroll-reveal-styles.liquid
+  jest globalny, więc gdy KTÓRAKOLWIEK inna sekcja na tej samej stronie (marquee,
+  mmw-product-carousel, mmw-palac-split — wszystkie współwystępują z tą sekcją na
+  obu szablonach produktu) renderuje go, reguła `.mmw-reveal-ready [data-mmw-reveal]
+  {opacity:0}` i tak zaczynała obejmować te karty — bez własnego renderu modułu JS
+  ta sekcja i tak była częścią globalnego mechanizmu, tylko przypadkowo, nie przez
+  jawne podpięcie. Do tego doszedł prawdziwy błąd: kart tej sekcji często NIE MA
+  w wyrenderowanym HTML-u przy starcie (`recommendations.performed` bywa false —
+  patrz gałąź if/else niżej, prawdziwy fetch robi dopiero natywny
+  assets/product-recommendations.js po własnym IntersectionObserver), więc trafiały
+  do DOM już PO tym, jak assets/mmw-scroll-reveal.js raz przeleciał stronę i
+  skończył — na stałe pomijane. Naprawione w assets/mmw-scroll-reveal.js
+  (MutationObserver skanujący nowo dodane węzły), ale render tu i tak dopięty
+  jawnie, żeby nie polegać na przypadkowej koegzystencji z inną sekcją.
 {%- endcomment -%}
 {%- render 'mmw-carousel-styles' -%}
+{%- render 'mmw-scroll-reveal-styles' -%}
 <script
   src="{{ 'product-recommendations.js' | asset_url }}"
   type="module"
   fetchpriority="low"
 ></script>
+<script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
 
 {%- liquid
   assign desc_len = 140

@@ -10,13 +10,13 @@
   obu poza budżetem tego sprintu (CLAUDE.md: "Czego NIE ruszać").
 
   `data-mmw-reveal` na korzeniu (<product-card>) — animacja scroll-reveal
-  (assets/mmw-scroll-reveal.js). Sam atrybut jest bez efektu, dopóki strona
-  nie ładuje też CSS/JS mechanizmu (snippets/mmw-scroll-reveal-styles.liquid +
-  assets/mmw-scroll-reveal.js) — dziś robi to WYŁĄCZNIE
-  sections/mmw-product-carousel.liquid. Karta jest współdzielona też z
-  sections/mmw-product-recommendations.liquid (poza zakresem tego zadania),
-  więc tam atrybut siedzi na karcie, ale nieaktywny — świadomie NIE dopięte,
-  żeby nie rozszerzać zakresu bez zgody.
+  (assets/mmw-scroll-reveal.js). Aktywne w OBU sekcjach, które renderują tę
+  kartę: sections/mmw-product-carousel.liquid i
+  sections/mmw-product-recommendations.liquid (ta druga dopięta później, po
+  odkryciu, że atrybut nie był realnie "nieaktywny" — CSS jest globalny, więc
+  współwystępowanie z inną sekcją renderującą mmw-scroll-reveal-styles i tak
+  go aktywowało, tylko przypadkiem; patrz CLAUDE.md, sekcja o kartach
+  rekomendacji dodawanych asynchronicznie).
 
   @param {object} product - produkt do wyrenderowania
   @param {string} section_id - id sekcji wołającej (unikalny link + quick-add form id)

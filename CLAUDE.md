@@ -914,6 +914,129 @@ renderze desktopowym — nieprzetestowana dalej, bo wymagałaby twardszego
 ZUPEŁNIE oryginalnego baseline sprzed całej funkcji scroll-reveal
 (431ms/449ms): skumulowany koszt to +~200ms desktop, +~100ms mobile.
 
+**Treść dodawana do DOM po starcie strony zostawała niewidoczna na stałe —
+MutationObserver, nie tylko IntersectionObserver.** Zgłoszony błąd: karty
+sekcji `mmw-product-recommendations` (4× `product-card.mmw-carousel-card`)
+miały `computed opacity: 0` na w pełni załadowanej stronie produktu, bez
+żadnego atrybutu stanu (`pending`/`in`/`shown`) — czyli `assets/mmw-scroll-reveal.js`
+w ogóle ich nie widział. Przyczyna: `init()` (dziś `main()`) skanował DOM
+RAZ, przy starcie modułu — natywny `assets/product-recommendations.js` ma
+WŁASNY, niezależny `IntersectionObserver`, który dopiero PO wykryciu bliskości
+viewportu robi `fetch` i wstrzykuje HTML kart — to zawsze dzieje się PO
+starcie naszego modułu, więc te elementy nigdy nie trafiały do pętli
+klasyfikacji. CSS chowa `[data-mmw-reveal]` domyślnie (patrz sekcja o FOUC
+wyżej), więc brak klasyfikacji = niewidoczne na zawsze, nie "jeszcze nie
+zdążyło się pokazać".
+
+Naprawa: `document.body`-owy `MutationObserver({childList:true, subtree:true})`
+wywołujący tę samą funkcję klasyfikacji (`classify`) dla każdego nowo
+dodanego węzła (i jego poddrzewa) zawierającego `[data-mmw-reveal]`. Świadomie
+GLOBALNY, nie dowiązany do konkretnego mechanizmu (product-recommendations.js)
+— dowolny fetch+wstrzyknięcie HTML-a (Section Rendering API przy zmianie
+wariantu, quick-add-modal, wyniki wyszukiwania) kończy się operacją na
+childList jakiegoś kontenera, więc jeden obserwator łapie wszystkie te
+przypadki jednolicie. Sprawdzone bezpośrednio (grep + inspekcja DOM): dziś
+ŻADNA z pozostałych trzech (zmiana wariantu/`[ref="priceContainer"]`,
+quick-add-modal, predictive search) nie renderuje treści z `data-mmw-reveal`
+— zero aktywnego błędu tam dziś, ale naprawa zadziała bez zmian, jeśli
+kiedyś zacznie. Paginacja (`snippets/pagination-controls.liquid`) to zwykłe
+`<a href>` (pełna nawigacja strony, nie fetch) — nie dotyczy tej klasy błędu
+w ogóle.
+
+Przy okazji poprawiona rzeczywista, ale nadal PRZYPADKOWA aktywacja:
+`sections/mmw-product-recommendations.liquid` nigdy nie renderowała własnego
+`mmw-scroll-reveal-styles`/skryptu (dokumentowane wcześniej jako "atrybut
+nieaktywny, świadomie niedopięte") — ale CSS jest globalny, więc gdy
+KTÓRAKOLWIEK inna sekcja na tej samej stronie (marquee, mmw-product-carousel,
+mmw-palac-split — wszystkie faktycznie współwystępują z tą sekcją na obu
+szablonach produktu) renderowała go, reguła `.mmw-reveal-ready
+[data-mmw-reveal] {opacity:0}` i tak obejmowała te karty — "nieaktywność"
+była iluzoryczna, zależna od przypadkowej koegzystencji z inną sekcją. Teraz
+`mmw-product-recommendations.liquid` renderuje `mmw-scroll-reveal-styles` +
+skrypt jawnie, niezależnie od tego, co jeszcze jest na stronie.
+
+**`mmw-palac-split__content` (zgłoszone jako podejrzenie o inną przyczynę)
+— NIE jest błędem scroll-reveal.** Diagnoza bezpośrednia (Playwright, ta sama
+strona produktu): element rzeczywiście pokazywał `computed opacity: 0` mimo
+wielokrotnego scrolla, ale `window.scrollY` zostawało `0` przez cały test —
+strona W OGÓLE się nie przewijała. Przyczyna: bramka wiekowa
+(`snippets/mmw-age-gate.liquid`, dodana w poprzedniej turze) ustawia `body {
+overflow: hidden }` dopóki jest `pending` — test nie klikał "TAK", więc
+scroll był zablokowany przez CAŁKOWICIE INNĄ funkcję, nie przez sam
+mechanizm reveal. Po kliknięciu "TAK" (odblokowanie scrolla) `mmw-palac-split__content`
+i `marquee-component` (ten sam test złapał też jego) odsłoniły się poprawnie
+przez już istniejący IntersectionObserver/scroll-sweep, bez żadnej zmiany
+kodu. Nie naprawiane, bo nie ma czego naprawiać — to prawidłowe zachowanie
+dwóch niezależnych, poprawnie działających mechanizmów (bramka blokuje
+scroll, dopóki nie została potwierdzona; scroll-reveal poprawnie czeka na
+realny scroll, żeby cokolwiek odsłonić). Warte odnotowania na przyszłość:
+każdy test scroll-reveal na stronie z aktywną bramką wiekową musi najpierw
+kliknąć "TAK", inaczej wygląda na fałszywie "zawieszone" below-the-fold
+treści.
+
+### Koszt globalnego MutationObserver — zmierzony, nie hipotetyczny
+
+Po dodaniu `domObserver` (wyżej) zmierzony bezpośrednio (Playwright, hook
+wewnątrz samego pliku identyfikujący WYŁĄCZNIE nasz obserwator — na stronie
+działają też inne, niezwiązane `MutationObserver` natywnego motywu
+obserwujące `document.body` z tymi samymi opcjami `{childList, subtree}`,
+więc globalne opatchowanie `window.MutationObserver` bez tego rozróżnienia
+zawyżało liczby ~5×, złapane dopiero przy porównaniu z wynikiem instrumentacji
+wewnętrznej).
+
+**Dominujące źródło wywołań: `assets/mmw-stats.js`.** Animacja odliczania
+robi `item.el.textContent = ...` raz na klatkę przez 1600ms
+(`DURATION_MS`) — `textContent =` usuwa stary węzeł TEKSTOWY i wstawia nowy,
+co i tak liczy się jako mutacja `childList`. Zmierzone wprost na scrollu
+bezpośrednio do sekcji `mmw-stats`: do 55-63 wywołań callbacku w
+pojedynczym oknie 1s przez czas trwania animacji. Na pełnej, realistycznej
+sesji (60-krokowy scroll przez całą stronę główną + 3s ustabilizowania):
+82 wywołania callbacku / 328 rekordów mutacji w ciągu ~9s — **nie "setki na
+sekundę"**, ale realny, unikalny koszt (żaden inny mechanizm na stronie —
+karuzele, marquee, hero — nie generuje porównywalnego wolumenu; `marquee.js`
+dodaje/usuwa węzły tylko z 250ms-debounced handlera resize, nie w pętli per
+klatka).
+
+**Fix zastosowany: throttling przez rAF z filtrem typu węzła PRZED
+zaplanowaniem czegokolwiek** (zgodnie z prośbą — throttling zamiast zawężania
+obserwacji do kontenerów, bo obserwator i tak musi łapać wstrzyknięcia w
+dowolnym miejscu strony, patrz uzasadnienie wyżej). Ważne rozróżnienie
+potwierdzone pomiarem: **sama częstotliwość wywołań natywnego callbacku
+MutationObserver NIE spada** — to przeglądarka dostarcza mutacje w
+mikrozadaniach, poza kontrolą JS-a, więc rAF po stronie JS nie zmniejsza
+liczby dostaw. To, co faktycznie się zmienia: węzły tekstowe (przypadek
+licznika) są odrzucane PRZED wepchnięciem do kolejki, więc żaden `rAF` w
+ogóle się nie planuje dla czysto-tekstowego wybuchu mutacji — zero
+zaplanowanej pracy zamiast wielokrotnego wywołania `classifyAll`/
+`querySelectorAll('[data-mmw-reveal]')` na każdą pojedynczą dostawę.
+Zweryfikowane bezpośrednio: podczas pełnej sesji scrolla przez stronę główną
+(z aktywną animacją liczników) `rAF` do przetworzenia realnych węzłów
+zaplanował się **0 razy** — cały koszt count-upu sprowadził się do iteracji
+pustej pętli w samym callbacku. Dla prawdziwych wstrzyknięć elementów
+(rekomendacje produktowe) mechanizm nadal działa poprawnie: na stronie
+produktu `the-pola-way` sekcja `mmw-product-recommendations` wstrzyknęła
+karty przy starcie strony (loading nie czeka na scroll), co dało 6
+zaplanowanych `rAF`/11 rekordów — wszystkie 4 karty skończyły z poprawnym
+`data-mmw-reveal-in`/`opacity:1`, zero utkniętych na `opacity:0` — regresja
+wykluczona bezpośrednim testem, nie założeniem.
+
+**FPS scrolla po fixie — brak regresji względem baseline z tury wprowadzenia
+animacji (71,6 desktop / 77,3 mobile średnio).** Zmierzone tą samą metodą
+(pełny scroll strony głównej przez 4s, `requestAnimationFrame` do pomiaru
+klatek), 4 przebiegi na viewport po dodaniu throttlingu, bramka wiekowa
+jawnie odklikana przed pomiarem (nie istniała w turze baseline — bez
+kliknięcia `body{overflow:hidden}` fałszywie zawyżyłoby FPS, bo scroll w
+ogóle by się nie odbywał): desktop średnio 82,5 fps (zakres pojedynczych
+przebiegów 76,0–89,2), mobile średnio 82,2 fps (zakres 73,8–87,8) — oba
+powyżej baseline, wariancja między przebiegami (system/tło, nie kod) większa
+niż różnica przypisywalna samemu fixowi. Wniosek: throttling nie tylko nie
+pogorszył płynności scrolla, ale nie ma też mierzalnego dodatniego wpływu
+większego niż szum pomiarowy — sam koszt przed fixem był zbyt mały (55-63
+tanich wywołań/s, nie setki drogich), żeby FPS w ogóle to rejestrował.
+Throttling wart utrzymania mimo to: eliminuje koszt CAŁKOWICIE dla
+przyszłych przypadków (nowe animacje tekstowe, więcej jednoczesnych
+wstrzyknięć elementów), a nic nie kosztuje w zamian.
+
 ## mmw-stats
 
 Animacja odliczania (`assets/mmw-stats.js`) renderuje liczby bez separatora
