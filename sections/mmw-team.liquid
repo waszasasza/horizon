@@ -1,6 +1,6 @@
 {%- comment -%}
   mmw-team — "Team handlowy": karuzela osób (blok = osoba: zdjęcie, imię, stanowisko,
-  e-mail). Mechanika 1:1 z sections/mmw-product-pairing.liquid: natywny Horizon
+  bio). Mechanika 1:1 z sections/mmw-product-pairing.liquid: natywny Horizon
   slideshow (render 'slideshow' + 'slideshow-slide' + 'slideshow-controls'), klasy
   resource-list/resource-list__carousel (stylesheet ze snippets/resource-list-carousel.liquid
   reużyty literalnie przez snippets/mmw-carousel-styles.liquid — patrz CLAUDE.md,
@@ -57,7 +57,7 @@
     .mmw-team__name { margin: 0; font-family: var(--mmw-font-display); font-weight: 400; font-size: 36px; line-height: 1; color: var(--mmw-01); }
     .mmw-team__id { display: flex; flex-direction: column; gap: 4px; }
     .mmw-team__role { margin: 0; font-family: var(--mmw-font-label); font-weight: 700; font-size: 14px; letter-spacing: var(--mmw-label-tracking); text-transform: uppercase; }
-    .mmw-team__email { margin: 0; font-family: var(--mmw-font-text); font-size: 14px; line-height: 1.3; color: var(--mmw-01); text-decoration: none; word-break: break-word; }
+    .mmw-team__bio { margin: 0; font-family: var(--mmw-font-text); font-size: 14px; line-height: 1.3; color: var(--mmw-01); }
 
     /* Karuzela: wrapper 1:1 jak w snippets/resource-list.liquid dla layout_type: "carousel" */
     .mmw-team__carousel-wrap { width: 100%; }
@@ -153,7 +153,7 @@
           <p class="mmw-team__name">{{ block.settings.name }}</p>
           {%- if block.settings.role != blank -%}<h6 class="mmw-team__role">{{ block.settings.role }}</h6>{%- endif -%}
         </div>
-        {%- if block.settings.email != blank -%}<a class="mmw-team__email" href="mailto:{{ block.settings.email }}">{{ block.settings.email }}</a>{%- endif -%}
+        {%- if block.settings.bio != blank -%}<p class="mmw-team__bio">{{ block.settings.bio | newline_to_br }}</p>{%- endif -%}
       </div>
     {%- endfor -%}
   {%- endcapture -%}
@@ -231,7 +231,7 @@
         { "type": "image_picker", "id": "image", "label": "Zdjęcie" },
         { "type": "text", "id": "name", "label": "Imię i nazwisko", "default": "Eugenia Havryk" },
         { "type": "text", "id": "role", "label": "Stanowisko", "default": "Dyrektor Sprzedaży" },
-        { "type": "text", "id": "email", "label": "E-mail", "default": "e.havryk@majatekmalawies.pl" }
+        { "type": "textarea", "id": "bio", "label": "Bio" }
       ]
     }
   ],
