@@ -1,0 +1,20 @@
+{% for group in robots.default_groups %}
+  {{- group.user_agent }}
+
+  {%- for rule in group.rules -%}
+    {{ rule }}
+  {%- endfor -%}
+
+  {%- comment -%}
+    Blokada adresów wariantów. Karty produktów w siatce renderują linki
+    z ?variant=, prowadzące do stron z canonicalem na adres produktu.
+    Bez tej reguły marnują budżet crawlowania.
+  {%- endcomment -%}
+  {%- if group.user_agent.value == '*' -%}
+    {{ 'Disallow: /*?variant=' }}
+  {%- endif -%}
+
+  {%- if group.sitemap != blank -%}
+    {{ group.sitemap }}
+  {%- endif -%}
+{% endfor %}
