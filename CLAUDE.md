@@ -241,6 +241,15 @@ tego pliku nie jest wyjątkiem wymagającym osobnej zgody, tylko częścią
 zaplanowanej pracy. Reszta pliku (mechanika przewijania, `content_for 'blocks'`,
 `marquee.js`) nietknięta.
 
+`sections/header.liquid:331` — natywny `<h1 class="visually-hidden">{{ shop.name }}</h1>`
+(nazwa sklepu, renderowana tylko na `request.page_type == 'index'`) zamieniony na
+`<div class="visually-hidden">{{ shop.name }}</div>` (commit `168bb12`). Powód:
+zgłoszenie SEO o dodatkowym, zdublowanym H1 na stronie głównej — strona ma już
+własny H1 z treści (np. hero), a ten ukryty tekst z nazwą sklepu wchodził jako
+drugi. Tekst zostaje w DOM (`visually-hidden`, nadal czytany przez czytniki
+ekranu) — zmieniony wyłącznie tag, nie treść ani widoczność. Jedna linia, poza
+tym plik nietknięty.
+
 ## mmw-omnibus
 
 Najniższa cena z 30 dni (Omnibus) w bloku ceny strony produktu — Figma node

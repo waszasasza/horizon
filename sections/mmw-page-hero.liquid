@@ -262,8 +262,12 @@
            alt="{{ shop.name | escape }}" width="270" height="auto" loading="eager">
     {%- endif -%}
 
-    {%- if section.settings.heading != blank -%}
-      <h1 class="mmw-page-hero__heading" data-mmw-reveal data-mmw-reveal-onload>{{ section.settings.heading }}</h1>
+    {%- assign mmw_page_hero_heading = section.settings.heading -%}
+    {%- if template.name == 'blog' and current_tags != blank -%}
+      {%- assign mmw_page_hero_heading = current_tags | join: ', ' -%}
+    {%- endif -%}
+    {%- if mmw_page_hero_heading != blank -%}
+      <h1 class="mmw-page-hero__heading" data-mmw-reveal data-mmw-reveal-onload>{{ mmw_page_hero_heading }}</h1>
     {%- endif -%}
 
     {%- if section.settings.subtitle != blank -%}
