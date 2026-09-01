@@ -250,7 +250,41 @@ drugi. Tekst zostaje w DOM (`visually-hidden`, nadal czytany przez czytniki
 ekranu) — zmieniony wyłącznie tag, nie treść ani widoczność. Jedna linia, poza
 tym plik nietknięty.
 
-## mmw-omnibus
+`snippets/pagination-controls.liquid` — natywny snippet Horizona (linki
+prev/next/numerowane strony w paginacji). Zgłoszenie SEO: link do strony 1
+prowadził na `?page=1` zamiast na adres bez parametru, mimo że to ta sama
+treść co adres kanoniczny (`collection.url`/`blog.url`/itp. bez query) —
+zbędny duplikat do zaindeksowania. Naprawa: dla linku „poprzednia” i dla
+numerowanego linku strony, jeśli zbudowany przez Shopify `paginate.*.url`
+zawiera `page=1` w query stringu, usuwany jest ten fragment (trzy warianty
+podmiany string: `?page=1&` na początku, `&page=1` w środku/na końcu,
+`?page=1` jako jedyny parametr) — reszta parametrów (filtry kolekcji, `q=`
+wyszukiwarki) zostaje nietknięta. Link do strony 2+ i „następna” nie są
+dotykane (nigdy nie wskazują na stronę 1). `on_click_handler`
+(intercepcja kliknięcia przez `section-renderer`, używana dziś przez
+`quick-order-list.liquid`) czyta parametry z TEGO SAMEGO oczyszczonego
+URL-a, nie z oryginalnego — dla linku do strony 1 wysyła więc pusty zestaw
+parametrów, co framework (`assets/component.js`, `parseData`) poprawnie
+interpretuje jako `{}` (żądanie bez `page` = strona 1 wg domyślnego
+zachowania Shopify), zweryfikowane bez potrzeby zmiany w
+`quick-order-list.js`. Zweryfikowane na żywo (`theme dev` + Playwright):
+`/collections/all?page=2` → link „Strona 1"/„Wstecz” → `/collections/all`
+(bez `?page`), linki do stron 3/4/6/„Dalej” bez zmian; kliknięcie linku
+faktycznie nawiguje i renderuje poprawną, inną treść niż strona 2 (zero
+nakładających się produktów w teście); to samo na mobile 375px. Wyszukiwarka
+(`sections/search-results.liquid`) w obecnej konfiguracji NIE korzysta z
+tego snippetu wcale — `enable_infinite_scroll` (domyślnie `true` w
+schemacie, nieoverridowane w żadnym `search.json`) renderuje `viewMoreNext`
+zamiast `render 'pagination-controls'` (patrz `snippets/product-grid.liquid`)
+— fix nie mógł więc zostać zweryfikowany empirycznie na wyszukiwarce, ale
+zadziała automatycznie, gdyby infinite scroll kiedyś wyłączono, bo to ten
+sam współdzielony snippet. `mmw-blog-grid` przetestowana bezpośrednio
+(tymczasowo `posts_count: 6` w `templates/blog.json`, żeby wymusić dwie
+strony — przywrócone do `12` po teście, zero diffu w tym pliku po
+zakończeniu). `theme check` bez nowych ostrzeżeń (baseline 12/30
+utrzymany). Przy aktualizacji Horizona: sprawdzić, czy upstream nie
+zmienił struktury `paginate.previous.url`/`paginate.parts[].url` (np. inny
+format query stringu) — string-based podmiana zakłada dokładnie ten format.
 
 Najniższa cena z 30 dni (Omnibus) w bloku ceny strony produktu — Figma node
 `982-6959`. Zakres tego zadania to WYŁĄCZNIE metapole + render; skąd bierze
