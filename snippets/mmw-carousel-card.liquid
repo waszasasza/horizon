@@ -35,10 +35,20 @@
   assign desc_len = desc_len | default: 140
   assign card_sizes = sizes | default: 'auto, (max-width: 749px) clamp(150px, 60vw, 400px), calc((100vw - 96px) / 3)'
 
+  # "od {cena}" — produkt z różnymi cenami wariantów (np. voucher z pakietami, bilet
+  # wydarzenia). "od" wygrywa z przeceną (ten sam wzorzec co snippets/price.liquid,
+  # decyzja Oli, Krok 2): gdy price_varies, świadomie NIE liczymy on_sale/badge rabatu
+  # z product.compare_at_price/product.price (to ceny TYLKO pierwszego/wybranego
+  # wariantu) — procent rabatu byłby mylący, nieznane czy dotyczy wszystkich wariantów.
+  assign price_varies = product.price_varies
+
   assign on_sale = false
   assign badge_text = blank
   assign badge_class = 'mmw-carousel-card__badge'
-  if product.compare_at_price > product.price
+  if price_varies
+    assign price_min_formatted = product.price_min | money
+    assign price_from_text = 'content.price_from' | t: price: price_min_formatted
+  elsif product.compare_at_price > product.price
     assign on_sale = true
     assign discount_pct = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round
     assign badge_text = '-' | append: discount_pct | append: '%'
@@ -107,7 +117,9 @@
     {%- if card_text != blank -%}<p class="mmw-carousel-card__excerpt">{{ card_text }}</p>{%- endif -%}
     <div class="mmw-carousel-card__price-row">
       <div class="mmw-carousel-card__price-block">
-        {%- if on_sale -%}
+        {%- if price_varies -%}
+          <span class="mmw-carousel-card__price">{{ price_from_text }}</span>
+        {%- elsif on_sale -%}
           <div class="mmw-carousel-card__price-line">
             <span class="mmw-carousel-card__price mmw-carousel-card__price--sale">{{ product.price | money }}</span>
             <span class="mmw-carousel-card__price-compare">{{ product.compare_at_price | money }}</span>

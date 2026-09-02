@@ -63,6 +63,19 @@
     endif
   endif
 
+  # "od {cena}" — karty w siatkach (kolekcja/wyszukiwarka/quick-add na stronie produktu,
+  # gdzie is_product_card jest false, patrz wyżej) dla produktów z różnymi cenami wariantów.
+  # Wyłączone razem z has_volume_pricing (różne mechanizmy prezentacji zakresu cen —
+  # rabaty ilościowe mają już swój "min - max" wyżej). "od" wygrywa z przeceną: gdy produkt
+  # ma jednocześnie price_varies i compare_at_price na wybranym/pierwszym wariancie, świadomie
+  # NIE pokazujemy przekreślonej ceny/koloru przeceny — nieznane, czy WSZYSTKIE warianty są
+  # przecenione, więc unikamy mylącej sugestii (decyzja Oli, Krok 2).
+  assign show_price_varies = false
+  if is_product_card and has_volume_pricing != true and product_resource.price_varies
+    assign show_price_varies = true
+    assign show_compare_price = false
+  endif
+
   # Determine if currency code should be shown
   assign use_currency = false
   if product.handle == product_resource.handle
@@ -82,6 +95,9 @@
     if show_omnibus_line
       assign omnibus_formatted = omnibus_raw | money_with_currency
     endif
+    if show_price_varies
+      assign price_from_text = 'content.price_from' | t: price: price_min
+    endif
   else
     assign price = price | money
     assign compare_at_price = compare_at_price | money
@@ -89,6 +105,9 @@
     assign price_max = price_max | money
     if show_omnibus_line
       assign omnibus_formatted = omnibus_raw | money
+    endif
+    if show_price_varies
+      assign price_from_text = 'content.price_from' | t: price: price_min
     endif
   endif
 -%}
@@ -106,6 +125,11 @@
       <span class="visually-hidden">{{ 'content.price_range' | t }}&nbsp;</span>
       <span class="price">{{ price_min }} - {{ price_max }}</span>
     </span>
+  {% elsif show_price_varies %}
+    {% comment %} "od {cena}" — różne ceny wariantów, karta w siatce (patrz show_price_varies wyżej) {% endcomment %}
+    <div class="price__regular">
+      <span class="price">{{ price_from_text }}</span>
+    </div>
   {% else %}
     {% comment %} Standard pricing display {% endcomment %}
     <div

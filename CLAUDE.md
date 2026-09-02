@@ -281,10 +281,31 @@ zadziała automatycznie, gdyby infinite scroll kiedyś wyłączono, bo to ten
 sam współdzielony snippet. `mmw-blog-grid` przetestowana bezpośrednio
 (tymczasowo `posts_count: 6` w `templates/blog.json`, żeby wymusić dwie
 strony — przywrócone do `12` po teście, zero diffu w tym pliku po
-zakończeniu). `theme check` bez nowych ostrzeżeń (baseline 12/30
-utrzymany). Przy aktualizacji Horizona: sprawdzić, czy upstream nie
-zmienił struktury `paginate.previous.url`/`paginate.parts[].url` (np. inny
-format query stringu) — string-based podmiana zakłada dokładnie ten format.
+zakończeniu). `theme check` bez nowych ostrzeżeń (baseline wtedy 12/30
+— **od 2026-09-02 baseline to 14/30**, patrz notatka niżej, powód nie
+ma nic wspólnego z tą poprawką). Przy aktualizacji Horizona: sprawdzić,
+czy upstream nie zmienił struktury `paginate.previous.url`/
+`paginate.parts[].url` (np. inny format query stringu) — string-based
+podmiana zakłada dokładnie ten format.
+
+**Baseline `theme check` zaktualizowany 12/30 → 14/30 (2026-09-02).**
+Powód: commit `5f2de85` „Synchronizacja szablonow ze stanem
+produkcyjnym" dodał `templates/product.zestaw_prezentowy.json`,
+analogiczny do pięciu istniejących szablonów `product.*.json`
+(`product.json`, `product.jedzenie.json`, `product.voucher.json`,
+`product.wino.json`, `product.wydarzenie.json`) — każdy z nich
+odwołuje się do dwóch theme blocków aplikacji `judge-me-reviews`
+(`review_widget`/`preview_badge`), których pliki nie istnieją w tym
+repo (`JSONMissingBlock`, 2 błędy/plik — ten sam, znany, nieszkodliwy
+wzorzec co w pozostałej piątce, nie nowy problem). Szósty plik = +2
+błędy: 12→14. Ostatnia zmiana ostrzeżeń (30, niezmienione) też z
+tamtej daty. Zweryfikowane wprost (`shopify theme check --output=json`,
+nie ocena na oko): 14 błędów = 13× `JSONMissingBlock` (index.json ×1 +
+sześć `product.*.json` ×2) + 1× `ImgWidthAndHeight` w
+`sections/mmw-article-creator.liquid` (przedmigracyjny, niezwiązany).
+Potwierdzone, że NIE pochodzi z pracy nad ceną „od" (`snippets/price.liquid`,
+`snippets/mmw-carousel-card.liquid`) — żaden z tych plików nie występuje
+w wyniku `theme check` w ogóle.
 
 Najniższa cena z 30 dni (Omnibus) w bloku ceny strony produktu — Figma node
 `982-6959`. Zakres tego zadania to WYŁĄCZNIE metapole + render; skąd bierze
