@@ -6,3 +6,4 @@ scripts/inspect-produkty-raw.json
 scripts/inspect-metaobjekty-referencje.json
 .claude/
 scripts/karty/
+import-marek/
