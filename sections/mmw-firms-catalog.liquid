@@ -23,6 +23,12 @@
   #shopify-section-{{ section.id }} .mmw-cat__download { display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; background: var(--mmw-01); color: var(--mmw-04); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; text-decoration:none; }
   #shopify-section-{{ section.id }} .mmw-cat__note { font-family: var(--mmw-font-text); font-size:15px; color: var(--mmw-01); }
   #shopify-section-{{ section.id }} .mmw-cat__consent { display:flex; flex-direction:column; gap:8px; width:100%; }
+  #shopify-section-{{ section.id }} .mmw-cat__consent-row { display:flex; align-items:flex-start; gap:10px; }
+  #shopify-section-{{ section.id }} .mmw-cat__consent-row .checkbox { margin-top:1px; }
+  #shopify-section-{{ section.id }} .mmw-cat__consent-row .checkbox__label-text {
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
   #shopify-section-{{ section.id }} .mmw-cat__consent-text { font-family: var(--mmw-font-text); font-size:13px; line-height:1.5; color: var(--mmw-01); opacity:.85; margin:0; }
   #shopify-section-{{ section.id }} .mmw-cat__consent-text a { color: inherit; }
   #shopify-section-{{ section.id }} .mmw-cat__consent-error { font-family: var(--mmw-font-text); font-size:13px; color: var(--mmw-02); margin:0; }
@@ -58,17 +64,19 @@
           </div>
           {%- assign catalog_consent_id = 'CatalogConsent-' | append: section.id -%}
           <div class="mmw-cat__consent" data-mmw-consent-gate>
-            {%- render 'checkbox',
-              id: catalog_consent_id,
-              name: 'catalog_consent',
-              value: '1',
-              label: 'Zgadzam się',
-              checked: false,
-              required: true,
-              disabled: false,
-              events: ''
-            -%}
-            <div class="mmw-cat__consent-text">{{ section.settings.consent_text }}</div>
+            <div class="mmw-cat__consent-row">
+              {%- render 'checkbox',
+                id: catalog_consent_id,
+                name: 'catalog_consent',
+                value: '1',
+                label: 'Zgadzam się',
+                checked: false,
+                required: true,
+                disabled: false,
+                events: ''
+              -%}
+              <div class="mmw-cat__consent-text">{{ section.settings.consent_text }}</div>
+            </div>
             <p class="mmw-cat__consent-error" data-mmw-consent-error id="CatalogConsentError-{{ section.id }}" role="alert" hidden>Zaznacz zgodę, aby się zapisać.</p>
           </div>
           {%- if form.errors -%}<p class="mmw-cat__note">{{ form.errors | default_errors }}</p>{%- endif -%}
