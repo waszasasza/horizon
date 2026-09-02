@@ -137,6 +137,13 @@ Nowe:
 
 ## Zmiany w plikach natywnych Horizona
 
+Linkowanie kart produktowych zmienione z `selected_or_first_available_variant.url`
+na `product.url`, żeby linki wewnętrzne prowadziły do adresów kanonicznych.
+`sections/section-rendering-product-card.liquid` celowo pozostaje na wariancie —
+renderuje się po interakcji użytkownika i nie trafia do crawlera.
+Pliki: `snippets/card-gallery.liquid`, `snippets/product-card.liquid`,
+`blocks/product-title.liquid`, `blocks/_product-details.liquid`.
+
 Konsolidacja karty posta bloga (`snippets/mmw-post-card.liquid`) wymagała edycji
 plików natywnych motywu — ryzyko nadpisania przy aktualizacji Horizona:
 
