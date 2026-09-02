@@ -1118,23 +1118,30 @@ całe pytanie**. Nie ujednolicone celowo, nie przeoczone — ALE to oznacza,
 że komponent produktowy ma tu drobny, realny błąd (pusty akordeon nie
 powinien się renderować), teraz opisany, jeszcze nie naprawiony.
 
-**Dług do naprawy w `mmw-product-seo-faq.liquid` (jedno zadanie, osobna
-zgoda, dwie rzeczy naraz — świadomie trzymane razem, nie osobno):**
-1. Pomiń pytanie z pustą odpowiedzią (`answer != blank`) zamiast renderować
-   pusty akordeon — dokładnie warunek już użyty w
-   `mmw-collection-seo-faq.liquid`.
-2. `{{ answer }}` wypisuje `odpowiedz.value` (metaobjekt `pytanie_faq`, pole
-   `multi_line_text_field`) bez `| newline_to_br` — wieloakapitowe/wielolinijkowe
-   odpowiedzi renderują się jako jeden zlepiony blok tekstu (`white-space:
-   normal`, brak `<br>`/`<p>` w źródle). **Nie teoria — zweryfikowane na
-   żywo**: 2 z 115 odpowiedzi w banku FAQ zawierają `\n`
-   (`jak-wyglada-zwiedzanie-winnicy`, `dla-kogo-jest-to-doswiadczenie`), i
-   pierwsza z nich jest DZIŚ używana na 3 realnych produktach
-   (`zwiedzanie-winnicy`, `zwiedzanie-winnicy-copy`, `degustacje-wina-copy`)
-   — błąd jest aktualnie widoczny na produkcji/theme dev, nie hipotetyczny.
-   Potwierdzone przez `innerText` w headless Chrome (nie przez czytanie
-   źródła HTML), na `mmw-collection-seo-faq.liquid`, które ma ten sam
-   problem (skopiowany 1:1) — naprawa musi objąć oba pliki.
+**Naprawione 2026-09-02, oba pliki jednocześnie (na wyraźne polecenie):**
+`{{ answer }}` → `{{ answer | newline_to_br }}` w `mmw-product-seo-faq.liquid`
+i `mmw-collection-seo-faq.liquid` — `odpowiedz.value` (metaobjekt
+`pytanie_faq`, pole `multi_line_text_field`) bez filtra renderował się jako
+jeden zlepiony blok tekstu (`white-space: normal`, brak `<br>`/`<p>` w
+źródle). Był to realny, potwierdzony błąd (nie teoria): 2 z 115 odpowiedzi w
+banku FAQ zawierają `\n` (`jak-wyglada-zwiedzanie-winnicy`,
+`dla-kogo-jest-to-doswiadczenie`), pierwsza używana na 3 realnych produktach
+(`zwiedzanie-winnicy`, `zwiedzanie-winnicy-copy`, `degustacje-wina-copy`).
+
+Przy tej samej okazji: na wyraźne polecenie left-align treści SEO
+(`.mmw-seo-faq__seo-body`) na desktopie w `mmw-product-seo-faq.liquid` —
+wcześniej dziedziczyła `text-align: center` z `.mmw-seo-faq__col--seo`
+(regułę zawężono do samego `.mmw-seo-faq__heading`, więc nagłówek SEO i
+nagłówek FAQ zostają wyśrodkowane jak wcześniej, zmieniła się tylko treść).
+Mobile już był left, bez zmian. `mmw-collection-seo-faq.liquid` świadomie
+NIE tknięty tym align-em — nie było o to prośby, a to inny plik z osobną
+kopią CSS.
+
+**Dług wciąż otwarty, tylko w `mmw-product-seo-faq.liquid` (osobna zgoda,
+nie zrobione teraz na wyraźne polecenie):** pytanie z pustą odpowiedzią
+renderuje pusty, klikalny akordeon zamiast być pominięte — warunek
+`answer != blank` już użyty w `mmw-collection-seo-faq.liquid`, ale świadomie
+nie skopiowany do pliku produktowego przy tej turze.
 
 `shopify theme check` raportował ~16 ostrzeżeń `ValidScopedCSSClass` na
 `mmw-collection-seo-faq.liquid` dla klas współdzielonych nazewniczo z plikiem
