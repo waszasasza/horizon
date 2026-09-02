@@ -353,7 +353,7 @@
                       "type": "text",
                       "name": "Product description",
                       "settings": {
-                        "text": "<p>{{ closest.product.description }}</p>",
+                        "text": "{{ closest.product.description }}",
                         "width": "100%",
                         "max_width": "none",
                         "alignment": "left",
@@ -394,7 +394,7 @@
                       "settings": {
                         "text": "<p>{{ closest.product.metafields.custom.przechowywanie | metafield_tag }}. Data przydatności znajduje się na etykiecie.</p>",
                         "width": "100%",
-                        "max_width": "normal",
+                        "max_width": "none",
                         "alignment": "left",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",
@@ -433,7 +433,7 @@
                       "settings": {
                         "text": "{{ closest.product.metafields.custom.wartosci_odzywcze_i_alergeny | metafield_tag }}",
                         "width": "100%",
-                        "max_width": "normal",
+                        "max_width": "none",
                         "alignment": "left",
                         "type_preset": "rte",
                         "font": "var(--font-body--family)",

@@ -143,7 +143,7 @@
         "hide_current_product": true,
         "hide_past_events": true,
         "show_capacity": true,
-        "card_label": "Voucher",
+        "card_label": "Kup bilet",
         "cta_text": "Zobacz więcej wydarzeń",
         "cta_link": "",
         "cta_color_variant": "coral",
@@ -674,7 +674,7 @@
       "settings": {
         "heading": "Karty prezentowe",
         "description": "Wyjątkowe karty prezentowe na niezapomniane wydarzenia w Majątku Mała Wieś. Podaruj bliskim możliwość  udziału w malowniczych warsztatach, degustacjach i wycieczkach po winnicy. Sprawdź dostępne opcje i wybierz idealny prezent.",
-        "collection": "vouchery-1",
+        "collection": "karty-podarunkowe",
         "products_count": 8,
         "description_length": 140,
         "card_ratio": "tall",
@@ -687,7 +687,7 @@
         "icons_shape": "circle",
         "show_end_card": true,
         "end_card_heading": "Zobacz więcej\nwydarzeń",
-        "end_card_link": "shopify://collections/vouchery-1"
+        "end_card_link": "shopify://collections/karty-podarunkowe"
       }
     },
     "mmw_palac_split_rCbPN8": {

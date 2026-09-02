@@ -170,9 +170,9 @@
               "type": "text",
               "name": "Product description",
               "settings": {
-                "text": "<p>{{ closest.product.description }}</p>",
+                "text": "{{ closest.product.description }}",
                 "width": "100%",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-primary--family)",
@@ -284,23 +284,15 @@
         "subheading": ""
       }
     },
-    "mmw_event_carousel_cRj9EG": {
-      "type": "mmw-event-carousel",
-      "name": "MMW Karuzela wydarzeń",
+    "mmw_product_recommendations_eNbDLY": {
+      "type": "mmw-product-recommendations",
+      "name": "MMW Zobacz także",
       "settings": {
-        "heading": "Inne wydarzenia",
-        "description": "",
-        "collection": "vouchery",
-        "max_products": 8,
-        "hide_current_product": true,
-        "hide_past_events": true,
-        "show_capacity": true,
-        "card_label": "Voucher",
-        "cta_text": "Zobacz więcej wydarzeń",
-        "cta_link": "",
-        "cta_color_variant": "coral",
-        "columns": 3,
-        "columns_gap": 24
+        "heading": "Zobacz także",
+        "product": "zwiedzanie-winnicy-karta-podarunkowa",
+        "recommendation_type": "related",
+        "max_products": 4,
+        "color_scheme": ""
       }
     },
     "mmw_heritage_note_w8Qqnf": {
@@ -644,7 +636,7 @@
   "order": [
     "main",
     "mmw_event_timeline_7xeBTf",
-    "mmw_event_carousel_cRj9EG",
+    "mmw_product_recommendations_eNbDLY",
     "mmw_heritage_note_w8Qqnf",
     "mmw_photo_stack_m7Mmbe",
     "mmw_stats_C7deh9",
