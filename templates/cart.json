@@ -12,6 +12,12 @@
     "cart-section": {
       "type": "main-cart",
       "blocks": {
+        "mmw_cart_addon_grouping_8n3nhm": {
+          "type": "mmw-cart-addon-grouping",
+          "name": "MMW Dodatki w koszyku",
+          "settings": {},
+          "blocks": {}
+        },
         "cart-page-title": {
           "type": "_cart-title",
           "static": true,
@@ -57,6 +63,9 @@
           "blocks": {}
         }
       },
+      "block_order": [
+        "mmw_cart_addon_grouping_8n3nhm"
+      ],
       "settings": {
         "section_width": "page-width",
         "color_scheme": "",
