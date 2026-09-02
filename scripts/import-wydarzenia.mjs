@@ -99,13 +99,22 @@ const RETRY_BASE_DELAY_MS = 1000;
 //     judgeme.badge/review_widget_data.
 //
 // Decyzje klienta po tym raporcie (patrz buildProductSetInput):
-//   1. Re-supply AUTOMATYCZNY wszystkich istniejących metafields (poza custom.faq,
-//      świadomie nadpisywanym nową wartością z arkusza) — nic spoza arkusza nie
-//      znika, w tym judgeme.*.
-//   2. Nowe warianty dostają inventoryItem.tracked:false (spójne z pozostałymi
+//   1. Re-supply AUTOMATYCZNY custom.tekst_seo/custom.harmonogram/custom.data_wydarzenia
+//      (i dowolnych innych custom.* spoza arkusza) — nic z nich nie znika przy MERGE.
+//   2. judgeme.* (badge/widget/review_widget_data) świadomie POMINIĘTE przy re-supply —
+//      sprawdzone bezpośrednio: na obu produktach to czysty cache renderowania
+//      zerowego stanu recenzji (number_of_reviews:0, reviews:[]), zero unikalnej
+//      informacji, Judge.me odtworzy je sam.
+//   3. custom.faq: REGUŁA "arkusz wygrywa, jeśli ma pytania dla danego handle'a;
+//      jeśli arkusz jest pusty, zachowujemy istniejące FAQ produktu verbatim".
+//      Zmiana decyzji po zobaczeniu, że oba produkty MERGE mają dziś realne,
+//      wypełnione FAQ (2 i 1 pytanie), a arkusz nie ma dla nich ŻADNYCH pytań —
+//      pierwotne "arkusz zawsze nadpisuje" skasowałoby tę treść bez zamiennika.
+//      Reguła stosowana ogólnie do WSZYSTKICH produktów MERGE, nie tylko tych dwóch.
+//   4. Nowe warianty dostają inventoryItem.tracked:false (spójne z pozostałymi
 //      10 produktami CREATE) — odchodzi od dzisiejszego tracked:true, świadomie,
 //      bo bez scope inventory nie da się i tak ustawić realnej ilości.
-//   3. Brak scope read_orders zaakceptowany — sklep jest nowy, klient potwierdził
+//   5. Brak scope read_orders zaakceptowany — sklep jest nowy, klient potwierdził
 //      brak historii zamówień na tych wariantach.
 const MERGE_HANDLES = new Set(['zwiedzanie-winnicy', 'malowanie-z-winem-w-plenerze']);
 
@@ -427,8 +436,9 @@ function buildProductSetInput({ p, faqMap, imageUrlCache }) {
   // `metafields` w productSet to pole listowe — PEŁNA zamiana, nie upsert
   // (potwierdzone w dokumentacji Shopify). Przy MERGE trzeba więc re-supply'ować
   // metafields, jakie produkt ma dziś, żeby ich nie skasować — ale NIE wszystkie:
-  // custom.faq z istniejącego jest świadomie WYKLUCZONY (nadpisuje go nowa wartość
-  // z arkusza, patrz niżej), a namespace `judgeme` jest świadomie POMINIĘTY —
+  // custom.faq z istniejącego jest wykluczony z TEGO ogólnego re-supply i liczony
+  // OSOBNO niżej wg reguły "arkusz wygrywa, jeśli ma pytania; inaczej zachowujemy
+  // istniejące" — a namespace `judgeme` jest świadomie POMINIĘTY —
   // sprawdzone bezpośrednio na obu produktach (Admin API): judgeme.badge to HTML
   // z data-number-of-reviews='0'/"No reviews", judgeme.widget to pusty "<div></div>",
   // judgeme.review_widget_data to JSON z number_of_reviews:0, reviews:[], histogram
@@ -449,8 +459,18 @@ function buildProductSetInput({ p, faqMap, imageUrlCache }) {
       metafields.push({ namespace: mf.namespace, key: mf.key, type: mf.type, value: mf.value });
     }
   }
+  // custom.faq: arkusz wygrywa, jeśli ma dla tego handle'a pytania. Jeśli arkusz
+  // jest pusty (typowe dla MERGE — te dwa produkty nie mają dziś FAQ w arkuszu)
+  // i produkt ma istniejące custom.faq, zachowujemy istniejącą wartość verbatim
+  // zamiast ją kasować przez pominięcie. Decyzja klienta po zobaczeniu, że arkusz
+  // skasowałby realne, wypełnione FAQ na obu produktach MERGE.
   if (faqGids.length > 0) {
     metafields.push({ namespace: 'custom', key: 'faq', type: 'list.metaobject_reference', value: JSON.stringify(faqGids) });
+  } else if (p.mode === 'MERGE') {
+    const existingFaq = p.existingMetafields.find((mf) => mf.namespace === 'custom' && mf.key === 'faq');
+    if (existingFaq) {
+      metafields.push({ namespace: 'custom', key: 'faq', type: existingFaq.type, value: existingFaq.value });
+    }
   }
   if (metafields.length > 0) input.metafields = metafields;
 
@@ -543,11 +563,21 @@ async function main() {
       console.log(`  MERGE — re-supply ${resupplied.length} istniejących metapól, żeby ich nie skasować: ${resupplied.map((mf) => `${mf.namespace}.${mf.key}`).join(', ')}`);
       console.log(`  MERGE — POMINIĘTE (cache widżetu Judge.me, zero unikalnych danych — patrz komentarz w buildProductSetInput): ${skippedJudgeme.map((mf) => `${mf.namespace}.${mf.key}`).join(', ')}`);
       const oldFaq = p.existingMetafields.find((mf) => mf.namespace === 'custom' && mf.key === 'faq');
-      if (oldFaq) {
-        const oldGids = JSON.parse(oldFaq.value);
+      const oldGids = oldFaq ? JSON.parse(oldFaq.value) : [];
+      if (p.faq.length > 0) {
+        // Arkusz wygrywa — jeśli istniało stare FAQ, zostaje nadpisane.
+        console.log(`  MERGE — custom.faq PO ZAPISIE: ${p.faq.length} pytań, źródło: ARKUSZ (wygrywa nad istniejącym FAQ).`);
+        if (oldGids.length > 0) {
+          const oldQuestions = await resolveMetaobjectQuestions({ store, token, gids: oldGids });
+          console.log(`    Nadpisane stare (${oldGids.length}): ${oldQuestions.map((q) => `"${q}"`).join('; ')}`);
+        }
+      } else if (oldGids.length > 0) {
+        // Arkusz pusty — zachowujemy istniejące custom.faq verbatim.
         const oldQuestions = await resolveMetaobjectQuestions({ store, token, gids: oldGids });
-        console.log(`  MERGE — custom.faq: stara wartość ${oldGids.length} pytań, nowa z arkusza ${p.faq.length} pytań.`);
-        console.log(`    Znikają (stare pytania spod tego handle'a): ${oldQuestions.map((q) => `"${q}"`).join('; ')}`);
+        console.log(`  MERGE — custom.faq PO ZAPISIE: ${oldGids.length} pytań, źródło: ZACHOWANE Z PRODUKTU (arkusz pusty dla tego handle'a).`);
+        console.log(`    Pytania: ${oldQuestions.map((q) => `"${q}"`).join('; ')}`);
+      } else {
+        console.log('  MERGE — custom.faq PO ZAPISIE: 0 pytań (arkusz pusty, produkt nie miał wcześniej FAQ).');
       }
     }
   }
