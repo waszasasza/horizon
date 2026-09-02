@@ -5,6 +5,7 @@
 {%- endcomment -%}
 {%- render 'mmw-scroll-reveal-styles' -%}
 <script src="{{ 'mmw-scroll-reveal.js' | asset_url }}" type="module"></script>
+<script src="{{ 'mmw-consent-gate.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-cat { display:flex; justify-content:center; padding-block:50px; padding-inline: var(--page-margin, 40px); }
   #shopify-section-{{ section.id }} .mmw-cat__box { display:flex; gap:49px; align-items:center; width:100%; border:2px solid var(--mmw-01); border-radius:20px; padding:40px; }
@@ -21,6 +22,10 @@
   #shopify-section-{{ section.id }} .mmw-cat__success { display:flex; flex-direction:column; gap:14px; }
   #shopify-section-{{ section.id }} .mmw-cat__download { display:inline-flex; align-items:center; justify-content:center; align-self:flex-start; background: var(--mmw-01); color: var(--mmw-04); font-family: var(--mmw-font-label); font-weight:700; font-size:13px; letter-spacing:1.95px; text-transform:uppercase; padding:18px 46px; border-radius:50px; text-decoration:none; }
   #shopify-section-{{ section.id }} .mmw-cat__note { font-family: var(--mmw-font-text); font-size:15px; color: var(--mmw-01); }
+  #shopify-section-{{ section.id }} .mmw-cat__consent { display:flex; flex-direction:column; gap:8px; width:100%; }
+  #shopify-section-{{ section.id }} .mmw-cat__consent-text { font-family: var(--mmw-font-text); font-size:13px; line-height:1.5; color: var(--mmw-01); opacity:.85; margin:0; }
+  #shopify-section-{{ section.id }} .mmw-cat__consent-text a { color: inherit; }
+  #shopify-section-{{ section.id }} .mmw-cat__consent-error { font-family: var(--mmw-font-text); font-size:13px; color: var(--mmw-02); margin:0; }
   @media (max-width:989px){
     #shopify-section-{{ section.id }} .mmw-cat__box { flex-direction:column; gap:28px; padding:24px; }
     #shopify-section-{{ section.id }} .mmw-cat__media { flex-basis:auto; max-width:100%; width:100%; height:280px; }
@@ -51,6 +56,21 @@
             <input class="mmw-cat__input" type="email" name="contact[email]" placeholder="Adres e-mail" required>
             <button class="mmw-cat__btn" type="submit">{{ section.settings.button_label }}</button>
           </div>
+          {%- assign catalog_consent_id = 'CatalogConsent-' | append: section.id -%}
+          <div class="mmw-cat__consent" data-mmw-consent-gate>
+            {%- render 'checkbox',
+              id: catalog_consent_id,
+              name: 'catalog_consent',
+              value: '1',
+              label: 'Zgadzam się',
+              checked: false,
+              required: true,
+              disabled: false,
+              events: ''
+            -%}
+            <div class="mmw-cat__consent-text">{{ section.settings.consent_text }}</div>
+            <p class="mmw-cat__consent-error" data-mmw-consent-error id="CatalogConsentError-{{ section.id }}" role="alert" hidden>Zaznacz zgodę, aby się zapisać.</p>
+          </div>
           {%- if form.errors -%}<p class="mmw-cat__note">{{ form.errors | default_errors }}</p>{%- endif -%}
         {%- endif -%}
       {% endform %}
@@ -67,6 +87,7 @@
     { "type": "textarea", "id": "desc", "label": "Opis", "default": "Pobierz naszą całą ofertę w postaci PDF, aby mieć dostęp do wszystkich informacji w jednym miejscu!" },
     { "type": "text", "id": "field_label", "label": "Etykieta nad polem", "default": "Wpisz swój adres e-mail, aby pobrać" },
     { "type": "text", "id": "button_label", "label": "Tekst przycisku", "default": "Pobierz" },
+    { "type": "richtext", "id": "consent_text", "label": "Tekst zgody RODO (checkbox)", "default": "<p>Wyrażam zgodę na zapisanie mojego adresu e-mail w bazie marketingowej i otrzymywanie informacji handlowych, zgodnie z <a href=\"/policies/privacy-policy\">polityką prywatności</a>.</p>" },
     { "type": "url", "id": "pdf", "label": "Plik PDF (wgraj w Content → Files, wklej URL)" },
     { "type": "text", "id": "success_text", "label": "Tekst po zapisie", "default": "Dziękujemy! Twój katalog jest gotowy do pobrania:" },
     { "type": "text", "id": "download_label", "label": "Tekst przycisku pobrania", "default": "Pobierz katalog PDF" }

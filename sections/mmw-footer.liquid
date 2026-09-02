@@ -4,6 +4,7 @@
   logo (upload), copyright + social. Dodaj do sections/footer-group.json, by była site-wide.
 {%- endcomment -%}
 
+<script src="{{ 'mmw-consent-gate.js' | asset_url }}" type="module"></script>
 {%- style -%}
   #shopify-section-{{ section.id }} .mmw-ft {
     background: var(--mmw-01); color: var(--mmw-04);
@@ -69,6 +70,10 @@
   }
   #shopify-section-{{ section.id }} .mmw-ft__submit:hover { opacity: .88; }
   #shopify-section-{{ section.id }} .mmw-ft__note { font-size: 13px; margin: 8px 0 0; opacity: .9; }
+  #shopify-section-{{ section.id }} .mmw-ft__consent { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+  #shopify-section-{{ section.id }} .mmw-ft__consent-text { font-size: 12px; line-height: 1.5; opacity: .85; margin: 0; }
+  #shopify-section-{{ section.id }} .mmw-ft__consent-text a { color: inherit; text-decoration: underline; }
+  #shopify-section-{{ section.id }} .mmw-ft__consent-error { font-size: 12px; color: var(--mmw-02); margin: 0; }
 
   /* Kolumny linków */
   #shopify-section-{{ section.id }} .mmw-ft__cols { display: flex; gap: 69px; flex-wrap: wrap; }
@@ -152,6 +157,21 @@
               placeholder="{{ section.settings.input_placeholder | escape }}"
               required aria-label="Adres e-mail">
             <button type="submit" class="mmw-ft__submit">{{ section.settings.submit_label }}</button>
+          </div>
+          {%- assign newsletter_consent_id = 'NewsletterConsent-' | append: section.id -%}
+          <div class="mmw-ft__consent" data-mmw-consent-gate>
+            {%- render 'checkbox',
+              id: newsletter_consent_id,
+              name: 'newsletter_consent',
+              value: '1',
+              label: 'Zgadzam się',
+              checked: false,
+              required: true,
+              disabled: false,
+              events: ''
+            -%}
+            <div class="mmw-ft__consent-text">{{ section.settings.consent_text }}</div>
+            <p class="mmw-ft__consent-error" data-mmw-consent-error id="NewsletterConsentError-{{ section.id }}" role="alert" hidden>Zaznacz zgodę, aby się zapisać.</p>
           </div>
           {%- if form.posted_successfully? -%}
             <p class="mmw-ft__note">Dziękujemy — zapisaliśmy Twój adres!</p>
@@ -245,6 +265,7 @@
     { "type": "text", "id": "news_text", "label": "Tekst", "default": "Zgarniaj promocje i dowiedz się o nowościach, prosto na twoją skrzynkę!" },
     { "type": "text", "id": "input_placeholder", "label": "Placeholder pola e-mail", "default": "ADRES E-MAIL" },
     { "type": "text", "id": "submit_label", "label": "Tekst przycisku", "default": "DOŁĄCZ" },
+    { "type": "richtext", "id": "consent_text", "label": "Tekst zgody RODO (checkbox)", "default": "<p>Wyrażam zgodę na otrzymywanie newslettera marketingowego zgodnie z <a href=\"/policies/privacy-policy\">polityką prywatności</a>.</p>" },
 
     { "type": "header", "content": "Kolumna 1" },
     { "type": "text", "id": "col_1_heading", "label": "Nagłówek", "default": "MAJĄTEK" },
