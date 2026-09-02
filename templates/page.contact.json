@@ -77,40 +77,39 @@
         "padding-block-end": 60
       }
     },
-    "mmw_firms_contact_WdQNDE": {
+    "mmw_firms_contact_itQgff": {
       "type": "mmw-firms-contact",
       "blocks": {
-        "dept_9MDkqi": {
+        "dept_jQkaVM": {
           "type": "dept",
           "settings": {
-            "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
+            "name": "Dział obsługi klienta",
+            "line1": "",
+            "line2": "biuro@majatek.pl"
           }
         },
-        "dept_eiWUki": {
+        "dept_DFgMtf": {
           "type": "dept",
           "settings": {
             "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
+            "line1": "",
+            "line2": "biznes@majatek.pl"
           }
         },
-        "dept_7QJfJC": {
+        "dept_HWH8CG": {
           "type": "dept",
           "settings": {
-            "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
+            "name": "Dział marketingu",
+            "line1": "",
+            "line2": "marketing@majatek.pl"
           }
         }
       },
       "block_order": [
-        "dept_9MDkqi",
-        "dept_eiWUki",
-        "dept_7QJfJC"
+        "dept_jQkaVM",
+        "dept_DFgMtf",
+        "dept_HWH8CG"
       ],
-      "name": "MMW Kontakt firmy",
       "settings": {
         "form_title": "Formularz kontaktowy",
         "button_label": "Wyślij wiadomość",
@@ -176,7 +175,9 @@
       ],
       "name": "MMW Zespół",
       "settings": {
-        "eyebrow": "NASZ ZESPÓŁ"
+        "eyebrow": "NASZ ZESPÓŁ",
+        "columns": 3,
+        "columns_gap": 60
       }
     },
     "mmw_promo_tiles_E9m3hr": {
@@ -338,7 +339,7 @@
   },
   "order": [
     "main",
-    "mmw_firms_contact_WdQNDE",
+    "mmw_firms_contact_itQgff",
     "mmw_team_eR3KnY",
     "mmw_promo_tiles_E9m3hr",
     "section_wxNQgk",

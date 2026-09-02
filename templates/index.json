@@ -37,7 +37,10 @@
       "settings": {
         "background_type": "video",
         "image": "shopify://shop_images/MMW_pejzaz.png",
-        "video_desktop": "shopify://files/videos/Piękno kolorów, śpiew ptaków i chwila tylko dla siebie… 🌹✨ Czas zwalnia, a natura otula spokoje.mp4",
+        "poster_desktop": "shopify://shop_images/miniaturka_wideo_hero_1.webp",
+        "poster_mobile": "shopify://shop_images/hero_mainpage_mobile.webp",
+        "video_desktop": "shopify://files/videos/hero video - mobile.mov",
+        "video_mobile": "shopify://files/videos/hero Video - desktop.mp4",
         "show_video_mobile": true,
         "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
@@ -69,56 +72,6 @@
         "show_end_card": true,
         "end_card_heading": "Zobacz więcej\nbestsellerów",
         "end_card_link": ""
-      }
-    },
-    "section_T3edAU": {
-      "type": "section",
-      "blocks": {
-        "spacer_QFyei7": {
-          "type": "spacer",
-          "name": "t:names.spacer",
-          "settings": {
-            "size": "pixel",
-            "percent_size": 100,
-            "pixel_size": 60,
-            "custom_mobile_size": false,
-            "size_mobile": "percent",
-            "percent_size_mobile": 100,
-            "pixel_size_mobile": 120
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "spacer_QFyei7"
-      ],
-      "name": "spacing",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
       }
     },
     "mmw_photo_stack_UcUchR": {
@@ -177,56 +130,6 @@
         "stack_side": "left",
         "show_arrow": true,
         "color_scheme": ""
-      }
-    },
-    "section_LUYaGh": {
-      "type": "section",
-      "blocks": {
-        "spacer_qcDQnz": {
-          "type": "spacer",
-          "name": "t:names.spacer",
-          "settings": {
-            "size": "pixel",
-            "percent_size": 100,
-            "pixel_size": 60,
-            "custom_mobile_size": false,
-            "size_mobile": "percent",
-            "percent_size_mobile": 100,
-            "pixel_size_mobile": 120
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "spacer_qcDQnz"
-      ],
-      "name": "spacing",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0
       }
     },
     "mmw_event_carousel_MJ4UhK": {
@@ -371,7 +274,7 @@
               "type": "button",
               "settings": {
                 "label": "KUP JUŻ TERAZ",
-                "link": "shopify://products/cydr-pomarium-750ml-wytrawny",
+                "link": "shopify://collections/zestawy-prezentowe",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -769,8 +672,8 @@
       "type": "mmw-product-carousel",
       "name": "MMW Karuzela produktów",
       "settings": {
-        "heading": "Vouchery",
-        "description": "Wyjątkowe vouchery na niezapomniane wydarzenia w Majątku Mała Wieś. Podaruj bliskim możliwość  udziału w malowniczych warsztatach, degustacjach i wycieczkach po winnicy. Sprawdź dostępne opcje i wybierz idealny prezent.",
+        "heading": "Karty prezentowe",
+        "description": "Wyjątkowe karty prezentowe na niezapomniane wydarzenia w Majątku Mała Wieś. Podaruj bliskim możliwość  udziału w malowniczych warsztatach, degustacjach i wycieczkach po winnicy. Sprawdź dostępne opcje i wybierz idealny prezent.",
         "collection": "vouchery-1",
         "products_count": 8,
         "description_length": 140,
@@ -873,7 +776,7 @@
             "show_product_name": true,
             "hide_arrows_mobile": true,
             "arrows_position": "sides",
-            "max_width": 1300,
+            "max_width": 1600,
             "corner_styling": "soft",
             "header_text_color": "#5f312f",
             "text_color": "#faf2e8",
@@ -881,7 +784,7 @@
             "stars_color": "#fc7753",
             "arrows_color": "#fc7753",
             "transition_speed": 5,
-            "header_text": "Customers are saying",
+            "header_text": "Co mówią klienci:",
             "show_average_rating": true,
             "rating_display": "default"
           }
@@ -940,9 +843,7 @@
   "order": [
     "mmw_page_hero_UUYkxQ",
     "mmw_product_carousel_7jphBY",
-    "section_T3edAU",
     "mmw_photo_stack_UcUchR",
-    "section_LUYaGh",
     "mmw_event_carousel_MJ4UhK",
     "section_4jbBEV",
     "mmw_product_carousel_eXXW4e",

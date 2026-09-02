@@ -13,15 +13,59 @@
       "type": "mmw-page-hero",
       "settings": {
         "background_type": "image",
-        "heading": "Blog",
-        "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
         "image": "shopify://shop_images/Blog.webp",
-        "logo": "shopify://shop_images/MMW_logo.svg",
-        "height": 720,
+        "show_video_mobile": true,
         "overlay_opacity": 30,
+        "logo": "shopify://shop_images/MMW_logo.svg",
+        "heading": "Blog",
         "heading_size": 80,
-        "heading_line_height": 0.97,
+        "heading_line_height": 1.0,
+        "subtitle": "W sercu Pałacu Mała Wieś od pokoleń pielęgnowane są receptury, które dziś możemy podać na Twój stół.",
+        "height": 720,
         "padding_block": 80
+      }
+    },
+    "mmw_blog_stories_t8PcPA": {
+      "type": "mmw-blog-stories",
+      "blocks": {
+        "story_VdWcJU": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/12691861-hd_720_1280_60fps.mp4",
+            "autoplay": true,
+            "article": "",
+            "product": "balsamico-jablkowe"
+          }
+        },
+        "story_NJingK": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/5491471-hd_720_1366_25fps.mp4",
+            "autoplay": true,
+            "article": "",
+            "product": "blanc-2025"
+          }
+        },
+        "story_TqV4Dx": {
+          "type": "story",
+          "settings": {
+            "video": "shopify://files/videos/8477846-hd_720_1280_24fps.mp4",
+            "autoplay": true,
+            "article": "",
+            "product": "cydr-pomarium-750ml-wytrawny"
+          }
+        }
+      },
+      "block_order": [
+        "story_VdWcJU",
+        "story_NJingK",
+        "story_TqV4Dx"
+      ],
+      "name": "MMW Blog kafle",
+      "settings": {
+        "eyebrow": "Nasza filozofia",
+        "heading": "Kuchnie, stoły i historie",
+        "description": "Zobacz, jak inni eksperymentują w kuchni z produktami Majątku Mała Wieś."
       }
     },
     "mmw_blog_tags_q79pnh": {
@@ -33,60 +77,11 @@
         "all_label": "Wszystkie"
       }
     },
-    "mmw_blog_stories_t8PcPA": {
-      "type": "mmw-blog-stories",
-      "blocks": {
-        "story_VdWcJU": {
-          "type": "story",
-          "settings": {
-            "video": "shopify://files/videos/12691861-hd_720_1280_60fps.mp4",
-            "autoplay": true,
-            "product": "balsamico-jabkowe"
-          }
-        },
-        "story_NJingK": {
-          "type": "story",
-          "settings": {
-            "video": "shopify://files/videos/5491471-hd_720_1366_25fps.mp4",
-            "autoplay": true,
-            "product": "chutney-jabkowy"
-          }
-        },
-        "story_TqV4Dx": {
-          "type": "story",
-          "settings": {
-            "video": "shopify://files/videos/8477846-hd_720_1280_24fps.mp4",
-            "autoplay": true,
-            "product": "cydr-pomarium-750ml-wytrawny"
-          }
-        },
-        "story_pRpQUh": {
-          "type": "story",
-          "settings": {
-            "video": "shopify://files/videos/12691861-hd_720_1280_60fps.mp4",
-            "autoplay": true,
-            "product": "chipsy-jabkowe"
-          }
-        }
-      },
-      "block_order": [
-        "story_VdWcJU",
-        "story_NJingK",
-        "story_TqV4Dx",
-        "story_pRpQUh"
-      ],
-      "name": "MMW Blog kafle",
-      "settings": {
-        "eyebrow": "Nasza filozofia",
-        "heading": "Kuchnie, stoły i historie",
-        "description": "Zobacz, jak inni eksperymentują w kuchni z produktami Majątku Mała Wieś."
-      }
-    },
     "posts": {
       "type": "mmw-blog-grid",
       "settings": {
         "heading": "",
-        "posts_count": 12,
+        "posts_count": 9,
         "empty_text": "Brak wpisów do wyświetlenia."
       }
     }

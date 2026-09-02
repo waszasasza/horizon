@@ -7,7 +7,7 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "cart-section": {
       "type": "main-cart",
@@ -25,12 +25,6 @@
             "padding-inline-start": 0,
             "padding-inline-end": 0
           },
-          "blocks": {}
-        },
-        "mmw_cart_addon_grouping_1": {
-          "type": "mmw-cart-addon-grouping",
-          "name": "MMW Dodatki w koszyku",
-          "settings": {},
           "blocks": {}
         },
         "cart-page-items": {
@@ -111,7 +105,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h2>You may also like</h2>",
+                "text": "<h2>Może Ci się spodobać:</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -137,7 +131,7 @@
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
-                "label": "View all",
+                "label": "Zobacz wszystko",
                 "open_in_new_tab": false,
                 "style_class": "link",
                 "width": "fit-content",

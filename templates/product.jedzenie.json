@@ -528,8 +528,9 @@
       "name": "MMW Wideo — Skąd to pochodzi",
       "settings": {
         "video_source": "uploaded",
-        "video": "shopify://files/videos/Piękno kolorów, śpiew ptaków i chwila tylko dla siebie… 🌹✨ Czas zwalnia, a natura otula spokoje.mp4",
+        "video": "shopify://files/videos/strona głowna poziom.mp4",
         "video_url": "",
+        "poster_image": "shopify://shop_images/miniaturka_wideo_hero_1.webp",
         "eyebrow": "1789",
         "heading": "Skąd to pochodzi?",
         "description": "Poznaj historię i pochodzenie tego produktu – od pierwszego pomysłu aż po dzisiejszą recepturę. Majątek Mała Wieś to miejsce, gdzie przeszłość spotyka się z pasją do lokalnych, głębokich składkinów. To hołd dla ziemi, z której pochodzą właściciele. ",

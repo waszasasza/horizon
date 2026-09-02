@@ -12,12 +12,17 @@
     "hero": {
       "type": "mmw-page-hero",
       "settings": {
-        "heading": "Z Małej Wsi do Twojego biznesu",
-        "subtitle": "Tworzymy produkty inspirowane naturą, historią i rzemiosłem, które trafiają do firm, restauracji, hoteli i partnerów handlowych.",
+        "background_type": "image",
         "image": "shopify://shop_images/Dla_Firm.webp",
+        "show_video_mobile": true,
+        "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
+        "heading": "Z Małej Wsi do Twojego biznesu",
+        "heading_size": 80,
+        "heading_line_height": 1.1,
+        "subtitle": "Tworzymy produkty inspirowane naturą, historią i rzemiosłem, które trafiają do firm, restauracji, hoteli i partnerów handlowych.",
         "height": 720,
-        "overlay_opacity": 30
+        "padding_block": 80
       }
     },
     "intro": {
@@ -118,41 +123,32 @@
         "dept_9kgMbF": {
           "type": "dept",
           "settings": {
-            "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
+            "name": "Dział obsługi klienta",
+            "line1": "",
+            "line2": "biuro@majatek.pl"
           }
         },
         "dept_nTVyHr": {
           "type": "dept",
           "settings": {
             "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
+            "line1": "",
+            "line2": "biznes@majatek.pl"
           }
         },
         "dept_bFUBKK": {
           "type": "dept",
           "settings": {
-            "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
-          }
-        },
-        "dept_Rza7pc": {
-          "type": "dept",
-          "settings": {
-            "name": "Dział sprzedaży",
-            "line1": "+48 604 490 109",
-            "line2": "sklep@majatekmalawies.pl"
+            "name": "Dział marketingu",
+            "line1": "",
+            "line2": "marketing@majatek.pl"
           }
         }
       },
       "block_order": [
         "dept_9kgMbF",
         "dept_nTVyHr",
-        "dept_bFUBKK",
-        "dept_Rza7pc"
+        "dept_bFUBKK"
       ],
       "settings": {
         "form_title": "Formularz kontaktowy",

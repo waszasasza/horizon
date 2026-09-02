@@ -15,6 +15,7 @@
       "settings": {
         "background_type": "image",
         "image": "shopify://shop_images/palac_25819722-e812-4c1d-8fbe-08e2ed69c7d3.webp",
+        "show_video_mobile": true,
         "overlay_opacity": 30,
         "logo": "shopify://shop_images/MMW_logo.svg",
         "heading": "Marka z własną filozofią",
@@ -223,7 +224,9 @@
       ],
       "name": "MMW Zespół",
       "settings": {
-        "eyebrow": "NASZ ZESPÓŁ"
+        "eyebrow": "NASZ ZESPÓŁ",
+        "columns": 3,
+        "columns_gap": 60
       }
     },
     "brands": {
@@ -282,7 +285,7 @@
             "desc": "Od ponad dwóch stuleci Pałac Mała Wieś jest miejscem spotkań przy wspólnym stole. Dziś jego smaki odnajdziesz w starannie skomponowanych zestawach prezentowych, które możesz podarować bliskim.",
             "image": "shopify://shop_images/186-kopia.webp",
             "button_label": "Zobacz produkty",
-            "button_url": "shopify://collections/alkohole-majatku",
+            "button_url": "shopify://collections/zestawy-prezentowe",
             "bg_color": "#c3c7a1",
             "text_color": "#3f3f2d",
             "button_bg": "#faf2e8",

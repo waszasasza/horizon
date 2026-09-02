@@ -28,7 +28,7 @@
             "thumbnail_radius": 0,
             "aspect_ratio": "1/1.25",
             "constrain_to_viewport": true,
-            "media_fit": "contain",
+            "media_fit": "cover",
             "media_radius": 0,
             "extend_media": false,
             "zoom": true,
@@ -62,15 +62,19 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 24,
+            "padding-block-start": 0,
             "padding-block-end": 24,
-            "padding-inline-start": 15,
+            "padding-inline-start": 0,
             "padding-inline-end": 0
           },
           "blocks": {
-            "group_event_header": {
+            "judge_me_reviews_preview_badge_XEggQn": {
+              "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+              "settings": {}
+            },
+            "group_icgrde": {
               "type": "group",
-              "name": "Nagłówek wydarzenia",
+              "name": "Header",
               "settings": {
                 "content_direction": "column",
                 "vertical_on_mobile": true,
@@ -79,7 +83,7 @@
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
                 "vertical_alignment_flex_direction_column": "center",
-                "gap": 24,
+                "gap": 12,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -108,33 +112,7 @@
                 "padding-inline-end": 0
               },
               "blocks": {
-                "text_event_date": {
-                  "type": "text",
-                  "name": "Data wydarzenia",
-                  "settings": {
-                    "text": "<p>{{ closest.product.metafields.custom.data_wydarzenia.value }}</p>",
-                    "width": "fit-content",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "custom",
-                    "font": "var(--font-accent--family)",
-                    "font_size": "0.9375rem",
-                    "line_height": "normal",
-                    "letter_spacing": "loose",
-                    "case": "uppercase",
-                    "wrap": "pretty",
-                    "color": "var(--mmw-01)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0
-                  },
-                  "blocks": {}
-                },
-                "text_event_title": {
+                "text_xpVMaM": {
                   "type": "text",
                   "name": "t:names.title",
                   "settings": {
@@ -142,14 +120,14 @@
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
-                    "type_preset": "custom",
-                    "font": "var(--font-heading--family)",
-                    "font_size": "3.75rem",
-                    "line_height": "tight",
+                    "type_preset": "h2",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
                     "letter_spacing": "normal",
                     "case": "none",
                     "wrap": "pretty",
-                    "color": "var(--mmw-01)",
+                    "color": "var(--color-foreground)",
                     "background": false,
                     "background_color": "#00000026",
                     "corner_radius": 0,
@@ -160,140 +138,92 @@
                   },
                   "blocks": {}
                 },
-                "judge_me_reviews_preview_badge_JXT99F": {
-                  "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-                  "settings": {}
-                },
-                "group_event_price_desc": {
-                  "type": "group",
-                  "name": "Cena i opis",
+                "price_tVjtKg": {
+                  "type": "price",
                   "settings": {
-                    "content_direction": "column",
-                    "vertical_on_mobile": true,
-                    "horizontal_alignment": "flex-start",
-                    "vertical_alignment": "center",
-                    "align_baseline": false,
-                    "horizontal_alignment_flex_direction_column": "flex-start",
-                    "vertical_alignment_flex_direction_column": "center",
-                    "gap": 10,
-                    "width": "fill",
-                    "custom_width": 100,
-                    "width_mobile": "fill",
-                    "custom_width_mobile": 100,
-                    "height": "fit",
-                    "custom_height": 100,
-                    "inherit_color_scheme": true,
-                    "color_scheme": "",
-                    "background_media": "none",
-                    "video_position": "cover",
-                    "background_image_position": "cover",
-                    "border": "none",
-                    "border_width": 1,
-                    "border_opacity": 100,
-                    "border_radius": 0,
-                    "toggle_overlay": false,
-                    "overlay_color": "#00000026",
-                    "overlay_style": "solid",
-                    "gradient_direction": "to top",
-                    "link": "",
-                    "open_in_new_tab": false,
-                    "placeholder": "",
-                    "padding-block-start": 0,
+                    "show_sale_price_first": true,
+                    "show_installments": true,
+                    "show_tax_info": true,
+                    "type_preset": "h3",
+                    "width": "100%",
+                    "alignment": "left",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "color": "var(--color-foreground)",
+                    "padding-block-start": 4,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
                     "padding-inline-end": 0
                   },
-                  "blocks": {
-                    "price_event": {
-                      "type": "price",
-                      "settings": {
-                        "show_sale_price_first": true,
-                        "show_installments": false,
-                        "show_tax_info": true,
-                        "type_preset": "h3",
-                        "width": "100%",
-                        "alignment": "left",
-                        "font": "var(--font-heading--family)",
-                        "font_size": "1.625rem",
-                        "line_height": "tight",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "color": "var(--mmw-01)",
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    },
-                    "text_event_description": {
-                      "type": "text",
-                      "name": "Product description",
-                      "settings": {
-                        "text": "{{ closest.product.description }}",
-                        "width": "100%",
-                        "max_width": "normal",
-                        "alignment": "left",
-                        "type_preset": "custom",
-                        "font": "var(--font-body--family)",
-                        "font_size": "1rem",
-                        "line_height": "normal",
-                        "letter_spacing": "normal",
-                        "case": "none",
-                        "wrap": "pretty",
-                        "color": "var(--mmw-01)",
-                        "background": false,
-                        "background_color": "#00000026",
-                        "corner_radius": 0,
-                        "padding-block-start": 0,
-                        "padding-block-end": 0,
-                        "padding-inline-start": 0,
-                        "padding-inline-end": 0
-                      },
-                      "blocks": {}
-                    }
-                  },
-                  "block_order": [
-                    "price_event",
-                    "text_event_description"
-                  ]
+                  "blocks": {}
                 }
               },
               "block_order": [
-                "text_event_date",
-                "text_event_title",
-                "judge_me_reviews_preview_badge_JXT99F",
-                "group_event_price_desc"
+                "text_xpVMaM",
+                "price_tVjtKg"
               ]
             },
-            "divider_event": {
+            "text_ecicqy": {
+              "type": "text",
+              "name": "Product description",
+              "settings": {
+                "text": "{{ closest.product.description }}",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-primary--family)",
+                "font_size": "",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "divider_VJhene": {
               "type": "_divider",
               "name": "t:names.divider",
               "settings": {
                 "thickness": 1,
                 "corner_radius": "square",
                 "width_percent": 100,
-                "padding-block-start": 24,
+                "padding-block-start": 0,
                 "padding-block-end": 0
               },
               "blocks": {}
             },
-            "mmw_event_addons_1": {
-              "type": "mmw-event-addons",
-              "name": "MMW Dodatki do wydarzenia",
+            "variant_picker_R3rGDr": {
+              "type": "variant-picker",
               "settings": {
-                "padding-block-start": 24,
-                "padding-block-end": 0
+                "variant_style": "buttons",
+                "show_swatches": false,
+                "alignment": "left",
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
               },
               "blocks": {}
             },
-            "buy_buttons_event": {
+            "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
-                "stacking": false,
+                "stacking": true,
                 "show_pickup_availability": false,
-                "gift_card_form": false,
-                "padding-block-start": 24,
+                "gift_card_form": true,
+                "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
@@ -322,13 +252,130 @@
                 }
               },
               "block_order": []
+            },
+            "mmw_product_badges_fgAEpe": {
+              "type": "mmw-product-badges",
+              "name": "MMW Cechy produktu",
+              "settings": {
+                "padding-block-start": 12,
+                "padding-block-end": 12
+              },
+              "blocks": {}
+            },
+            "accordion_Fa9fgC": {
+              "type": "accordion",
+              "name": "t:names.accordion",
+              "settings": {
+                "icon": "caret",
+                "dividers": true,
+                "type_preset": "h6",
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {
+                "accordion_row_xBXeRf": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "OPIS",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_wf7CrV": {
+                      "type": "text",
+                      "name": "Product description",
+                      "settings": {
+                        "text": "<p>{{ closest.product.description }}</p>",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-primary--family)",
+                        "font_size": "",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_wf7CrV"
+                  ]
+                },
+                "accordion_row_Pedk3P": {
+                  "type": "_accordion-row",
+                  "settings": {
+                    "heading": "SKŁADNIKI I WARTOŚCI ODŻYWCZE",
+                    "open_by_default": false,
+                    "icon": "none",
+                    "width": 20
+                  },
+                  "blocks": {
+                    "text_4pWKY7": {
+                      "type": "text",
+                      "settings": {
+                        "text": "{{ closest.product.metafields.custom.wartosci_odzywcze_i_alergeny | metafield_tag }}",
+                        "width": "100%",
+                        "max_width": "normal",
+                        "alignment": "left",
+                        "type_preset": "rte",
+                        "font": "var(--font-body--family)",
+                        "font_size": "1rem",
+                        "line_height": "normal",
+                        "letter_spacing": "normal",
+                        "case": "none",
+                        "wrap": "pretty",
+                        "color": "var(--color-foreground)",
+                        "background": false,
+                        "background_color": "#00000026",
+                        "corner_radius": 0,
+                        "padding-block-start": 0,
+                        "padding-block-end": 0,
+                        "padding-inline-start": 0,
+                        "padding-inline-end": 0
+                      },
+                      "blocks": {}
+                    }
+                  },
+                  "block_order": [
+                    "text_4pWKY7"
+                  ]
+                }
+              },
+              "block_order": [
+                "accordion_row_xBXeRf",
+                "accordion_row_Pedk3P"
+              ]
             }
           },
           "block_order": [
-            "group_event_header",
-            "divider_event",
-            "mmw_event_addons_1",
-            "buy_buttons_event"
+            "judge_me_reviews_preview_badge_XEggQn",
+            "group_icgrde",
+            "text_ecicqy",
+            "divider_VJhene",
+            "variant_picker_R3rGDr",
+            "buy_buttons_eYQEYi",
+            "mmw_product_badges_fgAEpe",
+            "accordion_Fa9fgC"
           ]
         }
       },
@@ -344,129 +391,272 @@
         "padding-block-end": 0
       }
     },
-    "mmw_event_timeline": {
+    "mmw_event_timeline_7xeBTf": {
       "type": "mmw-event-timeline",
+      "name": "MMW – Timeline wydarzenia",
       "settings": {
         "heading": "Timeline doświadczenia",
-        "subheading": "Smaki, aromaty i historie zamknięte w markach tworzonych w sercu Majątku Mała Wieś. Poznaj je wszystkie."
+        "subheading": ""
       }
     },
-    "mmw_event_carousel_1": {
-      "type": "mmw-event-carousel",
+    "mmw_product_recommendations_PzGC8U": {
+      "type": "mmw-product-recommendations",
+      "name": "MMW Zobacz także",
       "settings": {
-        "heading": "Inne wydarzenia",
-        "description": "",
-        "collection": "vouchery",
-        "max_products": 8,
-        "hide_current_product": true,
-        "hide_past_events": true,
-        "show_capacity": true,
-        "card_label": "",
-        "cta_text": "Zobacz więcej wydarzeń",
-        "cta_link": "",
-        "cta_color_variant": "coral",
-        "columns": 3,
-        "columns_gap": 24
-      }
-    },
-    "mmw_photo_stack_1": {
-      "type": "mmw-photo-stack",
-      "blocks": {
-        "wpis_1": {
-          "type": "wpis",
-          "settings": {
-            "image": "shopify://shop_images/winebar.webp",
-            "label": "",
-            "heading": "Niezapomniane popołudnie",
-            "content": "<p>Świetna atmosfera, pyszne wino i mnóstwo śmiechu — wrócimy na pewno!</p>",
-            "heading_link": ""
-          }
-        },
-        "wpis_2": {
-          "type": "wpis",
-          "settings": {
-            "image": "shopify://shop_images/ania_karbowiak.webp",
-            "label": "",
-            "heading": "Prawdziwa uczta dla zmysłów",
-            "content": "<p>Degustacja prowadzona z pasją, a widoki z tarasu zapierają dech w piersiach.</p>",
-            "heading_link": ""
-          }
-        },
-        "wpis_3": {
-          "type": "wpis",
-          "settings": {
-            "image": "shopify://shop_images/Maa_wies_42.jpg",
-            "label": "",
-            "heading": "Idealne miejsce na wyjątkową okazję",
-            "content": "<p>Organizowaliśmy tu rocznicę i było perfekcyjnie od pierwszej do ostatniej minuty.</p>",
-            "heading_link": ""
-          }
-        }
-      },
-      "block_order": [
-        "wpis_1",
-        "wpis_2",
-        "wpis_3"
-      ],
-      "name": "MMW Stos zdjęć",
-      "settings": {
-        "label": "Nasi goście o wydarzeniu",
-        "stack_side": "left",
-        "show_arrow": true,
+        "heading": "Zobacz także",
+        "product": "{{ closest.product }}",
+        "recommendation_type": "related",
+        "max_products": 4,
         "color_scheme": ""
       }
     },
-    "mmw_stats_ACfLbz": {
-      "type": "mmw-stats",
+    "mmw_heritage_note_w8Qqnf": {
+      "type": "mmw-heritage-note",
+      "name": "MMW Szacunek",
+      "settings": {}
+    },
+    "mmw_firms_catalog_366fcU": {
+      "type": "mmw-firms-catalog",
+      "settings": {
+        "image": "shopify://shop_images/pmw-x-batida-89.webp",
+        "title": "Katalog online",
+        "desc": "Pobierz naszą całą ofertę w postaci PDF, aby mieć dostęp do wszystkich informacji w jednym miejscu!",
+        "field_label": "Wpisz swój adres e-mail, aby pobrać",
+        "button_label": "Pobierz",
+        "pdf": "",
+        "success_text": "Dziękujemy! Twój katalog jest gotowy do pobrania:",
+        "download_label": "Pobierz katalog PDF"
+      }
+    },
+    "mmw_brands_BL8xYN": {
+      "type": "mmw-brands",
       "blocks": {
-        "stat_TqcdHL": {
-          "type": "stat",
+        "brand_GebmdX": {
+          "type": "brand",
           "settings": {
-            "number": "4000+",
-            "decoration": "shape-2",
-            "description": " Ponad 4000 zrealizowanych zamówień"
+            "eyebrow": "Zestawy prezentowe",
+            "name": "Prezenty firmowe",
+            "desc": "Wierzymy, że najlepsze prezenty opowiadają historię. Dlatego nasze zestawy powstają z produktów tworzonych w sadach, winnicy i pałacowych ogrodach Majątku Mała Wieś. Starannie dobrane kompozycje stają się eleganckim sposobem na budowanie relacji, wyrażanie wdzięczności i celebrowanie ważnych momentów w biznesie.",
+            "image": "shopify://shop_images/186-kopia.webp",
+            "button_label": "Zobacz produkty",
+            "button_url": "",
+            "bg_color": "#c6d4e2",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
           }
         },
-        "stat_UyPk4n": {
-          "type": "stat",
+        "brand_AYzKn7": {
+          "type": "brand",
           "settings": {
-            "number": "40.5 ha",
-            "decoration": "none",
-            "description": "Powierzchnia Winnicy Pałac Mała Wieś"
-          }
-        },
-        "stat_VLNHMF": {
-          "type": "stat",
-          "settings": {
-            "number": "5",
-            "decoration": "shape-1",
-            "description": "To ilość nagród, które zdobyliśmy w ostatnim roku"
-          }
-        },
-        "stat_EUwaRb": {
-          "type": "stat",
-          "settings": {
-            "number": "160K",
-            "decoration": "none",
-            "description": " Ilość litrów wina produkowanych rocznie "
+            "eyebrow": "Zamówienia hurtowe",
+            "name": "Współpraca dla biznesu",
+            "desc": "Produkty Majątku Mała Wieś trafiają do restauracji, hoteli, sklepów specjalistycznych oraz partnerów handlowych poszukujących marek o autentycznym pochodzeniu i wyjątkowej jakości. Oferujemy możliwość stałej współpracy w zakresie dystrybucji win, cydrów, delikatesów oraz produktów powstających w naszych sadach, winnicy i pałacowej spiżarni. Tworzymy elastyczne warunki współpracy, dostosowane do potrzeb partnerów, którzy chcą wzbogacić swoją ofertę o produkty zakorzenione w historii, naturze i rzemiośle.",
+            "image": "shopify://shop_images/miod.webp",
+            "button_label": "KONTAKT",
+            "button_url": "shopify://pages/contact",
+            "bg_color": "#faf2e8",
+            "text_color": "#5f312f",
+            "button_bg": "#5f312f",
+            "button_color": "#faf2e8"
           }
         }
       },
       "block_order": [
-        "stat_TqcdHL",
-        "stat_UyPk4n",
-        "stat_VLNHMF",
-        "stat_EUwaRb"
+        "brand_GebmdX",
+        "brand_AYzKn7"
       ],
-      "name": "MMW Statystyki",
+      "settings": {}
+    },
+    "marquee_GdJX4z": {
+      "type": "marquee",
+      "blocks": {
+        "text_3zAmy7": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p>Napisali o nas:</p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h4",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground-heading)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "icon_tTeFVb": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/WWA_nasze_miasto_1.svg",
+            "width": 30,
+            "link": "https://warszawa.naszemiasto.pl/pod-warszawa-zbuduja-luksusowy-hotel-tak-bedzie-wygladac/ar/c1p2-26743589",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_wbRpRB": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/WBJ_1.svg",
+            "width": 144,
+            "link": "https://wbj.pl/multifunctional-hotel-complex-with-176-rooms-to-be-built-in-warsaw/post/150483",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_ACJLnA": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/ED_1.svg",
+            "width": 90,
+            "link": "https://echodnia.eu/radomskie/najlepszy-hotel-w-polsce-w-2025-roku-to-palac-mala-wies-hotel-spa-to-najwyzszy-poziom-luksusu-zobacz-jak-sie-prezentuje/ar/c3p2-28229759",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_EnBCKK": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/twojstyl_1.svg",
+            "width": 102,
+            "link": "https://twojstyl.pl/artykul/palac-mala-wies-miejsce-ktore-opowiada-historie-ten-adres-wpisujemy-na-mape-luksusowego-wypoczynku,aid,9884",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_jJxN9t": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/magazynvip_1.svg",
+            "width": 148,
+            "link": "https://magazynvip.pl/palac-mala-wies/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_YfHYAz": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/PG_1.svg",
+            "width": 80,
+            "link": "https://przeglad-gastronomiczny.pl/najlepszy-hotel-w-polsce-w-2025-palac-mala-wies-hotel-spa/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_by4LVQ": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/besthotels_1.svg",
+            "width": 28,
+            "link": "https://www.poland100besthotels.pl/post/najlepszy-hotel-w-polsce-w-2025-pałac-mała-wieś-hotel-spa",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_YzdPLR": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/OOH_1.svg",
+            "width": 62,
+            "link": "https://oohmagazine.pl/2018/09/19/palac-mala-wies-niezwykle-miejsce-niedaleko-warszawy-czlonkiem-sbe/",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_qNgfp8": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/dziennikzachodni_1.svg",
+            "width": 90,
+            "link": "https://dziennikzachodni.pl/hotele-z-wojewodztwa-slaskiego-wsrod-najlepszych-w-kraju-tak-wygladaja-w-srodku-oto-ranking-poland-100-best-hotels-awards-2025/ar/c7p2-28212821",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_DdDHWj": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/rzeczpospolita_e90fc69f-3a1a-4883-bc79-082fcfda942d.svg",
+            "width": 160,
+            "link": "",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        },
+        "icon_N4F9rz": {
+          "type": "icon",
+          "name": "t:names.icon",
+          "settings": {
+            "icon": "price_tag",
+            "image_upload": "shopify://shop_images/vogue.svg",
+            "width": 90,
+            "link": "https://www.vogue.pl/a/piekarnia-chleboteka-w-modernistycznym-okraglaku-we-wroclawiu-tak-wyglada-nowe-wnetrze",
+            "open_in_new_tab": false
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_3zAmy7",
+        "icon_tTeFVb",
+        "icon_wbRpRB",
+        "icon_ACJLnA",
+        "icon_EnBCKK",
+        "icon_jJxN9t",
+        "icon_YfHYAz",
+        "icon_by4LVQ",
+        "icon_YzdPLR",
+        "icon_qNgfp8",
+        "icon_DdDHWj",
+        "icon_N4F9rz"
+      ],
+      "name": "t:names.marquee_section",
       "settings": {
-        "heading": "Chcesz poznać nas lepiej? Oto Majątek w liczbach!"
+        "movement_direction": "normal",
+        "color_scheme": "scheme-3",
+        "padding-block-start": 24,
+        "padding-block-end": 24,
+        "gap_between_elements": 75
       }
     },
-    "1787805667b4c4581a": {
+    "1787805749d010659e": {
       "type": "_blocks",
       "blocks": {
-        "judge_me_reviews_review_widget_7CmHNC": {
+        "judge_me_reviews_review_widget_nC3GTY": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {
             "review_data": "real_data",
@@ -477,7 +667,7 @@
         }
       },
       "block_order": [
-        "judge_me_reviews_review_widget_7CmHNC"
+        "judge_me_reviews_review_widget_nC3GTY"
       ],
       "settings": {
         "content_direction": "column",
@@ -507,192 +697,7 @@
         "padding-block-end": 0
       }
     },
-    "marquee_Et49Pb": {
-      "type": "marquee",
-      "blocks": {
-        "text_DEw3qA": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p>Napisali o nas:</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h4",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "icon_bPDELr": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/WWA_nasze_miasto_1.svg",
-            "width": 30,
-            "link": "https://warszawa.naszemiasto.pl/pod-warszawa-zbuduja-luksusowy-hotel-tak-bedzie-wygladac/ar/c1p2-26743589",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_eHrDgp": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/WBJ_1.svg",
-            "width": 144,
-            "link": "https://wbj.pl/multifunctional-hotel-complex-with-176-rooms-to-be-built-in-warsaw/post/150483",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_krDxWn": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/ED_1.svg",
-            "width": 90,
-            "link": "https://echodnia.eu/radomskie/najlepszy-hotel-w-polsce-w-2025-roku-to-palac-mala-wies-hotel-spa-to-najwyzszy-poziom-luksusu-zobacz-jak-sie-prezentuje/ar/c3p2-28229759",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_894e8i": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/twojstyl_1.svg",
-            "width": 102,
-            "link": "https://twojstyl.pl/artykul/palac-mala-wies-miejsce-ktore-opowiada-historie-ten-adres-wpisujemy-na-mape-luksusowego-wypoczynku,aid,9884",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_gWHitV": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/magazynvip_1.svg",
-            "width": 148,
-            "link": "https://magazynvip.pl/palac-mala-wies/",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_aWKLEB": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/PG_1.svg",
-            "width": 80,
-            "link": "https://przeglad-gastronomiczny.pl/najlepszy-hotel-w-polsce-w-2025-palac-mala-wies-hotel-spa/",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_4EAJMC": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/besthotels_1.svg",
-            "width": 28,
-            "link": "https://www.poland100besthotels.pl/post/najlepszy-hotel-w-polsce-w-2025-pałac-mała-wieś-hotel-spa",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_6XenNB": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/OOH_1.svg",
-            "width": 62,
-            "link": "https://oohmagazine.pl/2018/09/19/palac-mala-wies-niezwykle-miejsce-niedaleko-warszawy-czlonkiem-sbe/",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_DHBxgV": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/dziennikzachodni_1.svg",
-            "width": 90,
-            "link": "https://dziennikzachodni.pl/hotele-z-wojewodztwa-slaskiego-wsrod-najlepszych-w-kraju-tak-wygladaja-w-srodku-oto-ranking-poland-100-best-hotels-awards-2025/ar/c7p2-28212821",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_arY8ak": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/rzeczpospolita_e90fc69f-3a1a-4883-bc79-082fcfda942d.svg",
-            "width": 160,
-            "link": "",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        },
-        "icon_3fHDBQ": {
-          "type": "icon",
-          "name": "t:names.icon",
-          "settings": {
-            "icon": "price_tag",
-            "image_upload": "shopify://shop_images/vogue.svg",
-            "width": 90,
-            "link": "https://www.vogue.pl/a/piekarnia-chleboteka-w-modernistycznym-okraglaku-we-wroclawiu-tak-wyglada-nowe-wnetrze",
-            "open_in_new_tab": false
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_DEw3qA",
-        "icon_bPDELr",
-        "icon_eHrDgp",
-        "icon_krDxWn",
-        "icon_894e8i",
-        "icon_gWHitV",
-        "icon_aWKLEB",
-        "icon_4EAJMC",
-        "icon_6XenNB",
-        "icon_DHBxgV",
-        "icon_arY8ak",
-        "icon_3fHDBQ"
-      ],
-      "name": "t:names.marquee_section",
-      "settings": {
-        "movement_direction": "normal",
-        "color_scheme": "scheme-3",
-        "padding-block-start": 24,
-        "padding-block-end": 24,
-        "gap_between_elements": 75
-      }
-    },
-    "mmw_product_seo_faq_HqhJiM": {
+    "mmw_product_seo_faq_xaYewK": {
       "type": "mmw-product-seo-faq",
       "name": "MMW SEO + FAQ",
       "settings": {
@@ -704,12 +709,13 @@
   },
   "order": [
     "main",
-    "mmw_event_timeline",
-    "mmw_event_carousel_1",
-    "mmw_photo_stack_1",
-    "mmw_stats_ACfLbz",
-    "1787805667b4c4581a",
-    "marquee_Et49Pb",
-    "mmw_product_seo_faq_HqhJiM"
+    "mmw_event_timeline_7xeBTf",
+    "mmw_product_recommendations_PzGC8U",
+    "mmw_heritage_note_w8Qqnf",
+    "mmw_firms_catalog_366fcU",
+    "mmw_brands_BL8xYN",
+    "marquee_GdJX4z",
+    "1787805749d010659e",
+    "mmw_product_seo_faq_xaYewK"
   ]
 }
