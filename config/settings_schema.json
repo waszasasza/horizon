@@ -2300,6 +2300,13 @@
         "label": "Marki pomijane w ścieżce nawigacji",
         "info": "Lista po przecinku, dokładne dopasowanie do nazwy marki produktu. Dla tych marek ogniwo marki nie renderuje się w ogóle.",
         "default": "majatekmalawies, marki partnerskie"
+      },
+      {
+        "type": "textarea",
+        "id": "mmw_breadcrumbs_template_map",
+        "label": "Mapowanie szablonu produktu → kolekcja (ręczne)",
+        "info": "Jedna para na linię, format: nazwa-szablonu=handle-kolekcji (np. voucher=karty-podarunkowe). Dla produktów z pasującym szablonem ogniwo pokazuje tytuł tej kolekcji zamiast marki — ma pierwszeństwo przed mapowaniem marka → kolekcja i przed pomijaniem marek.",
+        "default": "zestaw_prezentowy=zestawy-prezentowe\nwydarzenie=wydarzenia\nvoucher=karty-podarunkowe"
       }
     ]
   }

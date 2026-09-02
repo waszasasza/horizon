@@ -14,8 +14,16 @@
   (search/cart/404/list-collections/konto klienta...) — świadomie pominięte,
   specyfikacja ich nie obejmowała.
 
-  Ogniwo marki (tylko produkt), kolejność ustalania linku:
-    1. ręczna mapa z ustawienia globalnego (settings.mmw_breadcrumbs_vendor_map,
+  Trzecie ogniwo (tylko produkt), kolejność ustalania:
+    0. mapa szablonu z ustawienia globalnego (settings.mmw_breadcrumbs_template_map,
+       "template_suffix=handle-kolekcji" jedna para na linię) — dopasowanie po
+       product.template_suffix. Trafienie = ogniwo pokazuje TYTUŁ TEJ KOLEKCJI
+       (nie markę), z linkiem — i CAŁA logika marki niżej (1-3) jest pomijana.
+       Po to istnieje: produkty własnej marki (zestawy prezentowe, wydarzenia,
+       vouchery) mają vendor "Majątek Mała Wieś" jak każdy inny produkt sklepu,
+       więc ogniwo marki nie niesie żadnej informacji nawigacyjnej — użytkownik
+       chce tam widzieć faktyczną kolekcję (np. "Karty podarunkowe"), nie markę.
+    1. ręczna mapa marek z ustawienia globalnego (settings.mmw_breadcrumbs_vendor_map,
        "vendor=handle" jedna para na linię) — pierwszeństwo przed automatem
     2. product.vendor | handleize (transliteruje polskie znaki poprawnie —
        zweryfikowane na żywo, nie założone) + collections[handle] != blank
@@ -24,7 +32,8 @@
   Vendory z settings.mmw_breadcrumbs_skip_vendors (dokładne dopasowanie do
   product.vendor) pomijają ogniwo marki całkowicie — ścieżka skraca się do
   Strona główna → Sklep → [tytuł produktu]. Pusty product.vendor traktowany
-  tak samo (nie ma czego wyświetlić).
+  tak samo (nie ma czego wyświetlić). Nie dotyczy kroku 0 — mapa szablonu
+  wygrywa niezależnie od skip_vendors.
 
   UWAGA — collections['handle'] dla nieistniejącego handle: porównuje się
   jako == blank (bezpieczne), ALE jest "prawdziwe" w zwykłym {% if %} bez
@@ -45,7 +54,8 @@
   snippetu — tu takiej sytuacji nie ma, cały komponent jest samodzielny).
 
   Wymaga globalnych ustawień motywu (config/settings_schema.json, grupa
-  "MMW — Breadcrumbs"): mmw_breadcrumbs_vendor_map, mmw_breadcrumbs_skip_vendors.
+  "MMW — Breadcrumbs"): mmw_breadcrumbs_template_map, mmw_breadcrumbs_vendor_map,
+  mmw_breadcrumbs_skip_vendors.
 
   @example
   {% render 'mmw-breadcrumbs' %}
@@ -66,49 +76,77 @@
       assign crumb_u = routes.all_products_collection_url | split: '|mmw|'
       assign crumb_urls = crumb_urls | concat: crumb_u
 
-      assign vendor = product.vendor | strip
-      assign vendor_skipped = false
-      assign skip_list = settings.mmw_breadcrumbs_skip_vendors | default: '' | split: ','
-      for v in skip_list
-        assign v_trim = v | strip
-        if v_trim == vendor
-          assign vendor_skipped = true
-        endif
-      endfor
-
-      if vendor != blank and vendor_skipped == false
-        assign vendor_url = blank
-
-        assign map_lines = settings.mmw_breadcrumbs_vendor_map | default: '' | newline_to_br | split: '<br />'
-        for line in map_lines
-          assign line_trim = line | strip
-          if line_trim != blank
-            assign parts = line_trim | split: '='
-            if parts.size >= 2
-              assign map_vendor = parts[0] | strip
-              if map_vendor == vendor and vendor_url == blank
-                assign map_handle = parts[1] | strip
-                assign manual_collection = collections[map_handle]
-                if manual_collection != blank
-                  assign vendor_url = manual_collection.url
-                endif
+      assign template_collection_url = blank
+      assign template_collection_title = blank
+      assign template_map_lines = settings.mmw_breadcrumbs_template_map | default: '' | newline_to_br | split: '<br />'
+      for line in template_map_lines
+        assign line_trim = line | strip
+        if line_trim != blank
+          assign parts = line_trim | split: '='
+          if parts.size >= 2
+            assign map_suffix = parts[0] | strip
+            if map_suffix == product.template_suffix and template_collection_url == blank
+              assign map_handle = parts[1] | strip
+              assign mapped_collection = collections[map_handle]
+              if mapped_collection != blank
+                assign template_collection_url = mapped_collection.url
+                assign template_collection_title = mapped_collection.title
               endif
             endif
           endif
+        endif
+      endfor
+
+      if template_collection_url != blank
+        assign crumb_t = template_collection_title | split: '|mmw|'
+        assign crumb_titles = crumb_titles | concat: crumb_t
+        assign crumb_u = template_collection_url | split: '|mmw|'
+        assign crumb_urls = crumb_urls | concat: crumb_u
+      else
+        assign vendor = product.vendor | strip
+        assign vendor_skipped = false
+        assign skip_list = settings.mmw_breadcrumbs_skip_vendors | default: '' | split: ','
+        for v in skip_list
+          assign v_trim = v | strip
+          if v_trim == vendor
+            assign vendor_skipped = true
+          endif
         endfor
 
-        if vendor_url == blank
-          assign auto_handle = vendor | handleize
-          assign auto_collection = collections[auto_handle]
-          if auto_collection != blank
-            assign vendor_url = auto_collection.url
-          endif
-        endif
+        if vendor != blank and vendor_skipped == false
+          assign vendor_url = blank
 
-        assign crumb_t = vendor | split: '|mmw|'
-        assign crumb_titles = crumb_titles | concat: crumb_t
-        assign crumb_u = vendor_url | default: '' | split: '|mmw|'
-        assign crumb_urls = crumb_urls | concat: crumb_u
+          assign map_lines = settings.mmw_breadcrumbs_vendor_map | default: '' | newline_to_br | split: '<br />'
+          for line in map_lines
+            assign line_trim = line | strip
+            if line_trim != blank
+              assign parts = line_trim | split: '='
+              if parts.size >= 2
+                assign map_vendor = parts[0] | strip
+                if map_vendor == vendor and vendor_url == blank
+                  assign map_handle = parts[1] | strip
+                  assign manual_collection = collections[map_handle]
+                  if manual_collection != blank
+                    assign vendor_url = manual_collection.url
+                  endif
+                endif
+              endif
+            endif
+          endfor
+
+          if vendor_url == blank
+            assign auto_handle = vendor | handleize
+            assign auto_collection = collections[auto_handle]
+            if auto_collection != blank
+              assign vendor_url = auto_collection.url
+            endif
+          endif
+
+          assign crumb_t = vendor | split: '|mmw|'
+          assign crumb_titles = crumb_titles | concat: crumb_t
+          assign crumb_u = vendor_url | default: '' | split: '|mmw|'
+          assign crumb_urls = crumb_urls | concat: crumb_u
+        endif
       endif
 
       assign crumb_t = product.title | split: '|mmw|'
