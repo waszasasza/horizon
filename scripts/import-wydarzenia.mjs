@@ -63,7 +63,7 @@ import { fetchAllMetaobjects } from './lib/fetch-metaobjects.mjs';
 
 dotenv.config();
 
-const API_VERSION = '2026-01';
+const API_VERSION = '2026-07'; // ujednolicone z resztą skryptów (patrz scripts/README lub audit-architektura.mjs) — było 2026-01
 const SHEET_NAME = 'Wydarzenia';
 const CATEGORY_EVENT_TICKETS = 'gid://shopify/TaxonomyCategory/ae-1'; // Arts & Entertainment > Event Tickets
 const RATE_LIMIT_DELAY_MS = 550;

@@ -32,7 +32,7 @@ import { fetchAllMetaobjects } from './lib/fetch-metaobjects.mjs';
 
 dotenv.config();
 
-const API_VERSION = '2026-01';
+const API_VERSION = '2026-07'; // ujednolicone z resztą skryptów (patrz scripts/README lub audit-architektura.mjs) — było 2026-01
 const SHEET_DANE = 'Dane';
 const SHEET_CENY = 'Ceny';
 const CENY_HEADER_ROW_INDEX = 2; // wiersz 3 arkusza (0-indeksowany) — potwierdzone w Etapie 0

@@ -26,7 +26,7 @@ import { XMLParser } from 'fast-xml-parser';
 
 dotenv.config();
 
-const API_VERSION = '2026-01';
+const API_VERSION = '2026-07'; // ujednolicone z resztą skryptów (patrz scripts/README lub audit-architektura.mjs) — było 2026-01
 const DOCX_FILE = 'artykuly-blog.docx';
 const BLOG_ID = 'gid://shopify/Blog/121075204429'; // "news" — jedyny blog, potwierdzone Admin API
 const AUTHOR_NAME = 'Majątek Mała Wieś';
