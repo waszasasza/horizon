@@ -40,7 +40,8 @@
         "desc": "Pobierz naszą całą ofertę w postaci PDF, aby mieć dostęp do wszystkich informacji w jednym miejscu!",
         "field_label": "Wpisz swój adres e-mail, aby pobrać",
         "button_label": "Pobierz",
-        "pdf": "",
+        "consent_text": "<p>Wyrażam zgodę na zapisanie mojego adresu e-mail w bazie marketingowej i otrzymywanie informacji handlowych, zgodnie z <a href=\"/policies/privacy-policy\">polityką prywatności</a>.</p>",
+        "pdf": "https://cdn.shopify.com/s/files/1/0976/1757/6269/files/Zestawy_Prezentowe_Katalog_Majatek_Mala_Wies.pdf?v=1787747901",
         "success_text": "Dziękujemy! Twój katalog jest gotowy do pobrania:",
         "download_label": "Pobierz katalog PDF"
       }

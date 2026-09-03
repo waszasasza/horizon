@@ -138,7 +138,7 @@
       "settings": {
         "heading": "Nadchodzące wydarzenia",
         "description": "<p>Odkryj bogactwo smaków, aromatów i opowieści ukrytych w unikalnych markach powstających w sercu Majątku Mała Wieś. Zapraszamy do poznania całej kolekcji.</p>",
-        "collection": "vouchery",
+        "collection": "wydarzenia",
         "max_products": 8,
         "hide_current_product": true,
         "hide_past_events": true,
