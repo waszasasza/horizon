@@ -1243,6 +1243,16 @@ pomijać prefiks `"auto,"` — dokładnie ten sam wyjątek co przy
 z innego powodu (tam: spec wymaga braku "auto" przy eager; tu: "auto" i tak
 zignorowałby świadomy mnożnik pod cover).
 
+## Filtry kolekcji — usunięty hack "efektu drzewa"
+
+Usunięto ręcznie utrzymywaną regułę „efektu drzewa" w filtrach
+(`snippets/mmw-tokens.liquid`, dodana w `aaee740`). Wyróżniała sześć
+zahardkodowanych nazw tagów przez `:has(input[value="..."])`. Wymagała
+edycji listy w dwóch miejscach przy każdej zmianie nazwy tagu i cicho
+przestawała działać po zmianie pisowni w adminie. Filtry renderują się
+teraz płasko. Stylowanie markowe — wersaliki, `--mmw-font-label`, kolory —
+pozostaje bez zmian.
+
 ## Workflow
 
 - Commit po każdej ukończonej sekcji, komunikaty po polsku, np. `feat: mmw-stats — liczby Majątku`.

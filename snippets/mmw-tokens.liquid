@@ -243,17 +243,6 @@
   height: 100% !important;
   object-fit: cover;
 }
-{%- comment -%}
-  Styl natywnych filtrów (pionowych) na markę MMW + efekt drzewa.
-  Dopisz ten <style> do snippeta mmw-tokens.liquid.
-
-  ── JAK USTAWIĆ DRZEWO ──
-  1) W Search & Discovery → filtr Tagi → Sort: Manually → ułóż wartości w kolejności:
-     nadrzędny, jego podrzędne, następny nadrzędny, itd. (CSS tylko stylizuje, NIE sortuje)
-  2) Poniżej w dwóch miejscach oznaczonych „EDYTUJ" wpisz swoje NADRZĘDNE tagi
-     (dokładnie tak, jak brzmią — wielkość liter i znaki muszą się zgadzać).
-{%- endcomment -%}
-
   /* ── Wszystkie wartości = styl PODRZĘDNY (gałąź) ── */
   .facets--vertical .checkbox__label-text {
     font-family: var(--mmw-font-label);
@@ -261,33 +250,6 @@
     letter-spacing: 1.95px;
     text-transform: uppercase;
     color: var(--mmw-01);
-  }
-  .facets--vertical .facets__inputs-list-item {
-    padding-left: 24px;            /* wcięcie gałęzi */
-  }
-
-  /* ── NADRZĘDNE: wiersz bez wcięcia + odstęp nad ──
-       EDYTUJ listę value poniżej (oddziel przecinkami całe selektory) */
-  .facets--vertical .facets__inputs-list-item:has(input[value="Spiżarnia Książęca"]),
-  .facets--vertical .facets__inputs-list-item:has(input[value="Sad Książęcy"]),
-  .facets--vertical .facets__inputs-list-item:has(input[value="Tłocznia Książęca"]),
-  .facets--vertical .facets__inputs-list-item:has(input[value="Alkohole Książęce"]),
-  .facets--vertical .facets__inputs-list-item:has(input[value="Zestawy prezentowe"]),
-  .facets--vertical .facets__inputs-list-item:has(input[value="Kosmetyki Książęce"]) {
-    padding-left: 0;
-    margin-top: 18px;
-  }
-  /* ── NADRZĘDNE: większy, mocniejszy nagłówek ──
-       EDYTUJ tę samą listę value */
-  .facets--vertical .facets__inputs-list-item:has(input[value="Spiżarnia Książęca"]) .checkbox__label-text,
-  .facets--vertical .facets__inputs-list-item:has(input[value="Sad Książęcy"]) .checkbox__label-text,
-  .facets--vertical .facets__inputs-list-item:has(input[value="Tłocznia Książęca"]) .checkbox__label-text,
-  .facets--vertical .facets__inputs-list-item:has(input[value="Alkohole Książęce"]) .checkbox__label-text,
-  .facets--vertical .facets__inputs-list-item:has(input[value="Zestawy prezentowe"]) .checkbox__label-text,
-  .facets--vertical .facets__inputs-list-item:has(input[value="Kosmetyki Książęce"]) .checkbox__label-text {
-    font-size: 16px;
-    letter-spacing: 2.7px;
-    font-weight: 700;
   }
 
   /* ── Akcent marki na zaznaczeniu (koralowy) ── */
